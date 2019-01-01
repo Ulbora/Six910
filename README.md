@@ -9,3 +9,8 @@ This project is intended to be and open source implementation of a hosted shoppi
 
 There will also be a template designer to make desiging templates much easier than it currently is with most hosted shopping cart solutions.
 
+##Developers and Contributors:
+
+1. Ken Williamson
+
+
