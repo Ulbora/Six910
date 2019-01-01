@@ -1,4 +1,4 @@
-# ulboracart
+# Ulbora Cart
 A shopping cart platform written in golang. Includes admin panel and switchable templates.
 This project is intended to be and open source implementation of a hosted shopping cart. 
 
