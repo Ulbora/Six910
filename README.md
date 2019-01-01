@@ -19,7 +19,7 @@ The default database for Ulbora Cart will be MySQL. The database interface, howe
 Ulbora Cart will allow third party developers to build addon applications that integrate into templates.
 
 
-We need Golang developers to work on this project. If you are interested in contributing, send a pull request with your name added to the developer section of the readme.
+**We need Golang developers to work on this project. If you are interested in contributing, send a pull request with your name added to the developer section of the readme.**
 
 ## Developers and Contributors:
 
