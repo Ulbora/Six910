@@ -12,7 +12,7 @@ There will also be a template designer to make desiging templates much easier th
 
 We need Golang developers to work on this project. If you are interested in contributing, send a pull request with your name added to the developer section of the readme.
 
-##Developers and Contributors:
+## Developers and Contributors:
 
 1. Ken Williamson
 
