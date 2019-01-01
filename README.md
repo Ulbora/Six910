@@ -12,6 +12,9 @@ There will also be a template designer to make desiging templates much easier th
 2. Modify the template using the user's store URL
 3. Upload the template back to the hosted site
 
+## Database
+The default database for Ulbora Cart will be MySQL. The database interface, however will be modular and could easily be switched out for any other database.
+
 ## Addon Applications
 Ulbora Cart will allow third party developers to build addon applications that integrate into templates.
 
