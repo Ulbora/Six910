@@ -6,6 +6,7 @@ This project is intended to be and open source implementation of a hosted shoppi
 2. Templates can either be written in Golang templating or use a JavaScript framework like Angular or React.
 3. REST services will be used to expose all cart functionality.
 
+## Template Designer
 There will also be a template designer to make desiging templates much easier than it currently is with most hosted shopping cart solutions.
 
 1. Users will be able to download there current template
