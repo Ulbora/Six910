@@ -1,9 +1,9 @@
 # Ulbora Cart
-An open source shopping cart platform written in golang and licensed under the MIT license. Includes admin panel and switchable templates.
+An open source ecommerce platform server written in golang. Includes admin panel and switchable templates.
 
-This project is intended to be and implementation of a hosted shopping cart. 
+This project is intended to be and REST implementation of a hosted ecommerce solution. 
 
-1. Users of the Ulbora Cart will be able to customize templates just like other hosted solutions.
+1. Users of the Ulbora Cart, together with Ulbora Cart UI will be able to customize templates just like other hosted solutions.
 2. Templates can either be written in Golang templating or use a JavaScript framework like Angular or React.
 3. REST services will be used to expose all cart functionality.
 
