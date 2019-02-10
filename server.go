@@ -1,5 +1,6 @@
-/*
+package main
 
+/*
  Copyright (C) 2019 Ulbora Labs LLC. (www.ulboralabs.com)
  All rights reserved.
 
@@ -18,7 +19,6 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
-package main
 
 import (
 	"fmt"
