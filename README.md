@@ -1,5 +1,5 @@
 # Ulbora Cart
-An open source ecommerce platform server written in golang. Includes REST service backend including admin panel and switchable templates.
+An open source ecommerce platform server for building online shopping cart systems; written in golang. Includes REST service backend including admin panel and switchable templates.
 
 This project is intended to be and REST implementation of a hosted ecommerce solution. 
 
