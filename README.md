@@ -1,11 +1,11 @@
-# Ulbora Cart 
+# Six910 
 ### The Speeding Sast Shopping Cart
 An open source ecommerce platform server for building online shopping cart systems; written in golang. Includes REST service backend including admin panel and switchable templates.
 
 
 This project is intended to be and REST implementation of a hosted ecommerce solution. 
 
-1. Users of the UlboraCart, together with UlboraCart UI will be able to customize templates just like other hosted solutions.
+1. Users of the Six910, together with Six910 UI will be able to customize templates just like other hosted solutions.
 2. Templates can either be written in Golang templating or use a JavaScript framework like Angular or React.
 3. REST services will be used to expose all cart functionality.
 
@@ -17,10 +17,10 @@ There will also be a template designer to make desiging templates much easier th
 3. Upload the template back to the hosted site
 
 ## Database
-The default database for UlboraCart will be MySQL. The database interface, however will be modular and could easily be switched out for any other database.
+The default database for Six910 will be MySQL. The database interface, however will be modular and could easily be switched out for any other database.
 
 ## Addon Applications
-UlboraCart will allow third party developers to build addon applications that integrate into templates.
+Six910 will allow third party developers to build addon applications that integrate into templates.
 
 **We need Golang developers to work on this project.** If you are interested in contributing, send a **pull request** with your name added to the developer section of the readme.
 
