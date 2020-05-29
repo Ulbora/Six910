@@ -1,5 +1,12 @@
+![](./six910.png)
+
 # Six910 (pronounced six nine ten)
-### The Speeding Sast Shopping Cart
+
+[![Build Status](https://travis-ci.org/Ulbora/Six910.svg?branch=master)](https://travis-ci.org/Ulbora/Six910)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Six910&metric=alert_status)](https://sonarcloud.io/dashboard?id=Six910)
+[![Go Report Card](https://goreportcard.com/badge/github.com/Ulbora/Six910)](https://goreportcard.com/report/github.com/Ulbora/Six910)
+
+### The Speeding Fast Shopping Cart
 An open source ecommerce platform server for building online shopping cart systems; written in golang. Includes REST service backend including admin panel and switchable templates.
 
 
