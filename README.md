@@ -6,6 +6,9 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Six910&metric=alert_status)](https://sonarcloud.io/dashboard?id=Six910)
 [![Go Report Card](https://goreportcard.com/badge/github.com/Ulbora/Six910)](https://goreportcard.com/report/github.com/Ulbora/Six910)
 
+## Dependency Injection
+All components of Six910 are developed as Go modules and injected using dependency injection.
+
 ### The Speeding Fast Shopping Cart
 An open source ecommerce platform server for building online shopping cart systems; written in golang. Includes REST service backend including admin panel and switchable templates.
 
@@ -25,7 +28,8 @@ There will also be a template designer to make desiging templates much easier th
 3. Upload the template back to the hosted site
 
 ## Database
-The default database for Six910 will be MySQL. The database interface, however will be modular and could easily be switched out for any other database.
+### The database module in injected using dependency injection in the main func.
+The default database for Six910 will be MySQL. The database module can be found [here](https://github.com/Ulbora/six910-mysql). The database interface, however is modular and can easily be switched out for any other database.
 
 ## Addon Applications
 Six910 will allow third party developers to build addon applications that integrate into templates.
