@@ -1,9 +1,9 @@
-# How to contribute to Ulbora Cart
+# How to contribute to Six910
 
-I am glad you are interested in contributing to Ulbora Cart. 
+I am glad you are interested in contributing to Six910. 
 For anyone familiar with other ecommerce solutions, you know they leave much to be desired. 
 
-We plan to make Ulbora Cart the best ecommerce solutions available and even better, it's written in golang.
+We plan to make Six910 the best ecommerce solutions available and even better, it's written in golang.
 
 If you are a golang developer, we need your help.
 If you want to learn golang, this is your chance to get involved with a solution that gives you experience.
