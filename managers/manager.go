@@ -21,15 +21,21 @@ package managers
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-import (
-	//dbmod "github.com/Ulbora/six910-mysql"
-	sdbi "github.com/Ulbora/six910-database-interface"
-)
+//dbmod "github.com/Ulbora/six910-mysql"
+//sdbi "github.com/Ulbora/six910-database-interface"
 
 //LocalStoreAdminUser LocalStoreAdminUser
 type LocalStoreAdminUser struct {
 	Username string
 	Password string
+}
+
+//LocalStoreResponse LocalStoreResponse
+type LocalStoreResponse struct {
+	Success bool   `json:"success"`
+	StoreID int64  `json:"storeId"`
+	Code    int64  `json:"code"`
+	Message string `json:"message"`
 }
 
 //User User
@@ -44,17 +50,21 @@ type User struct {
 
 //ResponseID ResponseID
 type ResponseID struct {
-	ID      int64 `json:"id"`
-	Success bool  `json:"success"`
+	ID      int64  `json:"id"`
+	Success bool   `json:"success"`
+	Code    int64  `json:"code"`
+	Message string `json:"message"`
 }
 
 //Response Response
 type Response struct {
-	Success bool `json:"success"`
+	Success bool   `json:"success"`
+	Code    int64  `json:"code"`
+	Message string `json:"message"`
 }
 
-//UserResonse UserResonse
-type UserResonse struct {
+//UserResponse UserResponse
+type UserResponse struct {
 	Username   string `json:"username"`
 	Role       string `json:"role"`
 	CustomerID int64  `json:"customerId"`
@@ -63,30 +73,231 @@ type UserResonse struct {
 
 //Manager Manager
 type Manager interface {
-	CreateLocalStore(auth *LocalStoreAdminUser)
+	CreateLocalStore(auth *LocalStoreAdminUser) *LocalStoreResponse
 
-	// Store --------------------------
-	//Can only add a store when in external oauth mode
-	AddStore(s *sdbi.Store) *ResponseID
+	// // Store --------------------------
+	// //Can only add a store when in external oauth mode
+	// AddStore(s *sdbi.Store) *ResponseID
 
-	UpdateStore(s *sdbi.Store) *Response
-	GetStore(sname string) *sdbi.Store
-	GetStoreID(id int64) *sdbi.Store
-	GetStoreByLocal(localDomain string) *sdbi.Store
+	// UpdateStore(s *sdbi.Store) *Response
+	// GetStore(sname string) *sdbi.Store
+	// GetStoreID(id int64) *sdbi.Store
+	// GetStoreByLocal(localDomain string) *sdbi.Store
 
-	//can only delete a store when in the external oauth mode
-	DeleteStore(id int64) bool
+	// //can only delete a store when in the external oauth mode
+	// DeleteStore(id int64) bool
 
-	//customer
-	AddCustomer(c *sdbi.Customer) (bool, int64)
-	UpdateCustomer(c *sdbi.Customer) bool
-	GetCustomer(email string, storeID int64) *sdbi.Customer
-	GetCustomerID(id int64) *sdbi.Customer
-	GetCustomerList(storeID int64) *[]sdbi.Customer
-	DeleteCustomer(id int64) bool
+	// //customer
+	// AddCustomer(c *sdbi.Customer) *ResponseID
+	// UpdateCustomer(c *sdbi.Customer) *Response
+	// GetCustomer(email string, storeID int64) *sdbi.Customer
+	// GetCustomerID(id int64) *sdbi.Customer
+	// GetCustomerList(storeID int64) *[]sdbi.Customer
+	// DeleteCustomer(id int64) *Response
 
-	AddUser(u *User) *ResponseID
-	UpdateUser(u *User) *Response
-	GetUser(id int64) *UserResonse
-	GetUsers(storeID int64) *[]UserResonse
+	// AddUser(u *User) *Response
+	// UpdateUser(u *User) *Response
+	// GetUser(id int64) *UserResponse
+	// GetUsers(storeID int64) *[]UserResponse
+
+	// //distributors
+	// AddDistributor(d *sdbi.Distributor) *ResponseID
+	// UpdateDistributor(d *sdbi.Distributor) *Response
+	// GetDistributor(id int64) *sdbi.Distributor
+	// GetDistributorList(store int64) *[]sdbi.Distributor
+	// DeleteDistributor(id int64) *Response
+
+	// //Cart
+	// AddCart(c *sdbi.Cart) *ResponseID
+	// UpdateCart(c *sdbi.Cart) *Response
+	// GetCart(cid int64) *sdbi.Cart
+	// DeleteCart(id int64) *Response
+
+	// //cart item
+	// AddCartItem(ci *sdbi.CartItem) *ResponseID
+	// UpdateCartItem(ci *sdbi.CartItem) *Response
+	// GetCarItem(cartID int64, prodID int64) *sdbi.CartItem
+	// GetCartItemList(cartID int64) *[]sdbi.CartItem
+	// DeleteCartItem(id int64) *Response
+
+	// //address
+	// AddAddress(a *sdbi.Address) *ResponseID
+	// UpdateAddress(a *sdbi.Address) *Response
+	// GetAddress(id int64) *sdbi.Address
+	// GetAddressList(cid int64) *[]sdbi.Address
+	// DeleteAddress(id int64) *Response
+
+	// //category
+	// AddCategory(c *sdbi.Category) *ResponseID
+	// UpdateCategory(c *sdbi.Category) *Response
+	// GetCategory(id int64) *sdbi.Category
+	// GetCategoryList(storeID int64) *[]sdbi.Category
+	// GetSubCategoryList(catID int64) *[]sdbi.Category
+	// DeleteCategory(id int64) *Response
+
+	// //shipping method
+	// AddShippingMethod(s *sdbi.ShippingMethod) *ResponseID
+	// UpdateShippingMethod(s *sdbi.ShippingMethod) *Response
+	// GetShippingMethod(id int64) *sdbi.ShippingMethod
+	// GetShippingMethodList(storeID int64) *[]sdbi.ShippingMethod
+	// DeleteShippingMethod(id int64) *Response
+
+	// //shipping insurance
+	// AddInsurance(i *sdbi.Insurance) *ResponseID
+	// UpdateInsurance(i *sdbi.Insurance) *Response
+	// GetInsurance(id int64) *sdbi.Insurance
+	// GetInsuranceList(storeID int64) *[]sdbi.Insurance
+	// DeleteInsurance(id int64) *Response
+
+	// //product
+	// AddProduct(p *sdbi.Product) *ResponseID
+	// UpdateProduct(p *sdbi.Product) *Response
+	// GetProductByID(id int64) *sdbi.Product
+	// GetProductsByName(name string, start int64, end int64) *[]sdbi.Product
+	// GetProductsByCaterory(catID int64, start int64, end int64) *[]sdbi.Product
+	// GetProductList(storeID int64, start int64, end int64) *[]sdbi.Product
+	// DeleteProduct(id int64) *Response
+
+	// //Geographic Regions
+	// AddRegion(r *sdbi.Region) *ResponseID
+	// UpdateRegion(r *sdbi.Region) *Response
+	// GetRegion(id int64) *sdbi.Region
+	// GetRegionList(storeID int64) *[]sdbi.Region
+	// DeleteRegion(id int64) *Response
+
+	// //Geographic Sub Regions
+	// AddSubRegion(s *sdbi.SubRegion) *ResponseID
+	// UpdateSubRegion(s *sdbi.SubRegion) *Response
+	// GetSubRegion(id int64) *sdbi.SubRegion
+	// GetSubRegionList(regionID int64) *[]sdbi.SubRegion
+	// DeleteSubRegion(id int64) *Response
+
+	// //excluded sub regions
+	// AddExcludedSubRegion(e *sdbi.ExcludedSubRegion) *ResponseID
+	// UpdateExcludedSubRegion(e *sdbi.ExcludedSubRegion) *Response
+	// GetExcludedSubRegion(id int64) *sdbi.ExcludedSubRegion
+	// GetExcludedSubRegionList(regionID int64) *[]sdbi.ExcludedSubRegion
+	// DeleteExcludedSubRegion(id int64) *Response
+
+	// //included sub regions
+	// AddIncludedSubRegion(e *sdbi.IncludedSubRegion) *ResponseID
+	// UpdateIncludedSubRegion(e *sdbi.IncludedSubRegion) *Response
+	// GetIncludedSubRegion(id int64) *sdbi.IncludedSubRegion
+	// GetIncludedSubRegionList(regionID int64) *[]sdbi.IncludedSubRegion
+	// DeleteIncludedSubRegion(id int64) *Response
+
+	// //limit exclusions and inclusions to a zip code
+	// AddZoneZip(z *sdbi.ZoneZip) *ResponseID
+	// GetZoneZipListByExclusion(exID int64) *[]sdbi.ZoneZip
+	// GetZoneZipListByInclusion(incID int64) *[]sdbi.ZoneZip
+	// DeleteZoneZip(id int64) *Response
+
+	// //product category
+	// AddProductCategory(pc *sdbi.ProductCategory) *Response
+	// DeleteProductCategory(pc *sdbi.ProductCategory) *Response
+
+	// //Orders
+	// AddOrder(o *sdbi.Order) *ResponseID
+	// UpdateOrder(o *sdbi.Order) *Response
+	// GetOrder(id int64) *sdbi.Order
+	// GetOrderList(cid int64) *[]sdbi.Order
+	// DeleteOrder(id int64) *Response
+
+	// //Order Items
+	// AddOrderItem(i *sdbi.OrderItem) *ResponseID
+	// UpdateOrderItem(i *sdbi.OrderItem) *Response
+	// GetOrderItem(id int64) *sdbi.OrderItem
+	// GetOrderItemList(orderID int64) *[]sdbi.OrderItem
+	// DeleteOrderItem(id int64) *Response
+
+	// //Order Comments
+	// AddOrderComments(c *sdbi.OrderComment) *ResponseID
+	// GetOrderCommentList(orderID int64) *[]sdbi.OrderComment
+
+	// //Order Payment Transactions
+	// AddOrderTransaction(t *sdbi.OrderTransaction) *ResponseID
+	// GetOrderTransactionList(orderID int64) *[]sdbi.OrderTransaction
+
+	// //shipment
+	// AddShipment(s *sdbi.Shipment) *ResponseID
+	// UpdateShipment(s *sdbi.Shipment) *Response
+	// GetShipment(id int64) *sdbi.Shipment
+	// GetShipmentList(orderID int64) *[]sdbi.Shipment
+	// DeleteShipment(id int64) *Response
+
+	// //shipment boxes
+	// AddShipmentBox(sb *sdbi.ShipmentBox) *ResponseID
+	// UpdateShipmentBox(sb *sdbi.ShipmentBox) *Response
+	// GetShipmentBox(id int64) *sdbi.ShipmentBox
+	// GetShipmentBoxList(shipmentID int64) *[]sdbi.ShipmentBox
+	// DeleteShipmentBox(id int64) *Response
+
+	// //Shipment Items in box
+	// AddShipmentItem(si *sdbi.ShipmentItem) *ResponseID
+	// UpdateShipmentItem(si *sdbi.ShipmentItem) *Response
+	// GetShipmentItem(id int64) *sdbi.ShipmentItem
+	// GetShipmentItemList(shipmentID int64) *[]sdbi.ShipmentItem
+	// GetShipmentItemListByBox(boxNumber int64) *[]sdbi.ShipmentItem
+	// DeleteShipmentItem(id int64) *Response
+
+	// //Global Plugins
+	// AddPlugin(p *sdbi.Plugins) *ResponseID
+	// UpdatePlugin(p *sdbi.Plugins) *Response
+	// GetPlugin(id int64) *sdbi.Plugins
+	// GetPluginList(start int64, end int64) *[]sdbi.Plugins
+	// DeletePlugin(id int64) *Response
+
+	// //store plugins installed
+	// AddStorePlugin(sp *sdbi.StorePlugins) *ResponseID
+	// UpdateStorePlugin(sp *sdbi.StorePlugins) *Response
+	// GetStorePlugin(id int64) *sdbi.StorePlugins
+	// GetStorePluginList(storeID int64) *[]sdbi.StorePlugins
+	// DeleteStorePlugin(id int64) *Response
+
+	// //Plugins that are payment gateways
+	// AddPaymentGateway(pgw *sdbi.PaymentGateway) *ResponseID
+	// UpdatePaymentGateway(pgw *sdbi.PaymentGateway) *Response
+	// GetPaymentGateways(storeID int64) *[]sdbi.PaymentGateway
+	// DeletePaymentGateway(id int64) *Response
+
+	// //store shipment carrier like UPS and FEDex
+	// AddShippingCarrier(c *sdbi.ShippingCarrier) *ResponseID
+	// UpdateShippingCarrier(c *sdbi.ShippingCarrier) *Response
+	// GetShippingCarrierList(storeID int64) *[]sdbi.ShippingCarrier
+	// DeleteShippingCarrier(id int64) *Response
+
+	// //----UI Cluster installation: this is only called if UI is running in a cluster---
+	// //Handle the situation where clients are running in a cluster
+	// //This gives a way to make sure the json datastores are update on each node in the cluster
+
+	// //----------------start datastore------------------------------------
+	// //this gets called when a node start up and add only if it doesn't already exist
+	// AddLocalDatastore(d *sdbi.LocalDataStore) *Response
+
+	// //This get get called when a change is made to a datastore from a node in the cluster
+	// //Or after all reloads have completed and then get set to Reload = false
+	// UpdateLocalDatastore(d *sdbi.LocalDataStore) *Response
+
+	// //This gets call by cluster nodes to see if there are pending reload
+	// GetLocalDatastore(storeID int64, dataStoreName string) *sdbi.LocalDataStore
+
+	// //---------------------start instance--------------------
+	// // this gets called when each instance is started and added only if never added before
+	// //The instance name is pulled from Docker or an manually entered env variable
+	// AddInstance(i *sdbi.Instances) *Response
+
+	// //This gets called after instance gets reloaded
+	// UpdateInstance(i *sdbi.Instances) *Response
+
+	// //Gets called before updating an instance
+	// GetInstance(name string, dataStoreName string, storeID int64) *sdbi.Instances
+
+	// //-------------------start write lock-------------
+	// //gets called after UI makes changes to one of the datastores
+	// //If the datastore already exists, the Update method is called from within add
+	// AddDataStoreWriteLock(w *sdbi.DataStoreWriteLock) *ResponseID
+	// UpdateDataStoreWriteLock(w *sdbi.DataStoreWriteLock) *Response
+
+	// //gets called from within the add method and by any node trying to update a datastore
+	// GetDataStoreWriteLock(dataStore string, storeID int64) *sdbi.DataStoreWriteLock
 }
