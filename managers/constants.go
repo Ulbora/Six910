@@ -23,7 +23,8 @@ package managers
 
 const (
 	//defauld store roles
-	storeAdmin = "StoreAdmin"
+	storeAdmin   = "StoreAdmin"
+	customerRole = "customer"
 	//default local store creds
 	user = "admin"
 	pass = "admin123"
@@ -34,4 +35,5 @@ const (
 	failToAddDefaultUserAccount = "Fail to add default user account"
 	storeAlreadyExists          = "Can not create a local store because a store already exists. " +
 		"Remove the existing store and continue."
+	failStoreMayAlreadyExist = "Adding store failed: store may already exist."
 )

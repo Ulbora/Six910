@@ -1,5 +1,7 @@
 package managers
 
+import sdbi "github.com/Ulbora/six910-database-interface"
+
 /*
  Six910 is a shopping cart and E-commerce system.
 
@@ -46,6 +48,11 @@ type User struct {
 	Role        string `json:"role"`
 	CustomerID  int64  `json:"customerId"`
 	StoreID     int64  `json:"storeId"`
+	//OAuthClientID int64  `json:"oauthClientID"`
+	//EmailAddress  string `json:"emailAddress"`
+	//FirstName     string `json:"firstName"`
+	//LastName      string `json:"lastName"`
+	Enabled bool `json:"enabled"`
 }
 
 //ResponseID ResponseID
@@ -77,28 +84,32 @@ type Manager interface {
 
 	// // Store --------------------------
 	// //Can only add a store when in external oauth mode
-	// AddStore(s *sdbi.Store) *ResponseID
+	AddStore(s *sdbi.Store) *ResponseID
 
-	// UpdateStore(s *sdbi.Store) *Response
-	// GetStore(sname string) *sdbi.Store
-	// GetStoreID(id int64) *sdbi.Store
-	// GetStoreByLocal(localDomain string) *sdbi.Store
+	UpdateStore(s *sdbi.Store) *Response
+	GetStore(sname string) *sdbi.Store
+	GetStoreID(id int64) *sdbi.Store
+	GetStoreByLocal(localDomain string) *sdbi.Store
 
 	// //can only delete a store when in the external oauth mode
-	// DeleteStore(id int64) bool
+	DeleteStore(id int64) *Response
 
 	// //customer
-	// AddCustomer(c *sdbi.Customer) *ResponseID
-	// UpdateCustomer(c *sdbi.Customer) *Response
-	// GetCustomer(email string, storeID int64) *sdbi.Customer
-	// GetCustomerID(id int64) *sdbi.Customer
-	// GetCustomerList(storeID int64) *[]sdbi.Customer
-	// DeleteCustomer(id int64) *Response
+	AddCustomer(c *sdbi.Customer) *ResponseID
+	UpdateCustomer(c *sdbi.Customer) *Response
+	GetCustomer(email string, storeID int64) *sdbi.Customer
+	GetCustomerID(id int64) *sdbi.Customer
+	GetCustomerList(storeID int64) *[]sdbi.Customer
+	DeleteCustomer(id int64) *Response
 
-	// AddUser(u *User) *Response
-	// UpdateUser(u *User) *Response
-	// GetUser(id int64) *UserResponse
+	// only for local single store installations
+	AddAdminUser(u *User) *Response
+
+	AddCustomerUser(u *User) *Response
+	UpdateUser(u *User) *Response
+	// GetUser(u *User) *UserResponse
 	// GetUsers(storeID int64) *[]UserResponse
+	// ValidateUser(u *User) *Response
 
 	// //distributors
 	// AddDistributor(d *sdbi.Distributor) *ResponseID
