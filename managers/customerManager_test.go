@@ -78,9 +78,41 @@ func TestSix910Manager_UpdateCustomer(t *testing.T) {
 	var cus sdbi.Customer
 	cus.StoreID = 1
 
+	sdb.MockCustomer = &cus
+
 	sdb.MockUpdateCustomerSuccess = true
 	res := m.UpdateCustomer(&cus)
 	if !res.Success {
+		t.Fail()
+	}
+}
+
+func TestSix910Manager_UpdateCustomerfail1(t *testing.T) {
+
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	m := sm.GetNew()
+
+	var cus sdbi.Customer
+	cus.StoreID = 2
+
+	sdb.MockCustomer = &cus
+
+	var cus2 sdbi.Customer
+	cus2.StoreID = 4
+
+	sdb.MockUpdateCustomerSuccess = true
+	res := m.UpdateCustomer(&cus2)
+	if res.Success {
 		t.Fail()
 	}
 }
@@ -102,6 +134,7 @@ func TestSix910Manager_UpdateCustomerFail(t *testing.T) {
 
 	var cus sdbi.Customer
 	cus.StoreID = 1
+	sdb.MockCustomer = &cus
 
 	//sdb.MockUpdateCustomerSuccess = true
 	res := m.UpdateCustomer(&cus)
@@ -156,8 +189,34 @@ func TestSix910Manager_GetCustomerID(t *testing.T) {
 	cus.ID = 6
 
 	sdb.MockCustomer = &cus
-	fcus := m.GetCustomerID(4)
+	fcus := m.GetCustomerID(4, 1)
 	if fcus.ID != cus.ID {
+		t.Fail()
+	}
+}
+
+func TestSix910Manager_GetCustomerIDFail(t *testing.T) {
+
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	m := sm.GetNew()
+
+	var cus sdbi.Customer
+	cus.StoreID = 11
+	cus.ID = 6
+
+	sdb.MockCustomer = &cus
+	fcus := m.GetCustomerID(4, 1)
+	if fcus.ID == cus.ID {
 		t.Fail()
 	}
 }
@@ -206,8 +265,14 @@ func TestSix910Manager_DeleteCustomer(t *testing.T) {
 
 	m := sm.GetNew()
 
+	var cus sdbi.Customer
+	cus.StoreID = 1
+	cus.ID = 6
+
+	sdb.MockCustomer = &cus
+
 	sdb.MockDeleteCustomerSuccess = true
-	res := m.DeleteCustomer(5)
+	res := m.DeleteCustomer(5, 1)
 	if !res.Success {
 		t.Fail()
 	}
@@ -228,8 +293,41 @@ func TestSix910Manager_DeleteCustomerFail(t *testing.T) {
 
 	m := sm.GetNew()
 
+	var cus sdbi.Customer
+	cus.StoreID = 1
+	cus.ID = 6
+	sdb.MockCustomer = &cus
+
 	//sdb.MockDeleteCustomerSuccess = true
-	res := m.DeleteCustomer(5)
+	res := m.DeleteCustomer(5, 1)
+	if res.Success {
+		t.Fail()
+	}
+}
+
+func TestSix910Manager_DeleteCustomerfail2(t *testing.T) {
+
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	m := sm.GetNew()
+
+	var cus sdbi.Customer
+	cus.StoreID = 11
+	cus.ID = 6
+
+	sdb.MockCustomer = &cus
+
+	sdb.MockDeleteCustomerSuccess = true
+	res := m.DeleteCustomer(5, 1)
 	if res.Success {
 		t.Fail()
 	}

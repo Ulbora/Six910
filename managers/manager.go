@@ -76,6 +76,7 @@ type UserResponse struct {
 	Role       string `json:"role"`
 	CustomerID int64  `json:"customerId"`
 	StoreID    int64  `json:"storeId"`
+	Enabled    bool   `json:"enabled"`
 }
 
 //Manager Manager
@@ -87,36 +88,35 @@ type Manager interface {
 	AddStore(s *sdbi.Store) *ResponseID
 
 	UpdateStore(s *sdbi.Store) *Response
-	GetStore(sname string) *sdbi.Store
-	GetStoreID(id int64) *sdbi.Store
-	GetStoreByLocal(localDomain string) *sdbi.Store
+	GetStore(sname string, localDomain string) *sdbi.Store
 
 	// //can only delete a store when in the external oauth mode
-	DeleteStore(id int64) *Response
+	DeleteStore(sname string, localDomain string) *Response
 
 	// //customer
 	AddCustomer(c *sdbi.Customer) *ResponseID
 	UpdateCustomer(c *sdbi.Customer) *Response
 	GetCustomer(email string, storeID int64) *sdbi.Customer
-	GetCustomerID(id int64) *sdbi.Customer
+	GetCustomerID(id int64, storeID int64) *sdbi.Customer
 	GetCustomerList(storeID int64) *[]sdbi.Customer
-	DeleteCustomer(id int64) *Response
+	DeleteCustomer(id int64, storeID int64) *Response
 
 	// only for local single store installations
 	AddAdminUser(u *User) *Response
 
 	AddCustomerUser(u *User) *Response
 	UpdateUser(u *User) *Response
-	// GetUser(u *User) *UserResponse
-	// GetUsers(storeID int64) *[]UserResponse
-	// ValidateUser(u *User) *Response
+	GetUser(u *User) *UserResponse
+	GetAdminUsers(storeID int64) *[]UserResponse
+	GetCustomerUsers(storeID int64) *[]UserResponse
+	ValidateUser(u *User) *Response
 
 	// //distributors
-	// AddDistributor(d *sdbi.Distributor) *ResponseID
-	// UpdateDistributor(d *sdbi.Distributor) *Response
-	// GetDistributor(id int64) *sdbi.Distributor
-	// GetDistributorList(store int64) *[]sdbi.Distributor
-	// DeleteDistributor(id int64) *Response
+	AddDistributor(d *sdbi.Distributor) *ResponseID
+	UpdateDistributor(d *sdbi.Distributor) *Response
+	GetDistributor(id int64, storeID int64) *sdbi.Distributor
+	GetDistributorList(storeID int64) *[]sdbi.Distributor
+	DeleteDistributor(id int64, storeID int64) *Response
 
 	// //Cart
 	// AddCart(c *sdbi.Cart) *ResponseID

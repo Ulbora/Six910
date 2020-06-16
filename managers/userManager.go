@@ -29,6 +29,7 @@ import (
 
 //AddAdminUser AddAdminUser
 func (m *Six910Manager) AddAdminUser(u *User) *Response {
+	//this is only used when running without oauth2
 	var rtn Response
 	var oauth = m.Db.GetSecurity().OauthOn
 	m.Log.Debug("Creating admin user with oauth :", oauth)
@@ -41,7 +42,7 @@ func (m *Six910Manager) AddAdminUser(u *User) *Response {
 			la.UserName = u.Username
 			la.Password = hpw
 			la.StoreID = u.StoreID
-			la.Role = u.Role
+			la.Role = storeAdmin
 			suc := m.Db.AddLocalAccount(&la)
 			if suc {
 				rtn.Success = suc
@@ -60,9 +61,10 @@ func (m *Six910Manager) AddCustomerUser(u *User) *Response {
 	//also api key gets passed in header
 	var rtn Response
 	hpwsuc, hpw := m.hashPassword(u.Password)
-	m.Log.Debug("Add Customer Hash password for "+u.Password+" :", hpwsuc)
+	m.Log.Debug("Add Customer Hash password success for "+u.Password+" :", hpwsuc)
+	m.Log.Debug("Add Customer Hashed password for "+u.Password+" :", hpw)
 	m.Log.Debug("Add Customer user with customerId :", u.CustomerID)
-	if hpwsuc && u.CustomerID != 0 {
+	if hpwsuc {
 		var la sdbi.LocalAccount
 		la.Enabled = true
 		la.UserName = u.Username
@@ -85,7 +87,7 @@ func (m *Six910Manager) AddCustomerUser(u *User) *Response {
 func (m *Six910Manager) UpdateUser(u *User) *Response {
 	var rtn Response
 	lu := m.Db.GetLocalAccount(u.Username, u.StoreID)
-	if lu.CustomerID == u.CustomerID {
+	if lu.CustomerID == u.CustomerID && lu.StoreID == u.StoreID {
 		lu.Enabled = u.Enabled
 		if u.Password != "" && u.OldPassword != "" {
 			m.Log.Debug("update user Hash password for " + lu.Password)
@@ -100,6 +102,7 @@ func (m *Six910Manager) UpdateUser(u *User) *Response {
 			}
 		}
 		suc := m.Db.UpdateLocalAccount(lu)
+		m.Log.Debug("updated success ", suc)
 		if suc {
 			rtn.Success = suc
 			rtn.Code = http.StatusOK
@@ -107,6 +110,75 @@ func (m *Six910Manager) UpdateUser(u *User) *Response {
 			rtn.Code = http.StatusInternalServerError
 		}
 	}
+	return &rtn
+}
 
+//GetUser GetUser
+func (m *Six910Manager) GetUser(u *User) *UserResponse {
+	var rtn UserResponse
+	lu := m.Db.GetLocalAccount(u.Username, u.StoreID)
+	if lu.UserName == u.Username {
+		rtn.CustomerID = lu.CustomerID
+		rtn.Role = lu.Role
+		rtn.StoreID = lu.StoreID
+		rtn.Username = lu.UserName
+		rtn.Enabled = lu.Enabled
+	}
+	return &rtn
+}
+
+//GetAdminUsers GetAdminUsers
+func (m *Six910Manager) GetAdminUsers(storeID int64) *[]UserResponse {
+	//this is only used when running without oauth2
+	var rtn []UserResponse
+	lulist := m.Db.GetLocalAccountList(storeID)
+	for _, l := range *lulist {
+		if l.Role == storeAdmin {
+			var u UserResponse
+			u.CustomerID = l.CustomerID
+			u.Role = l.Role
+			u.StoreID = l.StoreID
+			u.Username = l.UserName
+			u.Enabled = l.Enabled
+			rtn = append(rtn, u)
+		}
+	}
+	return &rtn
+}
+
+//GetCustomerUsers GetCustomerUsers
+func (m *Six910Manager) GetCustomerUsers(storeID int64) *[]UserResponse {
+	var rtn []UserResponse
+	lulist := m.Db.GetLocalAccountList(storeID)
+	for _, l := range *lulist {
+		if l.Role == customerRole {
+			var u UserResponse
+			u.CustomerID = l.CustomerID
+			u.Role = l.Role
+			u.StoreID = l.StoreID
+			u.Username = l.UserName
+			u.Enabled = l.Enabled
+			rtn = append(rtn, u)
+		}
+	}
+	return &rtn
+}
+
+//ValidateUser ValidateUser
+func (m *Six910Manager) ValidateUser(u *User) *Response {
+	var rtn Response
+	lu := m.Db.GetLocalAccount(u.Username, u.StoreID)
+	if lu.CustomerID == u.CustomerID && lu.UserName == u.Username && u.Enabled {
+		mtch := m.validatePassword(u.Password, lu.Password)
+		m.Log.Debug("password validate in ValidateUser ", mtch)
+		if mtch {
+			rtn.Success = true
+			rtn.Code = http.StatusOK
+		} else {
+			rtn.Code = http.StatusUnauthorized
+		}
+	} else {
+		rtn.Code = http.StatusUnauthorized
+	}
 	return &rtn
 }

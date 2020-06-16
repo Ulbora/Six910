@@ -27,10 +27,10 @@ import (
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//AddCustomer AddCustomer
-func (m *Six910Manager) AddCustomer(c *sdbi.Customer) *ResponseID {
+//AddDistributor AddDistributor
+func (m *Six910Manager) AddDistributor(d *sdbi.Distributor) *ResponseID {
 	var rtn ResponseID
-	suc, id := m.Db.AddCustomer(c)
+	suc, id := m.Db.AddDistributor(d)
 	if suc && id != 0 {
 		rtn.ID = id
 		rtn.Success = suc
@@ -41,12 +41,12 @@ func (m *Six910Manager) AddCustomer(c *sdbi.Customer) *ResponseID {
 	return &rtn
 }
 
-//UpdateCustomer UpdateCustomer
-func (m *Six910Manager) UpdateCustomer(c *sdbi.Customer) *Response {
+//UpdateDistributor UpdateDistributor
+func (m *Six910Manager) UpdateDistributor(d *sdbi.Distributor) *Response {
 	var rtn Response
-	fc := m.Db.GetCustomerID(c.ID)
-	if fc.StoreID == c.StoreID {
-		suc := m.Db.UpdateCustomer(c)
+	dist := m.Db.GetDistributor(d.ID)
+	if dist.StoreID == d.StoreID {
+		suc := m.Db.UpdateDistributor(d)
 		if suc {
 			rtn.Success = suc
 			rtn.Code = http.StatusOK
@@ -59,40 +59,35 @@ func (m *Six910Manager) UpdateCustomer(c *sdbi.Customer) *Response {
 	return &rtn
 }
 
-//GetCustomer GetCustomer
-func (m *Six910Manager) GetCustomer(email string, storeID int64) *sdbi.Customer {
-	return m.Db.GetCustomer(email, storeID)
-}
-
-//GetCustomerID GetCustomerID
-func (m *Six910Manager) GetCustomerID(id int64, storeID int64) *sdbi.Customer {
-	var rtn *sdbi.Customer
-	cus := m.Db.GetCustomerID(id)
-	if cus.StoreID == storeID {
-		rtn = cus
+//GetDistributor GetDistributor
+func (m *Six910Manager) GetDistributor(id int64, storeID int64) *sdbi.Distributor {
+	var rtn *sdbi.Distributor
+	dst := m.Db.GetDistributor(id)
+	if dst.StoreID == storeID {
+		rtn = dst
 	} else {
-		var nc sdbi.Customer
-		rtn = &nc
+		var ns sdbi.Distributor
+		rtn = &ns
 	}
 	return rtn
 }
 
-//GetCustomerList GetCustomerList
-func (m *Six910Manager) GetCustomerList(storeID int64) *[]sdbi.Customer {
-	return m.Db.GetCustomerList(storeID)
+//GetDistributorList GetDistributorList
+func (m *Six910Manager) GetDistributorList(storeID int64) *[]sdbi.Distributor {
+	return m.Db.GetDistributorList(storeID)
 }
 
-//DeleteCustomer DeleteCustomer
-func (m *Six910Manager) DeleteCustomer(id int64, storeID int64) *Response {
+//DeleteDistributor DeleteDistributor
+func (m *Six910Manager) DeleteDistributor(id int64, storeID int64) *Response {
 	var rtn Response
-	fc := m.Db.GetCustomerID(id)
-	if fc.StoreID == storeID {
-		suc := m.Db.DeleteCustomer(id)
+	dst := m.Db.GetDistributor(id)
+	if dst.StoreID == storeID {
+		suc := m.Db.DeleteDistributor(dst.ID)
 		if suc {
 			rtn.Success = suc
 			rtn.Code = http.StatusOK
 		} else {
-			rtn.Code = http.StatusBadRequest
+			rtn.Code = http.StatusInternalServerError
 		}
 	} else {
 		rtn.Code = http.StatusBadRequest

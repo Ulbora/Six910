@@ -47,10 +47,15 @@ func (m *Six910Manager) AddStore(s *sdbi.Store) *ResponseID {
 //UpdateStore UpdateStore
 func (m *Six910Manager) UpdateStore(s *sdbi.Store) *Response {
 	var rtn Response
-	suc := m.Db.UpdateStore(s)
-	if suc {
-		rtn.Success = suc
-		rtn.Code = http.StatusOK
+	str := m.Db.GetStoreByLocal(s.LocalDomain)
+	if str.ID == s.ID && str.StoreName == s.StoreName {
+		suc := m.Db.UpdateStore(s)
+		if suc {
+			rtn.Success = suc
+			rtn.Code = http.StatusOK
+		} else {
+			rtn.Code = http.StatusBadRequest
+		}
 	} else {
 		rtn.Code = http.StatusBadRequest
 	}
@@ -58,30 +63,33 @@ func (m *Six910Manager) UpdateStore(s *sdbi.Store) *Response {
 }
 
 //GetStore GetStore
-func (m *Six910Manager) GetStore(sname string) *sdbi.Store {
-	return m.Db.GetStore(sname)
-}
-
-//GetStoreID GetStoreID
-func (m *Six910Manager) GetStoreID(id int64) *sdbi.Store {
-	return m.Db.GetStoreID(id)
-}
-
-//GetStoreByLocal GetStoreByLocal
-func (m *Six910Manager) GetStoreByLocal(localDomain string) *sdbi.Store {
-	return m.Db.GetStoreByLocal(localDomain)
+func (m *Six910Manager) GetStore(sname string, localDomain string) *sdbi.Store {
+	var rtn *sdbi.Store
+	str := m.Db.GetStore(sname)
+	if str.LocalDomain == localDomain {
+		rtn = str
+	} else {
+		var ns sdbi.Store
+		rtn = &ns
+	}
+	return rtn
 }
 
 //DeleteStore DeleteStore
-func (m *Six910Manager) DeleteStore(id int64) *Response {
+func (m *Six910Manager) DeleteStore(sname string, localDomain string) *Response {
 	var rtn Response
 	if m.Db.GetSecurity().OauthOn {
-		suc := m.Db.DeleteStore(id)
-		if suc {
-			rtn.Success = suc
-			rtn.Code = http.StatusOK
+		str := m.Db.GetStore(sname)
+		if str.LocalDomain == localDomain {
+			suc := m.Db.DeleteStore(str.ID)
+			if suc {
+				rtn.Success = suc
+				rtn.Code = http.StatusOK
+			} else {
+				rtn.Code = http.StatusInternalServerError
+			}
 		} else {
-			rtn.Code = http.StatusInternalServerError
+			rtn.Code = http.StatusBadRequest
 		}
 	}
 	return &rtn
