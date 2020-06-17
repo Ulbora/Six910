@@ -119,7 +119,7 @@ type Manager interface {
 	DeleteDistributor(id int64, storeID int64) *Response
 
 	// //Cart
-	// AddCart(c *sdbi.Cart) *ResponseID
+	AddCart(c *sdbi.Cart) *ResponseID
 	// UpdateCart(c *sdbi.Cart) *Response
 	// GetCart(cid int64) *sdbi.Cart
 	// DeleteCart(id int64) *Response
