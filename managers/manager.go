@@ -120,9 +120,9 @@ type Manager interface {
 
 	// //Cart
 	AddCart(c *sdbi.Cart) *ResponseID
-	// UpdateCart(c *sdbi.Cart) *Response
-	// GetCart(cid int64) *sdbi.Cart
-	// DeleteCart(id int64) *Response
+	UpdateCart(c *sdbi.Cart) *Response
+	GetCart(cid int64, storeID int64) *sdbi.Cart
+	DeleteCart(id int64, cid int64, storeID int64) *Response
 
 	// //cart item
 	// AddCartItem(ci *sdbi.CartItem) *ResponseID
@@ -268,12 +268,14 @@ type Manager interface {
 	// //Plugins that are payment gateways
 	// AddPaymentGateway(pgw *sdbi.PaymentGateway) *ResponseID
 	// UpdatePaymentGateway(pgw *sdbi.PaymentGateway) *Response
+	// GetPaymentGateway(id int64) *sdbi.PaymentGateway
 	// GetPaymentGateways(storeID int64) *[]sdbi.PaymentGateway
 	// DeletePaymentGateway(id int64) *Response
 
 	// //store shipment carrier like UPS and FEDex
 	// AddShippingCarrier(c *sdbi.ShippingCarrier) *ResponseID
 	// UpdateShippingCarrier(c *sdbi.ShippingCarrier) *Response
+	// GetShippingCarrier(id int64) *sdbi.ShippingCarrier
 	// GetShippingCarrierList(storeID int64) *[]sdbi.ShippingCarrier
 	// DeleteShippingCarrier(id int64) *Response
 
