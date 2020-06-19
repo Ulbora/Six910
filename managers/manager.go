@@ -125,11 +125,11 @@ type Manager interface {
 	DeleteCart(id int64, cid int64, storeID int64) *Response
 
 	// //cart item
-	// AddCartItem(ci *sdbi.CartItem) *ResponseID
-	// UpdateCartItem(ci *sdbi.CartItem) *Response
-	// GetCarItem(cartID int64, prodID int64) *sdbi.CartItem
-	// GetCartItemList(cartID int64) *[]sdbi.CartItem
-	// DeleteCartItem(id int64) *Response
+	AddCartItem(ci *sdbi.CartItem, cid int64, sid int64) *ResponseID
+	UpdateCartItem(ci *sdbi.CartItem, cid int64, sid int64) *Response
+	GetCarItem(cartID int64, prodID int64, sid int64) *sdbi.CartItem
+	GetCartItemList(cartID int64, cid int64, sid int64) *[]sdbi.CartItem
+	DeleteCartItem(id int64, prodID int64, cartID int64) *Response
 
 	// //address
 	// AddAddress(a *sdbi.Address) *ResponseID
