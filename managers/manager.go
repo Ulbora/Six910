@@ -132,7 +132,7 @@ type Manager interface {
 	DeleteCartItem(id int64, prodID int64, cartID int64) *Response
 
 	// //address
-	// AddAddress(a *sdbi.Address) *ResponseID
+	AddAddress(a *sdbi.Address, sid int64) *ResponseID
 	// UpdateAddress(a *sdbi.Address) *Response
 	// GetAddress(id int64) *sdbi.Address
 	// GetAddressList(cid int64) *[]sdbi.Address
