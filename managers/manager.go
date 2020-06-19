@@ -133,25 +133,25 @@ type Manager interface {
 
 	// //address
 	AddAddress(a *sdbi.Address, sid int64) *ResponseID
-	// UpdateAddress(a *sdbi.Address) *Response
-	// GetAddress(id int64) *sdbi.Address
-	// GetAddressList(cid int64) *[]sdbi.Address
-	// DeleteAddress(id int64) *Response
+	UpdateAddress(a *sdbi.Address, sid int64) *Response
+	GetAddress(id int64, cid int64, sid int64) *sdbi.Address
+	GetAddressList(cid int64, sid int64) *[]sdbi.Address
+	DeleteAddress(id int64, cid int64, sid int64) *Response
 
 	// //category
-	// AddCategory(c *sdbi.Category) *ResponseID
-	// UpdateCategory(c *sdbi.Category) *Response
-	// GetCategory(id int64) *sdbi.Category
-	// GetCategoryList(storeID int64) *[]sdbi.Category
-	// GetSubCategoryList(catID int64) *[]sdbi.Category
-	// DeleteCategory(id int64) *Response
+	AddCategory(c *sdbi.Category) *ResponseID
+	UpdateCategory(c *sdbi.Category) *Response
+	GetCategory(id int64, sid int64) *sdbi.Category
+	GetCategoryList(storeID int64) *[]sdbi.Category
+	GetSubCategoryList(catID int64) *[]sdbi.Category
+	DeleteCategory(id int64, sid int64) *Response
 
 	// //shipping method
-	// AddShippingMethod(s *sdbi.ShippingMethod) *ResponseID
-	// UpdateShippingMethod(s *sdbi.ShippingMethod) *Response
-	// GetShippingMethod(id int64) *sdbi.ShippingMethod
-	// GetShippingMethodList(storeID int64) *[]sdbi.ShippingMethod
-	// DeleteShippingMethod(id int64) *Response
+	AddShippingMethod(s *sdbi.ShippingMethod) *ResponseID
+	UpdateShippingMethod(s *sdbi.ShippingMethod) *Response
+	GetShippingMethod(id int64, sid int64) *sdbi.ShippingMethod
+	GetShippingMethodList(storeID int64) *[]sdbi.ShippingMethod
+	DeleteShippingMethod(id int64, sid int64) *Response
 
 	// //shipping insurance
 	// AddInsurance(i *sdbi.Insurance) *ResponseID

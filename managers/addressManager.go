@@ -44,3 +44,71 @@ func (m *Six910Manager) AddAddress(a *sdbi.Address, sid int64) *ResponseID {
 	}
 	return &rtn
 }
+
+//UpdateAddress UpdateAddress
+func (m *Six910Manager) UpdateAddress(a *sdbi.Address, sid int64) *Response {
+	var rtn Response
+	cus := m.Db.GetCustomerID(a.CustomerID)
+	if cus.StoreID == sid {
+		suc := m.Db.UpdateAddress(a)
+		if suc {
+			rtn.Success = suc
+			rtn.Code = http.StatusOK
+		} else {
+			rtn.Code = http.StatusBadRequest
+		}
+	} else {
+		rtn.Code = http.StatusBadRequest
+	}
+	return &rtn
+}
+
+//GetAddress GetAddress
+func (m *Six910Manager) GetAddress(id int64, cid int64, sid int64) *sdbi.Address {
+	var rtn *sdbi.Address
+	add := m.Db.GetAddress(id)
+	m.Log.Debug("address: ", *add)
+	cus := m.Db.GetCustomerID(cid)
+	m.Log.Debug("customer: ", *cus)
+	if cus.ID == add.CustomerID && cus.StoreID == sid {
+		rtn = add
+		m.Log.Debug("address in if: ", *rtn)
+	} else {
+		var na sdbi.Address
+		rtn = &na
+		m.Log.Debug("address in fail if: ", *rtn)
+	}
+	return rtn
+}
+
+//GetAddressList GetAddressList
+func (m *Six910Manager) GetAddressList(cid int64, sid int64) *[]sdbi.Address {
+	var rtn *[]sdbi.Address
+	cus := m.Db.GetCustomerID(cid)
+	if cus.StoreID == sid {
+		rtn = m.Db.GetAddressList(cid)
+	} else {
+		var na = []sdbi.Address{}
+		rtn = &na
+	}
+	return rtn
+}
+
+//DeleteAddress DeleteAddress
+func (m *Six910Manager) DeleteAddress(id int64, cid int64, sid int64) *Response {
+	var rtn Response
+	add := m.Db.GetAddress(id)
+	cus := m.Db.GetCustomerID(cid)
+	if add.CustomerID == cid && cus.StoreID == sid {
+		suc := m.Db.DeleteAddress(id)
+		if suc {
+			rtn.Success = suc
+			rtn.Code = http.StatusOK
+		} else {
+			rtn.Code = http.StatusBadRequest
+		}
+	} else {
+		rtn.Code = http.StatusBadRequest
+	}
+	return &rtn
+}
