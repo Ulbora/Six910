@@ -154,20 +154,20 @@ type Manager interface {
 	DeleteShippingMethod(id int64, sid int64) *Response
 
 	// //shipping insurance
-	// AddInsurance(i *sdbi.Insurance) *ResponseID
-	// UpdateInsurance(i *sdbi.Insurance) *Response
-	// GetInsurance(id int64) *sdbi.Insurance
-	// GetInsuranceList(storeID int64) *[]sdbi.Insurance
-	// DeleteInsurance(id int64) *Response
+	AddInsurance(i *sdbi.Insurance) *ResponseID
+	UpdateInsurance(i *sdbi.Insurance) *Response
+	GetInsurance(id int64, sid int64) *sdbi.Insurance
+	GetInsuranceList(storeID int64) *[]sdbi.Insurance
+	DeleteInsurance(id int64, sid int64) *Response
 
 	// //product
-	// AddProduct(p *sdbi.Product) *ResponseID
-	// UpdateProduct(p *sdbi.Product) *Response
-	// GetProductByID(id int64) *sdbi.Product
-	// GetProductsByName(name string, start int64, end int64) *[]sdbi.Product
-	// GetProductsByCaterory(catID int64, start int64, end int64) *[]sdbi.Product
-	// GetProductList(storeID int64, start int64, end int64) *[]sdbi.Product
-	// DeleteProduct(id int64) *Response
+	AddProduct(p *sdbi.Product) *ResponseID
+	UpdateProduct(p *sdbi.Product) *Response
+	GetProductByID(id int64, sid int64) *sdbi.Product
+	GetProductsByName(name string, sid int64, start int64, end int64) *[]sdbi.Product
+	GetProductsByCaterory(catID int64, sid int64, start int64, end int64) *[]sdbi.Product
+	GetProductList(storeID int64, start int64, end int64) *[]sdbi.Product
+	DeleteProduct(id int64, sid int64) *Response
 
 	// //Geographic Regions
 	// AddRegion(r *sdbi.Region) *ResponseID
