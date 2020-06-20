@@ -170,11 +170,11 @@ type Manager interface {
 	DeleteProduct(id int64, sid int64) *Response
 
 	// //Geographic Regions
-	// AddRegion(r *sdbi.Region) *ResponseID
-	// UpdateRegion(r *sdbi.Region) *Response
-	// GetRegion(id int64) *sdbi.Region
-	// GetRegionList(storeID int64) *[]sdbi.Region
-	// DeleteRegion(id int64) *Response
+	AddRegion(r *sdbi.Region) *ResponseID
+	UpdateRegion(r *sdbi.Region) *Response
+	GetRegion(id int64, sid int64) *sdbi.Region
+	GetRegionList(storeID int64) *[]sdbi.Region
+	DeleteRegion(id int64, sid int64) *Response
 
 	// //Geographic Sub Regions
 	// AddSubRegion(s *sdbi.SubRegion) *ResponseID
