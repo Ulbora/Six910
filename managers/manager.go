@@ -208,11 +208,11 @@ type Manager interface {
 	DeleteProductCategory(pc *sdbi.ProductCategory, sid int64) *Response
 
 	// //Orders
-	// AddOrder(o *sdbi.Order) *ResponseID
-	// UpdateOrder(o *sdbi.Order) *Response
-	// GetOrder(id int64) *sdbi.Order
-	// GetOrderList(cid int64) *[]sdbi.Order
-	// DeleteOrder(id int64) *Response
+	AddOrder(o *sdbi.Order) *ResponseID
+	UpdateOrder(o *sdbi.Order) *Response
+	GetOrder(id int64, sid int64) *sdbi.Order
+	GetOrderList(cid int64, sid int64) *[]sdbi.Order
+	DeleteOrder(id int64, sid int64) *Response
 
 	// //Order Items
 	// AddOrderItem(i *sdbi.OrderItem) *ResponseID
