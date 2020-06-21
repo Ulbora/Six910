@@ -177,18 +177,18 @@ type Manager interface {
 	DeleteRegion(id int64, sid int64) *Response
 
 	// //Geographic Sub Regions
-	AddSubRegion(s *sdbi.SubRegion) *ResponseID
+	AddSubRegion(s *sdbi.SubRegion, sid int64) *ResponseID
 	UpdateSubRegion(s *sdbi.SubRegion, sid int64) *Response
 	GetSubRegion(id int64, sid int64) *sdbi.SubRegion
 	GetSubRegionList(regionID int64, sid int64) *[]sdbi.SubRegion
 	DeleteSubRegion(id int64, sid int64) *Response
 
 	// //excluded sub regions
-	// AddExcludedSubRegion(e *sdbi.ExcludedSubRegion) *ResponseID
-	// UpdateExcludedSubRegion(e *sdbi.ExcludedSubRegion) *Response
-	// GetExcludedSubRegion(id int64) *sdbi.ExcludedSubRegion
-	// GetExcludedSubRegionList(regionID int64) *[]sdbi.ExcludedSubRegion
-	// DeleteExcludedSubRegion(id int64) *Response
+	AddExcludedSubRegion(e *sdbi.ExcludedSubRegion, sid int64) *ResponseID
+	UpdateExcludedSubRegion(e *sdbi.ExcludedSubRegion, sid int64) *Response
+	GetExcludedSubRegion(id int64, sid int64) *sdbi.ExcludedSubRegion
+	GetExcludedSubRegionList(regionID int64, sid int64) *[]sdbi.ExcludedSubRegion
+	DeleteExcludedSubRegion(id int64, sid int64) *Response
 
 	// //included sub regions
 	// AddIncludedSubRegion(e *sdbi.IncludedSubRegion) *ResponseID

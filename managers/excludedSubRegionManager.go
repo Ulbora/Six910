@@ -27,12 +27,12 @@ import (
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//AddSubRegion AddSubRegion
-func (m *Six910Manager) AddSubRegion(s *sdbi.SubRegion, sid int64) *ResponseID {
+//AddExcludedSubRegion AddExcludedSubRegion
+func (m *Six910Manager) AddExcludedSubRegion(e *sdbi.ExcludedSubRegion, sid int64) *ResponseID {
 	var rtn ResponseID
-	r := m.Db.GetRegion(s.RegionID)
+	r := m.Db.GetRegion(e.RegionID)
 	if r.StoreID == sid {
-		suc, id := m.Db.AddSubRegion(s)
+		suc, id := m.Db.AddExcludedSubRegion(e)
 		if suc && id != 0 {
 			rtn.Success = suc
 			rtn.ID = id
@@ -46,12 +46,12 @@ func (m *Six910Manager) AddSubRegion(s *sdbi.SubRegion, sid int64) *ResponseID {
 	return &rtn
 }
 
-//UpdateSubRegion UpdateSubRegion
-func (m *Six910Manager) UpdateSubRegion(s *sdbi.SubRegion, sid int64) *Response {
+//UpdateExcludedSubRegion UpdateExcludedSubRegion
+func (m *Six910Manager) UpdateExcludedSubRegion(e *sdbi.ExcludedSubRegion, sid int64) *Response {
 	var rtn Response
-	r := m.Db.GetRegion(s.RegionID)
+	r := m.Db.GetRegion(e.RegionID)
 	if r.StoreID == sid {
-		suc := m.Db.UpdateSubRegion(s)
+		suc := m.Db.UpdateExcludedSubRegion(e)
 		if suc {
 			rtn.Success = suc
 			rtn.Code = http.StatusOK
@@ -64,40 +64,40 @@ func (m *Six910Manager) UpdateSubRegion(s *sdbi.SubRegion, sid int64) *Response 
 	return &rtn
 }
 
-//GetSubRegion GetSubRegion
-func (m *Six910Manager) GetSubRegion(id int64, sid int64) *sdbi.SubRegion {
-	var rtn *sdbi.SubRegion
-	sr := m.Db.GetSubRegion(id)
+//GetExcludedSubRegion GetExcludedSubRegion
+func (m *Six910Manager) GetExcludedSubRegion(id int64, sid int64) *sdbi.ExcludedSubRegion {
+	var rtn *sdbi.ExcludedSubRegion
+	sr := m.Db.GetExcludedSubRegion(id)
 	r := m.Db.GetRegion(sr.RegionID)
 	if r.StoreID == sid {
 		rtn = sr
 	} else {
-		var ns sdbi.SubRegion
+		var ns sdbi.ExcludedSubRegion
 		rtn = &ns
 	}
 	return rtn
 }
 
-//GetSubRegionList GetSubRegionList
-func (m *Six910Manager) GetSubRegionList(regionID int64, sid int64) *[]sdbi.SubRegion {
-	var rtn *[]sdbi.SubRegion
+//GetExcludedSubRegionList GetExcludedSubRegionList
+func (m *Six910Manager) GetExcludedSubRegionList(regionID int64, sid int64) *[]sdbi.ExcludedSubRegion {
+	var rtn *[]sdbi.ExcludedSubRegion
 	r := m.Db.GetRegion(regionID)
 	if r.StoreID == sid {
-		rtn = m.Db.GetSubRegionList(regionID)
+		rtn = m.Db.GetExcludedSubRegionList(regionID)
 	} else {
-		var nr = []sdbi.SubRegion{}
+		var nr = []sdbi.ExcludedSubRegion{}
 		rtn = &nr
 	}
 	return rtn
 }
 
-//DeleteSubRegion DeleteSubRegion
-func (m *Six910Manager) DeleteSubRegion(id int64, sid int64) *Response {
+//DeleteExcludedSubRegion DeleteExcludedSubRegion
+func (m *Six910Manager) DeleteExcludedSubRegion(id int64, sid int64) *Response {
 	var rtn Response
-	sr := m.Db.GetSubRegion(id)
+	sr := m.Db.GetExcludedSubRegion(id)
 	r := m.Db.GetRegion(sr.RegionID)
 	if r.StoreID == sid {
-		suc := m.Db.DeleteSubRegion(id)
+		suc := m.Db.DeleteExcludedSubRegion(id)
 		if suc {
 			rtn.Success = suc
 			rtn.Code = http.StatusOK

@@ -8,7 +8,7 @@ import (
 	sixmdb "github.com/Ulbora/six910-mysql"
 )
 
-func TestSix910Manager_AddSubRegion(t *testing.T) {
+func TestSix910Manager_AddExcludedSubRegion(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger
 	l.LogLevel = lg.AllLevel
@@ -22,24 +22,23 @@ func TestSix910Manager_AddSubRegion(t *testing.T) {
 
 	m := sm.GetNew()
 
-	var sr sdbi.SubRegion
-	sr.Name = "sub"
+	var sr sdbi.ExcludedSubRegion
+	sr.SubRegionID = 2
 	sr.RegionID = 2
 
 	var rg sdbi.Region
 	rg.StoreID = 5
 	sdb.MockRegion = &rg
+	sdb.MockAddExcludedSubRegionSuccess = true
+	sdb.MockExcludedSubRegionID = 3
 
-	sdb.MockSubRegionID = 6
-	sdb.MockAddSubRegionSuccess = true
-
-	res := m.AddSubRegion(&sr, 5)
+	res := m.AddExcludedSubRegion(&sr, 5)
 	if !res.Success {
 		t.Fail()
 	}
 }
 
-func TestSix910Manager_AddSubRegionFail(t *testing.T) {
+func TestSix910Manager_AddExcludedSubRegionFail(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger
 	l.LogLevel = lg.AllLevel
@@ -53,55 +52,23 @@ func TestSix910Manager_AddSubRegionFail(t *testing.T) {
 
 	m := sm.GetNew()
 
-	var sr sdbi.SubRegion
-	sr.Name = "sub"
-	sr.RegionID = 2
-
-	var rg sdbi.Region
-	rg.StoreID = 5
-	sdb.MockRegion = &rg
-
-	sdb.MockSubRegionID = 6
-	//sdb.MockAddSubRegionSuccess = true
-
-	res := m.AddSubRegion(&sr, 5)
-	if res.Success {
-		t.Fail()
-	}
-}
-
-func TestSix910Manager_AddSubRegionFAil2(t *testing.T) {
-	var sdb sixmdb.MockSix910Mysql
-	var l lg.Logger
-	l.LogLevel = lg.AllLevel
-	sdb.Log = &l
-	//sdb.DB = dbi
-	//dbi.Connect()
-
-	var sm Six910Manager
-	sm.Db = sdb.GetNew()
-	sm.Log = &l
-
-	m := sm.GetNew()
-
-	var sr sdbi.SubRegion
-	sr.Name = "sub"
+	var sr sdbi.ExcludedSubRegion
+	sr.SubRegionID = 2
 	sr.RegionID = 2
 
 	var rg sdbi.Region
 	rg.StoreID = 55
 	sdb.MockRegion = &rg
+	sdb.MockAddExcludedSubRegionSuccess = true
+	sdb.MockExcludedSubRegionID = 3
 
-	sdb.MockSubRegionID = 6
-	sdb.MockAddSubRegionSuccess = true
-
-	res := m.AddSubRegion(&sr, 5)
+	res := m.AddExcludedSubRegion(&sr, 5)
 	if res.Success {
 		t.Fail()
 	}
 }
 
-func TestSix910Manager_UpdateSubRegion(t *testing.T) {
+func TestSix910Manager_AddExcludedSubRegionFail2(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger
 	l.LogLevel = lg.AllLevel
@@ -115,23 +82,54 @@ func TestSix910Manager_UpdateSubRegion(t *testing.T) {
 
 	m := sm.GetNew()
 
-	var sr sdbi.SubRegion
-	sr.Name = "sub"
+	var sr sdbi.ExcludedSubRegion
+	sr.SubRegionID = 2
+	sr.RegionID = 2
+
+	var rg sdbi.Region
+	rg.StoreID = 5
+	sdb.MockRegion = &rg
+	//sdb.MockAddExcludedSubRegionSuccess = true
+	sdb.MockExcludedSubRegionID = 3
+
+	res := m.AddExcludedSubRegion(&sr, 5)
+	if res.Success {
+		t.Fail()
+	}
+}
+
+func TestSix910Manager_UpdateExcludedSubRegion(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	m := sm.GetNew()
+
+	var sr sdbi.ExcludedSubRegion
+	sr.SubRegionID = 2
 	sr.RegionID = 2
 
 	var rg sdbi.Region
 	rg.StoreID = 5
 	sdb.MockRegion = &rg
 
-	sdb.MockUpdateSubRegionSuccess = true
+	sdb.MockUpdateExcludedSubRegionSuccess = true
 
-	res := m.UpdateSubRegion(&sr, 5)
+	res := m.UpdateExcludedSubRegion(&sr, 5)
+
 	if !res.Success {
 		t.Fail()
 	}
 }
 
-func TestSix910Manager_UpdateSubRegionFail(t *testing.T) {
+func TestSix910Manager_UpdateExcludedSubRegionFail(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger
 	l.LogLevel = lg.AllLevel
@@ -145,23 +143,24 @@ func TestSix910Manager_UpdateSubRegionFail(t *testing.T) {
 
 	m := sm.GetNew()
 
-	var sr sdbi.SubRegion
-	sr.Name = "sub"
+	var sr sdbi.ExcludedSubRegion
+	sr.SubRegionID = 2
 	sr.RegionID = 2
 
 	var rg sdbi.Region
 	rg.StoreID = 55
 	sdb.MockRegion = &rg
 
-	sdb.MockUpdateSubRegionSuccess = true
+	sdb.MockUpdateExcludedSubRegionSuccess = true
 
-	res := m.UpdateSubRegion(&sr, 5)
+	res := m.UpdateExcludedSubRegion(&sr, 5)
+
 	if res.Success {
 		t.Fail()
 	}
 }
 
-func TestSix910Manager_UpdateSubRegionFail2(t *testing.T) {
+func TestSix910Manager_UpdateExcludedSubRegionfail2(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger
 	l.LogLevel = lg.AllLevel
@@ -175,23 +174,24 @@ func TestSix910Manager_UpdateSubRegionFail2(t *testing.T) {
 
 	m := sm.GetNew()
 
-	var sr sdbi.SubRegion
-	sr.Name = "sub"
+	var sr sdbi.ExcludedSubRegion
+	sr.SubRegionID = 2
 	sr.RegionID = 2
 
 	var rg sdbi.Region
 	rg.StoreID = 5
 	sdb.MockRegion = &rg
 
-	//sdb.MockUpdateSubRegionSuccess = true
+	//sdb.MockUpdateExcludedSubRegionSuccess = true
 
-	res := m.UpdateSubRegion(&sr, 5)
+	res := m.UpdateExcludedSubRegion(&sr, 5)
+
 	if res.Success {
 		t.Fail()
 	}
 }
 
-func TestSix910Manager_GetSubRegion(t *testing.T) {
+func TestSix910Manager_GetExcludedSubRegion(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger
 	l.LogLevel = lg.AllLevel
@@ -205,23 +205,23 @@ func TestSix910Manager_GetSubRegion(t *testing.T) {
 
 	m := sm.GetNew()
 
-	var sr sdbi.SubRegion
-	sr.Name = "sub"
+	var sr sdbi.ExcludedSubRegion
+	sr.SubRegionID = 2
 	sr.RegionID = 2
 
 	var rg sdbi.Region
 	rg.StoreID = 5
 	sdb.MockRegion = &rg
 
-	sdb.MockSubRegion = &sr
+	sdb.MockExcludedSubRegion = &sr
 
-	fsr := m.GetSubRegion(2, 5)
-	if fsr.Name != sr.Name {
+	fesr := m.GetExcludedSubRegion(2, 5)
+	if fesr.SubRegionID != sr.SubRegionID {
 		t.Fail()
 	}
 }
 
-func TestSix910Manager_GetSubRegionFail(t *testing.T) {
+func TestSix910Manager_GetExcludedSubRegionFail(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger
 	l.LogLevel = lg.AllLevel
@@ -235,23 +235,23 @@ func TestSix910Manager_GetSubRegionFail(t *testing.T) {
 
 	m := sm.GetNew()
 
-	var sr sdbi.SubRegion
-	sr.Name = "sub"
+	var sr sdbi.ExcludedSubRegion
+	sr.SubRegionID = 2
 	sr.RegionID = 2
 
 	var rg sdbi.Region
 	rg.StoreID = 55
 	sdb.MockRegion = &rg
 
-	sdb.MockSubRegion = &sr
+	sdb.MockExcludedSubRegion = &sr
 
-	fsr := m.GetSubRegion(2, 5)
-	if fsr.Name == sr.Name {
+	fesr := m.GetExcludedSubRegion(2, 5)
+	if fesr.SubRegionID == sr.SubRegionID {
 		t.Fail()
 	}
 }
 
-func TestSix910Manager_GetSubRegionList(t *testing.T) {
+func TestSix910Manager_GetExcludedSubRegionList(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger
 	l.LogLevel = lg.AllLevel
@@ -265,25 +265,26 @@ func TestSix910Manager_GetSubRegionList(t *testing.T) {
 
 	m := sm.GetNew()
 
-	var sr sdbi.SubRegion
-	sr.Name = "sub"
+	var sr sdbi.ExcludedSubRegion
+	sr.SubRegionID = 2
 	sr.RegionID = 2
 
 	var rg sdbi.Region
 	rg.StoreID = 5
 	sdb.MockRegion = &rg
 
-	var rlst []sdbi.SubRegion
-	rlst = append(rlst, sr)
-	sdb.MockSubRegionList = &rlst
+	var srlst []sdbi.ExcludedSubRegion
+	srlst = append(srlst, sr)
 
-	flst := m.GetSubRegionList(4, 5)
+	sdb.MockExcludedSubRegionList = &srlst
+
+	flst := m.GetExcludedSubRegionList(2, 5)
 	if len(*flst) != 1 {
 		t.Fail()
 	}
 }
 
-func TestSix910Manager_GetSubRegionListFail(t *testing.T) {
+func TestSix910Manager_GetExcludedSubRegionListFail(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger
 	l.LogLevel = lg.AllLevel
@@ -297,25 +298,26 @@ func TestSix910Manager_GetSubRegionListFail(t *testing.T) {
 
 	m := sm.GetNew()
 
-	var sr sdbi.SubRegion
-	sr.Name = "sub"
+	var sr sdbi.ExcludedSubRegion
+	sr.SubRegionID = 2
 	sr.RegionID = 2
 
 	var rg sdbi.Region
 	rg.StoreID = 55
 	sdb.MockRegion = &rg
 
-	var rlst []sdbi.SubRegion
-	rlst = append(rlst, sr)
-	sdb.MockSubRegionList = &rlst
+	var srlst []sdbi.ExcludedSubRegion
+	srlst = append(srlst, sr)
 
-	flst := m.GetSubRegionList(4, 5)
+	sdb.MockExcludedSubRegionList = &srlst
+
+	flst := m.GetExcludedSubRegionList(2, 5)
 	if len(*flst) != 0 {
 		t.Fail()
 	}
 }
 
-func TestSix910Manager_DeleteSubRegion(t *testing.T) {
+func TestSix910Manager_DeleteExcludedSubRegion(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger
 	l.LogLevel = lg.AllLevel
@@ -329,24 +331,25 @@ func TestSix910Manager_DeleteSubRegion(t *testing.T) {
 
 	m := sm.GetNew()
 
-	var sr sdbi.SubRegion
-	sr.Name = "sub"
+	var sr sdbi.ExcludedSubRegion
+	sr.SubRegionID = 2
 	sr.RegionID = 2
 
 	var rg sdbi.Region
 	rg.StoreID = 5
 	sdb.MockRegion = &rg
-	sdb.MockSubRegion = &sr
 
-	sdb.MockDeleteSubRegionSuccess = true
+	sdb.MockExcludedSubRegion = &sr
 
-	res := m.DeleteSubRegion(3, 5)
+	sdb.MockDeleteExcludedSubRegionSuccess = true
+
+	res := m.DeleteExcludedSubRegion(3, 5)
 	if !res.Success {
 		t.Fail()
 	}
 }
 
-func TestSix910Manager_DeleteSubRegionFail(t *testing.T) {
+func TestSix910Manager_DeleteExcludedSubRegionFail(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger
 	l.LogLevel = lg.AllLevel
@@ -360,24 +363,25 @@ func TestSix910Manager_DeleteSubRegionFail(t *testing.T) {
 
 	m := sm.GetNew()
 
-	var sr sdbi.SubRegion
-	sr.Name = "sub"
+	var sr sdbi.ExcludedSubRegion
+	sr.SubRegionID = 2
 	sr.RegionID = 2
 
 	var rg sdbi.Region
 	rg.StoreID = 55
 	sdb.MockRegion = &rg
-	sdb.MockSubRegion = &sr
 
-	sdb.MockDeleteSubRegionSuccess = true
+	sdb.MockExcludedSubRegion = &sr
 
-	res := m.DeleteSubRegion(3, 5)
+	sdb.MockDeleteExcludedSubRegionSuccess = true
+
+	res := m.DeleteExcludedSubRegion(3, 5)
 	if res.Success {
 		t.Fail()
 	}
 }
 
-func TestSix910Manager_DeleteSubRegionFail2(t *testing.T) {
+func TestSix910Manager_DeleteExcludedSubRegionFail2(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger
 	l.LogLevel = lg.AllLevel
@@ -391,18 +395,19 @@ func TestSix910Manager_DeleteSubRegionFail2(t *testing.T) {
 
 	m := sm.GetNew()
 
-	var sr sdbi.SubRegion
-	sr.Name = "sub"
+	var sr sdbi.ExcludedSubRegion
+	sr.SubRegionID = 2
 	sr.RegionID = 2
 
 	var rg sdbi.Region
 	rg.StoreID = 5
 	sdb.MockRegion = &rg
-	sdb.MockSubRegion = &sr
 
-	//sdb.MockDeleteSubRegionSuccess = true
+	sdb.MockExcludedSubRegion = &sr
 
-	res := m.DeleteSubRegion(3, 5)
+	//sdb.MockDeleteExcludedSubRegionSuccess = true
+
+	res := m.DeleteExcludedSubRegion(3, 5)
 	if res.Success {
 		t.Fail()
 	}
