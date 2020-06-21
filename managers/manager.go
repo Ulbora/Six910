@@ -215,11 +215,11 @@ type Manager interface {
 	DeleteOrder(id int64, sid int64) *Response
 
 	// //Order Items
-	// AddOrderItem(i *sdbi.OrderItem) *ResponseID
-	// UpdateOrderItem(i *sdbi.OrderItem) *Response
-	// GetOrderItem(id int64) *sdbi.OrderItem
-	// GetOrderItemList(orderID int64) *[]sdbi.OrderItem
-	// DeleteOrderItem(id int64) *Response
+	AddOrderItem(i *sdbi.OrderItem, sid int64) *ResponseID
+	UpdateOrderItem(i *sdbi.OrderItem, sid int64) *Response
+	GetOrderItem(id int64, sid int64) *sdbi.OrderItem
+	GetOrderItemList(orderID int64, sid int64) *[]sdbi.OrderItem
+	DeleteOrderItem(id int64, sid int64) *Response
 
 	// //Order Comments
 	// AddOrderComments(c *sdbi.OrderComment) *ResponseID
