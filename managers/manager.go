@@ -226,8 +226,8 @@ type Manager interface {
 	GetOrderCommentList(orderID int64, sid int64) *[]sdbi.OrderComment
 
 	// //Order Payment Transactions
-	// AddOrderTransaction(t *sdbi.OrderTransaction) *ResponseID
-	// GetOrderTransactionList(orderID int64) *[]sdbi.OrderTransaction
+	AddOrderTransaction(t *sdbi.OrderTransaction, sid int64) *ResponseID
+	GetOrderTransactionList(orderID int64, sid int64) *[]sdbi.OrderTransaction
 
 	// //shipment
 	// AddShipment(s *sdbi.Shipment) *ResponseID
