@@ -222,8 +222,8 @@ type Manager interface {
 	DeleteOrderItem(id int64, sid int64) *Response
 
 	// //Order Comments
-	// AddOrderComments(c *sdbi.OrderComment) *ResponseID
-	// GetOrderCommentList(orderID int64) *[]sdbi.OrderComment
+	AddOrderComments(c *sdbi.OrderComment, sid int64) *ResponseID
+	GetOrderCommentList(orderID int64, sid int64) *[]sdbi.OrderComment
 
 	// //Order Payment Transactions
 	// AddOrderTransaction(t *sdbi.OrderTransaction) *ResponseID
