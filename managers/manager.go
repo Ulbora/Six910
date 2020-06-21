@@ -204,8 +204,8 @@ type Manager interface {
 	DeleteZoneZip(id int64, incID int64, exID int64, sid int64) *Response
 
 	// //product category
-	// AddProductCategory(pc *sdbi.ProductCategory) *Response
-	// DeleteProductCategory(pc *sdbi.ProductCategory) *Response
+	AddProductCategory(pc *sdbi.ProductCategory, sid int64) *Response
+	DeleteProductCategory(pc *sdbi.ProductCategory, sid int64) *Response
 
 	// //Orders
 	// AddOrder(o *sdbi.Order) *ResponseID

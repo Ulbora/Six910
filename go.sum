@@ -18,6 +18,8 @@ github.com/Ulbora/six910-mysql v1.0.2 h1:AyTiQ4YaGi6hh4JcokyPhW4f2ShsqKnEXn2EITk
 github.com/Ulbora/six910-mysql v1.0.2/go.mod h1:82owyHcdIwe53W2ymfeeYeVUG6NtVddcpDnRQPpUxro=
 github.com/Ulbora/six910-mysql v1.0.3 h1:HewsgBd6dYrZORiYLUu0CyYK0UrR12b4tg9VoRjCK2k=
 github.com/Ulbora/six910-mysql v1.0.3/go.mod h1:1ErzOnxgiAGknuv2nByxpwPHFxtGCuDnTLEeRVEV9Rc=
+github.com/Ulbora/six910-mysql v1.0.4 h1:IJxkHLX1op39i/fX7ZZpERqrTfxr3KlCXdv8Q9rkm1Y=
+github.com/Ulbora/six910-mysql v1.0.4/go.mod h1:1ErzOnxgiAGknuv2nByxpwPHFxtGCuDnTLEeRVEV9Rc=
 github.com/go-sql-driver/mysql v1.4.1/go.mod h1:zAC/RDZ24gD3HViQzih4MyKcchzm+sOG5ZlKdlhCg5w=
 github.com/go-sql-driver/mysql v1.5.0 h1:ozyZYNQW3x3HtqT1jira07DN2PArx2v7/mN66gGcHOs=
 github.com/go-sql-driver/mysql v1.5.0/go.mod h1:DCzpHaOWr8IXmIStZouvnhqoel9Qv2LBy8hT2VhHyBg=
