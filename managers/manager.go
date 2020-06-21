@@ -198,10 +198,10 @@ type Manager interface {
 	DeleteIncludedSubRegion(id int64, sid int64) *Response
 
 	// //limit exclusions and inclusions to a zip code
-	// AddZoneZip(z *sdbi.ZoneZip) *ResponseID
-	// GetZoneZipListByExclusion(exID int64) *[]sdbi.ZoneZip
-	// GetZoneZipListByInclusion(incID int64) *[]sdbi.ZoneZip
-	// DeleteZoneZip(id int64) *Response
+	AddZoneZip(z *sdbi.ZoneZip, sid int64) *ResponseID
+	GetZoneZipListByExclusion(exID int64, sid int64) *[]sdbi.ZoneZip
+	GetZoneZipListByInclusion(incID int64, sid int64) *[]sdbi.ZoneZip
+	DeleteZoneZip(id int64, incID int64, exID int64, sid int64) *Response
 
 	// //product category
 	// AddProductCategory(pc *sdbi.ProductCategory) *Response

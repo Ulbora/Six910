@@ -26,6 +26,7 @@ import (
  You should have received a copy of the GNU General Public License
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 //AddIncludedSubRegion AddIncludedSubRegion
 func (m *Six910Manager) AddIncludedSubRegion(e *sdbi.IncludedSubRegion, sid int64) *ResponseID {
 	var rtn ResponseID
