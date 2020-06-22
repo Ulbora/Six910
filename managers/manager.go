@@ -237,11 +237,11 @@ type Manager interface {
 	DeleteShipment(id int64, sid int64) *Response
 
 	// //shipment boxes
-	// AddShipmentBox(sb *sdbi.ShipmentBox) *ResponseID
-	// UpdateShipmentBox(sb *sdbi.ShipmentBox) *Response
-	// GetShipmentBox(id int64) *sdbi.ShipmentBox
-	// GetShipmentBoxList(shipmentID int64) *[]sdbi.ShipmentBox
-	// DeleteShipmentBox(id int64) *Response
+	AddShipmentBox(sb *sdbi.ShipmentBox, sid int64) *ResponseID
+	UpdateShipmentBox(sb *sdbi.ShipmentBox, sid int64) *Response
+	GetShipmentBox(id int64, sid int64) *sdbi.ShipmentBox
+	GetShipmentBoxList(shipmentID int64, sid int64) *[]sdbi.ShipmentBox
+	DeleteShipmentBox(id int64, sid int64) *Response
 
 	// //Shipment Items in box
 	// AddShipmentItem(si *sdbi.ShipmentItem) *ResponseID
