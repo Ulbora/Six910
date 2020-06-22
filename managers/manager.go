@@ -230,11 +230,11 @@ type Manager interface {
 	GetOrderTransactionList(orderID int64, sid int64) *[]sdbi.OrderTransaction
 
 	// //shipment
-	// AddShipment(s *sdbi.Shipment) *ResponseID
-	// UpdateShipment(s *sdbi.Shipment) *Response
-	// GetShipment(id int64) *sdbi.Shipment
-	// GetShipmentList(orderID int64) *[]sdbi.Shipment
-	// DeleteShipment(id int64) *Response
+	AddShipment(s *sdbi.Shipment, sid int64) *ResponseID
+	UpdateShipment(s *sdbi.Shipment, sid int64) *Response
+	GetShipment(id int64, sid int64) *sdbi.Shipment
+	GetShipmentList(orderID int64, sid int64) *[]sdbi.Shipment
+	DeleteShipment(id int64, sid int64) *Response
 
 	// //shipment boxes
 	// AddShipmentBox(sb *sdbi.ShipmentBox) *ResponseID
