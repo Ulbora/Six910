@@ -252,11 +252,11 @@ type Manager interface {
 	DeleteShipmentItem(id int64, sid int64) *Response
 
 	// //Global Plugins
-	// AddPlugin(p *sdbi.Plugins) *ResponseID
-	// UpdatePlugin(p *sdbi.Plugins) *Response
-	// GetPlugin(id int64) *sdbi.Plugins
-	// GetPluginList(start int64, end int64) *[]sdbi.Plugins
-	// DeletePlugin(id int64) *Response
+	AddPlugin(p *sdbi.Plugins) *ResponseID
+	UpdatePlugin(p *sdbi.Plugins) *Response
+	GetPlugin(id int64) *sdbi.Plugins
+	GetPluginList(start int64, end int64) *[]sdbi.Plugins
+	DeletePlugin(id int64) *Response
 
 	// //store plugins installed
 	// AddStorePlugin(sp *sdbi.StorePlugins) *ResponseID
