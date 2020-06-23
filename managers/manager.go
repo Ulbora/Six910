@@ -259,25 +259,25 @@ type Manager interface {
 	DeletePlugin(id int64) *Response
 
 	// //store plugins installed
-	// AddStorePlugin(sp *sdbi.StorePlugins) *ResponseID
-	// UpdateStorePlugin(sp *sdbi.StorePlugins) *Response
-	// GetStorePlugin(id int64) *sdbi.StorePlugins
-	// GetStorePluginList(storeID int64) *[]sdbi.StorePlugins
-	// DeleteStorePlugin(id int64) *Response
+	AddStorePlugin(sp *sdbi.StorePlugins) *ResponseID
+	UpdateStorePlugin(sp *sdbi.StorePlugins) *Response
+	GetStorePlugin(id int64, sid int64) *sdbi.StorePlugins
+	GetStorePluginList(storeID int64) *[]sdbi.StorePlugins
+	DeleteStorePlugin(id int64, sid int64) *Response
 
 	// //Plugins that are payment gateways
-	// AddPaymentGateway(pgw *sdbi.PaymentGateway) *ResponseID
-	// UpdatePaymentGateway(pgw *sdbi.PaymentGateway) *Response
-	// GetPaymentGateway(id int64) *sdbi.PaymentGateway
-	// GetPaymentGateways(storeID int64) *[]sdbi.PaymentGateway
-	// DeletePaymentGateway(id int64) *Response
+	AddPaymentGateway(pgw *sdbi.PaymentGateway, sid int64) *ResponseID
+	UpdatePaymentGateway(pgw *sdbi.PaymentGateway, sid int64) *Response
+	GetPaymentGateway(id int64, sid int64) *sdbi.PaymentGateway
+	GetPaymentGateways(storeID int64) *[]sdbi.PaymentGateway
+	DeletePaymentGateway(id int64, sid int64) *Response
 
 	// //store shipment carrier like UPS and FEDex
-	// AddShippingCarrier(c *sdbi.ShippingCarrier) *ResponseID
-	// UpdateShippingCarrier(c *sdbi.ShippingCarrier) *Response
-	// GetShippingCarrier(id int64) *sdbi.ShippingCarrier
-	// GetShippingCarrierList(storeID int64) *[]sdbi.ShippingCarrier
-	// DeleteShippingCarrier(id int64) *Response
+	AddShippingCarrier(c *sdbi.ShippingCarrier) *ResponseID
+	UpdateShippingCarrier(c *sdbi.ShippingCarrier) *Response
+	GetShippingCarrier(id int64, sid int64) *sdbi.ShippingCarrier
+	GetShippingCarrierList(storeID int64) *[]sdbi.ShippingCarrier
+	DeleteShippingCarrier(id int64, sid int64) *Response
 
 	// //----UI Cluster installation: this is only called if UI is running in a cluster---
 	// //Handle the situation where clients are running in a cluster
@@ -285,14 +285,14 @@ type Manager interface {
 
 	// //----------------start datastore------------------------------------
 	// //this gets called when a node start up and add only if it doesn't already exist
-	// AddLocalDatastore(d *sdbi.LocalDataStore) *Response
+	AddLocalDatastore(d *sdbi.LocalDataStore) *Response
 
 	// //This get get called when a change is made to a datastore from a node in the cluster
 	// //Or after all reloads have completed and then get set to Reload = false
-	// UpdateLocalDatastore(d *sdbi.LocalDataStore) *Response
+	UpdateLocalDatastore(d *sdbi.LocalDataStore) *Response
 
 	// //This gets call by cluster nodes to see if there are pending reload
-	// GetLocalDatastore(storeID int64, dataStoreName string) *sdbi.LocalDataStore
+	GetLocalDatastore(storeID int64, dataStoreName string) *sdbi.LocalDataStore
 
 	// //---------------------start instance--------------------
 	// // this gets called when each instance is started and added only if never added before
