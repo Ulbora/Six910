@@ -244,12 +244,12 @@ type Manager interface {
 	DeleteShipmentBox(id int64, sid int64) *Response
 
 	// //Shipment Items in box
-	// AddShipmentItem(si *sdbi.ShipmentItem) *ResponseID
-	// UpdateShipmentItem(si *sdbi.ShipmentItem) *Response
-	// GetShipmentItem(id int64) *sdbi.ShipmentItem
-	// GetShipmentItemList(shipmentID int64) *[]sdbi.ShipmentItem
-	// GetShipmentItemListByBox(boxNumber int64) *[]sdbi.ShipmentItem
-	// DeleteShipmentItem(id int64) *Response
+	AddShipmentItem(si *sdbi.ShipmentItem, sid int64) *ResponseID
+	UpdateShipmentItem(si *sdbi.ShipmentItem, sid int64) *Response
+	GetShipmentItem(id int64, sid int64) *sdbi.ShipmentItem
+	GetShipmentItemList(shipmentID int64, sid int64) *[]sdbi.ShipmentItem
+	GetShipmentItemListByBox(boxNumber int64, sid int64) *[]sdbi.ShipmentItem
+	DeleteShipmentItem(id int64, sid int64) *Response
 
 	// //Global Plugins
 	// AddPlugin(p *sdbi.Plugins) *ResponseID
