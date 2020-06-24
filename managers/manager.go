@@ -308,9 +308,9 @@ type Manager interface {
 	// //-------------------start write lock-------------
 	// //gets called after UI makes changes to one of the datastores
 	// //If the datastore already exists, the Update method is called from within add
-	// AddDataStoreWriteLock(w *sdbi.DataStoreWriteLock) *ResponseID
-	// UpdateDataStoreWriteLock(w *sdbi.DataStoreWriteLock) *Response
+	AddDataStoreWriteLock(w *sdbi.DataStoreWriteLock) *ResponseID
+	UpdateDataStoreWriteLock(w *sdbi.DataStoreWriteLock) *Response
 
 	// //gets called from within the add method and by any node trying to update a datastore
-	// GetDataStoreWriteLock(dataStore string, storeID int64) *sdbi.DataStoreWriteLock
+	GetDataStoreWriteLock(dataStore string, storeID int64) *sdbi.DataStoreWriteLock
 }
