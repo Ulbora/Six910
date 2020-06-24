@@ -297,13 +297,13 @@ type Manager interface {
 	// //---------------------start instance--------------------
 	// // this gets called when each instance is started and added only if never added before
 	// //The instance name is pulled from Docker or an manually entered env variable
-	// AddInstance(i *sdbi.Instances) *Response
+	AddInstance(i *sdbi.Instances) *Response
 
 	// //This gets called after instance gets reloaded
-	// UpdateInstance(i *sdbi.Instances) *Response
+	UpdateInstance(i *sdbi.Instances) *Response
 
 	// //Gets called before updating an instance
-	// GetInstance(name string, dataStoreName string, storeID int64) *sdbi.Instances
+	GetInstance(name string, dataStoreName string, storeID int64) *sdbi.Instances
 
 	// //-------------------start write lock-------------
 	// //gets called after UI makes changes to one of the datastores

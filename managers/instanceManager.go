@@ -27,10 +27,10 @@ import (
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//AddLocalDatastore AddLocalDatastore
-func (m *Six910Manager) AddLocalDatastore(d *sdbi.LocalDataStore) *Response {
+//AddInstance AddInstance
+func (m *Six910Manager) AddInstance(i *sdbi.Instances) *Response {
 	var rtn Response
-	suc := m.Db.AddLocalDatastore(d)
+	suc := m.Db.AddInstance(i)
 	if suc {
 		rtn.Success = suc
 		rtn.Code = http.StatusOK
@@ -40,10 +40,10 @@ func (m *Six910Manager) AddLocalDatastore(d *sdbi.LocalDataStore) *Response {
 	return &rtn
 }
 
-//UpdateLocalDatastore UpdateLocalDatastore
-func (m *Six910Manager) UpdateLocalDatastore(d *sdbi.LocalDataStore) *Response {
+//UpdateInstance UpdateInstance
+func (m *Six910Manager) UpdateInstance(i *sdbi.Instances) *Response {
 	var rtn Response
-	suc := m.Db.UpdateLocalDatastore(d)
+	suc := m.Db.UpdateInstance(i)
 	if suc {
 		rtn.Success = suc
 		rtn.Code = http.StatusOK
@@ -53,7 +53,7 @@ func (m *Six910Manager) UpdateLocalDatastore(d *sdbi.LocalDataStore) *Response {
 	return &rtn
 }
 
-//GetLocalDatastore GetLocalDatastore
-func (m *Six910Manager) GetLocalDatastore(storeID int64, dataStoreName string) *sdbi.LocalDataStore {
-	return m.Db.GetLocalDatastore(storeID, dataStoreName)
+//GetInstance GetInstance
+func (m *Six910Manager) GetInstance(name string, dataStoreName string, storeID int64) *sdbi.Instances {
+	return m.Db.GetInstance(name, dataStoreName, storeID)
 }

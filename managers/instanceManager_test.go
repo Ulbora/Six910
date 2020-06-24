@@ -8,7 +8,7 @@ import (
 	sixmdb "github.com/Ulbora/six910-mysql"
 )
 
-func TestSix910Manager_AddLocalDatastore(t *testing.T) {
+func TestSix910Manager_AddInstance(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger
 	l.LogLevel = lg.AllLevel
@@ -22,19 +22,19 @@ func TestSix910Manager_AddLocalDatastore(t *testing.T) {
 
 	m := sm.GetNew()
 
-	var ds sdbi.LocalDataStore
-	ds.DataStoreName = "test"
-	ds.StoreID = 5
+	var in sdbi.Instances
+	in.DataStoreName = "test"
+	in.StoreID = 5
 
-	sdb.MockAddLocalDataStoreSuccess = true
+	sdb.MockAddInstancesSuccess = true
 
-	res := m.AddLocalDatastore(&ds)
+	res := m.AddInstance(&in)
 	if !res.Success {
 		t.Fail()
 	}
 }
 
-func TestSix910Manager_AddLocalDatastoreFail(t *testing.T) {
+func TestSix910Manager_AddInstanceFail(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger
 	l.LogLevel = lg.AllLevel
@@ -48,19 +48,19 @@ func TestSix910Manager_AddLocalDatastoreFail(t *testing.T) {
 
 	m := sm.GetNew()
 
-	var ds sdbi.LocalDataStore
-	ds.DataStoreName = "test"
-	ds.StoreID = 5
+	var in sdbi.Instances
+	in.DataStoreName = "test"
+	in.StoreID = 5
 
-	//sdb.MockAddLocalDataStoreSuccess = true
+	//sdb.MockAddInstancesSuccess = true
 
-	res := m.AddLocalDatastore(&ds)
+	res := m.AddInstance(&in)
 	if res.Success {
 		t.Fail()
 	}
 }
 
-func TestSix910Manager_UpdateLocalDatastore(t *testing.T) {
+func TestSix910Manager_UpdateInstance(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger
 	l.LogLevel = lg.AllLevel
@@ -74,21 +74,19 @@ func TestSix910Manager_UpdateLocalDatastore(t *testing.T) {
 
 	m := sm.GetNew()
 
-	var ds sdbi.LocalDataStore
-	ds.DataStoreName = "test"
-	ds.StoreID = 5
+	var in sdbi.Instances
+	in.DataStoreName = "test"
+	in.StoreID = 5
 
-	sdb.MockLocalDataStore = &ds
+	sdb.MockUpdateInstancesSuccess = true
 
-	sdb.MockUpdateLocalDataStoreSuccess = true
-
-	res := m.UpdateLocalDatastore(&ds)
+	res := m.UpdateInstance(&in)
 	if !res.Success {
 		t.Fail()
 	}
 }
 
-func TestSix910Manager_UpdateLocalDatastoreFail2(t *testing.T) {
+func TestSix910Manager_UpdateInstanceFail(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger
 	l.LogLevel = lg.AllLevel
@@ -102,21 +100,19 @@ func TestSix910Manager_UpdateLocalDatastoreFail2(t *testing.T) {
 
 	m := sm.GetNew()
 
-	var ds sdbi.LocalDataStore
-	ds.DataStoreName = "test"
-	ds.StoreID = 5
+	var in sdbi.Instances
+	in.DataStoreName = "test"
+	in.StoreID = 5
 
-	sdb.MockLocalDataStore = &ds
+	//sdb.MockUpdateInstancesSuccess = true
 
-	//sdb.MockUpdateLocalDataStoreSuccess = true
-
-	res := m.UpdateLocalDatastore(&ds)
+	res := m.UpdateInstance(&in)
 	if res.Success {
 		t.Fail()
 	}
 }
 
-func TestSix910Manager_GetLocalDatastore(t *testing.T) {
+func TestSix910Manager_GetInstance(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger
 	l.LogLevel = lg.AllLevel
@@ -130,15 +126,14 @@ func TestSix910Manager_GetLocalDatastore(t *testing.T) {
 
 	m := sm.GetNew()
 
-	var ds sdbi.LocalDataStore
-	ds.DataStoreName = "test"
-	ds.StoreID = 5
-	ds.Reload = true
+	var in sdbi.Instances
+	in.DataStoreName = "test"
+	in.StoreID = 5
 
-	sdb.MockLocalDataStore = &ds
+	sdb.MockInstances = &in
 
-	fds := m.GetLocalDatastore(5, "test")
-	if fds.Reload != ds.Reload {
+	fin := m.GetInstance("test", "test", 5)
+	if fin.DataStoreName != in.DataStoreName {
 		t.Fail()
 	}
 }
