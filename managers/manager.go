@@ -1,6 +1,10 @@
 package managers
 
-import sdbi "github.com/Ulbora/six910-database-interface"
+import (
+	"time"
+
+	sdbi "github.com/Ulbora/six910-database-interface"
+)
 
 /*
  Six910 is a shopping cart and E-commerce system.
@@ -79,6 +83,45 @@ type UserResponse struct {
 	Enabled    bool   `json:"enabled"`
 }
 
+//OAuthUser OAuthUser
+type OAuthUser struct {
+	Username     string `json:"username"`
+	Password     string `json:"password"`
+	Enabled      bool   `json:"enabled"`
+	EmailAddress string `json:"emailAddress"`
+	FirstName    string `json:"firstName"`
+	LastName     string `json:"lastName"`
+	RoleID       int64  `json:"roleId"`
+	ClientID     int64  `json:"clientId"`
+}
+
+//OAuthUserUser OAuthUserUser
+type OAuthUserUser struct {
+	Username  string    `json:"username"`
+	Enabled   bool      `json:"enabled"`
+	Entered   time.Time `json:"dateEntered"`
+	Email     string    `json:"emailAddress"`
+	FirstName string    `json:"firstName"`
+	LastName  string    `json:"lastName"`
+	RoleID    int64     `json:"roleId"`
+	ClientID  int64     `json:"clientId"`
+}
+
+//OauthUserList OauthUserList
+type OauthUserList struct {
+	Username  string `json:"username"`
+	Enabled   bool   `json:"enabled"`
+	FirstName string `json:"firstName"`
+	LastName  string `json:"lastName"`
+	ClientID  int64  `json:"clientId"`
+}
+
+//Auth Auth
+type Auth struct {
+	Token    string
+	ClientID string
+}
+
 //Manager Manager
 type Manager interface {
 	CreateLocalStore(auth *LocalStoreAdminUser) *LocalStoreResponse
@@ -110,6 +153,13 @@ type Manager interface {
 	GetAdminUsers(storeID int64) *[]UserResponse
 	GetCustomerUsers(storeID int64) *[]UserResponse
 	ValidateUser(u *User) *Response
+
+	//oauth users
+	AddOAuthUser(user *OAuthUser, auth *Auth) *Response
+	UpdateOAuthUser(user *OAuthUser, auth *Auth) *Response
+	GetOAuthUser(username string, clientID string, auth *Auth) (*OAuthUserUser, int)
+	GetOAuthUserList(clientID string, auth *Auth) (*[]OAuthUser, int)
+	DeleteOAuthUser(username string, clientID string, auth *Auth) *Response
 
 	// //distributors
 	AddDistributor(d *sdbi.Distributor) *ResponseID

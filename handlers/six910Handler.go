@@ -1,4 +1,4 @@
-package managers
+package handlers
 
 /*
  Six910 is a shopping cart and E-commerce system.
@@ -24,39 +24,12 @@ package managers
 import (
 	px "github.com/Ulbora/GoProxy"
 	lg "github.com/Ulbora/Level_Logger"
-	sdbi "github.com/Ulbora/six910-database-interface"
-	"golang.org/x/crypto/bcrypt"
+	m "github.com/Ulbora/Six910/managers"
 )
 
-//Six910Manager Six910Manager
-type Six910Manager struct {
-	Db       sdbi.Six910DB
-	Proxy    px.Proxy
-	Log      *lg.Logger
-	UserHost string
-}
-
-//GetNew GetNew
-func (m *Six910Manager) GetNew() Manager {
-	return m
-}
-
-func (m *Six910Manager) hashPassword(pw string) (bool, string) {
-	var suc bool
-	var rtn string
-	hashedPw, err := bcrypt.GenerateFromPassword([]byte(pw), bcrypt.DefaultCost)
-	if err == nil {
-		rtn = string(hashedPw)
-		suc = true
-	}
-	return suc, rtn
-}
-
-func (m *Six910Manager) validatePassword(pw string, hpw string) bool {
-	var suc bool
-	err := bcrypt.CompareHashAndPassword([]byte(hpw), []byte(pw))
-	if err == nil {
-		suc = true
-	}
-	return suc
+//Six910Handler Six910Handler
+type Six910Handler struct {
+	Manager m.Manager
+	Proxy   px.Proxy
+	Log     *lg.Logger
 }
