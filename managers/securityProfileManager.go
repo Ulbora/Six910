@@ -1,4 +1,4 @@
-package handlers
+package managers
 
 /*
  Six910 is a shopping cart and E-commerce system.
@@ -21,16 +21,21 @@ package handlers
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-import (
-	px "github.com/Ulbora/GoProxy"
-	lg "github.com/Ulbora/Level_Logger"
-	m "github.com/Ulbora/Six910/managers"
-)
-
-//Six910Handler Six910Handler
-type Six910Handler struct {
-	Manager m.Manager
-	Proxy   px.Proxy
-	Log     *lg.Logger
-	APIKey  string
+//GetSecurityProfile GetSecurityProfile
+func (m *Six910Manager) GetSecurityProfile(storeName string, localDomain string) *SecurityProfile {
+	var rtn SecurityProfile
+	sec := m.Db.GetSecurity()
+	if sec.OauthOn {
+		rtn.IsOAuthOn = true
+		str := m.Db.GetStoreByLocal(localDomain)
+		if str.StoreName == storeName {
+			rtn.Store = str
+		}
+	} else {
+		str := m.Db.GetLocalStore()
+		if str != nil && str.StoreName == storeName && str.LocalDomain == localDomain {
+			rtn.Store = str
+		}
+	}
+	return &rtn
 }

@@ -122,8 +122,16 @@ type Auth struct {
 	ClientID string
 }
 
+//SecurityProfile SecurityProfile
+type SecurityProfile struct {
+	IsOAuthOn bool
+	Store     *sdbi.Store
+}
+
 //Manager Manager
 type Manager interface {
+	GetSecurityProfile(storeName string, localDomain string) *SecurityProfile
+
 	CreateLocalStore(auth *LocalStoreAdminUser) *LocalStoreResponse
 
 	// // Store --------------------------

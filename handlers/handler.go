@@ -1,6 +1,8 @@
 package handlers
 
-import "net/http"
+import (
+	"net/http"
+)
 
 /*
  Six910 is a shopping cart and E-commerce system.
@@ -25,6 +27,9 @@ import "net/http"
 
 //Handler Handler
 type Handler interface {
+	//security
+	processSecurity(r *http.Request, c *Claim) bool
+
 	//store
 	AddStore(w http.ResponseWriter, r *http.Request)
 	UpdateStore(w http.ResponseWriter, r *http.Request)
