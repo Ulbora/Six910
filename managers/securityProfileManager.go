@@ -33,6 +33,7 @@ func (m *Six910Manager) GetSecurityProfile(storeName string, localDomain string)
 		}
 	} else {
 		str := m.Db.GetLocalStore()
+		m.Log.Debug("local store: ", *str)
 		if str != nil && str.StoreName == storeName && str.LocalDomain == localDomain {
 			rtn.Store = str
 		}

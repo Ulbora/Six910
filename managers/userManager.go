@@ -124,6 +124,7 @@ func (m *Six910Manager) GetUser(u *User) *UserResponse {
 		rtn.Username = lu.UserName
 		rtn.Enabled = lu.Enabled
 	}
+	m.Log.Debug("UserResponse in GetUser ", rtn)
 	return &rtn
 }
 
@@ -167,8 +168,17 @@ func (m *Six910Manager) GetCustomerUsers(storeID int64) *[]UserResponse {
 //ValidateUser ValidateUser
 func (m *Six910Manager) ValidateUser(u *User) *Response {
 	var rtn Response
+	m.Log.Debug("use in validate: ", *u)
 	lu := m.Db.GetLocalAccount(u.Username, u.StoreID)
+	m.Log.Debug("local user account in validate: ", *lu)
+	m.Log.Debug("lu.CustomerID: ", lu.CustomerID)
+	m.Log.Debug("u.CustomerID: ", u.CustomerID)
+	m.Log.Debug("lu.UserName: ", lu.UserName)
+	m.Log.Debug("u.Username: ", u.Username)
+	m.Log.Debug("u.Enabled: ", u.Enabled)
 	if lu.CustomerID == u.CustomerID && lu.UserName == u.Username && u.Enabled {
+		m.Log.Debug("lu.Password: ", lu.Password)
+		m.Log.Debug("u.Password: ", u.Password)
 		mtch := m.validatePassword(u.Password, lu.Password)
 		m.Log.Debug("password validate in ValidateUser ", mtch)
 		if mtch {

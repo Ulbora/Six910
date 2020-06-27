@@ -22,6 +22,7 @@ package handlers
 */
 
 import (
+	jv "github.com/Ulbora/GoAuth2JwtValidator"
 	px "github.com/Ulbora/GoProxy"
 	lg "github.com/Ulbora/Level_Logger"
 	m "github.com/Ulbora/Six910/managers"
@@ -29,8 +30,15 @@ import (
 
 //Six910Handler Six910Handler
 type Six910Handler struct {
-	Manager m.Manager
-	Proxy   px.Proxy
-	Log     *lg.Logger
-	APIKey  string
+	Manager         m.Manager
+	Proxy           px.Proxy
+	Log             *lg.Logger
+	APIKey          string
+	ValidatorClient jv.Client
+	ValidationURL   string
+}
+
+//GetNew GetNew
+func (h *Six910Handler) GetNew() Handler {
+	return h
 }

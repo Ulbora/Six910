@@ -2,8 +2,9 @@ package handlers
 
 import (
 	"net/http"
-	"strings"
+	"strconv"
 
+	jv "github.com/Ulbora/GoAuth2JwtValidator"
 	m "github.com/Ulbora/Six910/managers"
 )
 
@@ -35,16 +36,19 @@ type Claim struct {
 	Scope string
 }
 
-func (h *Six910Handler) processSecurity(r *http.Request, c *Claim) bool {
+func (h *Six910Handler) processSecurity(r *http.Request, c *jv.Claim) bool {
 	var rtn bool
 	storeName := r.Header.Get("storeName")
 	localDomain := r.Header.Get("localDomain")
+
 	sp := h.Manager.GetSecurityProfile(storeName, localDomain)
+	h.Log.Debug("security profile ", *sp)
 	// if local with no OAuth process against local store
 	//---- this uses user creds as basic auth
-	//---- also uses access token that is in memory in both the Six910 UI and Server
+	//---- also uses api key that is in memory in both the Six910 UI and Server
 	if !sp.IsOAuthOn && sp.Store != nil {
 		username, pw, ok := r.BasicAuth()
+		h.Log.Debug("basic auth ok ", ok)
 		if ok {
 			//////tokenHeader := r.Header.Get("Authorization")
 			var user m.User
@@ -53,23 +57,26 @@ func (h *Six910Handler) processSecurity(r *http.Request, c *Claim) bool {
 			user.StoreID = sp.Store.ID
 			u := h.Manager.GetUser(&user)
 			user.CustomerID = u.CustomerID
+			user.Enabled = u.Enabled
+			h.Log.Debug("user to validate", user)
 			res := h.Manager.ValidateUser(&user)
+			h.Log.Debug("user validated: ", *res)
 			apiKey := r.Header.Get("apiKey")
 			if res.Success && u.Role == c.Role && apiKey == h.APIKey {
 				rtn = true
 			}
 		}
+		//else if oauth the proxy to GoAuth2 and validate token
+	} else if sp.Store != nil {
+		//needs ------
+		//tokenHeader := r.Header.Get("Authorization")
+		//clientIDStr := r.Header.Get("clientId")
+		//userID := r.Header.Get("userId")
+		clientIDStr := strconv.FormatInt(sp.Store.OauthClientID, 10)
+		var newRoll = sp.Store.StoreName + clientIDStr + c.Role
+		c.Role = newRoll
+		h.Log.Debug("claim: ", *c)
+		rtn = h.ValidatorClient.Authorize(r, c, h.ValidationURL)
 	}
-
-	//else if oauth the proxy to GoAuth2 and validate token
-
 	return rtn
-}
-
-func (h *Six910Handler) getLocalToken(token string) {
-	tokenArray := strings.Split(token, " ")
-	//fmt.Println("tokenArray", tokenArray)
-	if len(tokenArray) == 2 {
-
-	}
 }

@@ -1,0 +1,9 @@
+mode: set
+github.com/Ulbora/Six910/handlers/securityProcessor.go:39.76,49.38 6 1
+github.com/Ulbora/Six910/handlers/securityProcessor.go:81.2,81.12 1 1
+github.com/Ulbora/Six910/handlers/securityProcessor.go:49.38,52.9 3 1
+github.com/Ulbora/Six910/handlers/securityProcessor.go:52.9,65.61 12 1
+github.com/Ulbora/Six910/handlers/securityProcessor.go:65.61,67.5 1 1
+github.com/Ulbora/Six910/handlers/securityProcessor.go:70.8,70.28 1 1
+github.com/Ulbora/Six910/handlers/securityProcessor.go:70.28,80.3 5 1
+github.com/Ulbora/Six910/handlers/six910Handler.go:42.42,44.2 1 1
