@@ -41,7 +41,8 @@ func (h *Six910Handler) AddCustomer(w http.ResponseWriter, r *http.Request) {
 	acc.URL = addCusURL
 	acc.Scope = "write"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.ValidatorClient.Authorize(r, &acc, h.ValidationURL)
+	auth := h.processSecurity(r, &acc)
+	//auth := h.ValidatorClient.Authorize(r, &acc, h.ValidationURL)
 	h.Log.Debug("cus add authorized: ", auth)
 	if auth {
 		h.SetContentType(w)
@@ -86,7 +87,7 @@ func (h *Six910Handler) UpdateCustomer(w http.ResponseWriter, r *http.Request) {
 	ucc.Scope = "write"
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &ucc)
-	//auth := h.ValidatorClient.Authorize(r, &c, h.ValidationURL)
+
 	h.Log.Debug("customer update authorized: ", auth)
 	if auth {
 		h.SetContentType(w)
@@ -131,7 +132,7 @@ func (h *Six910Handler) GetCustomer(w http.ResponseWriter, r *http.Request) {
 	gcc.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gcc)
-	//auth := h.ValidatorClient.Authorize(r, &c, h.ValidationURL)
+
 	h.Log.Debug("cus get authorized: ", auth)
 	if auth {
 		h.SetContentType(w)
@@ -171,7 +172,7 @@ func (h *Six910Handler) GetCustomerID(w http.ResponseWriter, r *http.Request) {
 	gcc2.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gcc2)
-	//auth := h.ValidatorClient.Authorize(r, &c, h.ValidationURL)
+
 	h.Log.Debug("cus get id authorized: ", auth)
 	if auth {
 		h.SetContentType(w)
@@ -189,12 +190,49 @@ func (h *Six910Handler) GetCustomerID(w http.ResponseWriter, r *http.Request) {
 				h.Log.Debug("getCustId: ", gcres)
 				w.WriteHeader(http.StatusOK)
 			} else {
-				//http.Error(w, err.Error(), http.StatusBadRequest)
 				w.WriteHeader(http.StatusBadRequest)
 				var nc sdbi.Customer
 				gcres = &nc
 			}
 			resJSON, _ := json.Marshal(gcres)
+			fmt.Fprint(w, string(resJSON))
+		} else {
+			w.WriteHeader(http.StatusBadRequest)
+		}
+	} else {
+		w.WriteHeader(http.StatusUnauthorized)
+	}
+}
+
+//GetCustomerList GetCustomerList
+func (h *Six910Handler) GetCustomerList(w http.ResponseWriter, r *http.Request) {
+	var gCuslURL = "/six910/rs/customer/list"
+	var gccl jv.Claim
+	gccl.Role = storeAdmin
+	gccl.URL = gCuslURL
+	gccl.Scope = "read"
+	h.Log.Debug("client: ", h.ValidatorClient)
+	auth := h.processSecurity(r, &gccl)
+	h.Log.Debug("cus get list authorized: ", auth)
+	if auth {
+		h.SetContentType(w)
+		vars := mux.Vars(r)
+		h.Log.Debug("vars: ", len(vars))
+		if vars != nil && len(vars) == 1 {
+			h.Log.Debug("vars: ", vars)
+			var storeIDStr = vars["storeId"]
+			storeID, serr := strconv.ParseInt(storeIDStr, 10, 64)
+			var gclres *[]sdbi.Customer
+			if serr == nil {
+				gclres = h.Manager.GetCustomerList(storeID)
+				h.Log.Debug("getCust list: ", gclres)
+				w.WriteHeader(http.StatusOK)
+			} else {
+				w.WriteHeader(http.StatusBadRequest)
+				var nc = []sdbi.Customer{}
+				gclres = &nc
+			}
+			resJSON, _ := json.Marshal(gclres)
 			fmt.Fprint(w, string(resJSON))
 		} else {
 			w.WriteHeader(http.StatusBadRequest)
