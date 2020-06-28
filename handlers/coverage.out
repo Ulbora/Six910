@@ -1,4 +1,19 @@
 mode: set
+github.com/Ulbora/Six910/handlers/userHandler.go:34.73,43.10 9 1
+github.com/Ulbora/Six910/handlers/userHandler.go:43.10,47.12 4 1
+github.com/Ulbora/Six910/handlers/userHandler.go:47.12,49.4 1 1
+github.com/Ulbora/Six910/handlers/userHandler.go:49.9,55.30 6 1
+github.com/Ulbora/Six910/handlers/userHandler.go:55.30,57.5 1 1
+github.com/Ulbora/Six910/handlers/userHandler.go:57.10,59.56 2 1
+github.com/Ulbora/Six910/handlers/userHandler.go:69.5,70.22 2 1
+github.com/Ulbora/Six910/handlers/userHandler.go:75.5,76.35 2 1
+github.com/Ulbora/Six910/handlers/userHandler.go:59.56,62.6 2 1
+github.com/Ulbora/Six910/handlers/userHandler.go:62.11,62.65 1 1
+github.com/Ulbora/Six910/handlers/userHandler.go:62.65,65.6 2 1
+github.com/Ulbora/Six910/handlers/userHandler.go:65.11,68.6 2 1
+github.com/Ulbora/Six910/handlers/userHandler.go:70.22,72.6 1 1
+github.com/Ulbora/Six910/handlers/userHandler.go:72.11,74.6 1 1
+github.com/Ulbora/Six910/handlers/userHandler.go:79.8,84.3 4 1
 github.com/Ulbora/Six910/handlers/customerHandler.go:37.77,46.10 9 1
 github.com/Ulbora/Six910/handlers/customerHandler.go:46.10,50.12 4 1
 github.com/Ulbora/Six910/handlers/customerHandler.go:50.12,52.4 1 1

@@ -37,7 +37,7 @@ import (
 func (h *Six910Handler) AddCustomer(w http.ResponseWriter, r *http.Request) {
 	var addCusURL = "/six910/rs/customer/add"
 	var acc jv.Claim
-	acc.Role = customerRole
+	acc.Role = storeAdmin
 	acc.URL = addCusURL
 	acc.Scope = "write"
 	h.Log.Debug("client: ", h.ValidatorClient)
