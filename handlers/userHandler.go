@@ -4,9 +4,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
 
 	jv "github.com/Ulbora/GoAuth2JwtValidator"
 	m "github.com/Ulbora/Six910/managers"
+	"github.com/gorilla/mux"
 )
 
 /*
@@ -125,5 +127,48 @@ func (h *Six910Handler) UpdateUser(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusUnauthorized)
 		resJSON, _ := json.Marshal(uufl)
 		fmt.Fprint(w, string(resJSON))
+	}
+}
+
+//GetUser GetUser
+func (h *Six910Handler) GetUser(w http.ResponseWriter, r *http.Request) {
+	var gUsURL = "/six910/rs/user/get"
+	var guc jv.Claim
+	guc.Role = customerRole
+	guc.URL = gUsURL
+	guc.Scope = "read"
+	h.Log.Debug("client: ", h.ValidatorClient)
+	auth := h.processSecurity(r, &guc)
+
+	h.Log.Debug("user get authorized: ", auth)
+	if auth {
+		h.SetContentType(w)
+		vars := mux.Vars(r)
+		h.Log.Debug("vars: ", len(vars))
+		if vars != nil && len(vars) == 2 {
+			h.Log.Debug("vars: ", vars)
+			var username = vars["username"]
+			var storeIDStr = vars["storeId"]
+			storeID, err := strconv.ParseInt(storeIDStr, 10, 64)
+			var gures *m.UserResponse
+			if err == nil {
+				var gureq m.User
+				gureq.Username = username
+				gureq.StoreID = storeID
+				gures = h.Manager.GetUser(&gureq)
+				h.Log.Debug("gures: ", gures)
+				w.WriteHeader(http.StatusOK)
+			} else {
+				http.Error(w, err.Error(), http.StatusBadRequest)
+				var nu m.UserResponse
+				gures = &nu
+			}
+			resJSON, _ := json.Marshal(gures)
+			fmt.Fprint(w, string(resJSON))
+		} else {
+			w.WriteHeader(http.StatusBadRequest)
+		}
+	} else {
+		w.WriteHeader(http.StatusUnauthorized)
 	}
 }
