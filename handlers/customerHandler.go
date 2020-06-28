@@ -4,10 +4,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
 
 	jv "github.com/Ulbora/GoAuth2JwtValidator"
 	m "github.com/Ulbora/Six910/managers"
 	sdbi "github.com/Ulbora/six910-database-interface"
+	"github.com/gorilla/mux"
 )
 
 /*
@@ -117,5 +119,45 @@ func (h *Six910Handler) UpdateCustomer(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusUnauthorized)
 		resJSON, _ := json.Marshal(ucfl)
 		fmt.Fprint(w, string(resJSON))
+	}
+}
+
+//GetCustomer GetCustomer
+func (h *Six910Handler) GetCustomer(w http.ResponseWriter, r *http.Request) {
+	var gCusURL = "/six910/rs/customer/get"
+	var gcc jv.Claim
+	gcc.Role = storeAdmin
+	gcc.URL = gCusURL
+	gcc.Scope = "read"
+	h.Log.Debug("client: ", h.ValidatorClient)
+	auth := h.processSecurity(r, &gcc)
+	//auth := h.ValidatorClient.Authorize(r, &c, h.ValidationURL)
+	h.Log.Debug("cus get authorized: ", auth)
+	if auth {
+		h.SetContentType(w)
+		vars := mux.Vars(r)
+		h.Log.Debug("vars: ", len(vars))
+		if vars != nil && len(vars) == 2 {
+			h.Log.Debug("vars: ", vars)
+			var storeName = vars["email"]
+			var storeIDStr = vars["storeId"]
+			storeID, err := strconv.ParseInt(storeIDStr, 10, 64)
+			var gcres *sdbi.Customer
+			if err == nil {
+				gcres = h.Manager.GetCustomer(storeName, storeID)
+				h.Log.Debug("getCust: ", gcres)
+				w.WriteHeader(http.StatusOK)
+			} else {
+				http.Error(w, err.Error(), http.StatusBadRequest)
+				var nc sdbi.Customer
+				gcres = &nc
+			}
+			resJSON, _ := json.Marshal(gcres)
+			fmt.Fprint(w, string(resJSON))
+		} else {
+			w.WriteHeader(http.StatusBadRequest)
+		}
+	} else {
+		w.WriteHeader(http.StatusUnauthorized)
 	}
 }
