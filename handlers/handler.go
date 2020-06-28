@@ -49,7 +49,7 @@ type Handler interface {
 	GetCustomer(w http.ResponseWriter, r *http.Request)
 	GetCustomerID(w http.ResponseWriter, r *http.Request)
 	GetCustomerList(w http.ResponseWriter, r *http.Request)
-	// DeleteCustomer(w http.ResponseWriter, r *http.Request)
+	DeleteCustomer(w http.ResponseWriter, r *http.Request)
 
 	// //users
 	// AddUser(w http.ResponseWriter, r *http.Request)

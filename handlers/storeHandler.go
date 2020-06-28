@@ -159,7 +159,7 @@ func (h *Six910Handler) DeleteStore(w http.ResponseWriter, r *http.Request) {
 	var dsc jv.Claim
 	dsc.Role = storeAdmin
 	dsc.URL = dStoreURL
-	dsc.Scope = "read"
+	dsc.Scope = "write"
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &dsc)
 	//auth := h.ValidatorClient.Authorize(r, &c, h.ValidationURL)

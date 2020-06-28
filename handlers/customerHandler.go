@@ -42,7 +42,6 @@ func (h *Six910Handler) AddCustomer(w http.ResponseWriter, r *http.Request) {
 	acc.Scope = "write"
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &acc)
-	//auth := h.ValidatorClient.Authorize(r, &acc, h.ValidationURL)
 	h.Log.Debug("cus add authorized: ", auth)
 	if auth {
 		h.SetContentType(w)
@@ -87,7 +86,6 @@ func (h *Six910Handler) UpdateCustomer(w http.ResponseWriter, r *http.Request) {
 	ucc.Scope = "write"
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &ucc)
-
 	h.Log.Debug("customer update authorized: ", auth)
 	if auth {
 		h.SetContentType(w)
@@ -172,7 +170,6 @@ func (h *Six910Handler) GetCustomerID(w http.ResponseWriter, r *http.Request) {
 	gcc2.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gcc2)
-
 	h.Log.Debug("cus get id authorized: ", auth)
 	if auth {
 		h.SetContentType(w)
@@ -233,6 +230,50 @@ func (h *Six910Handler) GetCustomerList(w http.ResponseWriter, r *http.Request) 
 				gclres = &nc
 			}
 			resJSON, _ := json.Marshal(gclres)
+			fmt.Fprint(w, string(resJSON))
+		} else {
+			w.WriteHeader(http.StatusBadRequest)
+		}
+	} else {
+		w.WriteHeader(http.StatusUnauthorized)
+	}
+}
+
+//DeleteCustomer DeleteCustomer
+func (h *Six910Handler) DeleteCustomer(w http.ResponseWriter, r *http.Request) {
+	var dCusURL = "/six910/rs/customer/delete"
+	var dcs jv.Claim
+	dcs.Role = storeAdmin
+	dcs.URL = dCusURL
+	dcs.Scope = "write"
+	h.Log.Debug("client: ", h.ValidatorClient)
+	auth := h.processSecurity(r, &dcs)
+	h.Log.Debug("cust delete authorized: ", auth)
+	if auth {
+		h.SetContentType(w)
+		vars := mux.Vars(r)
+		h.Log.Debug("vars: ", len(vars))
+		if vars != nil && len(vars) == 2 {
+			h.Log.Debug("vars: ", vars)
+			var dcidStr = vars["id"]
+			var dstoreIDStr = vars["storeId"]
+			cid, cerr := strconv.ParseInt(dcidStr, 10, 64)
+			storeID, serr := strconv.ParseInt(dstoreIDStr, 10, 64)
+			var dcres *m.Response
+			if cerr == nil && serr == nil {
+				dcres = h.Manager.DeleteCustomer(cid, storeID)
+				h.Log.Debug("deleteCust: ", dcres)
+				if dcres.Success {
+					w.WriteHeader(http.StatusOK)
+				} else {
+					w.WriteHeader(http.StatusInternalServerError)
+				}
+			} else {
+				w.WriteHeader(http.StatusBadRequest)
+				var nc m.Response
+				dcres = &nc
+			}
+			resJSON, _ := json.Marshal(dcres)
 			fmt.Fprint(w, string(resJSON))
 		} else {
 			w.WriteHeader(http.StatusBadRequest)
