@@ -62,7 +62,7 @@ func TestSix910Handler_processSecurity(t *testing.T) {
 	sh.APIKey = "123456"
 	sh.Log = &l
 
-	h := sh.GetNew()
+	//h := sh.GetNew()
 
 	r, _ := http.NewRequest("POST", "/ffllist", nil)
 	r.Header.Set("storeName", "TestStore")
@@ -73,7 +73,7 @@ func TestSix910Handler_processSecurity(t *testing.T) {
 	var c jv.Claim
 	c.Role = "StoreAdmin"
 
-	auth := h.processSecurity(r, &c)
+	auth := sh.processSecurity(r, &c)
 	if !auth {
 		t.Fail()
 	}
@@ -103,29 +103,6 @@ func TestSix910Handler_processSecurityOauth(t *testing.T) {
 	str.OauthClientID = 5
 	sdb.MockStore = &str
 
-	var lu sdbi.LocalAccount
-	lu.CustomerID = 2
-	lu.Role = "StoreAdmin"
-	lu.StoreID = 4
-	lu.UserName = "tester"
-	hashedPw, err := bcrypt.GenerateFromPassword([]byte("tester1"), bcrypt.DefaultCost)
-	if err == nil {
-		lu.Password = string(hashedPw)
-		fmt.Println("hpw: ", lu.Password)
-	}
-	//hpw := sm
-	//lu.Password = "tester1"
-	lu.Enabled = true
-
-	sdb.MockLocalAccount = &lu
-
-	// var us man.User
-	// //us.CustomerID = 2
-	// //us.Role = "StoreAdmin"
-	// us.StoreID = 4
-	// us.Username = "tester"
-	//sdbi.mock
-
 	var sh Six910Handler
 	sh.Manager = m
 	sh.APIKey = "123456"
@@ -134,18 +111,16 @@ func TestSix910Handler_processSecurityOauth(t *testing.T) {
 	mc.MockValidate = true
 	sh.ValidatorClient = mc.GetNewClient()
 
-	h := sh.GetNew()
+	//h := sh.GetNew()
 
 	r, _ := http.NewRequest("POST", "/ffllist", nil)
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
-	r.Header.Set("apiKey", "123456")
-	r.SetBasicAuth("tester", "tester1")
 
 	var c jv.Claim
 	c.Role = "StoreAdmin"
 
-	auth := h.processSecurity(r, &c)
+	auth := sh.processSecurity(r, &c)
 	if !auth {
 		t.Fail()
 	}

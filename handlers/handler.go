@@ -1,10 +1,6 @@
 package handlers
 
-import (
-	"net/http"
-
-	jv "github.com/Ulbora/GoAuth2JwtValidator"
-)
+import "net/http"
 
 /*
  Six910 is a shopping cart and E-commerce system.
@@ -29,18 +25,23 @@ import (
 
 const (
 	validationServiceLocal = "http://localhost:3000/rs/token/validate"
+
+	//roles
+	superAdmin   = "superAdmin"
+	storeAdmin   = "StoreAdmin"
+	customerRole = "customer"
 )
 
 //Handler Handler
 type Handler interface {
-	//security
-	processSecurity(r *http.Request, c *jv.Claim) bool
+	//////security
+	//////processSecurity(r *http.Request, c *jv.Claim) bool
 
-	// //store
-	// AddStore(w http.ResponseWriter, r *http.Request)
-	// UpdateStore(w http.ResponseWriter, r *http.Request)
-	// GetStore(w http.ResponseWriter, r *http.Request)
-	// DeleteStore(w http.ResponseWriter, r *http.Request)
+	//store
+	AddStore(w http.ResponseWriter, r *http.Request)
+	UpdateStore(w http.ResponseWriter, r *http.Request)
+	GetStore(w http.ResponseWriter, r *http.Request)
+	DeleteStore(w http.ResponseWriter, r *http.Request)
 
 	// //customer
 	// AddCustomer(w http.ResponseWriter, r *http.Request)

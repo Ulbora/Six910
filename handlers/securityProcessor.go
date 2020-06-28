@@ -29,13 +29,6 @@ import (
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//Claim Claim
-type Claim struct {
-	Role  string
-	URL   string
-	Scope string
-}
-
 func (h *Six910Handler) processSecurity(r *http.Request, c *jv.Claim) bool {
 	var rtn bool
 	storeName := r.Header.Get("storeName")
@@ -72,9 +65,15 @@ func (h *Six910Handler) processSecurity(r *http.Request, c *jv.Claim) bool {
 		//tokenHeader := r.Header.Get("Authorization")
 		//clientIDStr := r.Header.Get("clientId")
 		//userID := r.Header.Get("userId")
-		clientIDStr := strconv.FormatInt(sp.Store.OauthClientID, 10)
-		var newRoll = sp.Store.StoreName + clientIDStr + c.Role
-		c.Role = newRoll
+
+		role := r.Header.Get("superAdminRole")
+		if role != superAdmin {
+			clientIDStr := strconv.FormatInt(sp.Store.OauthClientID, 10)
+			var newRoll = sp.Store.StoreName + clientIDStr + c.Role
+			c.Role = newRoll
+		} else {
+			c.Role = role
+		}
 		h.Log.Debug("claim: ", *c)
 		rtn = h.ValidatorClient.Authorize(r, c, h.ValidationURL)
 	}

@@ -22,6 +22,10 @@ package handlers
 */
 
 import (
+	"encoding/json"
+	"errors"
+	"net/http"
+
 	jv "github.com/Ulbora/GoAuth2JwtValidator"
 	px "github.com/Ulbora/GoProxy"
 	lg "github.com/Ulbora/Level_Logger"
@@ -41,4 +45,42 @@ type Six910Handler struct {
 //GetNew GetNew
 func (h *Six910Handler) GetNew() Handler {
 	return h
+}
+
+//CheckContent CheckContent
+func (h *Six910Handler) CheckContent(r *http.Request) bool {
+	var rtn bool
+	cType := r.Header.Get("Content-Type")
+	if cType == "application/json" {
+		// http.Error(w, "json required", http.StatusUnsupportedMediaType)
+		rtn = true
+	}
+	return rtn
+}
+
+//SetContentType SetContentType
+func (h *Six910Handler) SetContentType(w http.ResponseWriter) {
+	w.Header().Set("Content-Type", "application/json")
+}
+
+//ProcessBody ProcessBody
+func (h *Six910Handler) ProcessBody(r *http.Request, obj interface{}) (bool, error) {
+	var suc bool
+	var err error
+	//fmt.Println("r.Body: ", r.Body)
+	if r.Body != nil {
+		decoder := json.NewDecoder(r.Body)
+		//fmt.Println("decoder: ", decoder)
+		err = decoder.Decode(obj)
+		//fmt.Println("decoder: ", decoder)
+		if err != nil {
+			//log.Println("Decode Error: ", err.Error())
+			h.Log.Error("Decode Error: ", err.Error())
+		} else {
+			suc = true
+		}
+	} else {
+		err = errors.New("Bad Body")
+	}
+	return suc, err
 }
