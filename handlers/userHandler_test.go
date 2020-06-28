@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"bytes"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
@@ -340,6 +341,375 @@ func TestSix910Handler_AddCustomerUserAuth(t *testing.T) {
 	h.AddUser(w, r)
 
 	if w.Code != 401 {
+		t.Fail()
+	}
+}
+
+func TestSix910Handler_UpdateUser(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm man.Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	var sec sdbi.Security
+	sec.OauthOn = true
+	sdb.MockSecurity = &sec
+
+	m := sm.GetNew()
+
+	var str sdbi.Store
+	str.ID = 4
+	str.StoreName = "TestStore"
+	str.LocalDomain = "test.domain"
+	str.OauthClientID = 5
+	sdb.MockStore = &str
+
+	var sh Six910Handler
+	sh.Manager = m
+	sh.APIKey = "123456"
+	sh.Log = &l
+
+	var mc jv.MockOauthClient
+	mc.MockValidate = true
+	sh.ValidatorClient = mc.GetNewClient()
+
+	//h := sh.GetNew()
+	var lc sdbi.LocalAccount
+	lc.CustomerID = 2
+	lc.UserName = "tester"
+	lc.Enabled = true
+
+	sdb.MockLocalAccount = &lc
+
+	sdb.MockUpdateLocalAccountSuccess = true
+
+	h := sh.GetNew()
+	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"role":"customer", "username": "tester", "password": "tester", "customerId": 2}`))
+	//aJSON, _ := json.Marshal(robj)
+	//fmt.Println("aJSON: ", aJSON)
+	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
+	r.Header.Set("storeName", "TestStore")
+	r.Header.Set("localDomain", "test.domain")
+	r.Header.Set("Content-Type", "application/json")
+	w := httptest.NewRecorder()
+
+	h.UpdateUser(w, r)
+
+	if w.Code != 200 {
+		t.Fail()
+	}
+}
+
+func TestSix910Handler_UpdateUserAuth(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm man.Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	var sec sdbi.Security
+	sec.OauthOn = true
+	sdb.MockSecurity = &sec
+
+	m := sm.GetNew()
+
+	var str sdbi.Store
+	str.ID = 4
+	str.StoreName = "TestStore"
+	str.LocalDomain = "test.domain"
+	str.OauthClientID = 5
+	sdb.MockStore = &str
+
+	var sh Six910Handler
+	sh.Manager = m
+	sh.APIKey = "123456"
+	sh.Log = &l
+
+	var mc jv.MockOauthClient
+	//mc.MockValidate = true
+	sh.ValidatorClient = mc.GetNewClient()
+
+	//h := sh.GetNew()
+	var lc sdbi.LocalAccount
+	lc.CustomerID = 2
+	lc.UserName = "tester"
+	lc.Enabled = true
+
+	sdb.MockLocalAccount = &lc
+
+	sdb.MockUpdateLocalAccountSuccess = true
+
+	h := sh.GetNew()
+	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"role":"customer", "username": "tester", "password": "tester", "customerId": 2}`))
+	//aJSON, _ := json.Marshal(robj)
+	//fmt.Println("aJSON: ", aJSON)
+	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
+	r.Header.Set("storeName", "TestStore")
+	r.Header.Set("localDomain", "test.domain")
+	r.Header.Set("Content-Type", "application/json")
+	w := httptest.NewRecorder()
+
+	h.UpdateUser(w, r)
+
+	if w.Code != 401 {
+		t.Fail()
+	}
+}
+
+func TestSix910Handler_UpdateUserFail(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm man.Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	var sec sdbi.Security
+	sec.OauthOn = true
+	sdb.MockSecurity = &sec
+
+	m := sm.GetNew()
+
+	var str sdbi.Store
+	str.ID = 4
+	str.StoreName = "TestStore"
+	str.LocalDomain = "test.domain"
+	str.OauthClientID = 5
+	sdb.MockStore = &str
+
+	var sh Six910Handler
+	sh.Manager = m
+	sh.APIKey = "123456"
+	sh.Log = &l
+
+	var mc jv.MockOauthClient
+	mc.MockValidate = true
+	sh.ValidatorClient = mc.GetNewClient()
+
+	//h := sh.GetNew()
+	var lc sdbi.LocalAccount
+	lc.CustomerID = 2
+	lc.UserName = "tester"
+	lc.Enabled = true
+
+	sdb.MockLocalAccount = &lc
+
+	//sdb.MockUpdateLocalAccountSuccess = true
+
+	h := sh.GetNew()
+	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"role":"customer", "username": "tester", "password": "tester", "customerId": 2}`))
+	//aJSON, _ := json.Marshal(robj)
+	//fmt.Println("aJSON: ", aJSON)
+	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
+	r.Header.Set("storeName", "TestStore")
+	r.Header.Set("localDomain", "test.domain")
+	r.Header.Set("Content-Type", "application/json")
+	w := httptest.NewRecorder()
+
+	h.UpdateUser(w, r)
+
+	fmt.Println("w.code", w.Code)
+
+	if w.Code != 500 {
+		t.Fail()
+	}
+}
+
+// func TestSix910Handler_UpdateUserFail(t *testing.T) {
+// 	var sdb sixmdb.MockSix910Mysql
+// 	var l lg.Logger
+// 	l.LogLevel = lg.AllLevel
+// 	sdb.Log = &l
+// 	//sdb.DB = dbi
+// 	//dbi.Connect()
+
+// 	var sm man.Six910Manager
+// 	sm.Db = sdb.GetNew()
+// 	sm.Log = &l
+
+// 	var sec sdbi.Security
+// 	sec.OauthOn = true
+// 	sdb.MockSecurity = &sec
+
+// 	m := sm.GetNew()
+
+// 	var str sdbi.Store
+// 	str.ID = 4
+// 	str.StoreName = "TestStore"
+// 	str.LocalDomain = "test.domain"
+// 	str.OauthClientID = 5
+// 	sdb.MockStore = &str
+
+// 	var sh Six910Handler
+// 	sh.Manager = m
+// 	sh.APIKey = "123456"
+// 	sh.Log = &l
+
+// 	var mc jv.MockOauthClient
+// 	//mc.MockValidate = true
+// 	sh.ValidatorClient = mc.GetNewClient()
+
+// 	//h := sh.GetNew()
+// 	var lc sdbi.LocalAccount
+// 	lc.CustomerID = 2
+// 	lc.UserName = "tester"
+// 	lc.Enabled = true
+// 	lc.StoreID = 5
+
+// 	sdb.MockLocalAccount = &lc
+
+// 	//sdb.MockUpdateLocalAccountSuccess = true
+
+// 	h := sh.GetNew()
+// 	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"role":"customer", "username": "tester", "password": "", "customerId": 2, "storeId": 5}`))
+// 	//aJSON, _ := json.Marshal(robj)
+// 	//fmt.Println("aJSON: ", aJSON)
+// 	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
+// 	r.Header.Set("storeName", "TestStore")
+// 	r.Header.Set("localDomain", "test.domain")
+// 	r.Header.Set("Content-Type", "application/json")
+// 	w := httptest.NewRecorder()
+
+// 	h.UpdateUser(w, r)
+
+// 	if w.Code != 500 {
+// 		t.Fail()
+// 	}
+// }
+
+func TestSix910Handler_UpdateUserMedia(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm man.Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	var sec sdbi.Security
+	sec.OauthOn = true
+	sdb.MockSecurity = &sec
+
+	m := sm.GetNew()
+
+	var str sdbi.Store
+	str.ID = 4
+	str.StoreName = "TestStore"
+	str.LocalDomain = "test.domain"
+	str.OauthClientID = 5
+	sdb.MockStore = &str
+
+	var sh Six910Handler
+	sh.Manager = m
+	sh.APIKey = "123456"
+	sh.Log = &l
+
+	var mc jv.MockOauthClient
+	mc.MockValidate = true
+	sh.ValidatorClient = mc.GetNewClient()
+
+	//h := sh.GetNew()
+	var lc sdbi.LocalAccount
+	lc.CustomerID = 2
+	lc.UserName = "tester"
+	lc.Enabled = true
+
+	sdb.MockLocalAccount = &lc
+
+	sdb.MockUpdateLocalAccountSuccess = true
+
+	h := sh.GetNew()
+	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"role":"customer", "username": "tester", "password": "tester", "customerId": 2}`))
+	//aJSON, _ := json.Marshal(robj)
+	//fmt.Println("aJSON: ", aJSON)
+	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
+	r.Header.Set("storeName", "TestStore")
+	r.Header.Set("localDomain", "test.domain")
+	//r.Header.Set("Content-Type", "application/json")
+	w := httptest.NewRecorder()
+
+	h.UpdateUser(w, r)
+
+	if w.Code != 415 {
+		t.Fail()
+	}
+}
+
+func TestSix910Handler_UpdateUserReq(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm man.Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	var sec sdbi.Security
+	sec.OauthOn = true
+	sdb.MockSecurity = &sec
+
+	m := sm.GetNew()
+
+	var str sdbi.Store
+	str.ID = 4
+	str.StoreName = "TestStore"
+	str.LocalDomain = "test.domain"
+	str.OauthClientID = 5
+	sdb.MockStore = &str
+
+	var sh Six910Handler
+	sh.Manager = m
+	sh.APIKey = "123456"
+	sh.Log = &l
+
+	var mc jv.MockOauthClient
+	mc.MockValidate = true
+	sh.ValidatorClient = mc.GetNewClient()
+
+	//h := sh.GetNew()
+	var lc sdbi.LocalAccount
+	lc.CustomerID = 2
+	lc.UserName = "tester"
+	lc.Enabled = true
+
+	sdb.MockLocalAccount = &lc
+
+	sdb.MockUpdateLocalAccountSuccess = true
+
+	h := sh.GetNew()
+	//aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"role":"customer", "username": "tester", "password": "tester", "customerId": 2}`))
+	//aJSON, _ := json.Marshal(robj)
+	//fmt.Println("aJSON: ", aJSON)
+	r, _ := http.NewRequest("PUT", "/ffllist", nil)
+	r.Header.Set("storeName", "TestStore")
+	r.Header.Set("localDomain", "test.domain")
+	r.Header.Set("Content-Type", "application/json")
+	w := httptest.NewRecorder()
+
+	h.UpdateUser(w, r)
+
+	if w.Code != 400 {
 		t.Fail()
 	}
 }

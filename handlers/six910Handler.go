@@ -68,6 +68,7 @@ func (h *Six910Handler) ProcessBody(r *http.Request, obj interface{}) (bool, err
 	var suc bool
 	var err error
 	//fmt.Println("r.Body: ", r.Body)
+	h.Log.Debug("r.Body: ", r.Body)
 	if r.Body != nil {
 		decoder := json.NewDecoder(r.Body)
 		//fmt.Println("decoder: ", decoder)
