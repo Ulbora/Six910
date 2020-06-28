@@ -37,7 +37,7 @@ import (
 func (h *Six910Handler) AddCustomer(w http.ResponseWriter, r *http.Request) {
 	var addCusURL = "/six910/rs/customer/add"
 	var acc jv.Claim
-	acc.Role = storeAdmin
+	acc.Role = customerRole
 	acc.URL = addCusURL
 	acc.Scope = "write"
 	h.Log.Debug("client: ", h.ValidatorClient)
@@ -81,7 +81,7 @@ func (h *Six910Handler) AddCustomer(w http.ResponseWriter, r *http.Request) {
 func (h *Six910Handler) UpdateCustomer(w http.ResponseWriter, r *http.Request) {
 	var upCusURL = "/six910/rs/customer/update"
 	var ucc jv.Claim
-	ucc.Role = storeAdmin
+	ucc.Role = customerRole
 	ucc.URL = upCusURL
 	ucc.Scope = "write"
 	h.Log.Debug("client: ", h.ValidatorClient)
@@ -126,7 +126,7 @@ func (h *Six910Handler) UpdateCustomer(w http.ResponseWriter, r *http.Request) {
 func (h *Six910Handler) GetCustomer(w http.ResponseWriter, r *http.Request) {
 	var gCusURL = "/six910/rs/customer/get"
 	var gcc jv.Claim
-	gcc.Role = storeAdmin
+	gcc.Role = customerRole
 	gcc.URL = gCusURL
 	gcc.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
@@ -149,6 +149,48 @@ func (h *Six910Handler) GetCustomer(w http.ResponseWriter, r *http.Request) {
 				w.WriteHeader(http.StatusOK)
 			} else {
 				http.Error(w, err.Error(), http.StatusBadRequest)
+				var nc sdbi.Customer
+				gcres = &nc
+			}
+			resJSON, _ := json.Marshal(gcres)
+			fmt.Fprint(w, string(resJSON))
+		} else {
+			w.WriteHeader(http.StatusBadRequest)
+		}
+	} else {
+		w.WriteHeader(http.StatusUnauthorized)
+	}
+}
+
+//GetCustomerID GetCustomerID
+func (h *Six910Handler) GetCustomerID(w http.ResponseWriter, r *http.Request) {
+	var gCus2URL = "/six910/rs/customer/get/id"
+	var gcc2 jv.Claim
+	gcc2.Role = customerRole
+	gcc2.URL = gCus2URL
+	gcc2.Scope = "read"
+	h.Log.Debug("client: ", h.ValidatorClient)
+	auth := h.processSecurity(r, &gcc2)
+	//auth := h.ValidatorClient.Authorize(r, &c, h.ValidationURL)
+	h.Log.Debug("cus get id authorized: ", auth)
+	if auth {
+		h.SetContentType(w)
+		vars := mux.Vars(r)
+		h.Log.Debug("vars: ", len(vars))
+		if vars != nil && len(vars) == 2 {
+			h.Log.Debug("vars: ", vars)
+			var cidStr = vars["id"]
+			var storeIDStr = vars["storeId"]
+			cid, cerr := strconv.ParseInt(cidStr, 10, 64)
+			storeID, serr := strconv.ParseInt(storeIDStr, 10, 64)
+			var gcres *sdbi.Customer
+			if cerr == nil && serr == nil {
+				gcres = h.Manager.GetCustomerID(cid, storeID)
+				h.Log.Debug("getCustId: ", gcres)
+				w.WriteHeader(http.StatusOK)
+			} else {
+				//http.Error(w, err.Error(), http.StatusBadRequest)
+				w.WriteHeader(http.StatusBadRequest)
 				var nc sdbi.Customer
 				gcres = &nc
 			}
