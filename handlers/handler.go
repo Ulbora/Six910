@@ -61,23 +61,23 @@ type Handler interface {
 	GetCustomerUserList(w http.ResponseWriter, r *http.Request)
 	// DeleteUser(w http.ResponseWriter, r *http.Request)
 
-	// //distributors
-	// AddDistributor(w http.ResponseWriter, r *http.Request)
-	// UpdateDistributor(w http.ResponseWriter, r *http.Request)
-	// GetDistributor(w http.ResponseWriter, r *http.Request)
-	// GetDistributorList(w http.ResponseWriter, r *http.Request)
-	// DeleteDistributor(w http.ResponseWriter, r *http.Request)
+	//distributors
+	AddDistributor(w http.ResponseWriter, r *http.Request)
+	UpdateDistributor(w http.ResponseWriter, r *http.Request)
+	GetDistributor(w http.ResponseWriter, r *http.Request)
+	GetDistributorList(w http.ResponseWriter, r *http.Request)
+	DeleteDistributor(w http.ResponseWriter, r *http.Request)
 
-	// //Cart
-	// AddCart(w http.ResponseWriter, r *http.Request)
-	// UpdateCart(w http.ResponseWriter, r *http.Request)
-	// GetCart(w http.ResponseWriter, r *http.Request)
-	// DeleteCart(w http.ResponseWriter, r *http.Request)
+	//Cart
+	AddCart(w http.ResponseWriter, r *http.Request)
+	UpdateCart(w http.ResponseWriter, r *http.Request)
+	GetCart(w http.ResponseWriter, r *http.Request)
+	DeleteCart(w http.ResponseWriter, r *http.Request)
 
-	// //cart item
-	// AddCartItem(w http.ResponseWriter, r *http.Request)
-	// UpdateCartItem(w http.ResponseWriter, r *http.Request)
-	// GetCarItem(w http.ResponseWriter, r *http.Request)
+	//cart item
+	AddCartItem(w http.ResponseWriter, r *http.Request)
+	UpdateCartItem(w http.ResponseWriter, r *http.Request)
+	GetCarItem(w http.ResponseWriter, r *http.Request)
 	// GetCartItemList(w http.ResponseWriter, r *http.Request)
 	// DeleteCartItem(w http.ResponseWriter, r *http.Request)
 
