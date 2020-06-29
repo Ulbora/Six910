@@ -137,13 +137,13 @@ func (h *Six910Handler) GetCart(w http.ResponseWriter, r *http.Request) {
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {
 			h.Log.Debug("vars: ", vars)
-			var cidStr = vars["cid"]
+			var gccidStr = vars["cid"]
 			var storeIDStr = vars["storeId"]
-			cid, cerr := strconv.ParseInt(cidStr, 10, 64)
-			storeID, serr := strconv.ParseInt(storeIDStr, 10, 64)
+			cid, cerr := strconv.ParseInt(gccidStr, 10, 64)
+			gcstoreID, serr := strconv.ParseInt(storeIDStr, 10, 64)
 			var gctres *sdbi.Cart
 			if cerr == nil && serr == nil {
-				gctres = h.Manager.GetCart(cid, storeID)
+				gctres = h.Manager.GetCart(cid, gcstoreID)
 				h.Log.Debug("gctres: ", gctres)
 				w.WriteHeader(http.StatusOK)
 			} else {
