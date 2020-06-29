@@ -58,14 +58,14 @@ func (h *Six910Handler) AddDistributor(w http.ResponseWriter, r *http.Request) {
 			if !sdsuc && sderr != nil {
 				http.Error(w, sderr.Error(), http.StatusBadRequest)
 			} else {
-				adres := h.Manager.AddDistributor(&dist)
-				h.Log.Debug("acres: ", *adres)
-				if adres.Success && adres.ID != 0 {
+				adres1 := h.Manager.AddDistributor(&dist)
+				h.Log.Debug("acres: ", *adres1)
+				if adres1.Success && adres1.ID != 0 {
 					w.WriteHeader(http.StatusOK)
 				} else {
 					w.WriteHeader(http.StatusInternalServerError)
 				}
-				resJSON, _ := json.Marshal(adres)
+				resJSON, _ := json.Marshal(adres1)
 				fmt.Fprint(w, string(resJSON))
 			}
 		}
