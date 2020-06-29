@@ -172,3 +172,79 @@ func (h *Six910Handler) GetUser(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusUnauthorized)
 	}
 }
+
+//GetAdminUserList GetAdminUserList
+func (h *Six910Handler) GetAdminUserList(w http.ResponseWriter, r *http.Request) {
+	var gUslURL = "/six910/rs/adminuser/list"
+	var gucl jv.Claim
+	gucl.Role = storeAdmin
+	gucl.URL = gUslURL
+	gucl.Scope = "read"
+	h.Log.Debug("client: ", h.ValidatorClient)
+	auth := h.processSecurity(r, &gucl)
+	h.Log.Debug("admin user get list authorized: ", auth)
+	if auth {
+		h.SetContentType(w)
+		vars := mux.Vars(r)
+		h.Log.Debug("vars: ", len(vars))
+		if vars != nil && len(vars) == 1 {
+			h.Log.Debug("vars: ", vars)
+			var storeIDStr = vars["storeId"]
+			storeID, serr := strconv.ParseInt(storeIDStr, 10, 64)
+			var gulres *[]m.UserResponse
+			if serr == nil {
+				gulres = h.Manager.GetAdminUsers(storeID)
+				h.Log.Debug("gulres list: ", gulres)
+				w.WriteHeader(http.StatusOK)
+			} else {
+				w.WriteHeader(http.StatusBadRequest)
+				var nc = []m.UserResponse{}
+				gulres = &nc
+			}
+			resJSON, _ := json.Marshal(gulres)
+			fmt.Fprint(w, string(resJSON))
+		} else {
+			w.WriteHeader(http.StatusBadRequest)
+		}
+	} else {
+		w.WriteHeader(http.StatusUnauthorized)
+	}
+}
+
+//GetCustomerUserList GetCustomerUserList
+func (h *Six910Handler) GetCustomerUserList(w http.ResponseWriter, r *http.Request) {
+	var gcUslURL = "/six910/rs/customeruser/list"
+	var gcucl jv.Claim
+	gcucl.Role = storeAdmin
+	gcucl.URL = gcUslURL
+	gcucl.Scope = "read"
+	h.Log.Debug("client: ", h.ValidatorClient)
+	auth := h.processSecurity(r, &gcucl)
+	h.Log.Debug("admin user get list authorized: ", auth)
+	if auth {
+		h.SetContentType(w)
+		vars := mux.Vars(r)
+		h.Log.Debug("vars: ", len(vars))
+		if vars != nil && len(vars) == 1 {
+			h.Log.Debug("vars: ", vars)
+			var storeIDStr = vars["storeId"]
+			storeID, serr := strconv.ParseInt(storeIDStr, 10, 64)
+			var gculres *[]m.UserResponse
+			if serr == nil {
+				gculres = h.Manager.GetCustomerUsers(storeID)
+				h.Log.Debug("gculres list: ", gculres)
+				w.WriteHeader(http.StatusOK)
+			} else {
+				w.WriteHeader(http.StatusBadRequest)
+				var ncc = []m.UserResponse{}
+				gculres = &ncc
+			}
+			resJSON, _ := json.Marshal(gculres)
+			fmt.Fprint(w, string(resJSON))
+		} else {
+			w.WriteHeader(http.StatusBadRequest)
+		}
+	} else {
+		w.WriteHeader(http.StatusUnauthorized)
+	}
+}

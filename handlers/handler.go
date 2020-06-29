@@ -55,7 +55,10 @@ type Handler interface {
 	AddUser(w http.ResponseWriter, r *http.Request)
 	UpdateUser(w http.ResponseWriter, r *http.Request)
 	GetUser(w http.ResponseWriter, r *http.Request)
-	// GetUserList(w http.ResponseWriter, r *http.Request)
+
+	//only for non oauth stores
+	GetAdminUserList(w http.ResponseWriter, r *http.Request)
+	GetCustomerUserList(w http.ResponseWriter, r *http.Request)
 	// DeleteUser(w http.ResponseWriter, r *http.Request)
 
 	// //distributors
