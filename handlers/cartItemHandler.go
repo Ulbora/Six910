@@ -211,3 +211,46 @@ func (h *Six910Handler) GetCartItemList(w http.ResponseWriter, r *http.Request) 
 		w.WriteHeader(http.StatusUnauthorized)
 	}
 }
+
+//DeleteCartItem DeleteCartItem
+func (h *Six910Handler) DeleteCartItem(w http.ResponseWriter, r *http.Request) {
+	var gCiddURL = "/six910/rs/cartItem/delete"
+	var gci2d jv.Claim
+	gci2d.Role = customerRole
+	gci2d.URL = gCiddURL
+	gci2d.Scope = "read"
+	h.Log.Debug("client: ", h.ValidatorClient)
+	auth := h.processSecurity(r, &gci2d)
+	h.Log.Debug("dist delete id authorized: ", auth)
+	if auth {
+		h.SetContentType(w)
+		vars := mux.Vars(r)
+		h.Log.Debug("vars: ", len(vars))
+		if vars != nil && len(vars) == 3 {
+			h.Log.Debug("vars: ", vars)
+			var IDStrd = vars["id"]
+			var prodIDStrd = vars["prodId"]
+			var cartIDStrd = vars["cartId"]
+			IDd, serrd := strconv.ParseInt(IDStrd, 10, 64)
+			prodIDd, prodIDerrd := strconv.ParseInt(prodIDStrd, 10, 64)
+			cartIDd, cartIDerrd := strconv.ParseInt(cartIDStrd, 10, 64)
+			var gciresd *m.Response
+			if cartIDerrd == nil && prodIDerrd == nil && serrd == nil {
+				gciresd = h.Manager.DeleteCartItem(IDd, prodIDd, cartIDd)
+				if gciresd.Success {
+					w.WriteHeader(http.StatusOK)
+				} else {
+					w.WriteHeader(http.StatusInternalServerError)
+				}
+			} else {
+				w.WriteHeader(http.StatusBadRequest)
+			}
+			resJSON, _ := json.Marshal(gciresd)
+			fmt.Fprint(w, string(resJSON))
+		} else {
+			w.WriteHeader(http.StatusBadRequest)
+		}
+	} else {
+		w.WriteHeader(http.StatusUnauthorized)
+	}
+}
