@@ -80,3 +80,47 @@ func (h *Six910Handler) AddAddress(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, string(resJSON))
 	}
 }
+
+//UpdateAddress UpdateAddress
+func (h *Six910Handler) UpdateAddress(w http.ResponseWriter, r *http.Request) {
+	var upadURL = "/six910/rs/address/update"
+	var uadc jv.Claim
+	uadc.Role = storeAdmin
+	uadc.URL = upadURL
+	uadc.Scope = "write"
+	h.Log.Debug("client: ", h.ValidatorClient)
+	auth := h.processSecurity(r, &uadc)
+	h.Log.Debug("address update authorized: ", auth)
+	if auth {
+		h.SetContentType(w)
+		ucOk := h.CheckContent(r)
+		h.Log.Debug("conOk: ", ucOk)
+		if !ucOk {
+			http.Error(w, "json required", http.StatusUnsupportedMediaType)
+		} else {
+			var uadd AddressReq
+			uadsuc, uaderr := h.ProcessBody(r, &uadd)
+			h.Log.Debug("uadsuc: ", uadsuc)
+			h.Log.Debug("uadd: ", uadd)
+			h.Log.Debug("uaderr: ", uaderr)
+			if !uadsuc && uaderr != nil {
+				http.Error(w, uaderr.Error(), http.StatusBadRequest)
+			} else {
+				uadres := h.Manager.UpdateAddress(&uadd.Address, uadd.StoreID)
+				h.Log.Debug("uadres: ", *uadres)
+				if uadres.Success {
+					w.WriteHeader(http.StatusOK)
+				} else {
+					w.WriteHeader(http.StatusInternalServerError)
+				}
+				resJSON, _ := json.Marshal(uadres)
+				fmt.Fprint(w, string(resJSON))
+			}
+		}
+	} else {
+		var uadfl m.ResponseID
+		w.WriteHeader(http.StatusUnauthorized)
+		resJSON, _ := json.Marshal(uadfl)
+		fmt.Fprint(w, string(resJSON))
+	}
+}
