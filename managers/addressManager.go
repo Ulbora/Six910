@@ -35,6 +35,7 @@ func (m *Six910Manager) AddAddress(a *sdbi.Address, sid int64) *ResponseID {
 		suc, id := m.Db.AddAddress(a)
 		if suc && id != 0 {
 			rtn.Success = suc
+			rtn.ID = id
 			rtn.Code = http.StatusOK
 		} else {
 			rtn.Code = http.StatusBadRequest
