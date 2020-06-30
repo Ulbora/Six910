@@ -4,10 +4,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
 
 	jv "github.com/Ulbora/GoAuth2JwtValidator"
 	m "github.com/Ulbora/Six910/managers"
 	sdbi "github.com/Ulbora/six910-database-interface"
+	"github.com/gorilla/mux"
 )
 
 /*
@@ -85,7 +87,7 @@ func (h *Six910Handler) AddAddress(w http.ResponseWriter, r *http.Request) {
 func (h *Six910Handler) UpdateAddress(w http.ResponseWriter, r *http.Request) {
 	var upadURL = "/six910/rs/address/update"
 	var uadc jv.Claim
-	uadc.Role = storeAdmin
+	uadc.Role = customerRole
 	uadc.URL = upadURL
 	uadc.Scope = "write"
 	h.Log.Debug("client: ", h.ValidatorClient)
@@ -122,5 +124,133 @@ func (h *Six910Handler) UpdateAddress(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusUnauthorized)
 		resJSON, _ := json.Marshal(uadfl)
 		fmt.Fprint(w, string(resJSON))
+	}
+}
+
+//GetAddress GetAddress
+func (h *Six910Handler) GetAddress(w http.ResponseWriter, r *http.Request) {
+	var gAdURL = "/six910/rs/address/get"
+	var gadc jv.Claim
+	gadc.Role = customerRole
+	gadc.URL = gAdURL
+	gadc.Scope = "read"
+	h.Log.Debug("client: ", h.ValidatorClient)
+	auth := h.processSecurity(r, &gadc)
+	h.Log.Debug("address get id authorized: ", auth)
+	if auth {
+		h.SetContentType(w)
+		vars := mux.Vars(r)
+		h.Log.Debug("vars: ", len(vars))
+		if vars != nil && len(vars) == 3 {
+			h.Log.Debug("vars: ", vars)
+			var gadidStr = vars["id"]
+			var gadcidStr = vars["cid"]
+			var storeIDStr = vars["storeId"]
+			gaid, aiderr := strconv.ParseInt(gadidStr, 10, 64)
+			gacid, aciderr := strconv.ParseInt(gadcidStr, 10, 64)
+			gastoreID, serr := strconv.ParseInt(storeIDStr, 10, 64)
+			var gadres *sdbi.Address
+			if aiderr == nil && aciderr == nil && serr == nil {
+				gadres = h.Manager.GetAddress(gaid, gacid, gastoreID)
+				h.Log.Debug("gadres: ", gadres)
+				w.WriteHeader(http.StatusOK)
+			} else {
+				w.WriteHeader(http.StatusBadRequest)
+				var nc sdbi.Address
+				gadres = &nc
+			}
+			resJSON, _ := json.Marshal(gadres)
+			fmt.Fprint(w, string(resJSON))
+		} else {
+			w.WriteHeader(http.StatusBadRequest)
+		}
+	} else {
+		w.WriteHeader(http.StatusUnauthorized)
+	}
+}
+
+//GetAddressList GetAddressList
+func (h *Six910Handler) GetAddressList(w http.ResponseWriter, r *http.Request) {
+	var gadlURL = "/six910/rs/address/list"
+	var gadcl jv.Claim
+	gadcl.Role = customerRole
+	gadcl.URL = gadlURL
+	gadcl.Scope = "read"
+	h.Log.Debug("client: ", h.ValidatorClient)
+	auth := h.processSecurity(r, &gadcl)
+	h.Log.Debug("address get list authorized: ", auth)
+	if auth {
+		h.SetContentType(w)
+		vars := mux.Vars(r)
+		h.Log.Debug("vars: ", len(vars))
+		if vars != nil && len(vars) == 2 {
+			h.Log.Debug("vars: ", vars)
+			var cusadlIDStr = vars["cid"]
+			var storeadlIDStr = vars["storeId"]
+			cadlID, cadlerr := strconv.ParseInt(cusadlIDStr, 10, 64)
+			storeadlID, sadlerr := strconv.ParseInt(storeadlIDStr, 10, 64)
+			var gadlres *[]sdbi.Address
+			if cadlerr == nil && sadlerr == nil {
+				gadlres = h.Manager.GetAddressList(cadlID, storeadlID)
+				h.Log.Debug("getAdd list: ", gadlres)
+				w.WriteHeader(http.StatusOK)
+			} else {
+				w.WriteHeader(http.StatusBadRequest)
+				var nc = []sdbi.Address{}
+				gadlres = &nc
+			}
+			resJSON, _ := json.Marshal(gadlres)
+			fmt.Fprint(w, string(resJSON))
+		} else {
+			w.WriteHeader(http.StatusBadRequest)
+		}
+	} else {
+		w.WriteHeader(http.StatusUnauthorized)
+	}
+}
+
+//DeleteAddress DeleteAddress
+func (h *Six910Handler) DeleteAddress(w http.ResponseWriter, r *http.Request) {
+	var daddURL = "/six910/rs/address/delete"
+	var dads jv.Claim
+	dads.Role = customerRole
+	dads.URL = daddURL
+	dads.Scope = "write"
+	h.Log.Debug("client: ", h.ValidatorClient)
+	auth := h.processSecurity(r, &dads)
+	h.Log.Debug("address delete authorized: ", auth)
+	if auth {
+		h.SetContentType(w)
+		vars := mux.Vars(r)
+		h.Log.Debug("vars: ", len(vars))
+		if vars != nil && len(vars) == 3 {
+			h.Log.Debug("vars: ", vars)
+			var daidStr = vars["id"]
+			var dacidStr = vars["cid"]
+			var dastoreIDStr = vars["storeId"]
+			daid, daderr := strconv.ParseInt(daidStr, 10, 64)
+			dacid, dadcerr := strconv.ParseInt(dacidStr, 10, 64)
+			storedaID, dadserr := strconv.ParseInt(dastoreIDStr, 10, 64)
+			var dadres *m.Response
+			if daderr == nil && dadcerr == nil && dadserr == nil {
+				dadres = h.Manager.DeleteAddress(daid, dacid, storedaID)
+				h.Log.Debug("deleteAdd: ", dadres)
+				if dadres.Success {
+					w.WriteHeader(http.StatusOK)
+				} else {
+					w.WriteHeader(http.StatusInternalServerError)
+				}
+			} else {
+				w.WriteHeader(http.StatusBadRequest)
+				var nc m.Response
+				dadres = &nc
+			}
+			resJSON, _ := json.Marshal(dadres)
+			fmt.Fprint(w, string(resJSON))
+		} else {
+			w.WriteHeader(http.StatusBadRequest)
+		}
+	} else {
+		w.WriteHeader(http.StatusUnauthorized)
 	}
 }

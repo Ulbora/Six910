@@ -17,7 +17,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func TestSix910Handler_AddAddress(t *testing.T) {
+func TestSix910Handler_AddInsurance(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger
 	l.LogLevel = lg.AllLevel
@@ -51,15 +51,12 @@ func TestSix910Handler_AddAddress(t *testing.T) {
 	sh.ValidatorClient = mc.GetNewClient()
 
 	//h := sh.GetNew()
-	var cus sdbi.Customer
-	cus.StoreID = 5
-	sdb.MockCustomer = &cus
 
-	sdb.MockAddAddressSuccess = true
-	sdb.MockAddressID = 5
+	sdb.MockAddInsuranceSuccess = true
+	sdb.MockInsuranceID = 5
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"address":{"customerId": 3, "address": "123 st"}, "storeId": 5}`))
+	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"cost":4.95, "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -68,72 +65,14 @@ func TestSix910Handler_AddAddress(t *testing.T) {
 	r.Header.Set("Content-Type", "application/json")
 	w := httptest.NewRecorder()
 
-	h.AddAddress(w, r)
+	h.AddInsurance(w, r)
 
 	if w.Code != 200 {
 		t.Fail()
 	}
 }
 
-func TestSix910Handler_AddAddressAuth(t *testing.T) {
-	var sdb sixmdb.MockSix910Mysql
-	var l lg.Logger
-	l.LogLevel = lg.AllLevel
-	sdb.Log = &l
-	//sdb.DB = dbi
-	//dbi.Connect()
-
-	var sm man.Six910Manager
-	sm.Db = sdb.GetNew()
-	sm.Log = &l
-
-	var sec sdbi.Security
-	sec.OauthOn = true
-	sdb.MockSecurity = &sec
-
-	m := sm.GetNew()
-
-	var str sdbi.Store
-	str.ID = 4
-	str.StoreName = "TestStore"
-	str.LocalDomain = "test.domain"
-	str.OauthClientID = 5
-	sdb.MockStore = &str
-
-	var sh Six910Handler
-	sh.Manager = m
-	sh.APIKey = "123456"
-	sh.Log = &l
-	var mc jv.MockOauthClient
-	//mc.MockValidate = true
-	sh.ValidatorClient = mc.GetNewClient()
-
-	//h := sh.GetNew()
-	var cus sdbi.Customer
-	cus.StoreID = 5
-	sdb.MockCustomer = &cus
-
-	sdb.MockAddAddressSuccess = true
-	sdb.MockAddressID = 5
-
-	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"address":{"customerId": 3, "address": "123 st"}, "storeId": 5}`))
-	//aJSON, _ := json.Marshal(robj)
-	//fmt.Println("aJSON: ", aJSON)
-	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
-	r.Header.Set("storeName", "TestStore")
-	r.Header.Set("localDomain", "test.domain")
-	r.Header.Set("Content-Type", "application/json")
-	w := httptest.NewRecorder()
-
-	h.AddAddress(w, r)
-
-	if w.Code != 401 {
-		t.Fail()
-	}
-}
-
-func TestSix910Handler_AddAddressFail(t *testing.T) {
+func TestSix910Handler_AddInsuranceReq(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger
 	l.LogLevel = lg.AllLevel
@@ -167,131 +106,12 @@ func TestSix910Handler_AddAddressFail(t *testing.T) {
 	sh.ValidatorClient = mc.GetNewClient()
 
 	//h := sh.GetNew()
-	var cus sdbi.Customer
-	cus.StoreID = 5
-	sdb.MockCustomer = &cus
 
-	//sdb.MockAddAddressSuccess = true
-	sdb.MockAddressID = 5
+	sdb.MockAddInsuranceSuccess = true
+	sdb.MockInsuranceID = 5
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"address":{"customerId": 3, "address": "123 st"}, "storeId": 5}`))
-	//aJSON, _ := json.Marshal(robj)
-	//fmt.Println("aJSON: ", aJSON)
-	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
-	r.Header.Set("storeName", "TestStore")
-	r.Header.Set("localDomain", "test.domain")
-	r.Header.Set("Content-Type", "application/json")
-	w := httptest.NewRecorder()
-
-	h.AddAddress(w, r)
-
-	if w.Code != 500 {
-		t.Fail()
-	}
-}
-
-func TestSix910Handler_AddAddressMedia(t *testing.T) {
-	var sdb sixmdb.MockSix910Mysql
-	var l lg.Logger
-	l.LogLevel = lg.AllLevel
-	sdb.Log = &l
-	//sdb.DB = dbi
-	//dbi.Connect()
-
-	var sm man.Six910Manager
-	sm.Db = sdb.GetNew()
-	sm.Log = &l
-
-	var sec sdbi.Security
-	sec.OauthOn = true
-	sdb.MockSecurity = &sec
-
-	m := sm.GetNew()
-
-	var str sdbi.Store
-	str.ID = 4
-	str.StoreName = "TestStore"
-	str.LocalDomain = "test.domain"
-	str.OauthClientID = 5
-	sdb.MockStore = &str
-
-	var sh Six910Handler
-	sh.Manager = m
-	sh.APIKey = "123456"
-	sh.Log = &l
-	var mc jv.MockOauthClient
-	mc.MockValidate = true
-	sh.ValidatorClient = mc.GetNewClient()
-
-	//h := sh.GetNew()
-	var cus sdbi.Customer
-	cus.StoreID = 5
-	sdb.MockCustomer = &cus
-
-	sdb.MockAddAddressSuccess = true
-	sdb.MockAddressID = 5
-
-	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"address":{"customerId": 3, "address": "123 st"}, "storeId": 5}`))
-	//aJSON, _ := json.Marshal(robj)
-	//fmt.Println("aJSON: ", aJSON)
-	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
-	r.Header.Set("storeName", "TestStore")
-	r.Header.Set("localDomain", "test.domain")
-	//r.Header.Set("Content-Type", "application/json")
-	w := httptest.NewRecorder()
-
-	h.AddAddress(w, r)
-
-	if w.Code != 415 {
-		t.Fail()
-	}
-}
-
-func TestSix910Handler_AddAddressReq(t *testing.T) {
-	var sdb sixmdb.MockSix910Mysql
-	var l lg.Logger
-	l.LogLevel = lg.AllLevel
-	sdb.Log = &l
-	//sdb.DB = dbi
-	//dbi.Connect()
-
-	var sm man.Six910Manager
-	sm.Db = sdb.GetNew()
-	sm.Log = &l
-
-	var sec sdbi.Security
-	sec.OauthOn = true
-	sdb.MockSecurity = &sec
-
-	m := sm.GetNew()
-
-	var str sdbi.Store
-	str.ID = 4
-	str.StoreName = "TestStore"
-	str.LocalDomain = "test.domain"
-	str.OauthClientID = 5
-	sdb.MockStore = &str
-
-	var sh Six910Handler
-	sh.Manager = m
-	sh.APIKey = "123456"
-	sh.Log = &l
-	var mc jv.MockOauthClient
-	mc.MockValidate = true
-	sh.ValidatorClient = mc.GetNewClient()
-
-	//h := sh.GetNew()
-	var cus sdbi.Customer
-	cus.StoreID = 5
-	sdb.MockCustomer = &cus
-
-	sdb.MockAddAddressSuccess = true
-	sdb.MockAddressID = 5
-
-	h := sh.GetNew()
-	//aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"address":{"customerId": 3, "address": "123 st"}, "storeId": 5}`))
+	//aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"cost":4.95, "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", nil)
@@ -300,14 +120,14 @@ func TestSix910Handler_AddAddressReq(t *testing.T) {
 	r.Header.Set("Content-Type", "application/json")
 	w := httptest.NewRecorder()
 
-	h.AddAddress(w, r)
+	h.AddInsurance(w, r)
 
 	if w.Code != 400 {
 		t.Fail()
 	}
 }
 
-func TestSix910Handler_UpdateAddress(t *testing.T) {
+func TestSix910Handler_AddInsuranceFail(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger
 	l.LogLevel = lg.AllLevel
@@ -336,170 +156,143 @@ func TestSix910Handler_UpdateAddress(t *testing.T) {
 	sh.Manager = m
 	sh.APIKey = "123456"
 	sh.Log = &l
-
 	var mc jv.MockOauthClient
 	mc.MockValidate = true
 	sh.ValidatorClient = mc.GetNewClient()
 
 	//h := sh.GetNew()
 
-	var cus sdbi.Customer
-	cus.StoreID = 5
-	sdb.MockCustomer = &cus
-
-	sdb.MockUpdateAddressSuccess = true
+	//sdb.MockAddInsuranceSuccess = true
+	sdb.MockInsuranceID = 5
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"address":{"customerId": 3, "address": "123 st"}, "storeId": 5}`))
+	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"cost":4.95, "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
-	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
-
+	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
 	r.Header.Set("storeName", "TestStore")
-	r.Header.Set("storeName2", "TestStore2")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
-
-	r.Header.Set("superAdminRole", "superAdmin")
-
 	w := httptest.NewRecorder()
 
-	h.UpdateAddress(w, r)
-
-	if w.Code != 200 {
-		t.Fail()
-	}
-}
-
-func TestSix910Handler_UpdateAddressAuth(t *testing.T) {
-	var sdb sixmdb.MockSix910Mysql
-	var l lg.Logger
-	l.LogLevel = lg.AllLevel
-	sdb.Log = &l
-	//sdb.DB = dbi
-	//dbi.Connect()
-
-	var sm man.Six910Manager
-	sm.Db = sdb.GetNew()
-	sm.Log = &l
-
-	var sec sdbi.Security
-	sec.OauthOn = true
-	sdb.MockSecurity = &sec
-
-	m := sm.GetNew()
-
-	var str sdbi.Store
-	str.ID = 4
-	str.StoreName = "TestStore"
-	str.LocalDomain = "test.domain"
-	str.OauthClientID = 5
-	sdb.MockStore = &str
-
-	var sh Six910Handler
-	sh.Manager = m
-	sh.APIKey = "123456"
-	sh.Log = &l
-
-	var mc jv.MockOauthClient
-	//mc.MockValidate = true
-	sh.ValidatorClient = mc.GetNewClient()
-
-	//h := sh.GetNew()
-
-	var cus sdbi.Customer
-	cus.StoreID = 5
-	sdb.MockCustomer = &cus
-
-	sdb.MockUpdateAddressSuccess = true
-
-	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"address":{"customerId": 3, "address": "123 st"}, "storeId": 5}`))
-	//aJSON, _ := json.Marshal(robj)
-	//fmt.Println("aJSON: ", aJSON)
-	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
-
-	r.Header.Set("storeName", "TestStore")
-	r.Header.Set("storeName2", "TestStore2")
-	r.Header.Set("localDomain", "test.domain")
-	r.Header.Set("Content-Type", "application/json")
-
-	r.Header.Set("superAdminRole", "superAdmin")
-
-	w := httptest.NewRecorder()
-
-	h.UpdateAddress(w, r)
-
-	if w.Code != 401 {
-		t.Fail()
-	}
-}
-
-func TestSix910Handler_UpdateAddressFail(t *testing.T) {
-	var sdb sixmdb.MockSix910Mysql
-	var l lg.Logger
-	l.LogLevel = lg.AllLevel
-	sdb.Log = &l
-	//sdb.DB = dbi
-	//dbi.Connect()
-
-	var sm man.Six910Manager
-	sm.Db = sdb.GetNew()
-	sm.Log = &l
-
-	var sec sdbi.Security
-	sec.OauthOn = true
-	sdb.MockSecurity = &sec
-
-	m := sm.GetNew()
-
-	var str sdbi.Store
-	str.ID = 4
-	str.StoreName = "TestStore"
-	str.LocalDomain = "test.domain"
-	str.OauthClientID = 5
-	sdb.MockStore = &str
-
-	var sh Six910Handler
-	sh.Manager = m
-	sh.APIKey = "123456"
-	sh.Log = &l
-
-	var mc jv.MockOauthClient
-	mc.MockValidate = true
-	sh.ValidatorClient = mc.GetNewClient()
-
-	//h := sh.GetNew()
-
-	var cus sdbi.Customer
-	cus.StoreID = 5
-	sdb.MockCustomer = &cus
-
-	//sdb.MockUpdateAddressSuccess = true
-
-	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"address":{"customerId": 3, "address": "123 st"}, "storeId": 5}`))
-	//aJSON, _ := json.Marshal(robj)
-	//fmt.Println("aJSON: ", aJSON)
-	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
-
-	r.Header.Set("storeName", "TestStore")
-	r.Header.Set("storeName2", "TestStore2")
-	r.Header.Set("localDomain", "test.domain")
-	r.Header.Set("Content-Type", "application/json")
-
-	r.Header.Set("superAdminRole", "superAdmin")
-
-	w := httptest.NewRecorder()
-
-	h.UpdateAddress(w, r)
+	h.AddInsurance(w, r)
 
 	if w.Code != 500 {
 		t.Fail()
 	}
 }
 
-func TestSix910Handler_UpdateAddressMedia(t *testing.T) {
+func TestSix910Handler_AddInsuranceMedia(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm man.Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	var sec sdbi.Security
+	sec.OauthOn = true
+	sdb.MockSecurity = &sec
+
+	m := sm.GetNew()
+
+	var str sdbi.Store
+	str.ID = 4
+	str.StoreName = "TestStore"
+	str.LocalDomain = "test.domain"
+	str.OauthClientID = 5
+	sdb.MockStore = &str
+
+	var sh Six910Handler
+	sh.Manager = m
+	sh.APIKey = "123456"
+	sh.Log = &l
+	var mc jv.MockOauthClient
+	mc.MockValidate = true
+	sh.ValidatorClient = mc.GetNewClient()
+
+	//h := sh.GetNew()
+
+	sdb.MockAddInsuranceSuccess = true
+	sdb.MockInsuranceID = 5
+
+	h := sh.GetNew()
+	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"cost":4.95, "storeId": 5}`))
+	//aJSON, _ := json.Marshal(robj)
+	//fmt.Println("aJSON: ", aJSON)
+	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
+	r.Header.Set("storeName", "TestStore")
+	r.Header.Set("localDomain", "test.domain")
+	//r.Header.Set("Content-Type", "application/json")
+	w := httptest.NewRecorder()
+
+	h.AddInsurance(w, r)
+
+	if w.Code != 415 {
+		t.Fail()
+	}
+}
+
+func TestSix910Handler_AddInsuranceAuth(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm man.Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	var sec sdbi.Security
+	sec.OauthOn = true
+	sdb.MockSecurity = &sec
+
+	m := sm.GetNew()
+
+	var str sdbi.Store
+	str.ID = 4
+	str.StoreName = "TestStore"
+	str.LocalDomain = "test.domain"
+	str.OauthClientID = 5
+	sdb.MockStore = &str
+
+	var sh Six910Handler
+	sh.Manager = m
+	sh.APIKey = "123456"
+	sh.Log = &l
+	var mc jv.MockOauthClient
+	//mc.MockValidate = true
+	sh.ValidatorClient = mc.GetNewClient()
+
+	//h := sh.GetNew()
+
+	sdb.MockAddInsuranceSuccess = true
+	sdb.MockInsuranceID = 5
+
+	h := sh.GetNew()
+	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"cost":4.95, "storeId": 5}`))
+	//aJSON, _ := json.Marshal(robj)
+	//fmt.Println("aJSON: ", aJSON)
+	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
+	r.Header.Set("storeName", "TestStore")
+	r.Header.Set("localDomain", "test.domain")
+	r.Header.Set("Content-Type", "application/json")
+	w := httptest.NewRecorder()
+
+	h.AddInsurance(w, r)
+
+	if w.Code != 401 {
+		t.Fail()
+	}
+}
+
+func TestSix910Handler_UpdateInsurance(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger
 	l.LogLevel = lg.AllLevel
@@ -535,14 +328,14 @@ func TestSix910Handler_UpdateAddressMedia(t *testing.T) {
 
 	//h := sh.GetNew()
 
-	var cus sdbi.Customer
-	cus.StoreID = 5
-	sdb.MockCustomer = &cus
+	var ins sdbi.Insurance
+	ins.StoreID = 5
+	sdb.MockInsurance = &ins
 
-	sdb.MockUpdateAddressSuccess = true
+	sdb.MockUpdateInsuranceSuccess = true
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"address":{"customerId": 3, "address": "123 st"}, "storeId": 5}`))
+	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 1, "cost":4.95 , "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
@@ -550,20 +343,20 @@ func TestSix910Handler_UpdateAddressMedia(t *testing.T) {
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("storeName2", "TestStore2")
 	r.Header.Set("localDomain", "test.domain")
-	//r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("Content-Type", "application/json")
 
 	r.Header.Set("superAdminRole", "superAdmin")
 
 	w := httptest.NewRecorder()
 
-	h.UpdateAddress(w, r)
+	h.UpdateInsurance(w, r)
 
-	if w.Code != 415 {
+	if w.Code != 200 {
 		t.Fail()
 	}
 }
 
-func TestSix910Handler_UpdateAddressReq(t *testing.T) {
+func TestSix910Handler_UpdateInsuranceReq(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger
 	l.LogLevel = lg.AllLevel
@@ -599,14 +392,14 @@ func TestSix910Handler_UpdateAddressReq(t *testing.T) {
 
 	//h := sh.GetNew()
 
-	var cus sdbi.Customer
-	cus.StoreID = 5
-	sdb.MockCustomer = &cus
+	var ins sdbi.Insurance
+	ins.StoreID = 5
+	sdb.MockInsurance = &ins
 
-	sdb.MockUpdateAddressSuccess = true
+	sdb.MockUpdateInsuranceSuccess = true
 
 	h := sh.GetNew()
-	//aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"address":{"customerId": 3, "address": "123 st"}, "storeId": 5}`))
+	//aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 1, "cost":4.95 , "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("PUT", "/ffllist", nil)
@@ -620,14 +413,14 @@ func TestSix910Handler_UpdateAddressReq(t *testing.T) {
 
 	w := httptest.NewRecorder()
 
-	h.UpdateAddress(w, r)
+	h.UpdateInsurance(w, r)
 
 	if w.Code != 400 {
 		t.Fail()
 	}
 }
 
-func TestSix910Handler_GetAddress(t *testing.T) {
+func TestSix910Handler_UpdateInsuranceFail(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger
 	l.LogLevel = lg.AllLevel
@@ -651,16 +444,6 @@ func TestSix910Handler_GetAddress(t *testing.T) {
 	str.LocalDomain = "test.domain"
 	str.OauthClientID = 5
 	sdb.MockStore = &str
-
-	var cus sdbi.Customer
-	cus.ID = 3
-	cus.StoreID = 5
-	sdb.MockCustomer = &cus
-
-	var add sdbi.Address
-	add.ID = 2
-	add.CustomerID = 3
-	sdb.MockAddress = &add
 
 	var sh Six910Handler
 	sh.Manager = m
@@ -673,19 +456,20 @@ func TestSix910Handler_GetAddress(t *testing.T) {
 
 	//h := sh.GetNew()
 
+	var ins sdbi.Insurance
+	ins.StoreID = 5
+	sdb.MockInsurance = &ins
+
+	//sdb.MockUpdateInsuranceSuccess = true
+
 	h := sh.GetNew()
-	//aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 4, "storeName":"TestStore", "city":"atlanta", "OauthClientID": 2}`))
+	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 1, "cost":4.95 , "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
-	r, _ := http.NewRequest("GET", "/ffllist", nil)
-	vars := map[string]string{
-		"id":      "2",
-		"cid":     "3",
-		"storeId": "5",
-	}
-	r = mux.SetURLVars(r, vars)
+	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
 
 	r.Header.Set("storeName", "TestStore")
+	r.Header.Set("storeName2", "TestStore2")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
 
@@ -693,14 +477,14 @@ func TestSix910Handler_GetAddress(t *testing.T) {
 
 	w := httptest.NewRecorder()
 
-	h.GetAddress(w, r)
+	h.UpdateInsurance(w, r)
 
-	if w.Code != 200 {
+	if w.Code != 500 {
 		t.Fail()
 	}
 }
 
-func TestSix910Handler_GetAddressAuth(t *testing.T) {
+func TestSix910Handler_UpdateInsuranceAuth(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger
 	l.LogLevel = lg.AllLevel
@@ -724,16 +508,6 @@ func TestSix910Handler_GetAddressAuth(t *testing.T) {
 	str.LocalDomain = "test.domain"
 	str.OauthClientID = 5
 	sdb.MockStore = &str
-
-	var cus sdbi.Customer
-	cus.ID = 3
-	cus.StoreID = 5
-	sdb.MockCustomer = &cus
-
-	var add sdbi.Address
-	add.ID = 2
-	add.CustomerID = 3
-	sdb.MockAddress = &add
 
 	var sh Six910Handler
 	sh.Manager = m
@@ -746,19 +520,20 @@ func TestSix910Handler_GetAddressAuth(t *testing.T) {
 
 	//h := sh.GetNew()
 
+	var ins sdbi.Insurance
+	ins.StoreID = 5
+	sdb.MockInsurance = &ins
+
+	sdb.MockUpdateInsuranceSuccess = true
+
 	h := sh.GetNew()
-	//aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 4, "storeName":"TestStore", "city":"atlanta", "OauthClientID": 2}`))
+	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 1, "cost":4.95 , "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
-	r, _ := http.NewRequest("GET", "/ffllist", nil)
-	vars := map[string]string{
-		"id":      "2",
-		"cid":     "3",
-		"storeId": "5",
-	}
-	r = mux.SetURLVars(r, vars)
+	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
 
 	r.Header.Set("storeName", "TestStore")
+	r.Header.Set("storeName2", "TestStore2")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
 
@@ -766,14 +541,14 @@ func TestSix910Handler_GetAddressAuth(t *testing.T) {
 
 	w := httptest.NewRecorder()
 
-	h.GetAddress(w, r)
+	h.UpdateInsurance(w, r)
 
 	if w.Code != 401 {
 		t.Fail()
 	}
 }
 
-func TestSix910Handler_GetAddressReq2(t *testing.T) {
+func TestSix910Handler_UpdateInsuranceMedia(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger
 	l.LogLevel = lg.AllLevel
@@ -798,16 +573,6 @@ func TestSix910Handler_GetAddressReq2(t *testing.T) {
 	str.OauthClientID = 5
 	sdb.MockStore = &str
 
-	var cus sdbi.Customer
-	cus.ID = 3
-	cus.StoreID = 5
-	sdb.MockCustomer = &cus
-
-	var add sdbi.Address
-	add.ID = 2
-	add.CustomerID = 3
-	sdb.MockAddress = &add
-
 	var sh Six910Handler
 	sh.Manager = m
 	sh.APIKey = "123456"
@@ -819,92 +584,20 @@ func TestSix910Handler_GetAddressReq2(t *testing.T) {
 
 	//h := sh.GetNew()
 
-	h := sh.GetNew()
-	//aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 4, "storeName":"TestStore", "city":"atlanta", "OauthClientID": 2}`))
-	//aJSON, _ := json.Marshal(robj)
-	//fmt.Println("aJSON: ", aJSON)
-	r, _ := http.NewRequest("GET", "/ffllist", nil)
-	vars := map[string]string{
-		"id":  "2",
-		"cid": "3",
-		//"storeId": "5",
-	}
-	r = mux.SetURLVars(r, vars)
+	var ins sdbi.Insurance
+	ins.StoreID = 5
+	sdb.MockInsurance = &ins
 
-	r.Header.Set("storeName", "TestStore")
-	r.Header.Set("localDomain", "test.domain")
-	r.Header.Set("Content-Type", "application/json")
-
-	r.Header.Set("superAdminRole", "superAdmin")
-
-	w := httptest.NewRecorder()
-
-	h.GetAddress(w, r)
-
-	if w.Code != 400 {
-		t.Fail()
-	}
-}
-
-func TestSix910Handler_GetAddressReq(t *testing.T) {
-	var sdb sixmdb.MockSix910Mysql
-	var l lg.Logger
-	l.LogLevel = lg.AllLevel
-	sdb.Log = &l
-	//sdb.DB = dbi
-	//dbi.Connect()
-
-	var sm man.Six910Manager
-	sm.Db = sdb.GetNew()
-	sm.Log = &l
-
-	var sec sdbi.Security
-	sec.OauthOn = true
-	sdb.MockSecurity = &sec
-
-	m := sm.GetNew()
-
-	var str sdbi.Store
-	str.ID = 4
-	str.StoreName = "TestStore"
-	str.LocalDomain = "test.domain"
-	str.OauthClientID = 5
-	sdb.MockStore = &str
-
-	var cus sdbi.Customer
-	cus.ID = 3
-	cus.StoreID = 5
-	sdb.MockCustomer = &cus
-
-	var add sdbi.Address
-	add.ID = 2
-	add.CustomerID = 3
-	sdb.MockAddress = &add
-
-	var sh Six910Handler
-	sh.Manager = m
-	sh.APIKey = "123456"
-	sh.Log = &l
-
-	var mc jv.MockOauthClient
-	mc.MockValidate = true
-	sh.ValidatorClient = mc.GetNewClient()
-
-	//h := sh.GetNew()
+	sdb.MockUpdateInsuranceSuccess = true
 
 	h := sh.GetNew()
-	//aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 4, "storeName":"TestStore", "city":"atlanta", "OauthClientID": 2}`))
+	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 1, "cost":4.95 , "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
-	r, _ := http.NewRequest("GET", "/ffllist", nil)
-	vars := map[string]string{
-		"id":      "2f",
-		"cid":     "3",
-		"storeId": "5",
-	}
-	r = mux.SetURLVars(r, vars)
+	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
 
 	r.Header.Set("storeName", "TestStore")
+	r.Header.Set("storeName2", "TestStore2")
 	r.Header.Set("localDomain", "test.domain")
 	//r.Header.Set("Content-Type", "application/json")
 
@@ -912,14 +605,14 @@ func TestSix910Handler_GetAddressReq(t *testing.T) {
 
 	w := httptest.NewRecorder()
 
-	h.GetAddress(w, r)
+	h.UpdateInsurance(w, r)
 
-	if w.Code != 400 {
+	if w.Code != 415 {
 		t.Fail()
 	}
 }
 
-func TestSix910Handler_GetAddressList(t *testing.T) {
+func TestSix910Handler_GetInsurance(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger
 	l.LogLevel = lg.AllLevel
@@ -944,19 +637,9 @@ func TestSix910Handler_GetAddressList(t *testing.T) {
 	str.OauthClientID = 5
 	sdb.MockStore = &str
 
-	var cus sdbi.Customer
-	cus.ID = 3
-	cus.StoreID = 5
-	sdb.MockCustomer = &cus
-
-	var add sdbi.Address
-	add.ID = 2
-	add.CustomerID = 3
-
-	var lst []sdbi.Address
-	lst = append(lst, add)
-
-	sdb.MockAddressList = &lst
+	var ins sdbi.Insurance
+	ins.StoreID = 5
+	sdb.MockInsurance = &ins
 
 	var sh Six910Handler
 	sh.Manager = m
@@ -975,7 +658,7 @@ func TestSix910Handler_GetAddressList(t *testing.T) {
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("GET", "/ffllist", nil)
 	vars := map[string]string{
-		"cid":     "3",
+		"id":      "1",
 		"storeId": "5",
 	}
 	r = mux.SetURLVars(r, vars)
@@ -988,14 +671,14 @@ func TestSix910Handler_GetAddressList(t *testing.T) {
 
 	w := httptest.NewRecorder()
 
-	h.GetAddressList(w, r)
+	h.GetInsurance(w, r)
 
 	if w.Code != 200 {
 		t.Fail()
 	}
 }
 
-func TestSix910Handler_GetAddressListAuth(t *testing.T) {
+func TestSix910Handler_GetInsuranceReq(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger
 	l.LogLevel = lg.AllLevel
@@ -1020,19 +703,141 @@ func TestSix910Handler_GetAddressListAuth(t *testing.T) {
 	str.OauthClientID = 5
 	sdb.MockStore = &str
 
-	var cus sdbi.Customer
-	cus.ID = 3
-	cus.StoreID = 5
-	sdb.MockCustomer = &cus
+	var ins sdbi.Insurance
+	ins.StoreID = 5
+	sdb.MockInsurance = &ins
 
-	var add sdbi.Address
-	add.ID = 2
-	add.CustomerID = 3
+	var sh Six910Handler
+	sh.Manager = m
+	sh.APIKey = "123456"
+	sh.Log = &l
 
-	var lst []sdbi.Address
-	lst = append(lst, add)
+	var mc jv.MockOauthClient
+	mc.MockValidate = true
+	sh.ValidatorClient = mc.GetNewClient()
 
-	sdb.MockAddressList = &lst
+	//h := sh.GetNew()
+
+	h := sh.GetNew()
+	//aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 4, "storeName":"TestStore", "city":"atlanta", "OauthClientID": 2}`))
+	//aJSON, _ := json.Marshal(robj)
+	//fmt.Println("aJSON: ", aJSON)
+	r, _ := http.NewRequest("GET", "/ffllist", nil)
+	vars := map[string]string{
+		"id":      "f1",
+		"storeId": "5",
+	}
+	r = mux.SetURLVars(r, vars)
+
+	r.Header.Set("storeName", "TestStore")
+	r.Header.Set("localDomain", "test.domain")
+	r.Header.Set("Content-Type", "application/json")
+
+	r.Header.Set("superAdminRole", "superAdmin")
+
+	w := httptest.NewRecorder()
+
+	h.GetInsurance(w, r)
+
+	if w.Code != 400 {
+		t.Fail()
+	}
+}
+
+func TestSix910Handler_GetInsuranceReq2(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm man.Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	var sec sdbi.Security
+	sec.OauthOn = true
+	sdb.MockSecurity = &sec
+
+	m := sm.GetNew()
+
+	var str sdbi.Store
+	str.ID = 4
+	str.StoreName = "TestStore"
+	str.LocalDomain = "test.domain"
+	str.OauthClientID = 5
+	sdb.MockStore = &str
+
+	var ins sdbi.Insurance
+	ins.StoreID = 5
+	sdb.MockInsurance = &ins
+
+	var sh Six910Handler
+	sh.Manager = m
+	sh.APIKey = "123456"
+	sh.Log = &l
+
+	var mc jv.MockOauthClient
+	mc.MockValidate = true
+	sh.ValidatorClient = mc.GetNewClient()
+
+	//h := sh.GetNew()
+
+	h := sh.GetNew()
+	//aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 4, "storeName":"TestStore", "city":"atlanta", "OauthClientID": 2}`))
+	//aJSON, _ := json.Marshal(robj)
+	//fmt.Println("aJSON: ", aJSON)
+	r, _ := http.NewRequest("GET", "/ffllist", nil)
+	vars := map[string]string{
+		"id": "1",
+		//"storeId": "5",
+	}
+	r = mux.SetURLVars(r, vars)
+
+	r.Header.Set("storeName", "TestStore")
+	r.Header.Set("localDomain", "test.domain")
+	r.Header.Set("Content-Type", "application/json")
+
+	r.Header.Set("superAdminRole", "superAdmin")
+
+	w := httptest.NewRecorder()
+
+	h.GetInsurance(w, r)
+
+	if w.Code != 400 {
+		t.Fail()
+	}
+}
+
+func TestSix910Handler_GetInsuranceAuth(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm man.Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	var sec sdbi.Security
+	sec.OauthOn = true
+	sdb.MockSecurity = &sec
+
+	m := sm.GetNew()
+
+	var str sdbi.Store
+	str.ID = 4
+	str.StoreName = "TestStore"
+	str.LocalDomain = "test.domain"
+	str.OauthClientID = 5
+	sdb.MockStore = &str
+
+	var ins sdbi.Insurance
+	ins.StoreID = 5
+	sdb.MockInsurance = &ins
 
 	var sh Six910Handler
 	sh.Manager = m
@@ -1051,7 +856,7 @@ func TestSix910Handler_GetAddressListAuth(t *testing.T) {
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("GET", "/ffllist", nil)
 	vars := map[string]string{
-		"cid":     "3",
+		"id":      "1",
 		"storeId": "5",
 	}
 	r = mux.SetURLVars(r, vars)
@@ -1064,13 +869,14 @@ func TestSix910Handler_GetAddressListAuth(t *testing.T) {
 
 	w := httptest.NewRecorder()
 
-	h.GetAddressList(w, r)
+	h.GetInsurance(w, r)
 
 	if w.Code != 401 {
 		t.Fail()
 	}
 }
-func TestSix910Handler_GetAddressListReq(t *testing.T) {
+
+func TestSix910Handler_GetInsuranceList(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger
 	l.LogLevel = lg.AllLevel
@@ -1095,19 +901,13 @@ func TestSix910Handler_GetAddressListReq(t *testing.T) {
 	str.OauthClientID = 5
 	sdb.MockStore = &str
 
-	var cus sdbi.Customer
-	cus.ID = 3
-	cus.StoreID = 5
-	sdb.MockCustomer = &cus
+	var ins sdbi.Insurance
+	ins.StoreID = 5
 
-	var add sdbi.Address
-	add.ID = 2
-	add.CustomerID = 3
+	var lst []sdbi.Insurance
+	lst = append(lst, ins)
 
-	var lst []sdbi.Address
-	lst = append(lst, add)
-
-	sdb.MockAddressList = &lst
+	sdb.MockInsuranceList = &lst
 
 	var sh Six910Handler
 	sh.Manager = m
@@ -1126,7 +926,144 @@ func TestSix910Handler_GetAddressListReq(t *testing.T) {
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("GET", "/ffllist", nil)
 	vars := map[string]string{
-		"cid": "3",
+		"storeId": "5",
+	}
+	r = mux.SetURLVars(r, vars)
+
+	r.Header.Set("storeName", "TestStore")
+	r.Header.Set("localDomain", "test.domain")
+	r.Header.Set("Content-Type", "application/json")
+
+	r.Header.Set("superAdminRole", "superAdmin")
+
+	w := httptest.NewRecorder()
+
+	h.GetInsuranceList(w, r)
+
+	if w.Code != 200 {
+		t.Fail()
+	}
+}
+
+func TestSix910Handler_GetInsuranceListReq(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm man.Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	var sec sdbi.Security
+	sec.OauthOn = true
+	sdb.MockSecurity = &sec
+
+	m := sm.GetNew()
+
+	var str sdbi.Store
+	str.ID = 4
+	str.StoreName = "TestStore"
+	str.LocalDomain = "test.domain"
+	str.OauthClientID = 5
+	sdb.MockStore = &str
+
+	var ins sdbi.Insurance
+	ins.StoreID = 5
+
+	var lst []sdbi.Insurance
+	lst = append(lst, ins)
+
+	sdb.MockInsuranceList = &lst
+
+	var sh Six910Handler
+	sh.Manager = m
+	sh.APIKey = "123456"
+	sh.Log = &l
+
+	var mc jv.MockOauthClient
+	mc.MockValidate = true
+	sh.ValidatorClient = mc.GetNewClient()
+
+	//h := sh.GetNew()
+
+	h := sh.GetNew()
+	//aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 4, "storeName":"TestStore", "city":"atlanta", "OauthClientID": 2}`))
+	//aJSON, _ := json.Marshal(robj)
+	//fmt.Println("aJSON: ", aJSON)
+	r, _ := http.NewRequest("GET", "/ffllist", nil)
+	vars := map[string]string{
+		"storeId": "5f",
+	}
+	r = mux.SetURLVars(r, vars)
+
+	r.Header.Set("storeName", "TestStore")
+	r.Header.Set("localDomain", "test.domain")
+	r.Header.Set("Content-Type", "application/json")
+
+	r.Header.Set("superAdminRole", "superAdmin")
+
+	w := httptest.NewRecorder()
+
+	h.GetInsuranceList(w, r)
+
+	if w.Code != 400 {
+		t.Fail()
+	}
+}
+
+func TestSix910Handler_GetInsuranceListReq2(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm man.Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	var sec sdbi.Security
+	sec.OauthOn = true
+	sdb.MockSecurity = &sec
+
+	m := sm.GetNew()
+
+	var str sdbi.Store
+	str.ID = 4
+	str.StoreName = "TestStore"
+	str.LocalDomain = "test.domain"
+	str.OauthClientID = 5
+	sdb.MockStore = &str
+
+	var ins sdbi.Insurance
+	ins.StoreID = 5
+
+	var lst []sdbi.Insurance
+	lst = append(lst, ins)
+
+	sdb.MockInsuranceList = &lst
+
+	var sh Six910Handler
+	sh.Manager = m
+	sh.APIKey = "123456"
+	sh.Log = &l
+
+	var mc jv.MockOauthClient
+	mc.MockValidate = true
+	sh.ValidatorClient = mc.GetNewClient()
+
+	//h := sh.GetNew()
+
+	h := sh.GetNew()
+	//aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 4, "storeName":"TestStore", "city":"atlanta", "OauthClientID": 2}`))
+	//aJSON, _ := json.Marshal(robj)
+	//fmt.Println("aJSON: ", aJSON)
+	r, _ := http.NewRequest("GET", "/ffllist", nil)
+	vars := map[string]string{
 		//"storeId": "5",
 	}
 	r = mux.SetURLVars(r, vars)
@@ -1139,14 +1076,14 @@ func TestSix910Handler_GetAddressListReq(t *testing.T) {
 
 	w := httptest.NewRecorder()
 
-	h.GetAddressList(w, r)
+	h.GetInsuranceList(w, r)
 
 	if w.Code != 400 {
 		t.Fail()
 	}
 }
 
-func TestSix910Handler_GetAddressListReq2(t *testing.T) {
+func TestSix910Handler_GetInsuranceListAuth(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger
 	l.LogLevel = lg.AllLevel
@@ -1171,19 +1108,13 @@ func TestSix910Handler_GetAddressListReq2(t *testing.T) {
 	str.OauthClientID = 5
 	sdb.MockStore = &str
 
-	var cus sdbi.Customer
-	cus.ID = 3
-	cus.StoreID = 5
-	sdb.MockCustomer = &cus
+	var ins sdbi.Insurance
+	ins.StoreID = 5
 
-	var add sdbi.Address
-	add.ID = 2
-	add.CustomerID = 3
+	var lst []sdbi.Insurance
+	lst = append(lst, ins)
 
-	var lst []sdbi.Address
-	lst = append(lst, add)
-
-	sdb.MockAddressList = &lst
+	sdb.MockInsuranceList = &lst
 
 	var sh Six910Handler
 	sh.Manager = m
@@ -1191,7 +1122,7 @@ func TestSix910Handler_GetAddressListReq2(t *testing.T) {
 	sh.Log = &l
 
 	var mc jv.MockOauthClient
-	mc.MockValidate = true
+	//mc.MockValidate = true
 	sh.ValidatorClient = mc.GetNewClient()
 
 	//h := sh.GetNew()
@@ -1202,7 +1133,6 @@ func TestSix910Handler_GetAddressListReq2(t *testing.T) {
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("GET", "/ffllist", nil)
 	vars := map[string]string{
-		"cid":     "3d",
 		"storeId": "5",
 	}
 	r = mux.SetURLVars(r, vars)
@@ -1215,14 +1145,14 @@ func TestSix910Handler_GetAddressListReq2(t *testing.T) {
 
 	w := httptest.NewRecorder()
 
-	h.GetAddressList(w, r)
+	h.GetInsuranceList(w, r)
 
-	if w.Code != 400 {
+	if w.Code != 401 {
 		t.Fail()
 	}
 }
 
-func TestSix910Handler_DeleteAddress(t *testing.T) {
+func TestSix910Handler_DeleteInsurance(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger
 	l.LogLevel = lg.AllLevel
@@ -1247,15 +1177,9 @@ func TestSix910Handler_DeleteAddress(t *testing.T) {
 	str.OauthClientID = 5
 	sdb.MockStore = &str
 
-	var cus sdbi.Customer
-	cus.ID = 3
-	cus.StoreID = 5
-	sdb.MockCustomer = &cus
-
-	var add sdbi.Address
-	add.ID = 2
-	add.CustomerID = 3
-	sdb.MockAddress = &add
+	var ins sdbi.Insurance
+	ins.StoreID = 5
+	sdb.MockInsurance = &ins
 
 	var sh Six910Handler
 	sh.Manager = m
@@ -1266,7 +1190,7 @@ func TestSix910Handler_DeleteAddress(t *testing.T) {
 	mc.MockValidate = true
 	sh.ValidatorClient = mc.GetNewClient()
 
-	sdb.MockDeleteAddressSuccess = true
+	sdb.MockDeleteInsuranceSuccess = true
 
 	//h := sh.GetNew()
 
@@ -1276,8 +1200,7 @@ func TestSix910Handler_DeleteAddress(t *testing.T) {
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("DELETE", "/ffllist", nil)
 	vars := map[string]string{
-		"id":      "2",
-		"cid":     "3",
+		"id":      "3",
 		"storeId": "5",
 	}
 	r = mux.SetURLVars(r, vars)
@@ -1290,19 +1213,19 @@ func TestSix910Handler_DeleteAddress(t *testing.T) {
 
 	w := httptest.NewRecorder()
 
-	h.DeleteAddress(w, r)
+	h.DeleteInsurance(w, r)
 	resp := w.Result()
 	body, _ := ioutil.ReadAll(resp.Body)
 	var bdy man.Response
 	json.Unmarshal(body, &bdy)
-	fmt.Println("body delete add in test: ", string(body))
+	fmt.Println("body delete insurance in test: ", string(body))
 
 	if w.Code != 200 || !bdy.Success {
 		t.Fail()
 	}
 }
 
-func TestSix910Handler_DeleteAddressAuth(t *testing.T) {
+func TestSix910Handler_DeleteInsuranceReq(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger
 	l.LogLevel = lg.AllLevel
@@ -1327,15 +1250,9 @@ func TestSix910Handler_DeleteAddressAuth(t *testing.T) {
 	str.OauthClientID = 5
 	sdb.MockStore = &str
 
-	var cus sdbi.Customer
-	cus.ID = 3
-	cus.StoreID = 5
-	sdb.MockCustomer = &cus
-
-	var add sdbi.Address
-	add.ID = 2
-	add.CustomerID = 3
-	sdb.MockAddress = &add
+	var ins sdbi.Insurance
+	ins.StoreID = 5
+	sdb.MockInsurance = &ins
 
 	var sh Six910Handler
 	sh.Manager = m
@@ -1343,10 +1260,10 @@ func TestSix910Handler_DeleteAddressAuth(t *testing.T) {
 	sh.Log = &l
 
 	var mc jv.MockOauthClient
-	//mc.MockValidate = true
+	mc.MockValidate = true
 	sh.ValidatorClient = mc.GetNewClient()
 
-	sdb.MockDeleteAddressSuccess = true
+	sdb.MockDeleteInsuranceSuccess = true
 
 	//h := sh.GetNew()
 
@@ -1356,8 +1273,7 @@ func TestSix910Handler_DeleteAddressAuth(t *testing.T) {
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("DELETE", "/ffllist", nil)
 	vars := map[string]string{
-		"id":      "2",
-		"cid":     "3",
+		"id":      "3g",
 		"storeId": "5",
 	}
 	r = mux.SetURLVars(r, vars)
@@ -1370,19 +1286,19 @@ func TestSix910Handler_DeleteAddressAuth(t *testing.T) {
 
 	w := httptest.NewRecorder()
 
-	h.DeleteAddress(w, r)
+	h.DeleteInsurance(w, r)
 	resp := w.Result()
 	body, _ := ioutil.ReadAll(resp.Body)
 	var bdy man.Response
 	json.Unmarshal(body, &bdy)
-	fmt.Println("body delete add in test: ", string(body))
+	fmt.Println("body delete insurance in test: ", string(body))
 
-	if w.Code != 401 {
+	if w.Code != 400 {
 		t.Fail()
 	}
 }
 
-func TestSix910Handler_DeleteAddressFail(t *testing.T) {
+func TestSix910Handler_DeleteInsuranceReq2(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger
 	l.LogLevel = lg.AllLevel
@@ -1407,15 +1323,9 @@ func TestSix910Handler_DeleteAddressFail(t *testing.T) {
 	str.OauthClientID = 5
 	sdb.MockStore = &str
 
-	var cus sdbi.Customer
-	cus.ID = 3
-	cus.StoreID = 5
-	sdb.MockCustomer = &cus
-
-	var add sdbi.Address
-	add.ID = 2
-	add.CustomerID = 3
-	sdb.MockAddress = &add
+	var ins sdbi.Insurance
+	ins.StoreID = 5
+	sdb.MockInsurance = &ins
 
 	var sh Six910Handler
 	sh.Manager = m
@@ -1426,7 +1336,7 @@ func TestSix910Handler_DeleteAddressFail(t *testing.T) {
 	mc.MockValidate = true
 	sh.ValidatorClient = mc.GetNewClient()
 
-	//sdb.MockDeleteAddressSuccess = true
+	sdb.MockDeleteInsuranceSuccess = true
 
 	//h := sh.GetNew()
 
@@ -1436,88 +1346,7 @@ func TestSix910Handler_DeleteAddressFail(t *testing.T) {
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("DELETE", "/ffllist", nil)
 	vars := map[string]string{
-		"id":      "2",
-		"cid":     "3",
-		"storeId": "5",
-	}
-	r = mux.SetURLVars(r, vars)
-
-	r.Header.Set("storeName", "TestStore")
-	r.Header.Set("localDomain", "test.domain")
-	r.Header.Set("Content-Type", "application/json")
-
-	r.Header.Set("superAdminRole", "superAdmin")
-
-	w := httptest.NewRecorder()
-
-	h.DeleteAddress(w, r)
-	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
-	var bdy man.Response
-	json.Unmarshal(body, &bdy)
-	fmt.Println("body delete add in test: ", string(body))
-
-	if w.Code != 500 {
-		t.Fail()
-	}
-}
-
-func TestSix910Handler_DeleteAddressReq(t *testing.T) {
-	var sdb sixmdb.MockSix910Mysql
-	var l lg.Logger
-	l.LogLevel = lg.AllLevel
-	sdb.Log = &l
-	//sdb.DB = dbi
-	//dbi.Connect()
-
-	var sm man.Six910Manager
-	sm.Db = sdb.GetNew()
-	sm.Log = &l
-
-	var sec sdbi.Security
-	sec.OauthOn = true
-	sdb.MockSecurity = &sec
-
-	m := sm.GetNew()
-
-	var str sdbi.Store
-	str.ID = 4
-	str.StoreName = "TestStore"
-	str.LocalDomain = "test.domain"
-	str.OauthClientID = 5
-	sdb.MockStore = &str
-
-	var cus sdbi.Customer
-	cus.ID = 3
-	cus.StoreID = 5
-	sdb.MockCustomer = &cus
-
-	var add sdbi.Address
-	add.ID = 2
-	add.CustomerID = 3
-	sdb.MockAddress = &add
-
-	var sh Six910Handler
-	sh.Manager = m
-	sh.APIKey = "123456"
-	sh.Log = &l
-
-	var mc jv.MockOauthClient
-	mc.MockValidate = true
-	sh.ValidatorClient = mc.GetNewClient()
-
-	sdb.MockDeleteAddressSuccess = true
-
-	//h := sh.GetNew()
-
-	h := sh.GetNew()
-	//aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 4, "storeName":"TestStore", "city":"atlanta", "OauthClientID": 2}`))
-	//aJSON, _ := json.Marshal(robj)
-	//fmt.Println("aJSON: ", aJSON)
-	r, _ := http.NewRequest("DELETE", "/ffllist", nil)
-	vars := map[string]string{
-		"id":  "2",
-		"cid": "3",
+		"id": "3",
 		//"storeId": "5",
 	}
 	r = mux.SetURLVars(r, vars)
@@ -1530,19 +1359,19 @@ func TestSix910Handler_DeleteAddressReq(t *testing.T) {
 
 	w := httptest.NewRecorder()
 
-	h.DeleteAddress(w, r)
+	h.DeleteInsurance(w, r)
 	resp := w.Result()
 	body, _ := ioutil.ReadAll(resp.Body)
 	var bdy man.Response
 	json.Unmarshal(body, &bdy)
-	fmt.Println("body delete add in test: ", string(body))
+	fmt.Println("body delete insurance in test: ", string(body))
 
 	if w.Code != 400 {
 		t.Fail()
 	}
 }
 
-func TestSix910Handler_DeleteAddressReq2(t *testing.T) {
+func TestSix910Handler_DeleteInsuranceFail(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger
 	l.LogLevel = lg.AllLevel
@@ -1567,15 +1396,9 @@ func TestSix910Handler_DeleteAddressReq2(t *testing.T) {
 	str.OauthClientID = 5
 	sdb.MockStore = &str
 
-	var cus sdbi.Customer
-	cus.ID = 3
-	cus.StoreID = 5
-	sdb.MockCustomer = &cus
-
-	var add sdbi.Address
-	add.ID = 2
-	add.CustomerID = 3
-	sdb.MockAddress = &add
+	var ins sdbi.Insurance
+	ins.StoreID = 5
+	sdb.MockInsurance = &ins
 
 	var sh Six910Handler
 	sh.Manager = m
@@ -1586,7 +1409,7 @@ func TestSix910Handler_DeleteAddressReq2(t *testing.T) {
 	mc.MockValidate = true
 	sh.ValidatorClient = mc.GetNewClient()
 
-	sdb.MockDeleteAddressSuccess = true
+	//sdb.MockDeleteInsuranceSuccess = true
 
 	//h := sh.GetNew()
 
@@ -1596,8 +1419,7 @@ func TestSix910Handler_DeleteAddressReq2(t *testing.T) {
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("DELETE", "/ffllist", nil)
 	vars := map[string]string{
-		"id":      "2r",
-		"cid":     "3",
+		"id":      "3",
 		"storeId": "5",
 	}
 	r = mux.SetURLVars(r, vars)
@@ -1610,14 +1432,87 @@ func TestSix910Handler_DeleteAddressReq2(t *testing.T) {
 
 	w := httptest.NewRecorder()
 
-	h.DeleteAddress(w, r)
+	h.DeleteInsurance(w, r)
 	resp := w.Result()
 	body, _ := ioutil.ReadAll(resp.Body)
 	var bdy man.Response
 	json.Unmarshal(body, &bdy)
-	fmt.Println("body delete add in test: ", string(body))
+	fmt.Println("body delete insurance in test: ", string(body))
 
-	if w.Code != 400 {
+	if w.Code != 500 {
+		t.Fail()
+	}
+}
+
+func TestSix910Handler_DeleteInsuranceAuth(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm man.Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	var sec sdbi.Security
+	sec.OauthOn = true
+	sdb.MockSecurity = &sec
+
+	m := sm.GetNew()
+
+	var str sdbi.Store
+	str.ID = 4
+	str.StoreName = "TestStore"
+	str.LocalDomain = "test.domain"
+	str.OauthClientID = 5
+	sdb.MockStore = &str
+
+	var ins sdbi.Insurance
+	ins.StoreID = 5
+	sdb.MockInsurance = &ins
+
+	var sh Six910Handler
+	sh.Manager = m
+	sh.APIKey = "123456"
+	sh.Log = &l
+
+	var mc jv.MockOauthClient
+	//mc.MockValidate = true
+	sh.ValidatorClient = mc.GetNewClient()
+
+	sdb.MockDeleteInsuranceSuccess = true
+
+	//h := sh.GetNew()
+
+	h := sh.GetNew()
+	//aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 4, "storeName":"TestStore", "city":"atlanta", "OauthClientID": 2}`))
+	//aJSON, _ := json.Marshal(robj)
+	//fmt.Println("aJSON: ", aJSON)
+	r, _ := http.NewRequest("DELETE", "/ffllist", nil)
+	vars := map[string]string{
+		"id":      "3",
+		"storeId": "5",
+	}
+	r = mux.SetURLVars(r, vars)
+
+	r.Header.Set("storeName", "TestStore")
+	r.Header.Set("localDomain", "test.domain")
+	r.Header.Set("Content-Type", "application/json")
+
+	r.Header.Set("superAdminRole", "superAdmin")
+
+	w := httptest.NewRecorder()
+
+	h.DeleteInsurance(w, r)
+	resp := w.Result()
+	body, _ := ioutil.ReadAll(resp.Body)
+	var bdy man.Response
+	json.Unmarshal(body, &bdy)
+	fmt.Println("body delete insurance in test: ", string(body))
+
+	if w.Code != 401 {
 		t.Fail()
 	}
 }

@@ -84,34 +84,34 @@ type Handler interface {
 	//address
 	AddAddress(w http.ResponseWriter, r *http.Request)
 	UpdateAddress(w http.ResponseWriter, r *http.Request)
-	// GetAddress(w http.ResponseWriter, r *http.Request)
-	// GetAddressList(w http.ResponseWriter, r *http.Request)
-	// DeleteAddress(w http.ResponseWriter, r *http.Request)
+	GetAddress(w http.ResponseWriter, r *http.Request)
+	GetAddressList(w http.ResponseWriter, r *http.Request)
+	DeleteAddress(w http.ResponseWriter, r *http.Request)
 
-	// //category
-	// AddCategory(w http.ResponseWriter, r *http.Request)
-	// UpdateCategory(w http.ResponseWriter, r *http.Request)
-	// GetCategory(w http.ResponseWriter, r *http.Request)
-	// GetCategoryList(w http.ResponseWriter, r *http.Request)
-	// GetSubCategoryList(w http.ResponseWriter, r *http.Request)
-	// DeleteCategory(w http.ResponseWriter, r *http.Request)
+	//category
+	AddCategory(w http.ResponseWriter, r *http.Request)
+	UpdateCategory(w http.ResponseWriter, r *http.Request)
+	GetCategory(w http.ResponseWriter, r *http.Request)
+	GetCategoryList(w http.ResponseWriter, r *http.Request)
+	GetSubCategoryList(w http.ResponseWriter, r *http.Request)
+	DeleteCategory(w http.ResponseWriter, r *http.Request)
 
-	// //shipping method
-	// AddShippingMethod(w http.ResponseWriter, r *http.Request)
-	// UpdateShippingMethod(w http.ResponseWriter, r *http.Request)
-	// GetShippingMethod(w http.ResponseWriter, r *http.Request)
-	// GetShippingMethodList(w http.ResponseWriter, r *http.Request)
-	// DeleteShippingMethod(w http.ResponseWriter, r *http.Request)
+	//shipping method
+	AddShippingMethod(w http.ResponseWriter, r *http.Request)
+	UpdateShippingMethod(w http.ResponseWriter, r *http.Request)
+	GetShippingMethod(w http.ResponseWriter, r *http.Request)
+	GetShippingMethodList(w http.ResponseWriter, r *http.Request)
+	DeleteShippingMethod(w http.ResponseWriter, r *http.Request)
 
-	// //shipping insurance
-	// AddInsurance(w http.ResponseWriter, r *http.Request)
-	// UpdateInsurance(w http.ResponseWriter, r *http.Request)
-	// GetInsurance(w http.ResponseWriter, r *http.Request)
-	// GetInsuranceList(w http.ResponseWriter, r *http.Request)
-	// DeleteInsurance(w http.ResponseWriter, r *http.Request)
+	//shipping insurance
+	AddInsurance(w http.ResponseWriter, r *http.Request)
+	UpdateInsurance(w http.ResponseWriter, r *http.Request)
+	GetInsurance(w http.ResponseWriter, r *http.Request)
+	GetInsuranceList(w http.ResponseWriter, r *http.Request)
+	DeleteInsurance(w http.ResponseWriter, r *http.Request)
 
-	// //product
-	// AddProduct(w http.ResponseWriter, r *http.Request)
+	//product
+	AddProduct(w http.ResponseWriter, r *http.Request)
 	// UpdateProduct(w http.ResponseWriter, r *http.Request)
 	// GetProductByID(w http.ResponseWriter, r *http.Request)
 	// GetProductsByName(w http.ResponseWriter, r *http.Request)
