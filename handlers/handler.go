@@ -78,7 +78,7 @@ type Handler interface {
 	AddCartItem(w http.ResponseWriter, r *http.Request)
 	UpdateCartItem(w http.ResponseWriter, r *http.Request)
 	GetCarItem(w http.ResponseWriter, r *http.Request)
-	// GetCartItemList(w http.ResponseWriter, r *http.Request)
+	GetCartItemList(w http.ResponseWriter, r *http.Request)
 	// DeleteCartItem(w http.ResponseWriter, r *http.Request)
 
 	// //address

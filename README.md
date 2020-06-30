@@ -6,11 +6,11 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Six910&metric=alert_status)](https://sonarcloud.io/dashboard?id=Six910)
 [![Go Report Card](https://goreportcard.com/badge/github.com/Ulbora/Six910)](https://goreportcard.com/report/github.com/Ulbora/Six910)
 
-## Dependency Injection
-All components of Six910 are developed as Go modules and injected using dependency injection.
 
-### The Speeding Fast Shopping Cart
+### The Speeding Fast Shopping Cart with Dependency Injection
 An open source ecommerce platform server for building online shopping cart systems; written in golang. Includes REST service backend including admin panel and switchable templates.
+
+All components of Six910 are developed as Go modules and injected using dependency injection.
 
 
 

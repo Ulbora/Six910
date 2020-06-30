@@ -169,3 +169,45 @@ func (h *Six910Handler) GetCarItem(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusUnauthorized)
 	}
 }
+
+//GetCartItemList GetCartItemList
+func (h *Six910Handler) GetCartItemList(w http.ResponseWriter, r *http.Request) {
+	var gCilURL = "/six910/rs/cartItem/list"
+	var gcil2 jv.Claim
+	gcil2.Role = customerRole
+	gcil2.URL = gCilURL
+	gcil2.Scope = "read"
+	h.Log.Debug("client: ", h.ValidatorClient)
+	auth := h.processSecurity(r, &gcil2)
+	h.Log.Debug("dist get list authorized: ", auth)
+	if auth {
+		h.SetContentType(w)
+		vars := mux.Vars(r)
+		h.Log.Debug("vars: ", len(vars))
+		if vars != nil && len(vars) == 3 {
+			h.Log.Debug("vars: ", vars)
+			var cartIDlStr = vars["cartId"]
+			var cidlStr = vars["cid"]
+			var storeIDlStr = vars["storeId"]
+			cartIDl, cartIDerrl := strconv.ParseInt(cartIDlStr, 10, 64)
+			cIDl, cIDerrl := strconv.ParseInt(cidlStr, 10, 64)
+			storeIDl, serrl := strconv.ParseInt(storeIDlStr, 10, 64)
+			var gcilres *[]sdbi.CartItem
+			if cartIDerrl == nil && cIDerrl == nil && serrl == nil {
+				gcilres = h.Manager.GetCartItemList(cartIDl, cIDl, storeIDl)
+				h.Log.Debug("gcilres: ", *gcilres)
+				w.WriteHeader(http.StatusOK)
+			} else {
+				w.WriteHeader(http.StatusBadRequest)
+				var ncl = []sdbi.CartItem{}
+				gcilres = &ncl
+			}
+			resJSON, _ := json.Marshal(gcilres)
+			fmt.Fprint(w, string(resJSON))
+		} else {
+			w.WriteHeader(http.StatusBadRequest)
+		}
+	} else {
+		w.WriteHeader(http.StatusUnauthorized)
+	}
+}
