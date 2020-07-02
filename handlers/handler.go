@@ -112,33 +112,33 @@ type Handler interface {
 
 	//product
 	AddProduct(w http.ResponseWriter, r *http.Request)
-	// UpdateProduct(w http.ResponseWriter, r *http.Request)
-	// GetProductByID(w http.ResponseWriter, r *http.Request)
-	// GetProductsByName(w http.ResponseWriter, r *http.Request)
-	// GetProductsByCaterory(w http.ResponseWriter, r *http.Request)
-	// GetProductList(w http.ResponseWriter, r *http.Request)
-	// DeleteProduct(w http.ResponseWriter, r *http.Request)
+	UpdateProduct(w http.ResponseWriter, r *http.Request)
+	GetProductByID(w http.ResponseWriter, r *http.Request)
+	GetProductsByName(w http.ResponseWriter, r *http.Request)
+	GetProductsByCaterory(w http.ResponseWriter, r *http.Request)
+	GetProductList(w http.ResponseWriter, r *http.Request)
+	DeleteProduct(w http.ResponseWriter, r *http.Request)
 
-	// //Geographic Regions
-	// AddRegion(w http.ResponseWriter, r *http.Request)
-	// UpdateRegion(w http.ResponseWriter, r *http.Request)
-	// GetRegion(w http.ResponseWriter, r *http.Request)
-	// GetRegionList(w http.ResponseWriter, r *http.Request)
-	// DeleteRegion(w http.ResponseWriter, r *http.Request)
+	//Geographic Regions
+	AddRegion(w http.ResponseWriter, r *http.Request)
+	UpdateRegion(w http.ResponseWriter, r *http.Request)
+	GetRegion(w http.ResponseWriter, r *http.Request)
+	GetRegionList(w http.ResponseWriter, r *http.Request)
+	DeleteRegion(w http.ResponseWriter, r *http.Request)
 
-	// //Geographic Sub Regions
-	// AddSubRegion(w http.ResponseWriter, r *http.Request)
-	// UpdateSubRegion(w http.ResponseWriter, r *http.Request)
-	// GetSubRegion(w http.ResponseWriter, r *http.Request)
-	// GetSubRegionList(w http.ResponseWriter, r *http.Request)
-	// DeleteSubRegion(w http.ResponseWriter, r *http.Request)
+	//Geographic Sub Regions
+	AddSubRegion(w http.ResponseWriter, r *http.Request)
+	UpdateSubRegion(w http.ResponseWriter, r *http.Request)
+	GetSubRegion(w http.ResponseWriter, r *http.Request)
+	GetSubRegionList(w http.ResponseWriter, r *http.Request)
+	DeleteSubRegion(w http.ResponseWriter, r *http.Request)
 
-	// //excluded sub regions
-	// AddExcludedSubRegion(w http.ResponseWriter, r *http.Request)
-	// UpdateExcludedSubRegion(w http.ResponseWriter, r *http.Request)
-	// GetExcludedSubRegion(w http.ResponseWriter, r *http.Request)
-	// GetExcludedSubRegionList(w http.ResponseWriter, r *http.Request)
-	// DeleteExcludedSubRegion(w http.ResponseWriter, r *http.Request)
+	//excluded sub regions
+	AddExcludedSubRegion(w http.ResponseWriter, r *http.Request)
+	UpdateExcludedSubRegion(w http.ResponseWriter, r *http.Request)
+	GetExcludedSubRegion(w http.ResponseWriter, r *http.Request)
+	GetExcludedSubRegionList(w http.ResponseWriter, r *http.Request)
+	DeleteExcludedSubRegion(w http.ResponseWriter, r *http.Request)
 
 	// //included sub regions
 	// AddIncludedSubRegion(w http.ResponseWriter, r *http.Request)
