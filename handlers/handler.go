@@ -147,11 +147,11 @@ type Handler interface {
 	GetIncludedSubRegionList(w http.ResponseWriter, r *http.Request)
 	DeleteIncludedSubRegion(w http.ResponseWriter, r *http.Request)
 
-	// //limit exclusions and inclusions to a zip code
-	// AddZoneZip(w http.ResponseWriter, r *http.Request)
-	// GetZoneZipListByExclusion(w http.ResponseWriter, r *http.Request)
-	// GetZoneZipListByInclusion(w http.ResponseWriter, r *http.Request)
-	// DeleteZoneZip(w http.ResponseWriter, r *http.Request)
+	//limit exclusions and inclusions to a zip code
+	AddZoneZip(w http.ResponseWriter, r *http.Request)
+	GetZoneZipListByExclusion(w http.ResponseWriter, r *http.Request)
+	GetZoneZipListByInclusion(w http.ResponseWriter, r *http.Request)
+	DeleteZoneZip(w http.ResponseWriter, r *http.Request)
 
 	// //product category
 	// AddProductCategory(w http.ResponseWriter, r *http.Request)
