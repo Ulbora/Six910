@@ -153,9 +153,9 @@ type Handler interface {
 	GetZoneZipListByInclusion(w http.ResponseWriter, r *http.Request)
 	DeleteZoneZip(w http.ResponseWriter, r *http.Request)
 
-	// //product category
-	// AddProductCategory(w http.ResponseWriter, r *http.Request)
-	// DeleteProductCategory(w http.ResponseWriter, r *http.Request)
+	//product category
+	AddProductCategory(w http.ResponseWriter, r *http.Request)
+	DeleteProductCategory(w http.ResponseWriter, r *http.Request)
 
 	// //Orders
 	// AddOrder(w http.ResponseWriter, r *http.Request)
