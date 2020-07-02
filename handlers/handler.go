@@ -140,12 +140,12 @@ type Handler interface {
 	GetExcludedSubRegionList(w http.ResponseWriter, r *http.Request)
 	DeleteExcludedSubRegion(w http.ResponseWriter, r *http.Request)
 
-	// //included sub regions
-	// AddIncludedSubRegion(w http.ResponseWriter, r *http.Request)
-	// UpdateIncludedSubRegion(w http.ResponseWriter, r *http.Request)
-	// GetIncludedSubRegion(w http.ResponseWriter, r *http.Request)
-	// GetIncludedSubRegionList(w http.ResponseWriter, r *http.Request)
-	// DeleteIncludedSubRegion(w http.ResponseWriter, r *http.Request)
+	//included sub regions
+	AddIncludedSubRegion(w http.ResponseWriter, r *http.Request)
+	UpdateIncludedSubRegion(w http.ResponseWriter, r *http.Request)
+	GetIncludedSubRegion(w http.ResponseWriter, r *http.Request)
+	GetIncludedSubRegionList(w http.ResponseWriter, r *http.Request)
+	DeleteIncludedSubRegion(w http.ResponseWriter, r *http.Request)
 
 	// //limit exclusions and inclusions to a zip code
 	// AddZoneZip(w http.ResponseWriter, r *http.Request)

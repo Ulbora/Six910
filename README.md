@@ -8,7 +8,7 @@
 
 
 ### The Speeding Fast Shopping Cart ECommerce System with Dependency Injection
-An open source Ecommerce platform server for building online shopping cart systems; written in golang. Includes REST service backend including admin panel and switchable templates.
+An open source Ecommerce platform server for building online shopping cart systems and will have a cryptocurrency payment module among others; it is written in golang. This project is the REST service backend. The UI project will including an admin panel and switchable templates.
 
 All components of Six910 are developed as Go modules and injected using dependency injection.
 
