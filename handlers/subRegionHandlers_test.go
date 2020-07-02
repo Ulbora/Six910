@@ -77,6 +77,66 @@ func TestSix910Handler_AddSubRegion(t *testing.T) {
 	}
 }
 
+func TestSix910Handler_AddSubRegionMedia(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm man.Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	var sec sdbi.Security
+	sec.OauthOn = true
+	sdb.MockSecurity = &sec
+
+	m := sm.GetNew()
+
+	var str sdbi.Store
+	str.ID = 4
+	str.StoreName = "TestStore"
+	str.LocalDomain = "test.domain"
+	str.OauthClientID = 5
+	sdb.MockStore = &str
+
+	var reg sdbi.Region
+	reg.ID = 1
+	reg.StoreID = 5
+	sdb.MockRegion = &reg
+
+	var sh Six910Handler
+	sh.Manager = m
+	sh.APIKey = "123456"
+	sh.Log = &l
+	var mc jv.MockOauthClient
+	mc.MockValidate = true
+	sh.ValidatorClient = mc.GetNewClient()
+
+	//h := sh.GetNew()
+
+	sdb.MockAddSubRegionSuccess = true
+	sdb.MockSubRegionID = 5
+
+	h := sh.GetNew()
+	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"storeId": 5, "subRegion": {"id": 1, "name":"test", "storeId": 5}}`))
+	//aJSON, _ := json.Marshal(robj)
+	//fmt.Println("aJSON: ", aJSON)
+	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
+	r.Header.Set("storeName", "TestStore")
+	r.Header.Set("localDomain", "test.domain")
+	//r.Header.Set("Content-Type", "application/json")
+	w := httptest.NewRecorder()
+
+	h.AddSubRegion(w, r)
+
+	if w.Code != 415 {
+		t.Fail()
+	}
+}
+
 func TestSix910Handler_AddSubRegionReq(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger
