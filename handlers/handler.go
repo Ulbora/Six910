@@ -157,12 +157,12 @@ type Handler interface {
 	AddProductCategory(w http.ResponseWriter, r *http.Request)
 	DeleteProductCategory(w http.ResponseWriter, r *http.Request)
 
-	// //Orders
-	// AddOrder(w http.ResponseWriter, r *http.Request)
-	// UpdateOrder(w http.ResponseWriter, r *http.Request)
-	// GetOrder(w http.ResponseWriter, r *http.Request)
-	// GetOrderList(w http.ResponseWriter, r *http.Request)
-	// DeleteOrder(w http.ResponseWriter, r *http.Request)
+	//Orders
+	AddOrder(w http.ResponseWriter, r *http.Request)
+	UpdateOrder(w http.ResponseWriter, r *http.Request)
+	GetOrder(w http.ResponseWriter, r *http.Request)
+	GetOrderList(w http.ResponseWriter, r *http.Request)
+	DeleteOrder(w http.ResponseWriter, r *http.Request)
 
 	// //Order Items
 	// AddOrderItem(w http.ResponseWriter, r *http.Request)
