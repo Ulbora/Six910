@@ -37,7 +37,7 @@ import (
 func (h *Six910Handler) AddOrder(w http.ResponseWriter, r *http.Request) {
 	var addorURL = "/six910/rs/order/add"
 	var aorc jv.Claim
-	aorc.Role = storeAdmin
+	aorc.Role = customerRole
 	aorc.URL = addorURL
 	aorc.Scope = "write"
 	h.Log.Debug("client: ", h.ValidatorClient)
@@ -81,7 +81,7 @@ func (h *Six910Handler) AddOrder(w http.ResponseWriter, r *http.Request) {
 func (h *Six910Handler) UpdateOrder(w http.ResponseWriter, r *http.Request) {
 	var uorURL = "/six910/rs/order/update"
 	var uorc jv.Claim
-	uorc.Role = storeAdmin
+	uorc.Role = customerRole
 	uorc.URL = uorURL
 	uorc.Scope = "write"
 	h.Log.Debug("client: ", h.ValidatorClient)
@@ -205,7 +205,7 @@ func (h *Six910Handler) GetOrderList(w http.ResponseWriter, r *http.Request) {
 func (h *Six910Handler) DeleteOrder(w http.ResponseWriter, r *http.Request) {
 	var dorURL = "/six910/rs/order/delete"
 	var dorc jv.Claim
-	dorc.Role = storeAdmin
+	dorc.Role = customerRole
 	dorc.URL = dorURL
 	dorc.Scope = "write"
 	h.Log.Debug("client: ", h.ValidatorClient)

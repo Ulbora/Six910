@@ -164,12 +164,12 @@ type Handler interface {
 	GetOrderList(w http.ResponseWriter, r *http.Request)
 	DeleteOrder(w http.ResponseWriter, r *http.Request)
 
-	// //Order Items
-	// AddOrderItem(w http.ResponseWriter, r *http.Request)
-	// UpdateOrderItem(w http.ResponseWriter, r *http.Request)
-	// GetOrderItem(w http.ResponseWriter, r *http.Request)
-	// GetOrderItemList(w http.ResponseWriter, r *http.Request)
-	// DeleteOrderItem(w http.ResponseWriter, r *http.Request)
+	//Order Items
+	AddOrderItem(w http.ResponseWriter, r *http.Request)
+	UpdateOrderItem(w http.ResponseWriter, r *http.Request)
+	GetOrderItem(w http.ResponseWriter, r *http.Request)
+	GetOrderItemList(w http.ResponseWriter, r *http.Request)
+	DeleteOrderItem(w http.ResponseWriter, r *http.Request)
 
 	// //Order Comments
 	// AddOrderComments(w http.ResponseWriter, r *http.Request)
