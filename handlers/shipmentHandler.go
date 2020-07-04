@@ -43,7 +43,7 @@ type ShipmentReq struct {
 func (h *Six910Handler) AddShipment(w http.ResponseWriter, r *http.Request) {
 	var addshURL = "/six910/rs/shipment/add"
 	var ashc jv.Claim
-	ashc.Role = customerRole
+	ashc.Role = storeAdmin
 	ashc.URL = addshURL
 	ashc.Scope = "write"
 	h.Log.Debug("client: ", h.ValidatorClient)
@@ -87,7 +87,7 @@ func (h *Six910Handler) AddShipment(w http.ResponseWriter, r *http.Request) {
 func (h *Six910Handler) UpdateShipment(w http.ResponseWriter, r *http.Request) {
 	var ushURL = "/six910/rs/shipment/update"
 	var ushc jv.Claim
-	ushc.Role = customerRole
+	ushc.Role = storeAdmin
 	ushc.URL = ushURL
 	ushc.Scope = "write"
 	h.Log.Debug("client: ", h.ValidatorClient)
@@ -211,7 +211,7 @@ func (h *Six910Handler) GetShipmentList(w http.ResponseWriter, r *http.Request) 
 func (h *Six910Handler) DeleteShipment(w http.ResponseWriter, r *http.Request) {
 	var dshURL = "/six910/rs/shipment/delete"
 	var dshc jv.Claim
-	dshc.Role = customerRole
+	dshc.Role = storeAdmin
 	dshc.URL = dshURL
 	dshc.Scope = "write"
 	h.Log.Debug("client: ", h.ValidatorClient)
