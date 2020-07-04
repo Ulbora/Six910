@@ -171,9 +171,9 @@ type Handler interface {
 	GetOrderItemList(w http.ResponseWriter, r *http.Request)
 	DeleteOrderItem(w http.ResponseWriter, r *http.Request)
 
-	// //Order Comments
-	// AddOrderComments(w http.ResponseWriter, r *http.Request)
-	// GetOrderCommentList(w http.ResponseWriter, r *http.Request)
+	//Order Comments
+	AddOrderComments(w http.ResponseWriter, r *http.Request)
+	GetOrderCommentList(w http.ResponseWriter, r *http.Request)
 
 	// //Order Payment Transactions
 	// AddOrderTransaction(w http.ResponseWriter, r *http.Request)
