@@ -175,9 +175,9 @@ type Handler interface {
 	AddOrderComments(w http.ResponseWriter, r *http.Request)
 	GetOrderCommentList(w http.ResponseWriter, r *http.Request)
 
-	// //Order Payment Transactions
-	// AddOrderTransaction(w http.ResponseWriter, r *http.Request)
-	// GetOrderTransactionList(w http.ResponseWriter, r *http.Request)
+	//Order Payment Transactions
+	AddOrderTransaction(w http.ResponseWriter, r *http.Request)
+	GetOrderTransactionList(w http.ResponseWriter, r *http.Request)
 
 	// //shipment
 	// AddShipment(w http.ResponseWriter, r *http.Request)
