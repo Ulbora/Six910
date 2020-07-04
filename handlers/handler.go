@@ -179,12 +179,12 @@ type Handler interface {
 	AddOrderTransaction(w http.ResponseWriter, r *http.Request)
 	GetOrderTransactionList(w http.ResponseWriter, r *http.Request)
 
-	// //shipment
-	// AddShipment(w http.ResponseWriter, r *http.Request)
-	// UpdateShipment(w http.ResponseWriter, r *http.Request)
-	// GetShipment(w http.ResponseWriter, r *http.Request)
-	// GetShipmentList(w http.ResponseWriter, r *http.Request)
-	// DeleteShipment(w http.ResponseWriter, r *http.Request)
+	//shipment
+	AddShipment(w http.ResponseWriter, r *http.Request)
+	UpdateShipment(w http.ResponseWriter, r *http.Request)
+	GetShipment(w http.ResponseWriter, r *http.Request)
+	GetShipmentList(w http.ResponseWriter, r *http.Request)
+	DeleteShipment(w http.ResponseWriter, r *http.Request)
 
 	// //shipment boxes
 	// AddShipmentBox(w http.ResponseWriter, r *http.Request)
