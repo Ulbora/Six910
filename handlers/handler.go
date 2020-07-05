@@ -201,12 +201,12 @@ type Handler interface {
 	GetShipmentItemListByBox(w http.ResponseWriter, r *http.Request)
 	DeleteShipmentItem(w http.ResponseWriter, r *http.Request)
 
-	// //Global Plugins
-	// AddPlugin(w http.ResponseWriter, r *http.Request)
-	// UpdatePlugin(w http.ResponseWriter, r *http.Request)
-	// GetPlugin(w http.ResponseWriter, r *http.Request)
-	// GetPluginList(w http.ResponseWriter, r *http.Request)
-	// DeletePlugin(w http.ResponseWriter, r *http.Request)
+	//Global Plugins
+	AddPlugin(w http.ResponseWriter, r *http.Request)
+	UpdatePlugin(w http.ResponseWriter, r *http.Request)
+	GetPlugin(w http.ResponseWriter, r *http.Request)
+	GetPluginList(w http.ResponseWriter, r *http.Request)
+	DeletePlugin(w http.ResponseWriter, r *http.Request)
 
 	// //store plugins installed
 	// AddStorePlugin(w http.ResponseWriter, r *http.Request)
