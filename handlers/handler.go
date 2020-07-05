@@ -208,12 +208,12 @@ type Handler interface {
 	GetPluginList(w http.ResponseWriter, r *http.Request)
 	DeletePlugin(w http.ResponseWriter, r *http.Request)
 
-	// //store plugins installed
-	// AddStorePlugin(w http.ResponseWriter, r *http.Request)
-	// UpdateStorePlugin(w http.ResponseWriter, r *http.Request)
-	// GetStorePlugin(w http.ResponseWriter, r *http.Request)
-	// GetStorePluginList(w http.ResponseWriter, r *http.Request)
-	// DeleteStorePlugin(w http.ResponseWriter, r *http.Request)
+	//store plugins installed
+	AddStorePlugin(w http.ResponseWriter, r *http.Request)
+	UpdateStorePlugin(w http.ResponseWriter, r *http.Request)
+	GetStorePlugin(w http.ResponseWriter, r *http.Request)
+	GetStorePluginList(w http.ResponseWriter, r *http.Request)
+	DeleteStorePlugin(w http.ResponseWriter, r *http.Request)
 
 	// //Plugins that are payment gateways
 	// AddPaymentGateway(w http.ResponseWriter, r *http.Request)
