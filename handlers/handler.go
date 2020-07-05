@@ -193,13 +193,13 @@ type Handler interface {
 	GetShipmentBoxList(w http.ResponseWriter, r *http.Request)
 	DeleteShipmentBox(w http.ResponseWriter, r *http.Request)
 
-	// //Shipment Items in box
-	// AddShipmentItem(w http.ResponseWriter, r *http.Request)
-	// UpdateShipmentItem(w http.ResponseWriter, r *http.Request)
-	// GetShipmentItem(w http.ResponseWriter, r *http.Request)
-	// GetShipmentItemList(w http.ResponseWriter, r *http.Request)
-	// GetShipmentItemListByBox(w http.ResponseWriter, r *http.Request)
-	// DeleteShipmentItem(w http.ResponseWriter, r *http.Request)
+	//Shipment Items in box
+	AddShipmentItem(w http.ResponseWriter, r *http.Request)
+	UpdateShipmentItem(w http.ResponseWriter, r *http.Request)
+	GetShipmentItem(w http.ResponseWriter, r *http.Request)
+	GetShipmentItemList(w http.ResponseWriter, r *http.Request)
+	GetShipmentItemListByBox(w http.ResponseWriter, r *http.Request)
+	DeleteShipmentItem(w http.ResponseWriter, r *http.Request)
 
 	// //Global Plugins
 	// AddPlugin(w http.ResponseWriter, r *http.Request)
