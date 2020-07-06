@@ -215,34 +215,34 @@ type Handler interface {
 	GetStorePluginList(w http.ResponseWriter, r *http.Request)
 	DeleteStorePlugin(w http.ResponseWriter, r *http.Request)
 
-	// //Plugins that are payment gateways
-	// AddPaymentGateway(w http.ResponseWriter, r *http.Request)
-	// UpdatePaymentGateway(w http.ResponseWriter, r *http.Request)
-	// GetPaymentGateway(w http.ResponseWriter, r *http.Request)
-	// GetPaymentGateways(w http.ResponseWriter, r *http.Request)
-	// DeletePaymentGateway(w http.ResponseWriter, r *http.Request)
+	//Plugins that are payment gateways
+	AddPaymentGateway(w http.ResponseWriter, r *http.Request)
+	UpdatePaymentGateway(w http.ResponseWriter, r *http.Request)
+	GetPaymentGateway(w http.ResponseWriter, r *http.Request)
+	GetPaymentGateways(w http.ResponseWriter, r *http.Request)
+	DeletePaymentGateway(w http.ResponseWriter, r *http.Request)
 
-	// //store shipment carrier like UPS and FEDex
-	// AddShippingCarrier(w http.ResponseWriter, r *http.Request)
-	// UpdateShippingCarrier(w http.ResponseWriter, r *http.Request)
-	// GetShippingCarrier(w http.ResponseWriter, r *http.Request)
-	// GetShippingCarrierList(w http.ResponseWriter, r *http.Request)
-	// DeleteShippingCarrier(w http.ResponseWriter, r *http.Request)
+	//store shipment carrier like UPS and FEDex
+	AddShippingCarrier(w http.ResponseWriter, r *http.Request)
+	UpdateShippingCarrier(w http.ResponseWriter, r *http.Request)
+	GetShippingCarrier(w http.ResponseWriter, r *http.Request)
+	GetShippingCarrierList(w http.ResponseWriter, r *http.Request)
+	DeleteShippingCarrier(w http.ResponseWriter, r *http.Request)
 
-	// //----UI Cluster installation: this is only called if UI is running in a cluster---
-	// //Handle the situation where clients are running in a cluster
-	// //This gives a way to make sure the json datastores are update on each node in the cluster
+	//----UI Cluster installation: this is only called if UI is running in a cluster---
+	//Handles the situation where clients are running in a cluster
+	//This gives a way to make sure the json datastores are update on each node in the cluster
 
-	// //----------------start datastore------------------------------------
-	// //this gets called when a node start up and add only if it doesn't already exist
-	// AddLocalDatastore(w http.ResponseWriter, r *http.Request)
+	//----------------start datastore------------------------------------
+	//this gets called when a node starts up and add only if it doesn't already exist
+	AddLocalDatastore(w http.ResponseWriter, r *http.Request)
 
-	// //This get get called when a change is made to a datastore from a node in the cluster
-	// //Or after all reloads have completed and then get set to Reload = false
-	// UpdateLocalDatastore(w http.ResponseWriter, r *http.Request)
+	//This gets called when a change is made to a datastore from a node in the cluster
+	//Or after all reloads have completed and then gets set to Reload = false
+	UpdateLocalDatastore(w http.ResponseWriter, r *http.Request)
 
-	// //This gets call by cluster nodes to see if there are pending reload
-	// GetLocalDatastore(w http.ResponseWriter, r *http.Request)
+	//This gets call by cluster nodes to see if there are pending reload
+	GetLocalDatastore(w http.ResponseWriter, r *http.Request)
 
 	// //---------------------start instance--------------------
 	// // this gets called when each instance is started and added only if never added before
