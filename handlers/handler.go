@@ -255,12 +255,12 @@ type Handler interface {
 	//Gets called before updating an instance
 	GetInstance(w http.ResponseWriter, r *http.Request)
 
-	// //-------------------start write lock-------------
-	// //gets called after UI makes changes to one of the datastores
-	// //If the datastore already exists, the Update method is called from within add
-	// AddDataStoreWriteLock(w http.ResponseWriter, r *http.Request)
-	// UpdateDataStoreWriteLock(w http.ResponseWriter, r *http.Request)
+	//-------------------start write lock-------------
+	//gets called after UI makes changes to one of the datastores
+	//If the datastore already exists, the Update method is called from within add
+	AddDataStoreWriteLock(w http.ResponseWriter, r *http.Request)
+	UpdateDataStoreWriteLock(w http.ResponseWriter, r *http.Request)
 
-	// //gets called from within the add method and by any node trying to update a datastore
-	// GetDataStoreWriteLock(w http.ResponseWriter, r *http.Request)
+	//gets called from within the add method and by any node trying to update a datastore
+	GetDataStoreWriteLock(w http.ResponseWriter, r *http.Request)
 }
