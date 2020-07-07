@@ -244,16 +244,16 @@ type Handler interface {
 	//This gets call by cluster nodes to see if there are pending reload
 	GetLocalDatastore(w http.ResponseWriter, r *http.Request)
 
-	// //---------------------start instance--------------------
-	// // this gets called when each instance is started and added only if never added before
-	// //The instance name is pulled from Docker or an manually entered env variable
-	// AddInstance(w http.ResponseWriter, r *http.Request)
+	//---------------------start instance--------------------
+	// this gets called when each instance is started and added only if never added before
+	//The instance name is pulled from Docker or an manually entered env variable
+	AddInstance(w http.ResponseWriter, r *http.Request)
 
-	// //This gets called after instance gets reloaded
-	// UpdateInstance(w http.ResponseWriter, r *http.Request)
+	//This gets called after instance gets reloaded
+	UpdateInstance(w http.ResponseWriter, r *http.Request)
 
-	// //Gets called before updating an instance
-	// GetInstance(w http.ResponseWriter, r *http.Request)
+	//Gets called before updating an instance
+	GetInstance(w http.ResponseWriter, r *http.Request)
 
 	// //-------------------start write lock-------------
 	// //gets called after UI makes changes to one of the datastores
