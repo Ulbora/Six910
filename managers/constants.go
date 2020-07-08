@@ -33,7 +33,7 @@ const (
 	failToAddSecurity           = "Failed to add security record"
 	failToAddDefaultStore       = "Failed to add default store"
 	failToAddDefaultUserAccount = "Fail to add default user account"
-	storeAlreadyExists          = "Can not create a local store because a store already exists. " +
-		"Remove the existing store and continue."
+	storeAlreadyExists          = "Local store already exists. " +
+		"If you need a new store, remove the existing store and restart."
 	failStoreMayAlreadyExist = "Adding store failed: store may already exist."
 )

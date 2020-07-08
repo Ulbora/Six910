@@ -40,6 +40,8 @@ func (m *Six910Manager) CreateLocalStore(auth *LocalStoreAdminUser) *LocalStoreR
 			str.Zip = "12345"
 			str.FirstName = "default"
 			str.LastName = "store"
+			str.StoreName = "defaultLocalStore"
+			str.LocalDomain = "defaultLocalStore.mydomain.com"
 			m.Log.Debug("Creating local store")
 			suc, sid := m.Db.AddStore(&str)
 			if suc {
@@ -61,6 +63,7 @@ func (m *Six910Manager) CreateLocalStore(auth *LocalStoreAdminUser) *LocalStoreR
 						lacc.Password = hpw
 						lacc.StoreID = sid
 						lacc.Role = storeAdmin
+						lacc.Enabled = true
 						accsuc = m.Db.AddLocalAccount(&lacc)
 					}
 					if accsuc {
@@ -81,7 +84,7 @@ func (m *Six910Manager) CreateLocalStore(auth *LocalStoreAdminUser) *LocalStoreR
 				rtn.Message = failToAddDefaultStore
 			}
 		} else {
-			rtn.Code = http.StatusInternalServerError
+			rtn.Code = http.StatusOK
 			rtn.Message = storeAlreadyExists
 		}
 	}
