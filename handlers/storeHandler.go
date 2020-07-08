@@ -32,7 +32,18 @@ import (
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//AddStore AddStore
+// AddStore godoc
+// @Summary Add a new store
+// @Description Adds a new store to the system (only for OAuth2 stores)
+// @Tags store
+// @Accept  json
+// @Produce  json
+// @Param store body six910-database-interface.Store true "store"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.ResponseID
+// @Router /rs/store/add [post]
 func (h *Six910Handler) AddStore(w http.ResponseWriter, r *http.Request) {
 	var addStoreURL = "/six910/rs/store/add"
 	var c jv.Claim
@@ -70,13 +81,28 @@ func (h *Six910Handler) AddStore(w http.ResponseWriter, r *http.Request) {
 		}
 	} else {
 		var asfl m.ResponseID
+		asfl.Message = storeAddMessage
 		w.WriteHeader(http.StatusUnauthorized)
 		resJSON, _ := json.Marshal(asfl)
 		fmt.Fprint(w, string(resJSON))
 	}
 }
 
-//UpdateStore UpdateStore
+// UpdateStore godoc
+// @Summary Update a store
+// @Description Update store data
+// @Tags store
+// @Accept  json
+// @Produce  json
+// @Param store body six910-database-interface.Store true "store"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/store/update [put]
 func (h *Six910Handler) UpdateStore(w http.ResponseWriter, r *http.Request) {
 	var upStoreURL = "/six910/rs/store/update"
 	var c jv.Claim
@@ -121,7 +147,22 @@ func (h *Six910Handler) UpdateStore(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//GetStore GetStore
+// GetStore godoc
+// @Summary Get details of a store
+// @Description Get details of a store
+// @Tags store
+// @Accept  json
+// @Produce  json
+// @Param storeName path string true "store name"
+// @Param localDomain path string true "store localDomain"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} six910-database-interface.Store
+// @Router /rs/store/get/{storeName}/{localDomain} [get]
 func (h *Six910Handler) GetStore(w http.ResponseWriter, r *http.Request) {
 	var gStoreURL = "/six910/rs/store/get"
 	var gsc jv.Claim
@@ -153,7 +194,22 @@ func (h *Six910Handler) GetStore(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//DeleteStore DeleteStore
+// DeleteStore godoc
+// @Summary Delete a store
+// @Description Delete a store from the system (only for OAuth2 stores)
+// @Tags store
+// @Accept  json
+// @Produce  json
+// @Param storeName path string true "store name"
+// @Param localDomain path string true "store localDomain"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/store/delete/{storeName}/{localDomain} [delete]
 func (h *Six910Handler) DeleteStore(w http.ResponseWriter, r *http.Request) {
 	var dStoreURL = "/six910/rs/store/delete"
 	var dsc jv.Claim
@@ -177,7 +233,7 @@ func (h *Six910Handler) DeleteStore(w http.ResponseWriter, r *http.Request) {
 			if dsres.Success {
 				w.WriteHeader(http.StatusOK)
 			} else {
-				w.WriteHeader(http.StatusInternalServerError)
+				w.WriteHeader(int(dsres.Code))
 			}
 			resJSON, _ := json.Marshal(dsres)
 			fmt.Fprint(w, string(resJSON))

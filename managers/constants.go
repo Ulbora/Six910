@@ -36,4 +36,5 @@ const (
 	storeAlreadyExists          = "Local store already exists. " +
 		"If you need a new store, remove the existing store and restart."
 	failStoreMayAlreadyExist = "Adding store failed: store may already exist."
+	storeDeleteMessage = "Store can not be deleted."
 )

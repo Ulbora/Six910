@@ -1,0 +1,267 @@
+basePath: /
+definitions:
+  managers.Response:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+      success:
+        type: boolean
+    type: object
+  managers.ResponseID:
+    properties:
+      code:
+        type: integer
+      id:
+        type: integer
+      message:
+        type: string
+      success:
+        type: boolean
+    type: object
+  six910-database-interface.Store:
+    properties:
+      city:
+        type: string
+      company:
+        type: string
+      currency:
+        type: string
+      email:
+        type: string
+      enabled:
+        type: boolean
+      entered:
+        type: string
+      firstName:
+        type: string
+      id:
+        type: integer
+      lastName:
+        type: string
+      localDomain:
+        type: string
+      logo:
+        type: string
+      oauthClientId:
+        type: integer
+      oauthSecret:
+        type: string
+      remoteDomain:
+        type: string
+      state:
+        type: string
+      storeName:
+        type: string
+      storeSlogan:
+        type: string
+      updated:
+        type: string
+      zip:
+        type: string
+    type: object
+host: localhost:3002
+info:
+  contact:
+    name: API Support
+    url: http://www.ulboralabs.com/contact/form
+  description: This is the Six910 (six nine ten) API
+  license:
+    name: GPL-3.0
+    url: https://github.com/Ulbora/Six910/blob/master/LICENSE
+  termsOfService: https://github.com/Ulbora/Six910/blob/master/tos.html
+  title: Six910 API
+  version: "1.0"
+paths:
+  /rs/store/add:
+    post:
+      consumes:
+      - application/json
+      description: Adds a new store to the system (only for OAuth2 stores)
+      parameters:
+      - description: store
+        in: body
+        name: store
+        required: true
+        schema:
+          $ref: '#/definitions/six910-database-interface.Store'
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.ResponseID'
+      summary: Add a new store
+      tags:
+      - store
+  /rs/store/delete/{storeName}/{localDomain}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a store from the system (only for OAuth2 stores)
+      parameters:
+      - description: store name
+        in: path
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: path
+        name: localDomain
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Delete a store
+      tags:
+      - store
+  /rs/store/get/{storeName}/{localDomain}:
+    get:
+      consumes:
+      - application/json
+      description: Get details of a store
+      parameters:
+      - description: store name
+        in: path
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: path
+        name: localDomain
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/six910-database-interface.Store'
+      summary: Get details of a store
+      tags:
+      - store
+  /rs/store/update:
+    put:
+      consumes:
+      - application/json
+      description: Update store data
+      parameters:
+      - description: store
+        in: body
+        name: store
+        required: true
+        schema:
+          $ref: '#/definitions/six910-database-interface.Store'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Update a store
+      tags:
+      - store
+swagger: "2.0"

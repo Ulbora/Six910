@@ -328,3 +328,37 @@ func TestSix910Manager_DeleteStorefail(t *testing.T) {
 		t.Fail()
 	}
 }
+
+func TestSix910Manager_DeleteStoreNoOauth(t *testing.T) {
+
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	m := sm.GetNew()
+
+	var str sdbi.Store
+	str.ID = 5
+	str.City = "Atlanta"
+	str.FirstName = "tester"
+	str.LastName = "tester"
+	str.LocalDomain = "localtester"
+	str.StoreName = "teststore"
+	sdb.MockStore = &str
+
+	var sec sdbi.Security
+	//sec.OauthOn = true
+	sdb.MockSecurity = &sec
+	sdb.MockDeleteStoreSuccess = true
+	res := m.DeleteStore("teststore", "localtester")
+	if res.Success || res.Code != 401 {
+		t.Fail()
+	}
+}

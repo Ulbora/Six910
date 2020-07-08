@@ -42,6 +42,7 @@ func (m *Six910Manager) CreateLocalStore(auth *LocalStoreAdminUser) *LocalStoreR
 			str.LastName = "store"
 			str.StoreName = "defaultLocalStore"
 			str.LocalDomain = "defaultLocalStore.mydomain.com"
+			str.Enabled = true
 			m.Log.Debug("Creating local store")
 			suc, sid := m.Db.AddStore(&str)
 			if suc {

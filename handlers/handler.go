@@ -30,6 +30,10 @@ const (
 	superAdmin   = "superAdmin"
 	storeAdmin   = "StoreAdmin"
 	customerRole = "customer"
+
+	//messages
+	storeAddMessage    = "Store can not be added."
+	storeDeleteMessage = "Store can not be deleted."
 )
 
 //Handler Handler

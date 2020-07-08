@@ -91,6 +91,9 @@ func (m *Six910Manager) DeleteStore(sname string, localDomain string) *Response 
 		} else {
 			rtn.Code = http.StatusBadRequest
 		}
+	} else {
+		rtn.Code = http.StatusUnauthorized
+		rtn.Message = storeDeleteMessage
 	}
 	return &rtn
 }
