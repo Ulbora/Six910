@@ -53,8 +53,8 @@ func (h *Six910Handler) AddStore(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.ValidatorClient.Authorize(r, &c, h.ValidationURL)
 	h.Log.Debug("store add authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		asOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", asOk)
 		if !asOk {
@@ -113,8 +113,8 @@ func (h *Six910Handler) UpdateStore(w http.ResponseWriter, r *http.Request) {
 	auth := h.processSecurity(r, &c)
 	//auth := h.ValidatorClient.Authorize(r, &c, h.ValidationURL)
 	h.Log.Debug("store update authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		usOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", usOk)
 		if !usOk {
@@ -173,8 +173,8 @@ func (h *Six910Handler) GetStore(w http.ResponseWriter, r *http.Request) {
 	auth := h.processSecurity(r, &gsc)
 	//auth := h.ValidatorClient.Authorize(r, &c, h.ValidationURL)
 	h.Log.Debug("store get authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {
@@ -220,8 +220,8 @@ func (h *Six910Handler) DeleteStore(w http.ResponseWriter, r *http.Request) {
 	auth := h.processSecurity(r, &dsc)
 	//auth := h.ValidatorClient.Authorize(r, &c, h.ValidationURL)
 	h.Log.Debug("store delete authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {

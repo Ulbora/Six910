@@ -164,6 +164,21 @@ func main() {
 	router.HandleFunc("/rs/store/get/{storeName}/{localDomain}", h.GetStore).Methods("GET")
 	router.HandleFunc("/rs/store/delete/{storeName}/{localDomain}", h.DeleteStore).Methods("DELETE")
 
+	//customer
+	router.HandleFunc("/rs/customer/add", h.AddCustomer).Methods("POST")
+	router.HandleFunc("/rs/customer/update", h.UpdateCustomer).Methods("PUT")
+	router.HandleFunc("/rs/customer/get/email/{email}/{storeId}", h.GetCustomer).Methods("GET")
+	router.HandleFunc("/rs/customer/get/id/{id}/{storeId}", h.GetCustomerID).Methods("GET")
+	router.HandleFunc("/rs/customer/get/list/{storeId}", h.GetCustomerList).Methods("GET")
+	router.HandleFunc("/rs/customer/delete/{id}/{storeId}", h.DeleteCustomer).Methods("DELETE")
+
+	router.HandleFunc("/rs/user/add", h.AddUser).Methods("POST")
+	router.HandleFunc("/rs/user/update", h.UpdateUser).Methods("PUT")
+	router.HandleFunc("/rs/user/{username}/{storeId}", h.GetUser).Methods("GET")
+
+	router.HandleFunc("/rs/user/get/admin/list/{storeId}", h.GetAdminUserList).Methods("GET")
+	router.HandleFunc("/rs/user/get/customer/list/{storeId}", h.GetCustomerUserList).Methods("GET")
+
 	fmt.Println("Six910 (six nine ten) server is running on port " + port + "!")
 
 	// Swagger

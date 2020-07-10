@@ -30,13 +30,19 @@ import (
 //AddCustomer AddCustomer
 func (m *Six910Manager) AddCustomer(c *sdbi.Customer) *ResponseID {
 	var rtn ResponseID
-	suc, id := m.Db.AddCustomer(c)
-	if suc && id != 0 {
-		rtn.ID = id
-		rtn.Success = suc
-		rtn.Code = http.StatusOK
+	cs := m.Db.GetCustomer(c.Email, c.StoreID)
+	if cs.ID == 0 {
+		suc, id := m.Db.AddCustomer(c)
+		if suc && id != 0 {
+			rtn.ID = id
+			rtn.Success = suc
+			rtn.Code = http.StatusOK
+		} else {
+			rtn.Code = http.StatusBadRequest
+		}
 	} else {
-		rtn.Code = http.StatusBadRequest
+		rtn.Code = http.StatusConflict
+		rtn.Message = customerAlreadyExists
 	}
 	return &rtn
 }

@@ -20,6 +20,70 @@ definitions:
       success:
         type: boolean
     type: object
+  managers.User:
+    properties:
+      customerId:
+        type: integer
+      enabled:
+        description: |-
+          OAuthClientID int64  `json:"oauthClientID"`
+          EmailAddress  string `json:"emailAddress"`
+          FirstName     string `json:"firstName"`
+          LastName      string `json:"lastName"`
+        type: boolean
+      oldPassword:
+        type: string
+      password:
+        type: string
+      role:
+        type: string
+      storeId:
+        type: integer
+      username:
+        type: string
+    type: object
+  managers.UserResponse:
+    properties:
+      customerId:
+        type: integer
+      enabled:
+        type: boolean
+      role:
+        type: string
+      storeId:
+        type: integer
+      username:
+        type: string
+    type: object
+  six910-database-interface.Customer:
+    properties:
+      city:
+        type: string
+      company:
+        type: string
+      email:
+        type: string
+      entered:
+        type: string
+      firstName:
+        type: string
+      id:
+        type: integer
+      lastName:
+        type: string
+      phone:
+        type: string
+      resetPassword:
+        type: boolean
+      state:
+        type: string
+      storeId:
+        type: integer
+      updated:
+        type: string
+      zip:
+        type: string
+    type: object
   six910-database-interface.Store:
     properties:
       city:
@@ -74,6 +138,313 @@ info:
   title: Six910 API
   version: "1.0"
 paths:
+  /rs/customer/add:
+    post:
+      consumes:
+      - application/json
+      description: Adds a new customer to a store
+      parameters:
+      - description: customer
+        in: body
+        name: customer
+        required: true
+        schema:
+          $ref: '#/definitions/six910-database-interface.Customer'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.ResponseID'
+      summary: Add a new customer
+      tags:
+      - customer
+  /rs/customer/delete/{id}/{storeId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a customer from the store
+      parameters:
+      - description: customer id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Delete a customer
+      tags:
+      - customer
+  /rs/customer/get/email/{email}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get details of a customer
+      parameters:
+      - description: customer email
+        in: path
+        name: email
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/six910-database-interface.Customer'
+      summary: Get details of a customer
+      tags:
+      - customer
+  /rs/customer/get/id/{id}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get details of a customer
+      parameters:
+      - description: customer id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/six910-database-interface.Customer'
+      summary: Get details of a customer by id
+      tags:
+      - customer
+  /rs/customer/get/list/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of a customers for a store
+      parameters:
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/six910-database-interface.Customer'
+            type: array
+      summary: Get list of a customers
+      tags:
+      - customer
+  /rs/customer/update:
+    put:
+      consumes:
+      - application/json
+      description: Update customer data
+      parameters:
+      - description: store
+        in: body
+        name: store
+        required: true
+        schema:
+          $ref: '#/definitions/six910-database-interface.Customer'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Update a customer
+      tags:
+      - customer
   /rs/store/add:
     post:
       consumes:
@@ -264,4 +635,255 @@ paths:
       summary: Update a store
       tags:
       - store
+  /rs/user/{username}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get details of a user
+      parameters:
+      - description: username
+        in: path
+        name: username
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.UserResponse'
+      summary: Get details of a user
+      tags:
+      - user
+  /rs/user/add:
+    post:
+      consumes:
+      - application/json
+      description: Adds a new user to a store
+      parameters:
+      - description: user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/managers.User'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Add a new user
+      tags:
+      - user
+  /rs/user/get/admin/list/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of admin users for a store
+      parameters:
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/managers.UserResponse'
+            type: array
+      summary: Get list of a admin users
+      tags:
+      - user
+  /rs/user/get/customer/list/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of customer users for a store
+      parameters:
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/managers.UserResponse'
+            type: array
+      summary: Get list of a customer users
+      tags:
+      - user
+  /rs/user/update:
+    put:
+      consumes:
+      - application/json
+      description: Update user data
+      parameters:
+      - description: user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/managers.User'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Update a user
+      tags:
+      - user
 swagger: "2.0"

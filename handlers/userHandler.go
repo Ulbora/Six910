@@ -32,7 +32,21 @@ import (
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//AddUser AddUser
+// AddUser godoc
+// @Summary Add a new user
+// @Description Adds a new user to a store
+// @Tags user
+// @Accept  json
+// @Produce  json
+// @Param user body managers.User true "user"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/user/add [post]
 func (h *Six910Handler) AddUser(w http.ResponseWriter, r *http.Request) {
 	var addUsURL = "/six910/rs/user/add"
 	var auc jv.Claim
@@ -42,8 +56,8 @@ func (h *Six910Handler) AddUser(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &auc)
 	h.Log.Debug("user add authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		auOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", auOk)
 		if !auOk {
@@ -79,14 +93,28 @@ func (h *Six910Handler) AddUser(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	} else {
-		var acfl m.ResponseID
+		var acfl m.Response
 		w.WriteHeader(http.StatusUnauthorized)
 		resJSON, _ := json.Marshal(acfl)
 		fmt.Fprint(w, string(resJSON))
 	}
 }
 
-//UpdateUser UpdateUser
+// UpdateUser godoc
+// @Summary Update a user
+// @Description Update user data
+// @Tags user
+// @Accept  json
+// @Produce  json
+// @Param user body managers.User true "user"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/user/update [put]
 func (h *Six910Handler) UpdateUser(w http.ResponseWriter, r *http.Request) {
 	var upUsURL = "/six910/rs/user/update"
 	var uuc jv.Claim
@@ -96,8 +124,8 @@ func (h *Six910Handler) UpdateUser(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &uuc)
 	h.Log.Debug("user update authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		ucOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", ucOk)
 		if !ucOk {
@@ -130,7 +158,22 @@ func (h *Six910Handler) UpdateUser(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//GetUser GetUser
+// GetUser godoc
+// @Summary Get details of a user
+// @Description Get details of a user
+// @Tags user
+// @Accept  json
+// @Produce  json
+// @Param username path string true "username"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.UserResponse
+// @Router /rs/user/{username}/{storeId} [get]
 func (h *Six910Handler) GetUser(w http.ResponseWriter, r *http.Request) {
 	var gUsURL = "/six910/rs/user/get"
 	var guc jv.Claim
@@ -141,8 +184,8 @@ func (h *Six910Handler) GetUser(w http.ResponseWriter, r *http.Request) {
 	auth := h.processSecurity(r, &guc)
 
 	h.Log.Debug("user get authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {
@@ -173,7 +216,21 @@ func (h *Six910Handler) GetUser(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//GetAdminUserList GetAdminUserList
+// GetAdminUserList godoc
+// @Summary Get list of a admin users
+// @Description Get list of admin users for a store
+// @Tags user
+// @Accept  json
+// @Produce  json
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {array} managers.UserResponse
+// @Router /rs/user/get/admin/list/{storeId} [get]
 func (h *Six910Handler) GetAdminUserList(w http.ResponseWriter, r *http.Request) {
 	var gUslURL = "/six910/rs/adminuser/list"
 	var gucl jv.Claim
@@ -183,8 +240,8 @@ func (h *Six910Handler) GetAdminUserList(w http.ResponseWriter, r *http.Request)
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gucl)
 	h.Log.Debug("admin user get list authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 1 {
@@ -211,7 +268,21 @@ func (h *Six910Handler) GetAdminUserList(w http.ResponseWriter, r *http.Request)
 	}
 }
 
-//GetCustomerUserList GetCustomerUserList
+// GetCustomerUserList godoc
+// @Summary Get list of a customer users
+// @Description Get list of customer users for a store
+// @Tags user
+// @Accept  json
+// @Produce  json
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {array} managers.UserResponse
+// @Router /rs/user/get/customer/list/{storeId} [get]
 func (h *Six910Handler) GetCustomerUserList(w http.ResponseWriter, r *http.Request) {
 	var gcUslURL = "/six910/rs/customeruser/list"
 	var gcucl jv.Claim
@@ -221,8 +292,8 @@ func (h *Six910Handler) GetCustomerUserList(w http.ResponseWriter, r *http.Reque
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gcucl)
 	h.Log.Debug("admin user get list authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 1 {

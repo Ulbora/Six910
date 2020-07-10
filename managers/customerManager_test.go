@@ -23,6 +23,10 @@ func TestSix910Manager_AddCustomer(t *testing.T) {
 
 	m := sm.GetNew()
 
+	var fcus sdbi.Customer
+	fcus.StoreID = 1
+	sdb.MockCustomer = &fcus
+
 	var cus sdbi.Customer
 	cus.StoreID = 1
 
@@ -30,6 +34,37 @@ func TestSix910Manager_AddCustomer(t *testing.T) {
 	sdb.MockCustomerID = 2
 	resp := m.AddCustomer(&cus)
 	if !resp.Success {
+		t.Fail()
+	}
+}
+
+func TestSix910Manager_AddCustomerExists(t *testing.T) {
+
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	m := sm.GetNew()
+
+	var fcus sdbi.Customer
+	fcus.ID = 2
+	fcus.StoreID = 1
+	sdb.MockCustomer = &fcus
+
+	var cus sdbi.Customer
+	cus.StoreID = 1
+
+	sdb.MockAddCustomerSuccess = true
+	sdb.MockCustomerID = 2
+	resp := m.AddCustomer(&cus)
+	if resp.Success {
 		t.Fail()
 	}
 }
@@ -48,6 +83,10 @@ func TestSix910Manager_AddCustomerFail(t *testing.T) {
 	sm.Log = &l
 
 	m := sm.GetNew()
+
+	var fcus sdbi.Customer
+	fcus.StoreID = 1
+	sdb.MockCustomer = &fcus
 
 	var cus sdbi.Customer
 	cus.StoreID = 1

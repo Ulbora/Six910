@@ -55,7 +55,10 @@ func (h *Six910Handler) processSecurity(r *http.Request, c *jv.Claim) bool {
 			res := h.Manager.ValidateUser(&user)
 			h.Log.Debug("user validated: ", *res)
 			apiKey := r.Header.Get("apiKey")
-			if res.Success && u.Role == c.Role && apiKey == h.APIKey {
+			h.Log.Debug("apiKey: ", apiKey)
+			h.Log.Debug("h.APIKey: ", h.APIKey)
+			h.Log.Debug("u.Role: ", u.Role)
+			if res.Success && apiKey == h.APIKey && (u.Role == superAdmin || u.Role == storeAdmin || u.Role == c.Role) {
 				rtn = true
 			}
 		}

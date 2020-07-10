@@ -55,6 +55,12 @@ func TestSix910Handler_AddCustomer(t *testing.T) {
 	sdb.MockAddCustomerSuccess = true
 	sdb.MockCustomerID = 5
 
+	var cus sdbi.Customer
+	cus.ID = 0
+	cus.StoreID = 5
+
+	sdb.MockCustomer = &cus
+
 	h := sh.GetNew()
 	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"city":"atlanta", "firstName": "tester"}`))
 	//aJSON, _ := json.Marshal(robj)
@@ -111,6 +117,12 @@ func TestSix910Handler_AddCustomerAuth(t *testing.T) {
 	sdb.MockAddCustomerSuccess = true
 	sdb.MockCustomerID = 5
 
+	var cus sdbi.Customer
+	cus.ID = 3
+	cus.StoreID = 5
+
+	sdb.MockCustomer = &cus
+
 	h := sh.GetNew()
 	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"city":"atlanta", "firstName": "tester"}`))
 	//aJSON, _ := json.Marshal(robj)
@@ -166,6 +178,12 @@ func TestSix910Handler_AddCustomerReq(t *testing.T) {
 	sdb.MockAddCustomerSuccess = true
 	sdb.MockCustomerID = 5
 
+	var cus sdbi.Customer
+	cus.ID = 3
+	cus.StoreID = 5
+
+	sdb.MockCustomer = &cus
+
 	h := sh.GetNew()
 	//aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"city":"atlanta", "firstName": "tester"}`))
 	//aJSON, _ := json.Marshal(robj)
@@ -220,6 +238,11 @@ func TestSix910Handler_AddCustomerFail(t *testing.T) {
 
 	//sdb.MockAddCustomerSuccess = true
 	sdb.MockCustomerID = 5
+	var cus sdbi.Customer
+	cus.ID = 3
+	cus.StoreID = 5
+
+	sdb.MockCustomer = &cus
 
 	h := sh.GetNew()
 	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"city":"atlanta", "firstName": "tester"}`))
@@ -275,6 +298,12 @@ func TestSix910Handler_AddCustomerMedia(t *testing.T) {
 
 	sdb.MockAddCustomerSuccess = true
 	sdb.MockCustomerID = 5
+
+	var cus sdbi.Customer
+	cus.ID = 3
+	cus.StoreID = 5
+
+	sdb.MockCustomer = &cus
 
 	h := sh.GetNew()
 	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"city":"atlanta", "firstName": "tester"}`))

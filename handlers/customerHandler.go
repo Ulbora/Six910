@@ -33,7 +33,21 @@ import (
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//AddCustomer AddCustomer
+// AddCustomer godoc
+// @Summary Add a new customer
+// @Description Adds a new customer to a store
+// @Tags customer
+// @Accept  json
+// @Produce  json
+// @Param customer body six910-database-interface.Customer true "customer"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.ResponseID
+// @Router /rs/customer/add [post]
 func (h *Six910Handler) AddCustomer(w http.ResponseWriter, r *http.Request) {
 	var addCusURL = "/six910/rs/customer/add"
 	var acc jv.Claim
@@ -43,8 +57,8 @@ func (h *Six910Handler) AddCustomer(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &acc)
 	h.Log.Debug("cus add authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		acOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", acOk)
 		if !acOk {
@@ -77,7 +91,21 @@ func (h *Six910Handler) AddCustomer(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//UpdateCustomer UpdateCustomer
+// UpdateCustomer godoc
+// @Summary Update a customer
+// @Description Update customer data
+// @Tags customer
+// @Accept  json
+// @Produce  json
+// @Param store body six910-database-interface.Customer true "store"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/customer/update [put]
 func (h *Six910Handler) UpdateCustomer(w http.ResponseWriter, r *http.Request) {
 	var upCusURL = "/six910/rs/customer/update"
 	var ucc jv.Claim
@@ -87,8 +115,8 @@ func (h *Six910Handler) UpdateCustomer(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &ucc)
 	h.Log.Debug("customer update authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		ucOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", ucOk)
 		if !ucOk {
@@ -121,7 +149,22 @@ func (h *Six910Handler) UpdateCustomer(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//GetCustomer GetCustomer
+// GetCustomer godoc
+// @Summary Get details of a customer
+// @Description Get details of a customer
+// @Tags customer
+// @Accept  json
+// @Produce  json
+// @Param email path string true "customer email"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} six910-database-interface.Customer
+// @Router /rs/customer/get/email/{email}/{storeId} [get]
 func (h *Six910Handler) GetCustomer(w http.ResponseWriter, r *http.Request) {
 	var gCusURL = "/six910/rs/customer/get"
 	var gcc jv.Claim
@@ -132,8 +175,8 @@ func (h *Six910Handler) GetCustomer(w http.ResponseWriter, r *http.Request) {
 	auth := h.processSecurity(r, &gcc)
 
 	h.Log.Debug("cus get authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {
@@ -161,7 +204,22 @@ func (h *Six910Handler) GetCustomer(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//GetCustomerID GetCustomerID
+// GetCustomerID godoc
+// @Summary Get details of a customer by id
+// @Description Get details of a customer
+// @Tags customer
+// @Accept  json
+// @Produce  json
+// @Param id path string true "customer id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} six910-database-interface.Customer
+// @Router /rs/customer/get/id/{id}/{storeId} [get]
 func (h *Six910Handler) GetCustomerID(w http.ResponseWriter, r *http.Request) {
 	var gCus2URL = "/six910/rs/customer/get/id"
 	var gcc2 jv.Claim
@@ -171,8 +229,8 @@ func (h *Six910Handler) GetCustomerID(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gcc2)
 	h.Log.Debug("cus get id authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {
@@ -201,7 +259,21 @@ func (h *Six910Handler) GetCustomerID(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//GetCustomerList GetCustomerList
+// GetCustomerList godoc
+// @Summary Get list of a customers
+// @Description Get list of a customers for a store
+// @Tags customer
+// @Accept  json
+// @Produce  json
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {array} six910-database-interface.Customer
+// @Router /rs/customer/get/list/{storeId} [get]
 func (h *Six910Handler) GetCustomerList(w http.ResponseWriter, r *http.Request) {
 	var gCuslURL = "/six910/rs/customer/list"
 	var gccl jv.Claim
@@ -211,8 +283,8 @@ func (h *Six910Handler) GetCustomerList(w http.ResponseWriter, r *http.Request) 
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gccl)
 	h.Log.Debug("cus get list authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 1 {
@@ -239,7 +311,22 @@ func (h *Six910Handler) GetCustomerList(w http.ResponseWriter, r *http.Request) 
 	}
 }
 
-//DeleteCustomer DeleteCustomer
+// DeleteCustomer godoc
+// @Summary Delete a customer
+// @Description Delete a customer from the store
+// @Tags customer
+// @Accept  json
+// @Produce  json
+// @Param id path string true "customer id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/customer/delete/{id}/{storeId} [delete]
 func (h *Six910Handler) DeleteCustomer(w http.ResponseWriter, r *http.Request) {
 	var dCusURL = "/six910/rs/customer/delete"
 	var dcs jv.Claim
@@ -249,8 +336,8 @@ func (h *Six910Handler) DeleteCustomer(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &dcs)
 	h.Log.Debug("cust delete authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {
