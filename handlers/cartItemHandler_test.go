@@ -57,6 +57,14 @@ func TestSix910Handler_AddCartItem(t *testing.T) {
 
 	sdb.MockCart = &cart
 
+	var ci sdbi.CartItem
+	ci.CartID = 4
+	ci.ProductID = 22
+	var lst []sdbi.CartItem
+	lst = append(lst, ci)
+
+	sdb.MockCartItemList = &lst
+
 	sdb.MockAddCartItemSuccess = true
 	sdb.MockCartItemID = 5
 
@@ -118,6 +126,14 @@ func TestSix910Handler_AddCartItemAuth(t *testing.T) {
 	cart.StoreID = 5
 
 	sdb.MockCart = &cart
+
+	var ci sdbi.CartItem
+	ci.CartID = 4
+	ci.ProductID = 22
+	var lst []sdbi.CartItem
+	lst = append(lst, ci)
+
+	sdb.MockCartItemList = &lst
 
 	sdb.MockAddCartItemSuccess = true
 	sdb.MockCartItemID = 5
@@ -181,6 +197,14 @@ func TestSix910Handler_AddCartItemFail(t *testing.T) {
 
 	sdb.MockCart = &cart
 
+	var ci sdbi.CartItem
+	ci.CartID = 4
+	ci.ProductID = 22
+	var lst []sdbi.CartItem
+	lst = append(lst, ci)
+
+	sdb.MockCartItemList = &lst
+
 	//sdb.MockAddCartItemSuccess = true
 	sdb.MockCartItemID = 5
 
@@ -243,6 +267,14 @@ func TestSix910Handler_AddCartItemMedia(t *testing.T) {
 
 	sdb.MockCart = &cart
 
+	var ci sdbi.CartItem
+	ci.CartID = 4
+	ci.ProductID = 22
+	var lst []sdbi.CartItem
+	lst = append(lst, ci)
+
+	sdb.MockCartItemList = &lst
+
 	sdb.MockAddCartItemSuccess = true
 	sdb.MockCartItemID = 5
 
@@ -304,6 +336,14 @@ func TestSix910Handler_AddCartItemReq(t *testing.T) {
 	cart.StoreID = 5
 
 	sdb.MockCart = &cart
+
+	var ci sdbi.CartItem
+	ci.CartID = 4
+	ci.ProductID = 22
+	var lst []sdbi.CartItem
+	lst = append(lst, ci)
+
+	sdb.MockCartItemList = &lst
 
 	sdb.MockAddCartItemSuccess = true
 	sdb.MockCartItemID = 5
@@ -734,7 +774,7 @@ func TestSix910Handler_GetCarItem(t *testing.T) {
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("GET", "/ffllist", nil)
 	vars := map[string]string{
-		"cartId":  "9",
+		"cid":     "9",
 		"prodId":  "3",
 		"storeId": "5",
 	}
@@ -748,7 +788,7 @@ func TestSix910Handler_GetCarItem(t *testing.T) {
 
 	w := httptest.NewRecorder()
 
-	h.GetCarItem(w, r)
+	h.GetCartItem(w, r)
 
 	if w.Code != 200 {
 		t.Fail()
@@ -809,7 +849,7 @@ func TestSix910Handler_GetCarItemAuth(t *testing.T) {
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("GET", "/ffllist", nil)
 	vars := map[string]string{
-		"cartId":  "9",
+		"cid":     "9",
 		"prodId":  "3",
 		"storeId": "5",
 	}
@@ -823,7 +863,7 @@ func TestSix910Handler_GetCarItemAuth(t *testing.T) {
 
 	w := httptest.NewRecorder()
 
-	h.GetCarItem(w, r)
+	h.GetCartItem(w, r)
 
 	if w.Code != 401 {
 		t.Fail()
@@ -884,7 +924,7 @@ func TestSix910Handler_GetCarItemReq2(t *testing.T) {
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("GET", "/ffllist", nil)
 	vars := map[string]string{
-		"cartId": "9",
+		"cid":    "9",
 		"prodId": "3",
 		//"storeId": "5",
 	}
@@ -898,7 +938,7 @@ func TestSix910Handler_GetCarItemReq2(t *testing.T) {
 
 	w := httptest.NewRecorder()
 
-	h.GetCarItem(w, r)
+	h.GetCartItem(w, r)
 
 	if w.Code != 400 {
 		t.Fail()
@@ -959,7 +999,7 @@ func TestSix910Handler_GetCarItemReq(t *testing.T) {
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("GET", "/ffllist", nil)
 	vars := map[string]string{
-		"cartId":  "9r",
+		"cid":     "9d",
 		"prodId":  "3",
 		"storeId": "5",
 	}
@@ -973,7 +1013,7 @@ func TestSix910Handler_GetCarItemReq(t *testing.T) {
 
 	w := httptest.NewRecorder()
 
-	h.GetCarItem(w, r)
+	h.GetCartItem(w, r)
 
 	if w.Code != 400 {
 		t.Fail()

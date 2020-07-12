@@ -33,7 +33,21 @@ import (
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//AddCart AddCart
+// AddCart godoc
+// @Summary Add a new cart
+// @Description Adds a new cart to a store
+// @Tags Cart
+// @Accept  json
+// @Produce  json
+// @Param cart body six910-database-interface.Cart true "cart"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.ResponseID
+// @Router /rs/cart/add [post]
 func (h *Six910Handler) AddCart(w http.ResponseWriter, r *http.Request) {
 	var addCartURL = "/six910/rs/cart/add"
 	var actc jv.Claim
@@ -77,7 +91,21 @@ func (h *Six910Handler) AddCart(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//UpdateCart UpdateCart
+// UpdateCart godoc
+// @Summary Update a cart
+// @Description Update cart data
+// @Tags Cart
+// @Accept  json
+// @Produce  json
+// @Param cart body six910-database-interface.Cart true "cart"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/cart/update [put]
 func (h *Six910Handler) UpdateCart(w http.ResponseWriter, r *http.Request) {
 	var upCartURL = "/six910/rs/cart/update"
 	var uctc jv.Claim
@@ -121,7 +149,22 @@ func (h *Six910Handler) UpdateCart(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//GetCart GetCart
+// GetCart godoc
+// @Summary Get details of a cart by id
+// @Description Get details of a cart
+// @Tags Cart
+// @Accept  json
+// @Produce  json
+// @Param cid path string true "customer id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} six910-database-interface.Cart
+// @Router /rs/cart/get/{cid}/{storeId} [get]
 func (h *Six910Handler) GetCart(w http.ResponseWriter, r *http.Request) {
 	var gcartURL = "/six910/rs/cart/get"
 	var gctc2 jv.Claim
@@ -161,7 +204,23 @@ func (h *Six910Handler) GetCart(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//DeleteCart DeleteCart
+// DeleteCart godoc
+// @Summary Delete a cart
+// @Description Delete a cart from the store
+// @Tags Cart
+// @Accept  json
+// @Produce  json
+// @Param id path string true "cart id"
+// @Param cid path string true "customer id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/cart/delete/{id}/{cid}/{storeId} [delete]
 func (h *Six910Handler) DeleteCart(w http.ResponseWriter, r *http.Request) {
 	var dcartURL = "/six910/rs/cart/delete"
 	var dcts jv.Claim

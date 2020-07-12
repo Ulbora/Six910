@@ -30,14 +30,32 @@ import (
 //AddCartItem AddCartItem
 func (m *Six910Manager) AddCartItem(ci *sdbi.CartItem, cid int64, sid int64) *ResponseID {
 	var rtn ResponseID
-	crt := m.Db.GetCart(ci.CartID)
-	if crt.StoreID == sid && crt.CustomerID == cid {
-		suc, id := m.Db.AddCartItem(ci)
-		if suc && id != 0 {
+	crt := m.Db.GetCart(cid)
+	m.Log.Debug("cart in add: ", crt)
+	if crt != nil && crt.StoreID == sid && crt.CustomerID == cid {
+		crtLst := m.Db.GetCartItemList(crt.ID)
+		var foundItem bool
+		for _, fc := range *crtLst {
+			if fc.ProductID == ci.ProductID {
+				ci.ID = fc.ID
+				ci.Quantity += fc.Quantity
+				foundItem = true
+			}
+		}
+		if foundItem {
+			suc := m.Db.UpdateCartItem(ci)
 			rtn.Success = suc
-			rtn.ID = id
+			rtn.ID = ci.ID
 			rtn.Code = http.StatusOK
 		} else {
+			suc, id := m.Db.AddCartItem(ci)
+			if suc && id != 0 {
+				rtn.Success = suc
+				rtn.ID = id
+				rtn.Code = http.StatusOK
+			}
+		}
+		if !rtn.Success {
 			rtn.Code = http.StatusBadRequest
 		}
 	} else {
@@ -49,8 +67,8 @@ func (m *Six910Manager) AddCartItem(ci *sdbi.CartItem, cid int64, sid int64) *Re
 //UpdateCartItem UpdateCartItem
 func (m *Six910Manager) UpdateCartItem(ci *sdbi.CartItem, cid int64, sid int64) *Response {
 	var rtn Response
-	crt := m.Db.GetCart(ci.CartID)
-	if crt.StoreID == sid && crt.CustomerID == cid {
+	crt := m.Db.GetCart(cid)
+	if crt != nil && crt.StoreID == sid && crt.CustomerID == cid {
 		suc := m.Db.UpdateCartItem(ci)
 		if suc {
 			rtn.Success = suc
@@ -65,11 +83,11 @@ func (m *Six910Manager) UpdateCartItem(ci *sdbi.CartItem, cid int64, sid int64) 
 }
 
 //GetCarItem GetCarItem
-func (m *Six910Manager) GetCarItem(cartID int64, prodID int64, sid int64) *sdbi.CartItem {
+func (m *Six910Manager) GetCarItem(cid int64, prodID int64, sid int64) *sdbi.CartItem {
 	var rtn *sdbi.CartItem
-	crt := m.Db.GetCart(cartID)
-	if crt.StoreID == sid {
-		rtn = m.Db.GetCarItem(cartID, prodID)
+	crt := m.Db.GetCart(cid)
+	if crt != nil && crt.StoreID == sid {
+		rtn = m.Db.GetCarItem(crt.ID, prodID)
 	} else {
 		var nc sdbi.CartItem
 		rtn = &nc
@@ -80,8 +98,9 @@ func (m *Six910Manager) GetCarItem(cartID int64, prodID int64, sid int64) *sdbi.
 //GetCartItemList GetCartItemList
 func (m *Six910Manager) GetCartItemList(cartID int64, cid int64, sid int64) *[]sdbi.CartItem {
 	var rtn *[]sdbi.CartItem
-	crt := m.Db.GetCart(cartID)
-	if crt.CustomerID == cid && crt.StoreID == sid {
+	crt := m.Db.GetCart(cid)
+	m.Log.Debug("cart in get list: ", crt)
+	if crt != nil && crt.CustomerID == cid && crt.StoreID == sid && cartID == crt.ID {
 		rtn = m.Db.GetCartItemList(cartID)
 	} else {
 		var nc = []sdbi.CartItem{}
@@ -93,8 +112,10 @@ func (m *Six910Manager) GetCartItemList(cartID int64, cid int64, sid int64) *[]s
 //DeleteCartItem DeleteCartItem
 func (m *Six910Manager) DeleteCartItem(id int64, prodID int64, cartID int64) *Response {
 	var rtn Response
-	ci := m.Db.GetCarItem(id, prodID)
-	if ci.CartID == cartID {
+	ci := m.Db.GetCarItem(cartID, prodID)
+	m.Log.Debug("cartItem in get delete: ", *ci)
+	m.Log.Debug("cartItem ID in get delete: ", ci.ID)
+	if ci.CartID == cartID && ci.ID == id {
 		suc := m.Db.DeleteCartItem(id)
 		if suc {
 			rtn.Success = suc

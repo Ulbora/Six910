@@ -38,7 +38,63 @@ func TestSix910Manager_AddCartItem(t *testing.T) {
 	ci.CartID = 4
 	ci.ProductID = 2
 
+	var ci2 sdbi.CartItem
+	ci2.CartID = 4
+	ci2.ProductID = 22
+
+	var lst []sdbi.CartItem
+	lst = append(lst, ci2)
+
+	sdb.MockCartItemList = &lst
+
 	sdb.MockAddCartItemSuccess = true
+	sdb.MockCartItemID = 2
+	res := m.AddCartItem(&ci, 4, 3)
+	if !res.Success {
+		t.Fail()
+	}
+}
+
+func TestSix910Manager_AddCartItemExisting(t *testing.T) {
+
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	m := sm.GetNew()
+
+	var cart sdbi.Cart
+	cart.ID = 4
+	cart.StoreID = 3
+	cart.CustomerID = 4
+	sdb.MockCart = &cart
+
+	var prod sdbi.Product
+	prod.ID = 2
+	prod.StoreID = 3
+	sdb.MockProduct = &prod
+
+	var ci sdbi.CartItem
+	ci.CartID = 4
+	ci.ProductID = 2
+
+	var ci2 sdbi.CartItem
+	ci2.CartID = 4
+	ci2.ProductID = 22
+
+	var lst []sdbi.CartItem
+	lst = append(lst, ci)
+
+	sdb.MockCartItemList = &lst
+
+	sdb.MockUpdateCartItemSuccess = true
 	sdb.MockCartItemID = 2
 	res := m.AddCartItem(&ci, 4, 3)
 	if !res.Success {
@@ -75,6 +131,10 @@ func TestSix910Manager_AddCartItemFail1(t *testing.T) {
 	var ci sdbi.CartItem
 	ci.CartID = 4
 	ci.ProductID = 2
+
+	var lst []sdbi.CartItem
+	lst = append(lst, ci)
+	sdb.MockCartItemList = &lst
 
 	//sdb.MockAddCartItemSuccess = true
 	//sdb.MockCartItemID = 2

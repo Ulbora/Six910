@@ -33,7 +33,21 @@ import (
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//AddProduct AddProduct
+// AddProduct godoc
+// @Summary Add a new product
+// @Description Adds a new product to a store
+// @Tags Product
+// @Accept  json
+// @Produce  json
+// @Param product body six910-database-interface.Product true "product"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.ResponseID
+// @Router /rs/product/add [post]
 func (h *Six910Handler) AddProduct(w http.ResponseWriter, r *http.Request) {
 	var addprodURL = "/six910/rs/product/add"
 	var aprodc jv.Claim
@@ -43,8 +57,8 @@ func (h *Six910Handler) AddProduct(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &aprodc)
 	h.Log.Debug("product add authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		acOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", acOk)
 		if !acOk {
@@ -77,7 +91,21 @@ func (h *Six910Handler) AddProduct(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//UpdateProduct UpdateProduct
+// UpdateProduct godoc
+// @Summary Update a product
+// @Description Update product data
+// @Tags Product
+// @Accept  json
+// @Produce  json
+// @Param product body six910-database-interface.Product true "product"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/product/update [put]
 func (h *Six910Handler) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	var upprodURL = "/six910/rs/product/update"
 	var uprodc jv.Claim
@@ -87,8 +115,8 @@ func (h *Six910Handler) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &uprodc)
 	h.Log.Debug("product update authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		ucOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", ucOk)
 		if !ucOk {
@@ -121,7 +149,22 @@ func (h *Six910Handler) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//GetProductByID GetProductByID
+// GetProductByID godoc
+// @Summary Get details of a product by id
+// @Description Get details of a product
+// @Tags Product
+// @Accept  json
+// @Produce  json
+// @Param id path string true "product id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} six910-database-interface.Product
+// @Router /rs/product/get/id/{id}/{storeId} [get]
 func (h *Six910Handler) GetProductByID(w http.ResponseWriter, r *http.Request) {
 	var gprodURL = "/six910/rs/product/get"
 	var gprodc jv.Claim
@@ -131,8 +174,8 @@ func (h *Six910Handler) GetProductByID(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gprodc)
 	h.Log.Debug("product get id authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {
@@ -161,7 +204,24 @@ func (h *Six910Handler) GetProductByID(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//GetProductsByName GetProductsByName
+// GetProductsByName godoc
+// @Summary Get list of products by product name
+// @Description Get list of products for a store
+// @Tags Product
+// @Accept  json
+// @Produce  json
+// @Param name path string true "product name"
+// @Param storeId path string true "store storeId"
+// @Param start path string true "start index 0 based"
+// @Param end path string true "end index"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {array} six910-database-interface.Product
+// @Router /rs/product/get/name/{name}/{storeId}/{start}/{end} [get]
 func (h *Six910Handler) GetProductsByName(w http.ResponseWriter, r *http.Request) {
 	var gprodnlURL = "/six910/rs/product/name/list"
 	var gprodncl jv.Claim
@@ -171,8 +231,8 @@ func (h *Six910Handler) GetProductsByName(w http.ResponseWriter, r *http.Request
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gprodncl)
 	h.Log.Debug("producr name get list authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 4 {
@@ -204,7 +264,24 @@ func (h *Six910Handler) GetProductsByName(w http.ResponseWriter, r *http.Request
 	}
 }
 
-//GetProductsByCaterory GetProductsByCaterory
+// GetProductsByCaterory godoc
+// @Summary Get list of products by category
+// @Description Get list of products for a store
+// @Tags Product
+// @Accept  json
+// @Produce  json
+// @Param catId path string true "category id"
+// @Param storeId path string true "store storeId"
+// @Param start path string true "start index 0 based"
+// @Param end path string true "end index"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {array} six910-database-interface.Product
+// @Router /rs/product/get/category/{catId}/{storeId}/{start}/{end} [get]
 func (h *Six910Handler) GetProductsByCaterory(w http.ResponseWriter, r *http.Request) {
 	var gprodclURL = "/six910/rs/product/category/list"
 	var gprodccl jv.Claim
@@ -214,8 +291,8 @@ func (h *Six910Handler) GetProductsByCaterory(w http.ResponseWriter, r *http.Req
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gprodccl)
 	h.Log.Debug("producr cat get list authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 4 {
@@ -248,7 +325,23 @@ func (h *Six910Handler) GetProductsByCaterory(w http.ResponseWriter, r *http.Req
 	}
 }
 
-//GetProductList GetProductList
+// GetProductList godoc
+// @Summary Get list of products
+// @Description Get list of products for a store
+// @Tags Product
+// @Accept  json
+// @Produce  json
+// @Param storeId path string true "store storeId"
+// @Param start path string true "start index 0 based"
+// @Param end path string true "end index"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {array} six910-database-interface.Product
+// @Router /rs/product/get/list/{storeId}/{start}/{end} [get]
 func (h *Six910Handler) GetProductList(w http.ResponseWriter, r *http.Request) {
 	var gprodlURL = "/six910/rs/product/list"
 	var gprodcl jv.Claim
@@ -258,8 +351,8 @@ func (h *Six910Handler) GetProductList(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gprodcl)
 	h.Log.Debug("producr get list authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 3 {
@@ -290,7 +383,22 @@ func (h *Six910Handler) GetProductList(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//DeleteProduct DeleteProduct
+// DeleteProduct godoc
+// @Summary Delete a products
+// @Description Delete a products from the store
+// @Tags Product
+// @Accept  json
+// @Produce  json
+// @Param id path string true "products id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/product/delete/{id}/{storeId} [delete]
 func (h *Six910Handler) DeleteProduct(w http.ResponseWriter, r *http.Request) {
 	var dprodURL = "/six910/rs/product/delete"
 	var dprodc jv.Claim
@@ -300,8 +408,8 @@ func (h *Six910Handler) DeleteProduct(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &dprodc)
 	h.Log.Debug("product delete authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {

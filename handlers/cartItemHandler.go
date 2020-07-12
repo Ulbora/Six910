@@ -40,7 +40,21 @@ type CartItemReq struct {
 	CartItem   sdbi.CartItem `json:"cartItem"`
 }
 
-//AddCartItem AddCartItem
+// AddCartItem godoc
+// @Summary Add a new Cart Item
+// @Description Adds a new Cart Item to a store
+// @Tags CartItem
+// @Accept  json
+// @Produce  json
+// @Param cartItem body CartItemReq true "cartItem"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.ResponseID
+// @Router /rs/cartItem/add [post]
 func (h *Six910Handler) AddCartItem(w http.ResponseWriter, r *http.Request) {
 	var addciURL = "/six910/rs/cartItem/add"
 	var acic jv.Claim
@@ -84,7 +98,21 @@ func (h *Six910Handler) AddCartItem(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//UpdateCartItem UpdateCartItem
+// UpdateCartItem godoc
+// @Summary Update a Cart Item
+// @Description Update Cart Item data
+// @Tags CartItem
+// @Accept  json
+// @Produce  json
+// @Param cartItem body CartItemReq true "cartItem"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/cartItem/update [put]
 func (h *Six910Handler) UpdateCartItem(w http.ResponseWriter, r *http.Request) {
 	var upciURL = "/six910/rs/cartItem/update"
 	var ucic jv.Claim
@@ -128,8 +156,24 @@ func (h *Six910Handler) UpdateCartItem(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//GetCarItem GetCarItem
-func (h *Six910Handler) GetCarItem(w http.ResponseWriter, r *http.Request) {
+// GetCartItem godoc
+// @Summary Get details of a CartItem by id
+// @Description Get details of a Cart Item
+// @Tags CartItem
+// @Accept  json
+// @Produce  json
+// @Param cid path string true "customer id"
+// @Param prodId path string true "product id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} six910-database-interface.CartItem
+// @Router /rs/cartItem/get/{cid}/{prodId}/{storeId} [get]
+func (h *Six910Handler) GetCartItem(w http.ResponseWriter, r *http.Request) {
 	var gCiURL = "/six910/rs/cartItem/get"
 	var gci2 jv.Claim
 	gci2.Role = customerRole
@@ -144,15 +188,15 @@ func (h *Six910Handler) GetCarItem(w http.ResponseWriter, r *http.Request) {
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 3 {
 			h.Log.Debug("vars: ", vars)
-			var cartIDStr = vars["cartId"]
+			var cartIDStr = vars["cid"]
 			var prodIDStr = vars["prodId"]
 			var storeIDStr = vars["storeId"]
-			cartID, cartIDerr := strconv.ParseInt(cartIDStr, 10, 64)
+			cID, cartIDerr := strconv.ParseInt(cartIDStr, 10, 64)
 			prodID, prodIDerr := strconv.ParseInt(prodIDStr, 10, 64)
 			storeID, serr := strconv.ParseInt(storeIDStr, 10, 64)
 			var gcires *sdbi.CartItem
 			if cartIDerr == nil && prodIDerr == nil && serr == nil {
-				gcires = h.Manager.GetCarItem(cartID, prodID, storeID)
+				gcires = h.Manager.GetCarItem(cID, prodID, storeID)
 				h.Log.Debug("gcires: ", *gcires)
 				w.WriteHeader(http.StatusOK)
 			} else {
@@ -170,7 +214,23 @@ func (h *Six910Handler) GetCarItem(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//GetCartItemList GetCartItemList
+// GetCartItemList godoc
+// @Summary Get list of a CartItem
+// @Description Get list of a Cart Item for a store
+// @Tags CartItem
+// @Accept  json
+// @Produce  json
+// @Param cartId path string true "cart id"
+// @Param cid path string true "customer id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {array} six910-database-interface.CartItem
+// @Router /rs/cartItem/get/list/{cartId}/{cid}/{storeId} [get]
 func (h *Six910Handler) GetCartItemList(w http.ResponseWriter, r *http.Request) {
 	var gCilURL = "/six910/rs/cartItem/list"
 	var gcil2 jv.Claim
@@ -212,7 +272,23 @@ func (h *Six910Handler) GetCartItemList(w http.ResponseWriter, r *http.Request) 
 	}
 }
 
-//DeleteCartItem DeleteCartItem
+// DeleteCartItem godoc
+// @Summary Delete a CartItem
+// @Description Delete a Cart Item from the store
+// @Tags CartItem
+// @Accept  json
+// @Produce  json
+// @Param id path string true "distributor id"
+// @Param prodId path string true "product id"
+// @Param cartId path string true "cart id"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/cartItem/delete/{id}/{prodId}/{cartId} [delete]
 func (h *Six910Handler) DeleteCartItem(w http.ResponseWriter, r *http.Request) {
 	var gCiddURL = "/six910/rs/cartItem/delete"
 	var gci2d jv.Claim
@@ -221,7 +297,7 @@ func (h *Six910Handler) DeleteCartItem(w http.ResponseWriter, r *http.Request) {
 	gci2d.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gci2d)
-	h.Log.Debug("dist delete id authorized: ", auth)
+	h.Log.Debug("cartItem delete id authorized: ", auth)
 	if auth {
 		h.SetContentType(w)
 		vars := mux.Vars(r)

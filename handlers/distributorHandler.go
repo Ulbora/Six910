@@ -33,7 +33,21 @@ import (
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//AddDistributor AddDistributor
+// AddDistributor godoc
+// @Summary Add a new distributor
+// @Description Adds a new distributor to a store
+// @Tags Distributor
+// @Accept  json
+// @Produce  json
+// @Param distributor body six910-database-interface.Distributor true "distributor"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.ResponseID
+// @Router /rs/distributor/add [post]
 func (h *Six910Handler) AddDistributor(w http.ResponseWriter, r *http.Request) {
 	var addDisURL = "/six910/rs/distributor/add"
 	var adc jv.Claim
@@ -77,7 +91,21 @@ func (h *Six910Handler) AddDistributor(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//UpdateDistributor UpdateDistributor
+// UpdateDistributor godoc
+// @Summary Update a distributor
+// @Description Update distributor data
+// @Tags Distributor
+// @Accept  json
+// @Produce  json
+// @Param distributor body six910-database-interface.Distributor true "distributor"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/distributor/update [put]
 func (h *Six910Handler) UpdateDistributor(w http.ResponseWriter, r *http.Request) {
 	var upDisURL = "/six910/rs/distributor/update"
 	var udc jv.Claim
@@ -121,7 +149,22 @@ func (h *Six910Handler) UpdateDistributor(w http.ResponseWriter, r *http.Request
 	}
 }
 
-//GetDistributor GetDistributor
+// GetDistributor godoc
+// @Summary Get details of a distributor by id
+// @Description Get details of a distributor
+// @Tags Distributor
+// @Accept  json
+// @Produce  json
+// @Param id path string true "distributor id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} six910-database-interface.Distributor
+// @Router /rs/distributor/get/id/{id}/{storeId} [get]
 func (h *Six910Handler) GetDistributor(w http.ResponseWriter, r *http.Request) {
 	var gDistURL = "/six910/rs/distributor/get"
 	var gdc2 jv.Claim
@@ -161,7 +204,21 @@ func (h *Six910Handler) GetDistributor(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//GetDistributorList GetDistributorList
+// GetDistributorList godoc
+// @Summary Get list of distributors
+// @Description Get list of distributors for a store
+// @Tags Distributor
+// @Accept  json
+// @Produce  json
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {array} six910-database-interface.Distributor
+// @Router /rs/distributor/get/list/{storeId} [get]
 func (h *Six910Handler) GetDistributorList(w http.ResponseWriter, r *http.Request) {
 	var gDislURL = "/six910/rs/distributor/list"
 	var gdcl jv.Claim
@@ -199,7 +256,22 @@ func (h *Six910Handler) GetDistributorList(w http.ResponseWriter, r *http.Reques
 	}
 }
 
-//DeleteDistributor DeleteDistributor
+// DeleteDistributor godoc
+// @Summary Delete a distributor
+// @Description Delete a distributor from the store
+// @Tags Distributor
+// @Accept  json
+// @Produce  json
+// @Param id path string true "distributor id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/distributor/delete/{id}/{storeId} [delete]
 func (h *Six910Handler) DeleteDistributor(w http.ResponseWriter, r *http.Request) {
 	var dDisURL = "/six910/rs/distributor/delete"
 	var dds jv.Claim

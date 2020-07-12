@@ -33,13 +33,33 @@ import (
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//ProductCategoryReq ProductCategoryReq
-type ProductCategoryReq struct {
-	StoreID         int64                `json:"storeId"`
-	ProductCategory sdbi.ProductCategory `json:"productCategory"`
+//ProductCategory ProductCategory
+type ProductCategory struct {
+	CategoryID int64 `json:"categoryId"`
+	ProductID  int64 `json:"productId"`
 }
 
-//AddProductCategory AddProductCategory
+//ProductCategoryReq ProductCategoryReq
+type ProductCategoryReq struct {
+	StoreID         int64           `json:"storeId"`
+	ProductCategory ProductCategory `json:"productCategory"`
+}
+
+// AddProductCategory godoc
+// @Summary Add a product to a category
+// @Description Adds a product to a category in a store
+// @Tags ProductCategory
+// @Accept  json
+// @Produce  json
+// @Param productCategory body ProductCategoryReq true "Product to Category"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/productCategory/add [post]
 func (h *Six910Handler) AddProductCategory(w http.ResponseWriter, r *http.Request) {
 	var addpcURL = "/six910/rs/productCategory/add"
 	var apcc jv.Claim
@@ -49,8 +69,8 @@ func (h *Six910Handler) AddProductCategory(w http.ResponseWriter, r *http.Reques
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &apcc)
 	h.Log.Debug("product category add authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		acOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", acOk)
 		if !acOk {
@@ -64,7 +84,10 @@ func (h *Six910Handler) AddProductCategory(w http.ResponseWriter, r *http.Reques
 			if !apcsuc && apcerr != nil {
 				http.Error(w, apcerr.Error(), http.StatusBadRequest)
 			} else {
-				apcres := h.Manager.AddProductCategory(&apcr.ProductCategory, apcr.StoreID)
+				var pc sdbi.ProductCategory
+				pc.CategoryID = apcr.ProductCategory.CategoryID
+				pc.ProductID = apcr.ProductCategory.ProductID
+				apcres := h.Manager.AddProductCategory(&pc, apcr.StoreID)
 				h.Log.Debug("apcres: ", *apcres)
 				if apcres.Success {
 					w.WriteHeader(http.StatusOK)
@@ -83,7 +106,23 @@ func (h *Six910Handler) AddProductCategory(w http.ResponseWriter, r *http.Reques
 	}
 }
 
-//DeleteProductCategory DeleteProductCategory
+// DeleteProductCategory godoc
+// @Summary Delete a product from a category
+// @Description Delete a product from a category in a store
+// @Tags ProductCategory
+// @Accept  json
+// @Produce  json
+// @Param categoryId path string true "category id"
+// @Param productId path string true "product id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/productCategory/delete/{categoryId}/{productId}/{storeId} [delete]
 func (h *Six910Handler) DeleteProductCategory(w http.ResponseWriter, r *http.Request) {
 	var dpcURL = "/six910/rs/productCategory/delete"
 	var dpcc jv.Claim
@@ -93,8 +132,8 @@ func (h *Six910Handler) DeleteProductCategory(w http.ResponseWriter, r *http.Req
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &dpcc)
 	h.Log.Debug("product category delete authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 3 {

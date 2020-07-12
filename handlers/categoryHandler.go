@@ -33,7 +33,21 @@ import (
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//AddCategory AddCategory
+// AddCategory godoc
+// @Summary Add a new category
+// @Description Adds a new category to a store
+// @Tags Category
+// @Accept  json
+// @Produce  json
+// @Param category body six910-database-interface.Category true "category"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.ResponseID
+// @Router /rs/category/add [post]
 func (h *Six910Handler) AddCategory(w http.ResponseWriter, r *http.Request) {
 	var addCatURL = "/six910/rs/category/add"
 	var acatc jv.Claim
@@ -77,7 +91,21 @@ func (h *Six910Handler) AddCategory(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//UpdateCategory UpdateCategory
+// UpdateCategory godoc
+// @Summary Update a category
+// @Description Update category data
+// @Tags Category
+// @Accept  json
+// @Produce  json
+// @Param category body six910-database-interface.Category true "category"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/category/update [put]
 func (h *Six910Handler) UpdateCategory(w http.ResponseWriter, r *http.Request) {
 	var upcatURL = "/six910/rs/category/update"
 	var ucatc jv.Claim
@@ -121,7 +149,22 @@ func (h *Six910Handler) UpdateCategory(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//GetCategory GetCategory
+// GetCategory godoc
+// @Summary Get details of a category by id
+// @Description Get details of a category
+// @Tags Category
+// @Accept  json
+// @Produce  json
+// @Param id path string true "category id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} six910-database-interface.Category
+// @Router /rs/category/get/id/{id}/{storeId} [get]
 func (h *Six910Handler) GetCategory(w http.ResponseWriter, r *http.Request) {
 	var gcatURL = "/six910/rs/catetory/get"
 	var gcatc jv.Claim
@@ -161,7 +204,21 @@ func (h *Six910Handler) GetCategory(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//GetCategoryList GetCategoryList
+// GetCategoryList godoc
+// @Summary Get list of categories
+// @Description Get list of categories for a store
+// @Tags Category
+// @Accept  json
+// @Produce  json
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {array} six910-database-interface.Category
+// @Router /rs/category/get/list/{storeId} [get]
 func (h *Six910Handler) GetCategoryList(w http.ResponseWriter, r *http.Request) {
 	var gcatlURL = "/six910/rs/category/list"
 	var gcatcl jv.Claim
@@ -199,7 +256,21 @@ func (h *Six910Handler) GetCategoryList(w http.ResponseWriter, r *http.Request) 
 	}
 }
 
-//GetSubCategoryList GetSubCategoryList
+// GetSubCategoryList godoc
+// @Summary Get list of sub categories
+// @Description Get list of sub categories for a store
+// @Tags Category
+// @Accept  json
+// @Produce  json
+// @Param catId path string true "category id"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {array} six910-database-interface.Category
+// @Router /rs/category/get/sub/list/{catId} [get]
 func (h *Six910Handler) GetSubCategoryList(w http.ResponseWriter, r *http.Request) {
 	var gscatlURL = "/six910/rs/subCategory/list"
 	var gscatcl jv.Claim
@@ -237,7 +308,22 @@ func (h *Six910Handler) GetSubCategoryList(w http.ResponseWriter, r *http.Reques
 	}
 }
 
-//DeleteCategory DeleteCategory
+// DeleteCategory godoc
+// @Summary Delete a category
+// @Description Delete a category from the store
+// @Tags Category
+// @Accept  json
+// @Produce  json
+// @Param id path string true "category id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/category/delete/{id}/{storeId} [delete]
 func (h *Six910Handler) DeleteCategory(w http.ResponseWriter, r *http.Request) {
 	var dcatURL = "/six910/rs/category/delete"
 	var dcts jv.Claim

@@ -35,7 +35,7 @@ import (
 // AddStore godoc
 // @Summary Add a new store
 // @Description Adds a new store to the system (only for OAuth2 stores)
-// @Tags store
+// @Tags Store
 // @Accept  json
 // @Produce  json
 // @Param store body six910-database-interface.Store true "store"
@@ -91,7 +91,7 @@ func (h *Six910Handler) AddStore(w http.ResponseWriter, r *http.Request) {
 // UpdateStore godoc
 // @Summary Update a store
 // @Description Update store data
-// @Tags store
+// @Tags Store
 // @Accept  json
 // @Produce  json
 // @Param store body six910-database-interface.Store true "store"
@@ -150,7 +150,7 @@ func (h *Six910Handler) UpdateStore(w http.ResponseWriter, r *http.Request) {
 // GetStore godoc
 // @Summary Get details of a store
 // @Description Get details of a store
-// @Tags store
+// @Tags Store
 // @Accept  json
 // @Produce  json
 // @Param storeName path string true "store name"
@@ -197,7 +197,7 @@ func (h *Six910Handler) GetStore(w http.ResponseWriter, r *http.Request) {
 // DeleteStore godoc
 // @Summary Delete a store
 // @Description Delete a store from the system (only for OAuth2 stores)
-// @Tags store
+// @Tags Store
 // @Accept  json
 // @Produce  json
 // @Param storeName path string true "store name"

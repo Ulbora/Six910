@@ -35,7 +35,7 @@ import (
 // AddUser godoc
 // @Summary Add a new user
 // @Description Adds a new user to a store
-// @Tags user
+// @Tags User
 // @Accept  json
 // @Produce  json
 // @Param user body managers.User true "user"
@@ -103,7 +103,7 @@ func (h *Six910Handler) AddUser(w http.ResponseWriter, r *http.Request) {
 // UpdateUser godoc
 // @Summary Update a user
 // @Description Update user data
-// @Tags user
+// @Tags User
 // @Accept  json
 // @Produce  json
 // @Param user body managers.User true "user"
@@ -161,7 +161,7 @@ func (h *Six910Handler) UpdateUser(w http.ResponseWriter, r *http.Request) {
 // GetUser godoc
 // @Summary Get details of a user
 // @Description Get details of a user
-// @Tags user
+// @Tags User
 // @Accept  json
 // @Produce  json
 // @Param username path string true "username"
@@ -219,7 +219,7 @@ func (h *Six910Handler) GetUser(w http.ResponseWriter, r *http.Request) {
 // GetAdminUserList godoc
 // @Summary Get list of a admin users
 // @Description Get list of admin users for a store
-// @Tags user
+// @Tags User
 // @Accept  json
 // @Produce  json
 // @Param storeId path string true "store storeId"
@@ -271,7 +271,7 @@ func (h *Six910Handler) GetAdminUserList(w http.ResponseWriter, r *http.Request)
 // GetCustomerUserList godoc
 // @Summary Get list of a customer users
 // @Description Get list of customer users for a store
-// @Tags user
+// @Tags User
 // @Accept  json
 // @Produce  json
 // @Param storeId path string true "store storeId"

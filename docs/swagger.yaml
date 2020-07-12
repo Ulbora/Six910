@@ -1,5 +1,30 @@
 basePath: /
 definitions:
+  handlers.CartItemReq:
+    properties:
+      cartItem:
+        $ref: '#/definitions/six910-database-interface.CartItem'
+        type: object
+      customerId:
+        type: integer
+      storeId:
+        type: integer
+    type: object
+  handlers.ProductCategory:
+    properties:
+      categoryId:
+        type: integer
+      productId:
+        type: integer
+    type: object
+  handlers.ProductCategoryReq:
+    properties:
+      productCategory:
+        $ref: '#/definitions/handlers.ProductCategory'
+        type: object
+      storeId:
+        type: integer
+    type: object
   managers.Response:
     properties:
       code:
@@ -25,11 +50,6 @@ definitions:
       customerId:
         type: integer
       enabled:
-        description: |-
-          OAuthClientID int64  `json:"oauthClientID"`
-          EmailAddress  string `json:"emailAddress"`
-          FirstName     string `json:"firstName"`
-          LastName      string `json:"lastName"`
         type: boolean
       oldPassword:
         type: string
@@ -53,6 +73,51 @@ definitions:
       storeId:
         type: integer
       username:
+        type: string
+    type: object
+  six910-database-interface.Cart:
+    properties:
+      customerId:
+        type: integer
+      entered:
+        type: string
+      id:
+        type: integer
+      ipAddress:
+        type: string
+      storeId:
+        type: integer
+      updated:
+        type: string
+      userInfo:
+        type: string
+    type: object
+  six910-database-interface.CartItem:
+    properties:
+      cartId:
+        type: integer
+      id:
+        type: integer
+      productId:
+        type: integer
+      quantity:
+        type: integer
+    type: object
+  six910-database-interface.Category:
+    properties:
+      desc:
+        type: string
+      id:
+        type: integer
+      image:
+        type: string
+      name:
+        type: string
+      parentCategoryId:
+        type: integer
+      storeId:
+        type: integer
+      thumbnail:
         type: string
     type: object
   six910-database-interface.Customer:
@@ -83,6 +148,104 @@ definitions:
         type: string
       zip:
         type: string
+    type: object
+  six910-database-interface.Distributor:
+    properties:
+      company:
+        type: string
+      contactName:
+        type: string
+      id:
+        type: integer
+      phone:
+        type: string
+      storeId:
+        type: integer
+    type: object
+  six910-database-interface.Product:
+    properties:
+      color:
+        type: string
+      cost:
+        type: number
+      currency:
+        type: string
+      depth:
+        type: number
+      desc:
+        type: string
+      distributorId:
+        type: integer
+      dropship:
+        type: boolean
+      entered:
+        type: string
+      freeShipping:
+        type: boolean
+      gtin:
+        type: string
+      height:
+        type: number
+      id:
+        type: integer
+      image1:
+        type: string
+      image2:
+        type: string
+      image3:
+        type: string
+      image4:
+        type: string
+      manufacturer:
+        type: string
+      map:
+        type: number
+      msrp:
+        type: number
+      multibox:
+        type: boolean
+      name:
+        type: string
+      parentProductId:
+        type: integer
+      price:
+        type: number
+      promoted:
+        type: boolean
+      salePrice:
+        type: number
+      searchable:
+        type: boolean
+      shipSeperately:
+        type: boolean
+      shippingMarkup:
+        type: number
+      shortDesc:
+        type: string
+      size:
+        type: string
+      sku:
+        type: string
+      specialProcessing:
+        type: boolean
+      specialProcessingType:
+        type: string
+      stock:
+        type: integer
+      stockAlert:
+        type: integer
+      storeId:
+        type: integer
+      thumbnail:
+        type: string
+      updated:
+        type: string
+      visible:
+        type: boolean
+      weight:
+        type: number
+      width:
+        type: number
     type: object
   six910-database-interface.Store:
     properties:
@@ -138,6 +301,793 @@ info:
   title: Six910 API
   version: "1.0"
 paths:
+  /rs/cart/add:
+    post:
+      consumes:
+      - application/json
+      description: Adds a new cart to a store
+      parameters:
+      - description: cart
+        in: body
+        name: cart
+        required: true
+        schema:
+          $ref: '#/definitions/six910-database-interface.Cart'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.ResponseID'
+      summary: Add a new cart
+      tags:
+      - Cart
+  /rs/cart/delete/{id}/{cid}/{storeId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a cart from the store
+      parameters:
+      - description: cart id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: customer id
+        in: path
+        name: cid
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Delete a cart
+      tags:
+      - Cart
+  /rs/cart/get/{cid}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get details of a cart
+      parameters:
+      - description: customer id
+        in: path
+        name: cid
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/six910-database-interface.Cart'
+      summary: Get details of a cart by id
+      tags:
+      - Cart
+  /rs/cart/update:
+    put:
+      consumes:
+      - application/json
+      description: Update cart data
+      parameters:
+      - description: cart
+        in: body
+        name: cart
+        required: true
+        schema:
+          $ref: '#/definitions/six910-database-interface.Cart'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Update a cart
+      tags:
+      - Cart
+  /rs/cartItem/add:
+    post:
+      consumes:
+      - application/json
+      description: Adds a new Cart Item to a store
+      parameters:
+      - description: cartItem
+        in: body
+        name: cartItem
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.CartItemReq'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.ResponseID'
+      summary: Add a new Cart Item
+      tags:
+      - CartItem
+  /rs/cartItem/delete/{id}/{prodId}/{cartId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a Cart Item from the store
+      parameters:
+      - description: distributor id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: product id
+        in: path
+        name: prodId
+        required: true
+        type: string
+      - description: cart id
+        in: path
+        name: cartId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Delete a CartItem
+      tags:
+      - CartItem
+  /rs/cartItem/get/{cid}/{prodId}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get details of a Cart Item
+      parameters:
+      - description: customer id
+        in: path
+        name: cid
+        required: true
+        type: string
+      - description: product id
+        in: path
+        name: prodId
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/six910-database-interface.CartItem'
+      summary: Get details of a CartItem by id
+      tags:
+      - CartItem
+  /rs/cartItem/get/list/{cartId}/{cid}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of a Cart Item for a store
+      parameters:
+      - description: cart id
+        in: path
+        name: cartId
+        required: true
+        type: string
+      - description: customer id
+        in: path
+        name: cid
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/six910-database-interface.CartItem'
+            type: array
+      summary: Get list of a CartItem
+      tags:
+      - CartItem
+  /rs/cartItem/update:
+    put:
+      consumes:
+      - application/json
+      description: Update Cart Item data
+      parameters:
+      - description: cartItem
+        in: body
+        name: cartItem
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.CartItemReq'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Update a Cart Item
+      tags:
+      - CartItem
+  /rs/category/add:
+    post:
+      consumes:
+      - application/json
+      description: Adds a new category to a store
+      parameters:
+      - description: category
+        in: body
+        name: category
+        required: true
+        schema:
+          $ref: '#/definitions/six910-database-interface.Category'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.ResponseID'
+      summary: Add a new category
+      tags:
+      - Category
+  /rs/category/delete/{id}/{storeId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a category from the store
+      parameters:
+      - description: category id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Delete a category
+      tags:
+      - Category
+  /rs/category/get/id/{id}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get details of a category
+      parameters:
+      - description: category id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/six910-database-interface.Category'
+      summary: Get details of a category by id
+      tags:
+      - Category
+  /rs/category/get/list/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of categories for a store
+      parameters:
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/six910-database-interface.Category'
+            type: array
+      summary: Get list of categories
+      tags:
+      - Category
+  /rs/category/get/sub/list/{catId}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of sub categories for a store
+      parameters:
+      - description: category id
+        in: path
+        name: catId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/six910-database-interface.Category'
+            type: array
+      summary: Get list of sub categories
+      tags:
+      - Category
+  /rs/category/update:
+    put:
+      consumes:
+      - application/json
+      description: Update category data
+      parameters:
+      - description: category
+        in: body
+        name: category
+        required: true
+        schema:
+          $ref: '#/definitions/six910-database-interface.Category'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Update a category
+      tags:
+      - Category
   /rs/customer/add:
     post:
       consumes:
@@ -186,7 +1136,7 @@ paths:
             $ref: '#/definitions/managers.ResponseID'
       summary: Add a new customer
       tags:
-      - customer
+      - Customer
   /rs/customer/delete/{id}/{storeId}:
     delete:
       consumes:
@@ -239,7 +1189,7 @@ paths:
             $ref: '#/definitions/managers.Response'
       summary: Delete a customer
       tags:
-      - customer
+      - Customer
   /rs/customer/get/email/{email}/{storeId}:
     get:
       consumes:
@@ -290,9 +1240,9 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/six910-database-interface.Customer'
-      summary: Get details of a customer
+      summary: Get details of a customer by email
       tags:
-      - customer
+      - Customer
   /rs/customer/get/id/{id}/{storeId}:
     get:
       consumes:
@@ -345,7 +1295,7 @@ paths:
             $ref: '#/definitions/six910-database-interface.Customer'
       summary: Get details of a customer by id
       tags:
-      - customer
+      - Customer
   /rs/customer/get/list/{storeId}:
     get:
       consumes:
@@ -395,16 +1345,16 @@ paths:
             type: array
       summary: Get list of a customers
       tags:
-      - customer
+      - Customer
   /rs/customer/update:
     put:
       consumes:
       - application/json
       description: Update customer data
       parameters:
-      - description: store
+      - description: customer
         in: body
-        name: store
+        name: customer
         required: true
         schema:
           $ref: '#/definitions/six910-database-interface.Customer'
@@ -444,7 +1394,762 @@ paths:
             $ref: '#/definitions/managers.Response'
       summary: Update a customer
       tags:
-      - customer
+      - Customer
+  /rs/distributor/add:
+    post:
+      consumes:
+      - application/json
+      description: Adds a new distributor to a store
+      parameters:
+      - description: distributor
+        in: body
+        name: distributor
+        required: true
+        schema:
+          $ref: '#/definitions/six910-database-interface.Distributor'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.ResponseID'
+      summary: Add a new distributor
+      tags:
+      - Distributor
+  /rs/distributor/delete/{id}/{storeId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a distributor from the store
+      parameters:
+      - description: distributor id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Delete a distributor
+      tags:
+      - Distributor
+  /rs/distributor/get/id/{id}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get details of a distributor
+      parameters:
+      - description: distributor id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/six910-database-interface.Distributor'
+      summary: Get details of a distributor by id
+      tags:
+      - Distributor
+  /rs/distributor/get/list/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of distributors for a store
+      parameters:
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/six910-database-interface.Distributor'
+            type: array
+      summary: Get list of distributors
+      tags:
+      - Distributor
+  /rs/distributor/update:
+    put:
+      consumes:
+      - application/json
+      description: Update distributor data
+      parameters:
+      - description: distributor
+        in: body
+        name: distributor
+        required: true
+        schema:
+          $ref: '#/definitions/six910-database-interface.Distributor'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Update a distributor
+      tags:
+      - Distributor
+  /rs/product/add:
+    post:
+      consumes:
+      - application/json
+      description: Adds a new product to a store
+      parameters:
+      - description: product
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/six910-database-interface.Product'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.ResponseID'
+      summary: Add a new product
+      tags:
+      - Product
+  /rs/product/delete/{id}/{storeId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a products from the store
+      parameters:
+      - description: products id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Delete a products
+      tags:
+      - Product
+  /rs/product/get/category/{catId}/{storeId}/{start}/{end}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of products for a store
+      parameters:
+      - description: category id
+        in: path
+        name: catId
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: start index 0 based
+        in: path
+        name: start
+        required: true
+        type: string
+      - description: end index
+        in: path
+        name: end
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/six910-database-interface.Product'
+            type: array
+      summary: Get list of products by category
+      tags:
+      - Product
+  /rs/product/get/id/{id}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get details of a product
+      parameters:
+      - description: product id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/six910-database-interface.Product'
+      summary: Get details of a product by id
+      tags:
+      - Product
+  /rs/product/get/list/{storeId}/{start}/{end}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of products for a store
+      parameters:
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: start index 0 based
+        in: path
+        name: start
+        required: true
+        type: string
+      - description: end index
+        in: path
+        name: end
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/six910-database-interface.Product'
+            type: array
+      summary: Get list of products
+      tags:
+      - Product
+  /rs/product/get/name/{name}/{storeId}/{start}/{end}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of products for a store
+      parameters:
+      - description: product name
+        in: path
+        name: name
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: start index 0 based
+        in: path
+        name: start
+        required: true
+        type: string
+      - description: end index
+        in: path
+        name: end
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/six910-database-interface.Product'
+            type: array
+      summary: Get list of products by product name
+      tags:
+      - Product
+  /rs/product/update:
+    put:
+      consumes:
+      - application/json
+      description: Update product data
+      parameters:
+      - description: product
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/six910-database-interface.Product'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Update a product
+      tags:
+      - Product
+  /rs/productCategory/add:
+    post:
+      consumes:
+      - application/json
+      description: Adds a product to a category in a store
+      parameters:
+      - description: Product to Category
+        in: body
+        name: productCategory
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.ProductCategoryReq'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Add a product to a category
+      tags:
+      - ProductCategory
+  /rs/productCategory/delete/{categoryId}/{productId}/{storeId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a product from a category in a store
+      parameters:
+      - description: category id
+        in: path
+        name: categoryId
+        required: true
+        type: string
+      - description: product id
+        in: path
+        name: productId
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Delete a product from a category
+      tags:
+      - ProductCategory
   /rs/store/add:
     post:
       consumes:
@@ -479,7 +2184,7 @@ paths:
             $ref: '#/definitions/managers.ResponseID'
       summary: Add a new store
       tags:
-      - store
+      - Store
   /rs/store/delete/{storeName}/{localDomain}:
     delete:
       consumes:
@@ -532,7 +2237,7 @@ paths:
             $ref: '#/definitions/managers.Response'
       summary: Delete a store
       tags:
-      - store
+      - Store
   /rs/store/get/{storeName}/{localDomain}:
     get:
       consumes:
@@ -585,7 +2290,7 @@ paths:
             $ref: '#/definitions/six910-database-interface.Store'
       summary: Get details of a store
       tags:
-      - store
+      - Store
   /rs/store/update:
     put:
       consumes:
@@ -634,7 +2339,7 @@ paths:
             $ref: '#/definitions/managers.Response'
       summary: Update a store
       tags:
-      - store
+      - Store
   /rs/user/{username}/{storeId}:
     get:
       consumes:
@@ -687,7 +2392,7 @@ paths:
             $ref: '#/definitions/managers.UserResponse'
       summary: Get details of a user
       tags:
-      - user
+      - User
   /rs/user/add:
     post:
       consumes:
@@ -736,7 +2441,7 @@ paths:
             $ref: '#/definitions/managers.Response'
       summary: Add a new user
       tags:
-      - user
+      - User
   /rs/user/get/admin/list/{storeId}:
     get:
       consumes:
@@ -786,7 +2491,7 @@ paths:
             type: array
       summary: Get list of a admin users
       tags:
-      - user
+      - User
   /rs/user/get/customer/list/{storeId}:
     get:
       consumes:
@@ -836,7 +2541,7 @@ paths:
             type: array
       summary: Get list of a customer users
       tags:
-      - user
+      - User
   /rs/user/update:
     put:
       consumes:
@@ -885,5 +2590,5 @@ paths:
             $ref: '#/definitions/managers.Response'
       summary: Update a user
       tags:
-      - user
+      - User
 swagger: "2.0"

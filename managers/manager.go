@@ -52,11 +52,7 @@ type User struct {
 	Role        string `json:"role"`
 	CustomerID  int64  `json:"customerId"`
 	StoreID     int64  `json:"storeId"`
-	//OAuthClientID int64  `json:"oauthClientID"`
-	//EmailAddress  string `json:"emailAddress"`
-	//FirstName     string `json:"firstName"`
-	//LastName      string `json:"lastName"`
-	Enabled bool `json:"enabled"`
+	Enabled     bool   `json:"enabled"`
 }
 
 //ResponseID ResponseID
@@ -185,7 +181,7 @@ type Manager interface {
 	// //cart item
 	AddCartItem(ci *sdbi.CartItem, cid int64, sid int64) *ResponseID
 	UpdateCartItem(ci *sdbi.CartItem, cid int64, sid int64) *Response
-	GetCarItem(cartID int64, prodID int64, sid int64) *sdbi.CartItem
+	GetCarItem(cid int64, prodID int64, sid int64) *sdbi.CartItem
 	GetCartItemList(cartID int64, cid int64, sid int64) *[]sdbi.CartItem
 	DeleteCartItem(id int64, prodID int64, cartID int64) *Response
 

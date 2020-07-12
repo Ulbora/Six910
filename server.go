@@ -172,12 +172,62 @@ func main() {
 	router.HandleFunc("/rs/customer/get/list/{storeId}", h.GetCustomerList).Methods("GET")
 	router.HandleFunc("/rs/customer/delete/{id}/{storeId}", h.DeleteCustomer).Methods("DELETE")
 
+	//users
 	router.HandleFunc("/rs/user/add", h.AddUser).Methods("POST")
 	router.HandleFunc("/rs/user/update", h.UpdateUser).Methods("PUT")
 	router.HandleFunc("/rs/user/{username}/{storeId}", h.GetUser).Methods("GET")
 
 	router.HandleFunc("/rs/user/get/admin/list/{storeId}", h.GetAdminUserList).Methods("GET")
 	router.HandleFunc("/rs/user/get/customer/list/{storeId}", h.GetCustomerUserList).Methods("GET")
+
+	//distributors
+	router.HandleFunc("/rs/distributor/add", h.AddDistributor).Methods("POST")
+	router.HandleFunc("/rs/distributor/update", h.UpdateDistributor).Methods("PUT")
+	router.HandleFunc("/rs/distributor/get/id/{id}/{storeId}", h.GetDistributor).Methods("GET")
+	router.HandleFunc("/rs/distributor/get/list/{storeId}", h.GetDistributorList).Methods("GET")
+	router.HandleFunc("/rs/distributor/delete/{id}/{storeId}", h.DeleteDistributor).Methods("DELETE")
+
+	//cart
+	router.HandleFunc("/rs/cart/add", h.AddCart).Methods("POST")
+	router.HandleFunc("/rs/cart/update", h.UpdateCart).Methods("PUT")
+	router.HandleFunc("/rs/cart/get/{cid}/{storeId}", h.GetCart).Methods("GET")
+	router.HandleFunc("/rs/cart/delete/{id}/{cid}/{storeId}", h.DeleteCart).Methods("DELETE")
+
+	//cartItem
+	router.HandleFunc("/rs/cartItem/add", h.AddCartItem).Methods("POST")
+	router.HandleFunc("/rs/cartItem/update", h.UpdateCartItem).Methods("PUT")
+	router.HandleFunc("/rs/cartItem/get/{cid}/{prodId}/{storeId}", h.GetCartItem).Methods("GET")
+	router.HandleFunc("/rs/cartItem/get/list/{cartId}/{cid}/{storeId}", h.GetCartItemList).Methods("GET")
+	router.HandleFunc("/rs/cartItem/delete/{id}/{prodId}/{cartId}", h.DeleteCartItem).Methods("DELETE")
+
+	//address
+
+	//category
+	router.HandleFunc("/rs/category/add", h.AddCategory).Methods("POST")
+	router.HandleFunc("/rs/category/update", h.UpdateCategory).Methods("PUT")
+	router.HandleFunc("/rs/category/get/id/{id}/{storeId}", h.GetCategory).Methods("GET")
+	router.HandleFunc("/rs/category/get/list/{storeId}", h.GetCategoryList).Methods("GET")
+	router.HandleFunc("/rs/category/get/sub/list/{catId}", h.GetSubCategoryList).Methods("GET")
+	router.HandleFunc("/rs/category/delete/{id}/{storeId}", h.DeleteCategory).Methods("DELETE")
+
+	//...
+	//...
+
+	//product
+	router.HandleFunc("/rs/product/add", h.AddProduct).Methods("POST")
+	router.HandleFunc("/rs/product/update", h.UpdateProduct).Methods("PUT")
+	router.HandleFunc("/rs/product/get/id/{id}/{storeId}", h.GetProductByID).Methods("GET")
+	router.HandleFunc("/rs/product/get/name/{name}/{storeId}/{start}/{end}", h.GetProductsByName).Methods("GET")
+	router.HandleFunc("/rs/product/get/category/{catId}/{storeId}/{start}/{end}", h.GetProductsByCaterory).Methods("GET")
+	router.HandleFunc("/rs/product/get/list/{storeId}/{start}/{end}", h.GetProductList).Methods("GET")
+	router.HandleFunc("/rs/product/delete/{id}/{storeId}", h.DeleteProduct).Methods("DELETE")
+
+	//...
+	//...
+
+	//productCategory
+	router.HandleFunc("/rs/productCategory/add", h.AddProductCategory).Methods("POST")
+	router.HandleFunc("/rs/productCategory/delete/{categoryId}/{productId}/{storeId}", h.DeleteProductCategory).Methods("DELETE")
 
 	fmt.Println("Six910 (six nine ten) server is running on port " + port + "!")
 

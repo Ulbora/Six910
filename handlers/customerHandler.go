@@ -36,7 +36,7 @@ import (
 // AddCustomer godoc
 // @Summary Add a new customer
 // @Description Adds a new customer to a store
-// @Tags customer
+// @Tags Customer
 // @Accept  json
 // @Produce  json
 // @Param customer body six910-database-interface.Customer true "customer"
@@ -94,10 +94,10 @@ func (h *Six910Handler) AddCustomer(w http.ResponseWriter, r *http.Request) {
 // UpdateCustomer godoc
 // @Summary Update a customer
 // @Description Update customer data
-// @Tags customer
+// @Tags Customer
 // @Accept  json
 // @Produce  json
-// @Param store body six910-database-interface.Customer true "store"
+// @Param customer body six910-database-interface.Customer true "customer"
 // @Param apiKey header string false "apiKey required for non OAuth2 stores only"
 // @Param storeName header string true "store name"
 // @Param localDomain header string true "store localDomain"
@@ -150,9 +150,9 @@ func (h *Six910Handler) UpdateCustomer(w http.ResponseWriter, r *http.Request) {
 }
 
 // GetCustomer godoc
-// @Summary Get details of a customer
+// @Summary Get details of a customer by email
 // @Description Get details of a customer
-// @Tags customer
+// @Tags Customer
 // @Accept  json
 // @Produce  json
 // @Param email path string true "customer email"
@@ -207,7 +207,7 @@ func (h *Six910Handler) GetCustomer(w http.ResponseWriter, r *http.Request) {
 // GetCustomerID godoc
 // @Summary Get details of a customer by id
 // @Description Get details of a customer
-// @Tags customer
+// @Tags Customer
 // @Accept  json
 // @Produce  json
 // @Param id path string true "customer id"
@@ -262,7 +262,7 @@ func (h *Six910Handler) GetCustomerID(w http.ResponseWriter, r *http.Request) {
 // GetCustomerList godoc
 // @Summary Get list of a customers
 // @Description Get list of a customers for a store
-// @Tags customer
+// @Tags Customer
 // @Accept  json
 // @Produce  json
 // @Param storeId path string true "store storeId"
@@ -314,7 +314,7 @@ func (h *Six910Handler) GetCustomerList(w http.ResponseWriter, r *http.Request) 
 // DeleteCustomer godoc
 // @Summary Delete a customer
 // @Description Delete a customer from the store
-// @Tags customer
+// @Tags Customer
 // @Accept  json
 // @Produce  json
 // @Param id path string true "customer id"
