@@ -276,6 +276,31 @@ definitions:
       width:
         type: number
     type: object
+  six910-database-interface.ShippingMethod:
+    properties:
+      cost:
+        type: number
+      handling:
+        type: number
+      id:
+        type: integer
+      insuranceId:
+        type: integer
+      maxOrderAmount:
+        type: number
+      maxWeight:
+        type: integer
+      minOrderAmount:
+        type: number
+      name:
+        type: string
+      regionId:
+        type: integer
+      shippingCarrierId:
+        type: integer
+      storeId:
+        type: integer
+    type: object
   six910-database-interface.Store:
     properties:
       city:
@@ -2433,6 +2458,260 @@ paths:
       summary: Delete a product from a category
       tags:
       - ProductCategory
+  /rs/shippingMethod/add:
+    post:
+      consumes:
+      - application/json
+      description: Adds a new shipping method to a store
+      parameters:
+      - description: shippingMethod
+        in: body
+        name: shippingMethod
+        required: true
+        schema:
+          $ref: '#/definitions/six910-database-interface.ShippingMethod'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.ResponseID'
+      summary: Add a new shipping method
+      tags:
+      - ShippingMethod
+  /rs/shippingMethod/delete/{id}/{storeId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a  shipping method from the store
+      parameters:
+      - description: shippingMethod id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Delete a  shipping method
+      tags:
+      - ShippingMethod
+  /rs/shippingMethod/get/id/{id}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get details of a shipping method
+      parameters:
+      - description: shippingMethod id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/six910-database-interface.ShippingMethod'
+      summary: Get details of a shipping method by id
+      tags:
+      - ShippingMethod
+  /rs/shippingMethod/get/list/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of shipping method for a store
+      parameters:
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/six910-database-interface.ShippingMethod'
+            type: array
+      summary: Get list of shipping method
+      tags:
+      - ShippingMethod
+  /rs/shippingMethod/update:
+    put:
+      consumes:
+      - application/json
+      description: Update shipping method data
+      parameters:
+      - description: shippingMethod
+        in: body
+        name: shippingMethod
+        required: true
+        schema:
+          $ref: '#/definitions/six910-database-interface.ShippingMethod'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Update a shipping method
+      tags:
+      - ShippingMethod
   /rs/store/add:
     post:
       consumes:

@@ -215,6 +215,13 @@ func main() {
 	router.HandleFunc("/rs/category/get/sub/list/{catId}", h.GetSubCategoryList).Methods("GET")
 	router.HandleFunc("/rs/category/delete/{id}/{storeId}", h.DeleteCategory).Methods("DELETE")
 
+	//shipping method
+	router.HandleFunc("/rs/shippingMethod/add", h.AddShippingMethod).Methods("POST")
+	router.HandleFunc("/rs/shippingMethod/update", h.UpdateShippingMethod).Methods("PUT")
+	router.HandleFunc("/rs/shippingMethod/get/id/{id}/{storeId}", h.GetShippingMethod).Methods("GET")
+	router.HandleFunc("/rs/shippingMethod/get/list/{storeId}", h.GetShippingMethodList).Methods("GET")
+	router.HandleFunc("/rs/shippingMethod/delete/{id}/{storeId}", h.DeleteShippingMethod).Methods("DELETE")
+
 	//...
 	//...
 
@@ -227,12 +234,21 @@ func main() {
 	router.HandleFunc("/rs/product/get/list/{storeId}/{start}/{end}", h.GetProductList).Methods("GET")
 	router.HandleFunc("/rs/product/delete/{id}/{storeId}", h.DeleteProduct).Methods("DELETE")
 
+	//Geographic Regions
+
 	//...
 	//...
 
 	//productCategory
 	router.HandleFunc("/rs/productCategory/add", h.AddProductCategory).Methods("POST")
 	router.HandleFunc("/rs/productCategory/delete/{categoryId}/{productId}/{storeId}", h.DeleteProductCategory).Methods("DELETE")
+
+	//....
+	//....
+
+	//store shipment carrier like UPS and FEDex
+
+	//....
 
 	fmt.Println("Six910 (six nine ten) server is running on port " + port + "!")
 

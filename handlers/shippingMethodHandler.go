@@ -33,7 +33,21 @@ import (
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//AddShippingMethod AddShippingMethod
+// AddShippingMethod godoc
+// @Summary Add a new shipping method
+// @Description Adds a new shipping method to a store
+// @Tags ShippingMethod
+// @Accept  json
+// @Produce  json
+// @Param shippingMethod body six910-database-interface.ShippingMethod true "shippingMethod"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.ResponseID
+// @Router /rs/shippingMethod/add [post]
 func (h *Six910Handler) AddShippingMethod(w http.ResponseWriter, r *http.Request) {
 	var addsmURL = "/six910/rs/shippingMethod/add"
 	var asmc jv.Claim
@@ -77,7 +91,21 @@ func (h *Six910Handler) AddShippingMethod(w http.ResponseWriter, r *http.Request
 	}
 }
 
-//UpdateShippingMethod UpdateShippingMethod
+// UpdateShippingMethod godoc
+// @Summary Update a shipping method
+// @Description Update shipping method data
+// @Tags ShippingMethod
+// @Accept  json
+// @Produce  json
+// @Param shippingMethod body six910-database-interface.ShippingMethod true "shippingMethod"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/shippingMethod/update [put]
 func (h *Six910Handler) UpdateShippingMethod(w http.ResponseWriter, r *http.Request) {
 	var upsmURL = "/six910/rs/shippingMethod/update"
 	var usmc jv.Claim
@@ -121,7 +149,22 @@ func (h *Six910Handler) UpdateShippingMethod(w http.ResponseWriter, r *http.Requ
 	}
 }
 
-//GetShippingMethod GetShippingMethod
+// GetShippingMethod godoc
+// @Summary Get details of a shipping method by id
+// @Description Get details of a shipping method
+// @Tags ShippingMethod
+// @Accept  json
+// @Produce  json
+// @Param id path string true "shippingMethod id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} six910-database-interface.ShippingMethod
+// @Router /rs/shippingMethod/get/id/{id}/{storeId} [get]
 func (h *Six910Handler) GetShippingMethod(w http.ResponseWriter, r *http.Request) {
 	var gsmURL = "/six910/rs/shippingMethod/get"
 	var gsmc jv.Claim
@@ -161,7 +204,21 @@ func (h *Six910Handler) GetShippingMethod(w http.ResponseWriter, r *http.Request
 	}
 }
 
-//GetShippingMethodList GetShippingMethodList
+// GetShippingMethodList godoc
+// @Summary Get list of shipping method
+// @Description Get list of shipping method for a store
+// @Tags ShippingMethod
+// @Accept  json
+// @Produce  json
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {array} six910-database-interface.ShippingMethod
+// @Router /rs/shippingMethod/get/list/{storeId} [get]
 func (h *Six910Handler) GetShippingMethodList(w http.ResponseWriter, r *http.Request) {
 	var gsmlURL = "/six910/rs/shippingMethod/list"
 	var gsmcl jv.Claim
@@ -199,7 +256,22 @@ func (h *Six910Handler) GetShippingMethodList(w http.ResponseWriter, r *http.Req
 	}
 }
 
-//DeleteShippingMethod DeleteShippingMethod
+// DeleteShippingMethod godoc
+// @Summary Delete a  shipping method
+// @Description Delete a  shipping method from the store
+// @Tags ShippingMethod
+// @Accept  json
+// @Produce  json
+// @Param id path string true "shippingMethod id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/shippingMethod/delete/{id}/{storeId} [delete]
 func (h *Six910Handler) DeleteShippingMethod(w http.ResponseWriter, r *http.Request) {
 	var dsmURL = "/six910/rs/shippingMethod/delete"
 	var dsms jv.Claim
