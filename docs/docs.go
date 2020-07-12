@@ -32,6 +32,382 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/rs/address/add": {
+            "post": {
+                "description": "Adds a new address for a customer to a store",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Address"
+                ],
+                "summary": "Add a new address",
+                "parameters": [
+                    {
+                        "description": "address",
+                        "name": "address",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.AddressReq"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.ResponseID"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/address/delete/{id}/{cid}/{storeId}": {
+            "delete": {
+                "description": "Delete a customer address from the store",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Address"
+                ],
+                "summary": "Delete a address",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "address id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store storeId",
+                        "name": "storeId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/address/get/id/{id}/{cid}/{storeId}": {
+            "get": {
+                "description": "Get details of a address",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Address"
+                ],
+                "summary": "Get details of a address by id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "address id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store storeId",
+                        "name": "storeId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/six910-database-interface.Address"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/address/get/list/{cid}/{storeId}": {
+            "get": {
+                "description": "Get list of customer addresses for a store",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Address"
+                ],
+                "summary": "Get list of address",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "store storeId",
+                        "name": "storeId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/six910-database-interface.Address"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/address/update": {
+            "put": {
+                "description": "Update address data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Address"
+                ],
+                "summary": "Update a address",
+                "parameters": [
+                    {
+                        "description": "address",
+                        "name": "address",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.AddressReq"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/rs/cart/add": {
             "post": {
                 "description": "Adds a new cart to a store",
@@ -3419,6 +3795,18 @@ var doc = `{
         }
     },
     "definitions": {
+        "handlers.AddressReq": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "object",
+                    "$ref": "#/definitions/six910-database-interface.Address"
+                },
+                "storeId": {
+                    "type": "integer"
+                }
+            }
+        },
         "handlers.CartItemReq": {
             "type": "object",
             "properties": {
@@ -3530,6 +3918,38 @@ var doc = `{
                     "type": "integer"
                 },
                 "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "six910-database-interface.Address": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "country": {
+                    "type": "string"
+                },
+                "county": {
+                    "type": "string"
+                },
+                "customerId": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "zip": {
                     "type": "string"
                 }
             }

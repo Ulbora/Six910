@@ -201,6 +201,11 @@ func main() {
 	router.HandleFunc("/rs/cartItem/delete/{id}/{prodId}/{cartId}", h.DeleteCartItem).Methods("DELETE")
 
 	//address
+	router.HandleFunc("/rs/address/add", h.AddAddress).Methods("POST")
+	router.HandleFunc("/rs/address/update", h.UpdateAddress).Methods("PUT")
+	router.HandleFunc("/rs/address/get/id/{id}/{cid}/{storeId}", h.GetAddress).Methods("GET")
+	router.HandleFunc("/rs/address/get/list/{cid}/{storeId}", h.GetAddressList).Methods("GET")
+	router.HandleFunc("/rs/address/delete/{id}/{cid}/{storeId}", h.DeleteAddress).Methods("DELETE")
 
 	//category
 	router.HandleFunc("/rs/category/add", h.AddCategory).Methods("POST")

@@ -39,7 +39,21 @@ type AddressReq struct {
 	Address sdbi.Address `json:"address"`
 }
 
-//AddAddress AddAddress
+// AddAddress godoc
+// @Summary Add a new address
+// @Description Adds a new address for a customer to a store
+// @Tags Address
+// @Accept  json
+// @Produce  json
+// @Param address body AddressReq true "address"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.ResponseID
+// @Router /rs/address/add [post]
 func (h *Six910Handler) AddAddress(w http.ResponseWriter, r *http.Request) {
 	var addadURL = "/six910/rs/address/add"
 	var aadc jv.Claim
@@ -83,7 +97,21 @@ func (h *Six910Handler) AddAddress(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//UpdateAddress UpdateAddress
+// UpdateAddress godoc
+// @Summary Update a address
+// @Description Update address data
+// @Tags Address
+// @Accept  json
+// @Produce  json
+// @Param address body AddressReq true "address"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/address/update [put]
 func (h *Six910Handler) UpdateAddress(w http.ResponseWriter, r *http.Request) {
 	var upadURL = "/six910/rs/address/update"
 	var uadc jv.Claim
@@ -127,7 +155,22 @@ func (h *Six910Handler) UpdateAddress(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//GetAddress GetAddress
+// GetAddress godoc
+// @Summary Get details of a address by id
+// @Description Get details of a address
+// @Tags Address
+// @Accept  json
+// @Produce  json
+// @Param id path string true "address id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} six910-database-interface.Address
+// @Router /rs/address/get/id/{id}/{cid}/{storeId} [get]
 func (h *Six910Handler) GetAddress(w http.ResponseWriter, r *http.Request) {
 	var gAdURL = "/six910/rs/address/get"
 	var gadc jv.Claim
@@ -169,7 +212,21 @@ func (h *Six910Handler) GetAddress(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//GetAddressList GetAddressList
+// GetAddressList godoc
+// @Summary Get list of address
+// @Description Get list of customer addresses for a store
+// @Tags Address
+// @Accept  json
+// @Produce  json
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {array} six910-database-interface.Address
+// @Router /rs/address/get/list/{cid}/{storeId} [get]
 func (h *Six910Handler) GetAddressList(w http.ResponseWriter, r *http.Request) {
 	var gadlURL = "/six910/rs/address/list"
 	var gadcl jv.Claim
@@ -209,7 +266,22 @@ func (h *Six910Handler) GetAddressList(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//DeleteAddress DeleteAddress
+// DeleteAddress godoc
+// @Summary Delete a address
+// @Description Delete a customer address from the store
+// @Tags Address
+// @Accept  json
+// @Produce  json
+// @Param id path string true "address id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/address/delete/{id}/{cid}/{storeId} [delete]
 func (h *Six910Handler) DeleteAddress(w http.ResponseWriter, r *http.Request) {
 	var daddURL = "/six910/rs/address/delete"
 	var dads jv.Claim
