@@ -1369,7 +1369,7 @@ func TestSix910Handler_DeleteCartItem(t *testing.T) {
 	sdb.MockCart = &cart
 
 	var ci sdbi.CartItem
-	ci.ID = 66
+	ci.ID = 5
 	ci.CartID = 9
 	sdb.MockCartItem = &ci
 

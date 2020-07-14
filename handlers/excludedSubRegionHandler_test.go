@@ -1327,8 +1327,12 @@ func TestSix910Handler_DeleteExcludedSubRegion(t *testing.T) {
 
 	var sr sdbi.ExcludedSubRegion
 	sr.ID = 2
-	sr.RegionID = 1
-	sdb.MockExcludedSubRegion = &sr
+	sr.SubRegionID = 2
+	sr.RegionID = 2
+	var lst []sdbi.ExcludedSubRegion
+	lst = append(lst, sr)
+
+	sdb.MockExcludedSubRegionList = &lst
 
 	var sh Six910Handler
 	sh.Manager = m
@@ -1349,8 +1353,9 @@ func TestSix910Handler_DeleteExcludedSubRegion(t *testing.T) {
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("DELETE", "/ffllist", nil)
 	vars := map[string]string{
-		"id":      "3",
-		"storeId": "5",
+		"id":       "2",
+		"regionId": "2",
+		"storeId":  "5",
 	}
 	r = mux.SetURLVars(r, vars)
 
@@ -1410,9 +1415,13 @@ func TestSix910Handler_DeleteExcludedSubRegionReq(t *testing.T) {
 	sdb.MockRegion = &reg
 
 	var sr sdbi.ExcludedSubRegion
-	sr.ID = 2
-	sr.RegionID = 1
-	sdb.MockExcludedSubRegion = &sr
+	sr.ID = 3
+	sr.SubRegionID = 2
+	sr.RegionID = 2
+	var lst []sdbi.ExcludedSubRegion
+	lst = append(lst, sr)
+
+	sdb.MockExcludedSubRegionList = &lst
 
 	var sh Six910Handler
 	sh.Manager = m
@@ -1433,8 +1442,9 @@ func TestSix910Handler_DeleteExcludedSubRegionReq(t *testing.T) {
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("DELETE", "/ffllist", nil)
 	vars := map[string]string{
-		"id":      "3d",
-		"storeId": "5",
+		"id":       "3d",
+		"regionId": "2",
+		"storeId":  "5",
 	}
 	r = mux.SetURLVars(r, vars)
 
@@ -1494,9 +1504,13 @@ func TestSix910Handler_DeleteExcludedSubRegionreq2(t *testing.T) {
 	sdb.MockRegion = &reg
 
 	var sr sdbi.ExcludedSubRegion
-	sr.ID = 2
-	sr.RegionID = 1
-	sdb.MockExcludedSubRegion = &sr
+	sr.ID = 3
+	sr.SubRegionID = 2
+	sr.RegionID = 2
+	var lst []sdbi.ExcludedSubRegion
+	lst = append(lst, sr)
+
+	sdb.MockExcludedSubRegionList = &lst
 
 	var sh Six910Handler
 	sh.Manager = m
@@ -1517,7 +1531,8 @@ func TestSix910Handler_DeleteExcludedSubRegionreq2(t *testing.T) {
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("DELETE", "/ffllist", nil)
 	vars := map[string]string{
-		"id": "3",
+		"id":       "3",
+		"regionId": "2",
 		//"storeId": "5",
 	}
 	r = mux.SetURLVars(r, vars)
@@ -1578,10 +1593,13 @@ func TestSix910Handler_DeleteExcludedSubRegionFail(t *testing.T) {
 	sdb.MockRegion = &reg
 
 	var sr sdbi.ExcludedSubRegion
-	sr.ID = 2
-	sr.RegionID = 1
-	sdb.MockExcludedSubRegion = &sr
+	sr.ID = 3
+	sr.SubRegionID = 2
+	sr.RegionID = 2
+	var lst []sdbi.ExcludedSubRegion
+	lst = append(lst, sr)
 
+	sdb.MockExcludedSubRegionList = &lst
 	var sh Six910Handler
 	sh.Manager = m
 	sh.APIKey = "123456"
@@ -1601,8 +1619,9 @@ func TestSix910Handler_DeleteExcludedSubRegionFail(t *testing.T) {
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("DELETE", "/ffllist", nil)
 	vars := map[string]string{
-		"id":      "3",
-		"storeId": "5",
+		"id":       "2",
+		"regionId": "2",
+		"storeId":  "5",
 	}
 	r = mux.SetURLVars(r, vars)
 
@@ -1662,10 +1681,13 @@ func TestSix910Handler_DeleteExcludedSubRegionAuth(t *testing.T) {
 	sdb.MockRegion = &reg
 
 	var sr sdbi.ExcludedSubRegion
-	sr.ID = 2
-	sr.RegionID = 1
-	sdb.MockExcludedSubRegion = &sr
+	sr.ID = 3
+	sr.SubRegionID = 2
+	sr.RegionID = 2
+	var lst []sdbi.ExcludedSubRegion
+	lst = append(lst, sr)
 
+	sdb.MockExcludedSubRegionList = &lst
 	var sh Six910Handler
 	sh.Manager = m
 	sh.APIKey = "123456"

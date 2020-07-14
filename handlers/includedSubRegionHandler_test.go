@@ -1325,10 +1325,19 @@ func TestSix910Handler_DeleteIncludedSubRegion(t *testing.T) {
 	reg.StoreID = 5
 	sdb.MockRegion = &reg
 
+	// var sr sdbi.IncludedSubRegion
+	// sr.ID = 2
+	// sr.RegionID = 1
+	// sdb.MockIncludedSubRegion = &sr
+
 	var sr sdbi.IncludedSubRegion
 	sr.ID = 2
-	sr.RegionID = 1
-	sdb.MockIncludedSubRegion = &sr
+	sr.SubRegionID = 2
+	sr.RegionID = 2
+	var lst []sdbi.IncludedSubRegion
+	lst = append(lst, sr)
+
+	sdb.MockIncludedSubRegionList = &lst
 
 	var sh Six910Handler
 	sh.Manager = m
@@ -1349,8 +1358,9 @@ func TestSix910Handler_DeleteIncludedSubRegion(t *testing.T) {
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("DELETE", "/ffllist", nil)
 	vars := map[string]string{
-		"id":      "3",
-		"storeId": "5",
+		"id":       "2",
+		"regionId": "2",
+		"storeId":  "5",
 	}
 	r = mux.SetURLVars(r, vars)
 
@@ -1411,8 +1421,12 @@ func TestSix910Handler_DeleteIncludedSubRegionReq(t *testing.T) {
 
 	var sr sdbi.IncludedSubRegion
 	sr.ID = 2
-	sr.RegionID = 1
-	sdb.MockIncludedSubRegion = &sr
+	sr.SubRegionID = 2
+	sr.RegionID = 2
+	var lst []sdbi.IncludedSubRegion
+	lst = append(lst, sr)
+
+	sdb.MockIncludedSubRegionList = &lst
 
 	var sh Six910Handler
 	sh.Manager = m
@@ -1433,8 +1447,9 @@ func TestSix910Handler_DeleteIncludedSubRegionReq(t *testing.T) {
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("DELETE", "/ffllist", nil)
 	vars := map[string]string{
-		"id":      "3f",
-		"storeId": "5",
+		"id":       "3f",
+		"regionId": "2",
+		"storeId":  "5",
 	}
 	r = mux.SetURLVars(r, vars)
 
@@ -1495,8 +1510,12 @@ func TestSix910Handler_DeleteIncludedSubRegionReq2(t *testing.T) {
 
 	var sr sdbi.IncludedSubRegion
 	sr.ID = 2
-	sr.RegionID = 1
-	sdb.MockIncludedSubRegion = &sr
+	sr.SubRegionID = 2
+	sr.RegionID = 2
+	var lst []sdbi.IncludedSubRegion
+	lst = append(lst, sr)
+
+	sdb.MockIncludedSubRegionList = &lst
 
 	var sh Six910Handler
 	sh.Manager = m
@@ -1517,7 +1536,8 @@ func TestSix910Handler_DeleteIncludedSubRegionReq2(t *testing.T) {
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("DELETE", "/ffllist", nil)
 	vars := map[string]string{
-		"id": "3",
+		"id":       "2",
+		"regionId": "2",
 		//"storeId": "5",
 	}
 	r = mux.SetURLVars(r, vars)
@@ -1579,8 +1599,12 @@ func TestSix910Handler_DeleteIncludedSubRegionFail(t *testing.T) {
 
 	var sr sdbi.IncludedSubRegion
 	sr.ID = 2
-	sr.RegionID = 1
-	sdb.MockIncludedSubRegion = &sr
+	sr.SubRegionID = 2
+	sr.RegionID = 2
+	var lst []sdbi.IncludedSubRegion
+	lst = append(lst, sr)
+
+	sdb.MockIncludedSubRegionList = &lst
 
 	var sh Six910Handler
 	sh.Manager = m
@@ -1601,8 +1625,9 @@ func TestSix910Handler_DeleteIncludedSubRegionFail(t *testing.T) {
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("DELETE", "/ffllist", nil)
 	vars := map[string]string{
-		"id":      "3",
-		"storeId": "5",
+		"id":       "2",
+		"regionId": "2",
+		"storeId":  "5",
 	}
 	r = mux.SetURLVars(r, vars)
 
@@ -1663,8 +1688,12 @@ func TestSix910Handler_DeleteIncludedSubRegionAuth(t *testing.T) {
 
 	var sr sdbi.IncludedSubRegion
 	sr.ID = 2
-	sr.RegionID = 1
-	sdb.MockIncludedSubRegion = &sr
+	sr.SubRegionID = 2
+	sr.RegionID = 2
+	var lst []sdbi.IncludedSubRegion
+	lst = append(lst, sr)
+
+	sdb.MockIncludedSubRegionList = &lst
 
 	var sh Six910Handler
 	sh.Manager = m
@@ -1685,8 +1714,9 @@ func TestSix910Handler_DeleteIncludedSubRegionAuth(t *testing.T) {
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("DELETE", "/ffllist", nil)
 	vars := map[string]string{
-		"id":      "3",
-		"storeId": "5",
+		"id":       "2",
+		"regionId": "2",
+		"storeId":  "5",
 	}
 	r = mux.SetURLVars(r, vars)
 

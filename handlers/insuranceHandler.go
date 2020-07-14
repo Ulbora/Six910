@@ -33,7 +33,21 @@ import (
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//AddInsurance AddInsurance
+// AddInsurance godoc
+// @Summary Add shipping insurance provider
+// @Description Adds shipping insurance provider to a store
+// @Tags Insurance (Shipping Insurance)
+// @Accept  json
+// @Produce  json
+// @Param insurance body six910-database-interface.Insurance true "insurance"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.ResponseID
+// @Router /rs/insurance/add [post]
 func (h *Six910Handler) AddInsurance(w http.ResponseWriter, r *http.Request) {
 	var addinsURL = "/six910/rs/insurance/add"
 	var ainsc jv.Claim
@@ -77,7 +91,21 @@ func (h *Six910Handler) AddInsurance(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//UpdateInsurance UpdateInsurance
+// UpdateInsurance godoc
+// @Summary Update shipping insurance provider
+// @Description Update shipping insurance provider data
+// @Tags Insurance (Shipping Insurance)
+// @Accept  json
+// @Produce  json
+// @Param insurance body six910-database-interface.Insurance true "insurance"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/insurance/update [put]
 func (h *Six910Handler) UpdateInsurance(w http.ResponseWriter, r *http.Request) {
 	var upinsURL = "/six910/rs/insurance/update"
 	var uinsc jv.Claim
@@ -121,7 +149,22 @@ func (h *Six910Handler) UpdateInsurance(w http.ResponseWriter, r *http.Request) 
 	}
 }
 
-//GetInsurance GetInsurance
+// GetInsurance godoc
+// @Summary Get details of a shipping insurance provider by id
+// @Description Get details of a shipping insurance provider
+// @Tags Insurance (Shipping Insurance)
+// @Accept  json
+// @Produce  json
+// @Param id path string true "insurance id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} six910-database-interface.Insurance
+// @Router /rs/insurance/get/id/{id}/{storeId} [get]
 func (h *Six910Handler) GetInsurance(w http.ResponseWriter, r *http.Request) {
 	var ginsURL = "/six910/rs/insurance/get"
 	var ginsc jv.Claim
@@ -161,7 +204,21 @@ func (h *Six910Handler) GetInsurance(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//GetInsuranceList GetInsuranceList
+// GetInsuranceList godoc
+// @Summary Get list of shipping insurance providers
+// @Description Get list of shipping insurance providers for a store
+// @Tags Insurance (Shipping Insurance)
+// @Accept  json
+// @Produce  json
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {array} six910-database-interface.Insurance
+// @Router /rs/insurance/get/list/{storeId} [get]
 func (h *Six910Handler) GetInsuranceList(w http.ResponseWriter, r *http.Request) {
 	var ginslURL = "/six910/rs/insurance/list"
 	var ginscl jv.Claim
@@ -199,7 +256,22 @@ func (h *Six910Handler) GetInsuranceList(w http.ResponseWriter, r *http.Request)
 	}
 }
 
-//DeleteInsurance DeleteInsurance
+// DeleteInsurance godoc
+// @Summary Delete a shipping insurance provider
+// @Description Delete a shipping insurance provider from the store
+// @Tags Insurance (Shipping Insurance)
+// @Accept  json
+// @Produce  json
+// @Param id path string true "insurance id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/insurance/delete/{id}/{storeId} [delete]
 func (h *Six910Handler) DeleteInsurance(w http.ResponseWriter, r *http.Request) {
 	var dinsURL = "/six910/rs/insurance/delete"
 	var dinss jv.Claim

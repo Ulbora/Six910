@@ -39,7 +39,21 @@ type ExcludedSubRegionReq struct {
 	ExcludedSubRegion sdbi.ExcludedSubRegion `json:"excludedSubRegion"`
 }
 
-//AddExcludedSubRegion AddExcludedSubRegion
+// AddExcludedSubRegion godoc
+// @Summary Add a new ExcludedSubRegion
+// @Description Adds a new ExcludedSubRegion to a store
+// @Tags Excluded Sub Regions (Excluded Geographic Sales Sub Regions)
+// @Accept  json
+// @Produce  json
+// @Param excludedSubRegion body ExcludedSubRegionReq true "excludedSubRegion"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.ResponseID
+// @Router /rs/excludedSubRegion/add [post]
 func (h *Six910Handler) AddExcludedSubRegion(w http.ResponseWriter, r *http.Request) {
 	var addesregURL = "/six910/rs/excludedSubRegion/add"
 	var aesregc jv.Claim
@@ -167,7 +181,22 @@ func (h *Six910Handler) GetExcludedSubRegion(w http.ResponseWriter, r *http.Requ
 	}
 }
 
-//GetExcludedSubRegionList GetExcludedSubRegionList
+// GetExcludedSubRegionList godoc
+// @Summary Get list of ExcludedSubRegion
+// @Description Get list of ExcludedSubRegion for a store
+// @Tags Excluded Sub Regions (Excluded Geographic Sales Sub Regions)
+// @Accept  json
+// @Produce  json
+// @Param regionId path string true "region id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {array} six910-database-interface.ExcludedSubRegion
+// @Router /rs/excludedSubRegion/get/list/{regionId}/{storeId} [get]
 func (h *Six910Handler) GetExcludedSubRegionList(w http.ResponseWriter, r *http.Request) {
 	var gesreglURL = "/six910/rs/excludedSubRegion/list"
 	var gesregcl jv.Claim
@@ -207,7 +236,23 @@ func (h *Six910Handler) GetExcludedSubRegionList(w http.ResponseWriter, r *http.
 	}
 }
 
-//DeleteExcludedSubRegion DeleteExcludedSubRegion
+// DeleteExcludedSubRegion godoc
+// @Summary Delete a ExcludedSubRegion
+// @Description Delete a ExcludedSubRegion from the store
+// @Tags Excluded Sub Regions (Excluded Geographic Sales Sub Regions)
+// @Accept  json
+// @Produce  json
+// @Param id path string true "excludedSubRegion id"
+// @Param regionId path string true "region id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/excludedSubRegion/delete/{id}/{regionId}/{storeId} [delete]
 func (h *Six910Handler) DeleteExcludedSubRegion(w http.ResponseWriter, r *http.Request) {
 	var desregURL = "/six910/rs/excludedSubRegion/delete"
 	var desregs jv.Claim
@@ -221,16 +266,18 @@ func (h *Six910Handler) DeleteExcludedSubRegion(w http.ResponseWriter, r *http.R
 		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
-		if vars != nil && len(vars) == 2 {
+		if vars != nil && len(vars) == 3 {
 			h.Log.Debug("vars: ", vars)
 			var desregidStr = vars["id"]
+			var dregidStr = vars["regionId"]
 			var desregstoreIDStr = vars["storeId"]
 			id, desregiderr := strconv.ParseInt(desregidStr, 10, 64)
+			regionID, dregiderr := strconv.ParseInt(dregidStr, 10, 64)
 			storeID, desregidserr := strconv.ParseInt(desregstoreIDStr, 10, 64)
 			var desregres *m.Response
-			if desregiderr == nil && desregidserr == nil {
-				desregres = h.Manager.DeleteExcludedSubRegion(id, storeID)
-				h.Log.Debug("desregres: ", desregres)
+			if desregiderr == nil && dregiderr == nil && desregidserr == nil {
+				desregres = h.Manager.DeleteExcludedSubRegion(id, regionID, storeID)
+				h.Log.Debug("desregres: ", *desregres)
 				if desregres.Success {
 					w.WriteHeader(http.StatusOK)
 				} else {

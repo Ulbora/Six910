@@ -33,7 +33,21 @@ import (
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//AddRegion AddRegion
+// AddRegion godoc
+// @Summary Add a new region
+// @Description Adds a new region to a store
+// @Tags Region (Geographic Sales Region)
+// @Accept  json
+// @Produce  json
+// @Param region body six910-database-interface.Region true "region"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.ResponseID
+// @Router /rs/region/add [post]
 func (h *Six910Handler) AddRegion(w http.ResponseWriter, r *http.Request) {
 	var addregURL = "/six910/rs/region/add"
 	var aregc jv.Claim
@@ -77,7 +91,21 @@ func (h *Six910Handler) AddRegion(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//UpdateRegion UpdateRegion
+// UpdateRegion godoc
+// @Summary Update a region
+// @Description Update region data
+// @Tags Region (Geographic Sales Region)
+// @Accept  json
+// @Produce  json
+// @Param region body six910-database-interface.Region true "region"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/region/update [put]
 func (h *Six910Handler) UpdateRegion(w http.ResponseWriter, r *http.Request) {
 	var upregURL = "/six910/rs/region/update"
 	var uregc jv.Claim
@@ -121,7 +149,22 @@ func (h *Six910Handler) UpdateRegion(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//GetRegion GetRegion
+// GetRegion godoc
+// @Summary Get details of a region by id
+// @Description Get details of a region
+// @Tags Region (Geographic Sales Region)
+// @Accept  json
+// @Produce  json
+// @Param id path string true "region id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} six910-database-interface.Region
+// @Router /rs/region/get/id/{id}/{storeId} [get]
 func (h *Six910Handler) GetRegion(w http.ResponseWriter, r *http.Request) {
 	var gregURL = "/six910/rs/region/get"
 	var gregc jv.Claim
@@ -161,7 +204,21 @@ func (h *Six910Handler) GetRegion(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//GetRegionList GetRegionList
+// GetRegionList godoc
+// @Summary Get list of regions
+// @Description Get list of regions for a store
+// @Tags Region (Geographic Sales Region)
+// @Accept  json
+// @Produce  json
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {array} six910-database-interface.Region
+// @Router /rs/region/get/list/{storeId} [get]
 func (h *Six910Handler) GetRegionList(w http.ResponseWriter, r *http.Request) {
 	var greglURL = "/six910/rs/region/list"
 	var gregcl jv.Claim
@@ -199,7 +256,22 @@ func (h *Six910Handler) GetRegionList(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//DeleteRegion DeleteRegion
+// DeleteRegion godoc
+// @Summary Delete a region
+// @Description Delete a region from the store
+// @Tags Region (Geographic Sales Region)
+// @Accept  json
+// @Produce  json
+// @Param id path string true "region id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/region/delete/{id}/{storeId} [delete]
 func (h *Six910Handler) DeleteRegion(w http.ResponseWriter, r *http.Request) {
 	var dregURL = "/six910/rs/region/delete"
 	var dregs jv.Claim

@@ -39,7 +39,21 @@ type SubRegionReq struct {
 	SubRegion sdbi.SubRegion `json:"subRegion"`
 }
 
-//AddSubRegion AddSubRegion
+// AddSubRegion godoc
+// @Summary Add a new SubRegion
+// @Description Adds a new SubRegion to a store
+// @Tags Sub Region (Geographic Sales Sub Regions)
+// @Accept  json
+// @Produce  json
+// @Param subRegion body SubRegionReq true "subRegion"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.ResponseID
+// @Router /rs/subRegion/add [post]
 func (h *Six910Handler) AddSubRegion(w http.ResponseWriter, r *http.Request) {
 	var addsregURL = "/six910/rs/subRegion/add"
 	var asregc jv.Claim
@@ -83,7 +97,21 @@ func (h *Six910Handler) AddSubRegion(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//UpdateSubRegion UpdateSubRegion
+// UpdateSubRegion godoc
+// @Summary Update a SubRegion
+// @Description Update SubRegion data
+// @Tags Sub Region (Geographic Sales Sub Regions)
+// @Accept  json
+// @Produce  json
+// @Param subRegion body SubRegionReq true "subRegion"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/subRegion/update [put]
 func (h *Six910Handler) UpdateSubRegion(w http.ResponseWriter, r *http.Request) {
 	var upsregURL = "/six910/rs/subRegion/update"
 	var usregc jv.Claim
@@ -127,7 +155,22 @@ func (h *Six910Handler) UpdateSubRegion(w http.ResponseWriter, r *http.Request) 
 	}
 }
 
-//GetSubRegion GetSubRegion
+// GetSubRegion godoc
+// @Summary Get details of a SubRegion by id
+// @Description Get details of a SubRegion
+// @Tags Sub Region (Geographic Sales Sub Regions)
+// @Accept  json
+// @Produce  json
+// @Param id path string true "subRegion id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} six910-database-interface.SubRegion
+// @Router /rs/subRegion/get/id/{id}/{storeId} [get]
 func (h *Six910Handler) GetSubRegion(w http.ResponseWriter, r *http.Request) {
 	var gsregURL = "/six910/rs/subRegion/get"
 	var gsregc jv.Claim
@@ -167,7 +210,22 @@ func (h *Six910Handler) GetSubRegion(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//GetSubRegionList GetSubRegionList
+// GetSubRegionList godoc
+// @Summary Get list of SubRegion
+// @Description Get list of SubRegion for a store
+// @Tags Sub Region (Geographic Sales Sub Regions)
+// @Accept  json
+// @Produce  json
+// @Param regionId path string true "region id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {array} six910-database-interface.SubRegion
+// @Router /rs/subRegion/get/list/{regionId}/{storeId} [get]
 func (h *Six910Handler) GetSubRegionList(w http.ResponseWriter, r *http.Request) {
 	var gsreglURL = "/six910/rs/subRegion/list"
 	var gsregcl jv.Claim
@@ -207,7 +265,22 @@ func (h *Six910Handler) GetSubRegionList(w http.ResponseWriter, r *http.Request)
 	}
 }
 
-//DeleteSubRegion DeleteSubRegion
+// DeleteSubRegion godoc
+// @Summary Delete a SubRegion
+// @Description Delete a SubRegion from the store
+// @Tags Sub Region (Geographic Sales Sub Regions)
+// @Accept  json
+// @Produce  json
+// @Param id path string true "subRegion id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/subRegion/delete/{id}/{storeId} [delete]
 func (h *Six910Handler) DeleteSubRegion(w http.ResponseWriter, r *http.Request) {
 	var dsregURL = "/six910/rs/subRegion/delete"
 	var dsregs jv.Claim

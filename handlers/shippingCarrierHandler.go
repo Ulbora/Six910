@@ -33,7 +33,21 @@ import (
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//AddShippingCarrier AddShippingCarrier
+// AddShippingCarrier godoc
+// @Summary Add a new Shipping Carrier
+// @Description Adds a new Shipping Carrier to a store
+// @Tags ShippingCarrier
+// @Accept  json
+// @Produce  json
+// @Param shippingCarrier body six910-database-interface.ShippingCarrier true "shippingCarrier"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.ResponseID
+// @Router /rs/shippingCarrier/add [post]
 func (h *Six910Handler) AddShippingCarrier(w http.ResponseWriter, r *http.Request) {
 	var addscrURL = "/six910/rs/shippingCarrier/add"
 	var ascrc jv.Claim
@@ -77,7 +91,21 @@ func (h *Six910Handler) AddShippingCarrier(w http.ResponseWriter, r *http.Reques
 	}
 }
 
-//UpdateShippingCarrier UpdateShippingCarrier
+// UpdateShippingCarrier godoc
+// @Summary Update a Shipping Carrier
+// @Description Update Shipping Carrier data
+// @Tags ShippingCarrier
+// @Accept  json
+// @Produce  json
+// @Param shippingCarrier body six910-database-interface.ShippingCarrier true "shippingCarrier"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/shippingCarrier/update [put]
 func (h *Six910Handler) UpdateShippingCarrier(w http.ResponseWriter, r *http.Request) {
 	var upscrURL = "/six910/rs/shippingCarrier/update"
 	var uscrc jv.Claim
@@ -121,7 +149,22 @@ func (h *Six910Handler) UpdateShippingCarrier(w http.ResponseWriter, r *http.Req
 	}
 }
 
-//GetShippingCarrier GetShippingCarrier
+// GetShippingCarrier godoc
+// @Summary Get details of a Shipping Carrier by id
+// @Description Get details of a Shipping Carrier
+// @Tags ShippingCarrier
+// @Accept  json
+// @Produce  json
+// @Param id path string true "shippingCarrier id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} six910-database-interface.ShippingCarrier
+// @Router /rs/shippingCarrier/get/id/{id}/{storeId} [get]
 func (h *Six910Handler) GetShippingCarrier(w http.ResponseWriter, r *http.Request) {
 	var gscrURL = "/six910/rs/shippingCarrier/get"
 	var gscrc jv.Claim
@@ -161,7 +204,21 @@ func (h *Six910Handler) GetShippingCarrier(w http.ResponseWriter, r *http.Reques
 	}
 }
 
-//GetShippingCarrierList GetShippingCarrierList
+// GetShippingCarrierList godoc
+// @Summary Get list of Shipping Carrier
+// @Description Get list of Shipping Carrier for a store
+// @Tags ShippingCarrier
+// @Accept  json
+// @Produce  json
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {array} six910-database-interface.ShippingCarrier
+// @Router /rs/shippingCarrier/get/list/{storeId} [get]
 func (h *Six910Handler) GetShippingCarrierList(w http.ResponseWriter, r *http.Request) {
 	var gscrlURL = "/six910/rs/shippingCarrier/list"
 	var gscrcl jv.Claim
@@ -199,7 +256,22 @@ func (h *Six910Handler) GetShippingCarrierList(w http.ResponseWriter, r *http.Re
 	}
 }
 
-//DeleteShippingCarrier DeleteShippingCarrier
+// DeleteShippingCarrier godoc
+// @Summary Delete a Shipping Carrier
+// @Description Delete a Shipping Carrier from the store
+// @Tags ShippingCarrier
+// @Accept  json
+// @Produce  json
+// @Param id path string true "shippingCarrier id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/shippingCarrier/delete/{id}/{storeId} [delete]
 func (h *Six910Handler) DeleteShippingCarrier(w http.ResponseWriter, r *http.Request) {
 	var dscrURL = "/six910/rs/shippingCarrier/delete"
 	var dscrs jv.Claim

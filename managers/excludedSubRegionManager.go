@@ -92,11 +92,21 @@ func (m *Six910Manager) GetExcludedSubRegionList(regionID int64, sid int64) *[]s
 }
 
 //DeleteExcludedSubRegion DeleteExcludedSubRegion
-func (m *Six910Manager) DeleteExcludedSubRegion(id int64, sid int64) *Response {
+func (m *Six910Manager) DeleteExcludedSubRegion(id int64, regionID int64, sid int64) *Response {
 	var rtn Response
-	sr := m.Db.GetExcludedSubRegion(id)
-	r := m.Db.GetRegion(sr.RegionID)
-	if r.StoreID == sid {
+	var found bool
+	srl := m.Db.GetExcludedSubRegionList(regionID)
+	m.Log.Debug("id", id)
+	m.Log.Debug("GetExcludedSubRegionList", *srl)
+	for _, rr := range *srl {
+		if rr.ID == id {
+			found = true
+			break
+		}
+	}
+	m.Log.Debug("found:", found)
+	r := m.Db.GetRegion(regionID)
+	if found && r.StoreID == sid {
 		suc := m.Db.DeleteExcludedSubRegion(id)
 		if suc {
 			rtn.Success = suc

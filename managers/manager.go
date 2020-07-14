@@ -242,14 +242,14 @@ type Manager interface {
 	UpdateExcludedSubRegion(e *sdbi.ExcludedSubRegion, sid int64) *Response
 	GetExcludedSubRegion(id int64, sid int64) *sdbi.ExcludedSubRegion
 	GetExcludedSubRegionList(regionID int64, sid int64) *[]sdbi.ExcludedSubRegion
-	DeleteExcludedSubRegion(id int64, sid int64) *Response
+	DeleteExcludedSubRegion(id int64, regionID int64, sid int64) *Response
 
 	// //included sub regions
 	AddIncludedSubRegion(e *sdbi.IncludedSubRegion, sid int64) *ResponseID
 	UpdateIncludedSubRegion(e *sdbi.IncludedSubRegion, sid int64) *Response
 	GetIncludedSubRegion(id int64, sid int64) *sdbi.IncludedSubRegion
 	GetIncludedSubRegionList(regionID int64, sid int64) *[]sdbi.IncludedSubRegion
-	DeleteIncludedSubRegion(id int64, sid int64) *Response
+	DeleteIncludedSubRegion(id int64, regionID int64, sid int64) *Response
 
 	// //limit exclusions and inclusions to a zip code
 	AddZoneZip(z *sdbi.ZoneZip, sid int64) *ResponseID

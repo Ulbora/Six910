@@ -92,11 +92,18 @@ func (m *Six910Manager) GetIncludedSubRegionList(regionID int64, sid int64) *[]s
 }
 
 //DeleteIncludedSubRegion DeleteIncludedSubRegion
-func (m *Six910Manager) DeleteIncludedSubRegion(id int64, sid int64) *Response {
+func (m *Six910Manager) DeleteIncludedSubRegion(id int64, regionID int64, sid int64) *Response {
 	var rtn Response
-	sr := m.Db.GetIncludedSubRegion(id)
-	r := m.Db.GetRegion(sr.RegionID)
-	if r.StoreID == sid {
+	var found bool
+	srl := m.Db.GetIncludedSubRegionList(regionID)
+	for _, rr := range *srl {
+		if rr.ID == id {
+			found = true
+			break
+		}
+	}
+	r := m.Db.GetRegion(regionID)
+	if found && r.StoreID == sid {
 		suc := m.Db.DeleteIncludedSubRegion(id)
 		if suc {
 			rtn.Success = suc

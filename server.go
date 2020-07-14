@@ -222,8 +222,12 @@ func main() {
 	router.HandleFunc("/rs/shippingMethod/get/list/{storeId}", h.GetShippingMethodList).Methods("GET")
 	router.HandleFunc("/rs/shippingMethod/delete/{id}/{storeId}", h.DeleteShippingMethod).Methods("DELETE")
 
-	//...
-	//...
+	//shipping insurance
+	router.HandleFunc("/rs/insurance/add", h.AddInsurance).Methods("POST")
+	router.HandleFunc("/rs/insurance/update", h.UpdateInsurance).Methods("PUT")
+	router.HandleFunc("/rs/insurance/get/id/{id}/{storeId}", h.GetInsurance).Methods("GET")
+	router.HandleFunc("/rs/insurance/get/list/{storeId}", h.GetInsuranceList).Methods("GET")
+	router.HandleFunc("/rs/insurance/delete/{id}/{storeId}", h.DeleteInsurance).Methods("DELETE")
 
 	//product
 	router.HandleFunc("/rs/product/add", h.AddProduct).Methods("POST")
@@ -235,6 +239,32 @@ func main() {
 	router.HandleFunc("/rs/product/delete/{id}/{storeId}", h.DeleteProduct).Methods("DELETE")
 
 	//Geographic Regions
+	router.HandleFunc("/rs/region/add", h.AddRegion).Methods("POST")
+	router.HandleFunc("/rs/region/update", h.UpdateRegion).Methods("PUT")
+	router.HandleFunc("/rs/region/get/id/{id}/{storeId}", h.GetRegion).Methods("GET")
+	router.HandleFunc("/rs/region/get/list/{storeId}", h.GetRegionList).Methods("GET")
+	router.HandleFunc("/rs/region/delete/{id}/{storeId}", h.DeleteRegion).Methods("DELETE")
+
+	//Geographic Sub Regions
+	router.HandleFunc("/rs/subRegion/add", h.AddSubRegion).Methods("POST")
+	router.HandleFunc("/rs/subRegion/update", h.UpdateSubRegion).Methods("PUT")
+	router.HandleFunc("/rs/subRegion/get/id/{id}/{storeId}", h.GetSubRegion).Methods("GET")
+	router.HandleFunc("/rs/subRegion/get/list/{regionId}/{storeId}", h.GetSubRegionList).Methods("GET")
+	router.HandleFunc("/rs/subRegion/delete/{id}/{storeId}", h.DeleteSubRegion).Methods("DELETE")
+
+	//excluded Geographic Sub Regions
+	router.HandleFunc("/rs/excludedSubRegion/add", h.AddExcludedSubRegion).Methods("POST")
+	//router.HandleFunc("/rs/excludedSubRegion/update", h.UpdateExcludedSubRegion).Methods("PUT")
+	//router.HandleFunc("/rs/excludedSubRegion/get/id/{id}/{storeId}", h.GetExcludedSubRegion).Methods("GET")
+	router.HandleFunc("/rs/excludedSubRegion/get/list/{regionId}/{storeId}", h.GetExcludedSubRegionList).Methods("GET")
+	router.HandleFunc("/rs/excludedSubRegion/delete/{id}/{regionId}/{storeId}", h.DeleteExcludedSubRegion).Methods("DELETE")
+
+	//included Geographic Sub Regions
+	router.HandleFunc("/rs/includedSubRegion/add", h.AddIncludedSubRegion).Methods("POST")
+	//router.HandleFunc("/rs/includedSubRegion/update", h.UpdateIncludedSubRegion).Methods("PUT")
+	//router.HandleFunc("/rs/includedSubRegion/get/id/{id}/{storeId}", h.GetIncludedSubRegion).Methods("GET")
+	router.HandleFunc("/rs/includedSubRegion/get/list/{regionId}/{storeId}", h.GetIncludedSubRegionList).Methods("GET")
+	router.HandleFunc("/rs/includedSubRegion/delete/{id}/{regionId}/{storeId}", h.DeleteIncludedSubRegion).Methods("DELETE")
 
 	//...
 	//...
@@ -247,6 +277,11 @@ func main() {
 	//....
 
 	//store shipment carrier like UPS and FEDex
+	router.HandleFunc("/rs/shippingCarrier/add", h.AddShippingCarrier).Methods("POST")
+	router.HandleFunc("/rs/shippingCarrier/update", h.UpdateShippingCarrier).Methods("PUT")
+	router.HandleFunc("/rs/shippingCarrier/get/id/{id}/{storeId}", h.GetShippingCarrier).Methods("GET")
+	router.HandleFunc("/rs/shippingCarrier/get/list/{storeId}", h.GetShippingCarrierList).Methods("GET")
+	router.HandleFunc("/rs/shippingCarrier/delete/{id}/{storeId}", h.DeleteShippingCarrier).Methods("DELETE")
 
 	//....
 

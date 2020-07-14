@@ -18,6 +18,22 @@ definitions:
       storeId:
         type: integer
     type: object
+  handlers.ExcludedSubRegionReq:
+    properties:
+      excludedSubRegion:
+        $ref: '#/definitions/six910-database-interface.ExcludedSubRegion'
+        type: object
+      storeId:
+        type: integer
+    type: object
+  handlers.IncludedSubRegionReq:
+    properties:
+      includedSubRegion:
+        $ref: '#/definitions/six910-database-interface.IncludedSubRegion'
+        type: object
+      storeId:
+        type: integer
+    type: object
   handlers.ProductCategory:
     properties:
       categoryId:
@@ -32,6 +48,14 @@ definitions:
         type: object
       storeId:
         type: integer
+    type: object
+  handlers.SubRegionReq:
+    properties:
+      storeId:
+        type: integer
+      subRegion:
+        $ref: '#/definitions/six910-database-interface.SubRegion'
+        type: object
     type: object
   managers.Response:
     properties:
@@ -191,6 +215,41 @@ definitions:
       storeId:
         type: integer
     type: object
+  six910-database-interface.ExcludedSubRegion:
+    properties:
+      id:
+        type: integer
+      regionId:
+        type: integer
+      shippingMethodId:
+        type: integer
+      subRegionId:
+        type: integer
+    type: object
+  six910-database-interface.IncludedSubRegion:
+    properties:
+      id:
+        type: integer
+      regionId:
+        type: integer
+      shippingMethodId:
+        type: integer
+      subRegionId:
+        type: integer
+    type: object
+  six910-database-interface.Insurance:
+    properties:
+      cost:
+        type: number
+      id:
+        type: integer
+      maxOrderAmount:
+        type: number
+      minOrderAmount:
+        type: number
+      storeId:
+        type: integer
+    type: object
   six910-database-interface.Product:
     properties:
       color:
@@ -276,6 +335,28 @@ definitions:
       width:
         type: number
     type: object
+  six910-database-interface.Region:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      regionCode:
+        type: string
+      storeId:
+        type: integer
+    type: object
+  six910-database-interface.ShippingCarrier:
+    properties:
+      carrier:
+        type: string
+      id:
+        type: integer
+      storeId:
+        type: integer
+      type:
+        type: string
+    type: object
   six910-database-interface.ShippingMethod:
     properties:
       cost:
@@ -340,6 +421,17 @@ definitions:
       updated:
         type: string
       zip:
+        type: string
+    type: object
+  six910-database-interface.SubRegion:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      regionId:
+        type: integer
+      subRegionCode:
         type: string
     type: object
 host: localhost:3002
@@ -1957,6 +2049,584 @@ paths:
       summary: Update a distributor
       tags:
       - Distributor
+  /rs/excludedSubRegion/add:
+    post:
+      consumes:
+      - application/json
+      description: Adds a new ExcludedSubRegion to a store
+      parameters:
+      - description: excludedSubRegion
+        in: body
+        name: excludedSubRegion
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.ExcludedSubRegionReq'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.ResponseID'
+      summary: Add a new ExcludedSubRegion
+      tags:
+      - Excluded Sub Regions (Excluded Geographic Sales Sub Regions)
+  /rs/excludedSubRegion/delete/{id}/{regionId}/{storeId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a ExcludedSubRegion from the store
+      parameters:
+      - description: excludedSubRegion id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: region id
+        in: path
+        name: regionId
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Delete a ExcludedSubRegion
+      tags:
+      - Excluded Sub Regions (Excluded Geographic Sales Sub Regions)
+  /rs/excludedSubRegion/get/list/{regionId}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of ExcludedSubRegion for a store
+      parameters:
+      - description: region id
+        in: path
+        name: regionId
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/six910-database-interface.ExcludedSubRegion'
+            type: array
+      summary: Get list of ExcludedSubRegion
+      tags:
+      - Excluded Sub Regions (Excluded Geographic Sales Sub Regions)
+  /rs/includedSubRegion/add:
+    post:
+      consumes:
+      - application/json
+      description: Adds new IncludedSubRegion to a store
+      parameters:
+      - description: includedSubRegion
+        in: body
+        name: includedSubRegion
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.IncludedSubRegionReq'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.ResponseID'
+      summary: Add new IncludedSubRegion
+      tags:
+      - Included Sub Regions (Included Geographic Sales Sub Regions)
+  /rs/includedSubRegion/delete/{id}/{regionId}/{storeId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete IncludedSubRegion from the store
+      parameters:
+      - description: includedSubRegion id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: region id
+        in: path
+        name: regionId
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Delete a IncludedSubRegion
+      tags:
+      - Included Sub Regions (Included Geographic Sales Sub Regions)
+  /rs/includedSubRegion/get/list/{regionId}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of IncludedSubRegion for a store
+      parameters:
+      - description: region id
+        in: path
+        name: regionId
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/six910-database-interface.IncludedSubRegion'
+            type: array
+      summary: Get list of IncludedSubRegion
+      tags:
+      - Included Sub Regions (Included Geographic Sales Sub Regions)
+  /rs/insurance/add:
+    post:
+      consumes:
+      - application/json
+      description: Adds shipping insurance provider to a store
+      parameters:
+      - description: insurance
+        in: body
+        name: insurance
+        required: true
+        schema:
+          $ref: '#/definitions/six910-database-interface.Insurance'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.ResponseID'
+      summary: Add shipping insurance provider
+      tags:
+      - Insurance (Shipping Insurance)
+  /rs/insurance/delete/{id}/{storeId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a shipping insurance provider from the store
+      parameters:
+      - description: insurance id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Delete a shipping insurance provider
+      tags:
+      - Insurance (Shipping Insurance)
+  /rs/insurance/get/id/{id}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get details of a shipping insurance provider
+      parameters:
+      - description: insurance id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/six910-database-interface.Insurance'
+      summary: Get details of a shipping insurance provider by id
+      tags:
+      - Insurance (Shipping Insurance)
+  /rs/insurance/get/list/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of shipping insurance providers for a store
+      parameters:
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/six910-database-interface.Insurance'
+            type: array
+      summary: Get list of shipping insurance providers
+      tags:
+      - Insurance (Shipping Insurance)
+  /rs/insurance/update:
+    put:
+      consumes:
+      - application/json
+      description: Update shipping insurance provider data
+      parameters:
+      - description: insurance
+        in: body
+        name: insurance
+        required: true
+        schema:
+          $ref: '#/definitions/six910-database-interface.Insurance'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Update shipping insurance provider
+      tags:
+      - Insurance (Shipping Insurance)
   /rs/product/add:
     post:
       consumes:
@@ -2458,6 +3128,514 @@ paths:
       summary: Delete a product from a category
       tags:
       - ProductCategory
+  /rs/region/add:
+    post:
+      consumes:
+      - application/json
+      description: Adds a new region to a store
+      parameters:
+      - description: region
+        in: body
+        name: region
+        required: true
+        schema:
+          $ref: '#/definitions/six910-database-interface.Region'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.ResponseID'
+      summary: Add a new region
+      tags:
+      - Region (Geographic Sales Region)
+  /rs/region/delete/{id}/{storeId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a region from the store
+      parameters:
+      - description: region id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Delete a region
+      tags:
+      - Region (Geographic Sales Region)
+  /rs/region/get/id/{id}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get details of a region
+      parameters:
+      - description: region id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/six910-database-interface.Region'
+      summary: Get details of a region by id
+      tags:
+      - Region (Geographic Sales Region)
+  /rs/region/get/list/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of regions for a store
+      parameters:
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/six910-database-interface.Region'
+            type: array
+      summary: Get list of regions
+      tags:
+      - Region (Geographic Sales Region)
+  /rs/region/update:
+    put:
+      consumes:
+      - application/json
+      description: Update region data
+      parameters:
+      - description: region
+        in: body
+        name: region
+        required: true
+        schema:
+          $ref: '#/definitions/six910-database-interface.Region'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Update a region
+      tags:
+      - Region (Geographic Sales Region)
+  /rs/shippingCarrier/add:
+    post:
+      consumes:
+      - application/json
+      description: Adds a new Shipping Carrier to a store
+      parameters:
+      - description: shippingCarrier
+        in: body
+        name: shippingCarrier
+        required: true
+        schema:
+          $ref: '#/definitions/six910-database-interface.ShippingCarrier'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.ResponseID'
+      summary: Add a new Shipping Carrier
+      tags:
+      - ShippingCarrier
+  /rs/shippingCarrier/delete/{id}/{storeId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a Shipping Carrier from the store
+      parameters:
+      - description: shippingCarrier id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Delete a Shipping Carrier
+      tags:
+      - ShippingCarrier
+  /rs/shippingCarrier/get/id/{id}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get details of a Shipping Carrier
+      parameters:
+      - description: shippingCarrier id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/six910-database-interface.ShippingCarrier'
+      summary: Get details of a Shipping Carrier by id
+      tags:
+      - ShippingCarrier
+  /rs/shippingCarrier/get/list/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of Shipping Carrier for a store
+      parameters:
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/six910-database-interface.ShippingCarrier'
+            type: array
+      summary: Get list of Shipping Carrier
+      tags:
+      - ShippingCarrier
+  /rs/shippingCarrier/update:
+    put:
+      consumes:
+      - application/json
+      description: Update Shipping Carrier data
+      parameters:
+      - description: shippingCarrier
+        in: body
+        name: shippingCarrier
+        required: true
+        schema:
+          $ref: '#/definitions/six910-database-interface.ShippingCarrier'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Update a Shipping Carrier
+      tags:
+      - ShippingCarrier
   /rs/shippingMethod/add:
     post:
       consumes:
@@ -2902,6 +4080,265 @@ paths:
       summary: Update a store
       tags:
       - Store
+  /rs/subRegion/add:
+    post:
+      consumes:
+      - application/json
+      description: Adds a new SubRegion to a store
+      parameters:
+      - description: subRegion
+        in: body
+        name: subRegion
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.SubRegionReq'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.ResponseID'
+      summary: Add a new SubRegion
+      tags:
+      - Sub Region (Geographic Sales Sub Regions)
+  /rs/subRegion/delete/{id}/{storeId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a SubRegion from the store
+      parameters:
+      - description: subRegion id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Delete a SubRegion
+      tags:
+      - Sub Region (Geographic Sales Sub Regions)
+  /rs/subRegion/get/id/{id}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get details of a SubRegion
+      parameters:
+      - description: subRegion id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/six910-database-interface.SubRegion'
+      summary: Get details of a SubRegion by id
+      tags:
+      - Sub Region (Geographic Sales Sub Regions)
+  /rs/subRegion/get/list/{regionId}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of SubRegion for a store
+      parameters:
+      - description: region id
+        in: path
+        name: regionId
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/six910-database-interface.SubRegion'
+            type: array
+      summary: Get list of SubRegion
+      tags:
+      - Sub Region (Geographic Sales Sub Regions)
+  /rs/subRegion/update:
+    put:
+      consumes:
+      - application/json
+      description: Update SubRegion data
+      parameters:
+      - description: subRegion
+        in: body
+        name: subRegion
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.SubRegionReq'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Update a SubRegion
+      tags:
+      - Sub Region (Geographic Sales Sub Regions)
   /rs/user/{username}/{storeId}:
     get:
       consumes:

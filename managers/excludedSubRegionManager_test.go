@@ -331,9 +331,18 @@ func TestSix910Manager_DeleteExcludedSubRegion(t *testing.T) {
 
 	m := sm.GetNew()
 
+	// var sr sdbi.ExcludedSubRegion
+	// sr.SubRegionID = 2
+	// sr.RegionID = 2
+
 	var sr sdbi.ExcludedSubRegion
+	sr.ID = 3
 	sr.SubRegionID = 2
 	sr.RegionID = 2
+	var lst []sdbi.ExcludedSubRegion
+	lst = append(lst, sr)
+
+	sdb.MockExcludedSubRegionList = &lst
 
 	var rg sdbi.Region
 	rg.StoreID = 5
@@ -343,7 +352,7 @@ func TestSix910Manager_DeleteExcludedSubRegion(t *testing.T) {
 
 	sdb.MockDeleteExcludedSubRegionSuccess = true
 
-	res := m.DeleteExcludedSubRegion(3, 5)
+	res := m.DeleteExcludedSubRegion(3, 2, 5)
 	if !res.Success {
 		t.Fail()
 	}
@@ -364,8 +373,13 @@ func TestSix910Manager_DeleteExcludedSubRegionFail(t *testing.T) {
 	m := sm.GetNew()
 
 	var sr sdbi.ExcludedSubRegion
+	sr.ID = 3
 	sr.SubRegionID = 2
 	sr.RegionID = 2
+	var lst []sdbi.ExcludedSubRegion
+	lst = append(lst, sr)
+
+	sdb.MockExcludedSubRegionList = &lst
 
 	var rg sdbi.Region
 	rg.StoreID = 55
@@ -375,7 +389,7 @@ func TestSix910Manager_DeleteExcludedSubRegionFail(t *testing.T) {
 
 	sdb.MockDeleteExcludedSubRegionSuccess = true
 
-	res := m.DeleteExcludedSubRegion(3, 5)
+	res := m.DeleteExcludedSubRegion(3, 2, 5)
 	if res.Success {
 		t.Fail()
 	}
@@ -396,8 +410,13 @@ func TestSix910Manager_DeleteExcludedSubRegionFail2(t *testing.T) {
 	m := sm.GetNew()
 
 	var sr sdbi.ExcludedSubRegion
+	sr.ID = 3
 	sr.SubRegionID = 2
 	sr.RegionID = 2
+	var lst []sdbi.ExcludedSubRegion
+	lst = append(lst, sr)
+
+	sdb.MockExcludedSubRegionList = &lst
 
 	var rg sdbi.Region
 	rg.StoreID = 5
@@ -407,7 +426,7 @@ func TestSix910Manager_DeleteExcludedSubRegionFail2(t *testing.T) {
 
 	//sdb.MockDeleteExcludedSubRegionSuccess = true
 
-	res := m.DeleteExcludedSubRegion(3, 5)
+	res := m.DeleteExcludedSubRegion(3, 2, 5)
 	if res.Success {
 		t.Fail()
 	}
