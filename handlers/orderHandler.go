@@ -33,7 +33,21 @@ import (
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//AddOrder AddOrder
+// AddOrder godoc
+// @Summary Add a new order
+// @Description Adds a new order to a store
+// @Tags Order
+// @Accept  json
+// @Produce  json
+// @Param order body six910-database-interface.Order true "order"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.ResponseID
+// @Router /rs/order/add [post]
 func (h *Six910Handler) AddOrder(w http.ResponseWriter, r *http.Request) {
 	var addorURL = "/six910/rs/order/add"
 	var aorc jv.Claim
@@ -77,7 +91,21 @@ func (h *Six910Handler) AddOrder(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//UpdateOrder UpdateOrder
+// UpdateOrder godoc
+// @Summary Update a order
+// @Description Update order data
+// @Tags Order
+// @Accept  json
+// @Produce  json
+// @Param order body six910-database-interface.Order true "order"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/order/update [put]
 func (h *Six910Handler) UpdateOrder(w http.ResponseWriter, r *http.Request) {
 	var uorURL = "/six910/rs/order/update"
 	var uorc jv.Claim
@@ -121,7 +149,22 @@ func (h *Six910Handler) UpdateOrder(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//GetOrder GetOrder
+// GetOrder godoc
+// @Summary Get details of a order by id
+// @Description Get details of a order
+// @Tags Order
+// @Accept  json
+// @Produce  json
+// @Param id path string true "order id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} six910-database-interface.Order
+// @Router /rs/order/get/id/{id}/{storeId} [get]
 func (h *Six910Handler) GetOrder(w http.ResponseWriter, r *http.Request) {
 	var gorURL = "/six910/rs/order/get"
 	var gorc jv.Claim
@@ -161,7 +204,22 @@ func (h *Six910Handler) GetOrder(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//GetOrderList GetOrderList
+// GetOrderList godoc
+// @Summary Get list of order
+// @Description Get list of order for a store
+// @Tags Order
+// @Accept  json
+// @Produce  json
+// @Param cid path string true "customer Id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {array} six910-database-interface.Order
+// @Router /rs/order/get/list/{cid}/{storeId} [get]
 func (h *Six910Handler) GetOrderList(w http.ResponseWriter, r *http.Request) {
 	var gorlURL = "/six910/rs/order/list"
 	var gorcl jv.Claim
@@ -201,7 +259,22 @@ func (h *Six910Handler) GetOrderList(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//DeleteOrder DeleteOrder
+// DeleteOrder godoc
+// @Summary Delete a order
+// @Description Delete a order from the store
+// @Tags Order
+// @Accept  json
+// @Produce  json
+// @Param id path string true "order id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/order/delete/{id}/{storeId} [delete]
 func (h *Six910Handler) DeleteOrder(w http.ResponseWriter, r *http.Request) {
 	var dorURL = "/six910/rs/order/delete"
 	var dorc jv.Claim

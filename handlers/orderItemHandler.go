@@ -39,7 +39,21 @@ type OrderItemReq struct {
 	OrderItem sdbi.OrderItem `json:"orderItem"`
 }
 
-//AddOrderItem AddOrderItem
+// AddOrderItem godoc
+// @Summary Add a new orderItem
+// @Description Adds a new orderItem to a store
+// @Tags OrderItem
+// @Accept  json
+// @Produce  json
+// @Param orderItem body OrderItemReq true "orderItem"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.ResponseID
+// @Router /rs/orderItem/add [post]
 func (h *Six910Handler) AddOrderItem(w http.ResponseWriter, r *http.Request) {
 	var addoriURL = "/six910/rs/orderItem/add"
 	var aoric jv.Claim
@@ -83,7 +97,21 @@ func (h *Six910Handler) AddOrderItem(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//UpdateOrderItem UpdateOrderItem
+// UpdateOrderItem godoc
+// @Summary Update a orderItem
+// @Description Update orderItem data
+// @Tags OrderItem
+// @Accept  json
+// @Produce  json
+// @Param orderItem body OrderItemReq true "orderItem"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/orderItem/update [put]
 func (h *Six910Handler) UpdateOrderItem(w http.ResponseWriter, r *http.Request) {
 	var uoriURL = "/six910/rs/orderItem/update"
 	var uoric jv.Claim
@@ -127,7 +155,22 @@ func (h *Six910Handler) UpdateOrderItem(w http.ResponseWriter, r *http.Request) 
 	}
 }
 
-//GetOrderItem GetOrderItem
+// GetOrderItem godoc
+// @Summary Get details of a orderItem by id
+// @Description Get details of a orderItem
+// @Tags OrderItem
+// @Accept  json
+// @Produce  json
+// @Param id path string true "orderItem id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} six910-database-interface.OrderItem
+// @Router /rs/orderItem/get/id/{id}/{storeId} [get]
 func (h *Six910Handler) GetOrderItem(w http.ResponseWriter, r *http.Request) {
 	var goriURL = "/six910/rs/orderItem/get"
 	var goric jv.Claim
@@ -167,7 +210,22 @@ func (h *Six910Handler) GetOrderItem(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//GetOrderItemList GetOrderItemList
+// GetOrderItemList godoc
+// @Summary Get list of orderItem
+// @Description Get list of orderItem for a store
+// @Tags OrderItem
+// @Accept  json
+// @Produce  json
+// @Param orderId path string true "order Id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {array} six910-database-interface.OrderItem
+// @Router /rs/orderItem/get/list/{orderId}/{storeId} [get]
 func (h *Six910Handler) GetOrderItemList(w http.ResponseWriter, r *http.Request) {
 	var gorilURL = "/six910/rs/orderItem/list"
 	var goricl jv.Claim
@@ -207,7 +265,22 @@ func (h *Six910Handler) GetOrderItemList(w http.ResponseWriter, r *http.Request)
 	}
 }
 
-//DeleteOrderItem DeleteOrderItem
+// DeleteOrderItem godoc
+// @Summary Delete a orderItem
+// @Description Delete a orderItem from the store
+// @Tags OrderItem
+// @Accept  json
+// @Produce  json
+// @Param id path string true "orderItem id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/orderItem/delete/{id}/{storeId} [delete]
 func (h *Six910Handler) DeleteOrderItem(w http.ResponseWriter, r *http.Request) {
 	var doriURL = "/six910/rs/orderItem/delete"
 	var doric jv.Claim

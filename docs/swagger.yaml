@@ -34,6 +34,30 @@ definitions:
       storeId:
         type: integer
     type: object
+  handlers.OrderCommentReq:
+    properties:
+      orderComment:
+        $ref: '#/definitions/six910-database-interface.OrderComment'
+        type: object
+      storeId:
+        type: integer
+    type: object
+  handlers.OrderItemReq:
+    properties:
+      orderItem:
+        $ref: '#/definitions/six910-database-interface.OrderItem'
+        type: object
+      storeId:
+        type: integer
+    type: object
+  handlers.OrderTransactionReq:
+    properties:
+      orderTransaction:
+        $ref: '#/definitions/six910-database-interface.OrderTransaction'
+        type: object
+      storeId:
+        type: integer
+    type: object
   handlers.ProductCategory:
     properties:
       categoryId:
@@ -55,6 +79,14 @@ definitions:
         type: integer
       subRegion:
         $ref: '#/definitions/six910-database-interface.SubRegion'
+        type: object
+    type: object
+  handlers.ZoneZipReq:
+    properties:
+      storeId:
+        type: integer
+      zoneZip:
+        $ref: '#/definitions/six910-database-interface.ZoneZip'
         type: object
     type: object
   managers.Response:
@@ -250,6 +282,110 @@ definitions:
       storeId:
         type: integer
     type: object
+  six910-database-interface.Order:
+    properties:
+      billingAddress:
+        type: string
+      billingAddressId:
+        type: integer
+      customerId:
+        type: integer
+      customerName:
+        type: string
+      id:
+        type: integer
+      insurance:
+        type: number
+      orderDate:
+        type: string
+      orderNumber:
+        type: string
+      orderType:
+        type: string
+      pickup:
+        type: boolean
+      shippingAddress:
+        type: string
+      shippingAddressId:
+        type: integer
+      shippingHandling:
+        type: number
+      status:
+        type: string
+      storeId:
+        type: integer
+      subTotal:
+        type: number
+      taxes:
+        type: number
+      total:
+        type: number
+      updated:
+        type: string
+      username:
+        type: string
+    type: object
+  six910-database-interface.OrderComment:
+    properties:
+      comment:
+        type: string
+      id:
+        type: integer
+      orderId:
+        type: integer
+      username:
+        type: string
+    type: object
+  six910-database-interface.OrderItem:
+    properties:
+      backOrdered:
+        type: boolean
+      dropship:
+        type: boolean
+      id:
+        type: integer
+      orderId:
+        type: integer
+      productId:
+        type: integer
+      productName:
+        type: string
+      productShortDesc:
+        type: string
+      quantity:
+        type: integer
+    type: object
+  six910-database-interface.OrderTransaction:
+    properties:
+      amount:
+        type: number
+      approval:
+        type: string
+      avs:
+        type: string
+      entered:
+        type: string
+      gwid:
+        type: integer
+      id:
+        type: integer
+      method:
+        type: string
+      orderId:
+        type: integer
+      referenceNumber:
+        type: string
+      responseCode:
+        type: string
+      responseMessage:
+        type: string
+      success:
+        type: boolean
+      transactionId:
+        type: string
+      type:
+        type: string
+    type: object
   six910-database-interface.Product:
     properties:
       color:
@@ -432,6 +568,17 @@ definitions:
       regionId:
         type: integer
       subRegionCode:
+        type: string
+    type: object
+  six910-database-interface.ZoneZip:
+    properties:
+      excludedSubRegionId:
+        type: integer
+      id:
+        type: integer
+      includedSubRegionId:
+        type: integer
+      zipCode:
         type: string
     type: object
 host: localhost:3002
@@ -2627,6 +2774,732 @@ paths:
       summary: Update shipping insurance provider
       tags:
       - Insurance (Shipping Insurance)
+  /rs/order/add:
+    post:
+      consumes:
+      - application/json
+      description: Adds a new order to a store
+      parameters:
+      - description: order
+        in: body
+        name: order
+        required: true
+        schema:
+          $ref: '#/definitions/six910-database-interface.Order'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.ResponseID'
+      summary: Add a new order
+      tags:
+      - Order
+  /rs/order/delete/{id}/{storeId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a order from the store
+      parameters:
+      - description: order id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Delete a order
+      tags:
+      - Order
+  /rs/order/get/id/{id}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get details of a order
+      parameters:
+      - description: order id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/six910-database-interface.Order'
+      summary: Get details of a order by id
+      tags:
+      - Order
+  /rs/order/get/list/{cid}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of order for a store
+      parameters:
+      - description: customer Id
+        in: path
+        name: cid
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/six910-database-interface.Order'
+            type: array
+      summary: Get list of order
+      tags:
+      - Order
+  /rs/order/update:
+    put:
+      consumes:
+      - application/json
+      description: Update order data
+      parameters:
+      - description: order
+        in: body
+        name: order
+        required: true
+        schema:
+          $ref: '#/definitions/six910-database-interface.Order'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Update a order
+      tags:
+      - Order
+  /rs/orderComment/add:
+    post:
+      consumes:
+      - application/json
+      description: Adds a new orderComment to a store
+      parameters:
+      - description: orderComment
+        in: body
+        name: orderComment
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.OrderCommentReq'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.ResponseID'
+      summary: Add a new orderComment
+      tags:
+      - OrderComment
+  /rs/orderComment/get/list/{orderId}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of orderComment for a store
+      parameters:
+      - description: order Id
+        in: path
+        name: orderId
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/six910-database-interface.OrderComment'
+            type: array
+      summary: Get list of orderComment
+      tags:
+      - OrderComment
+  /rs/orderItem/add:
+    post:
+      consumes:
+      - application/json
+      description: Adds a new orderItem to a store
+      parameters:
+      - description: orderItem
+        in: body
+        name: orderItem
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.OrderItemReq'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.ResponseID'
+      summary: Add a new orderItem
+      tags:
+      - OrderItem
+  /rs/orderItem/delete/{id}/{storeId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a orderItem from the store
+      parameters:
+      - description: orderItem id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Delete a orderItem
+      tags:
+      - OrderItem
+  /rs/orderItem/get/id/{id}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get details of a orderItem
+      parameters:
+      - description: orderItem id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/six910-database-interface.OrderItem'
+      summary: Get details of a orderItem by id
+      tags:
+      - OrderItem
+  /rs/orderItem/get/list/{orderId}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of orderItem for a store
+      parameters:
+      - description: order Id
+        in: path
+        name: orderId
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/six910-database-interface.OrderItem'
+            type: array
+      summary: Get list of orderItem
+      tags:
+      - OrderItem
+  /rs/orderItem/update:
+    put:
+      consumes:
+      - application/json
+      description: Update orderItem data
+      parameters:
+      - description: orderItem
+        in: body
+        name: orderItem
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.OrderItemReq'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Update a orderItem
+      tags:
+      - OrderItem
+  /rs/orderTransaction/add:
+    post:
+      consumes:
+      - application/json
+      description: Adds a new orderTransaction to a store
+      parameters:
+      - description: orderTransaction
+        in: body
+        name: orderTransaction
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.OrderTransactionReq'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.ResponseID'
+      summary: Add a new orderTransaction
+      tags:
+      - OrderTransaction
+  /rs/orderTransaction/get/list/{orderId}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of orderTransaction for a store
+      parameters:
+      - description: order Id
+        in: path
+        name: orderId
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/six910-database-interface.OrderTransaction'
+            type: array
+      summary: Get list of orderTransaction
+      tags:
+      - OrderTransaction
   /rs/product/add:
     post:
       consumes:
@@ -4590,4 +5463,226 @@ paths:
       summary: Update a user
       tags:
       - User
+  /rs/zoneZip/add:
+    post:
+      consumes:
+      - application/json
+      description: Adds a new zip code zone to a store
+      parameters:
+      - description: zoneZip
+        in: body
+        name: zoneZip
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.ZoneZipReq'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.ResponseID'
+      summary: Add a new ZoneZip
+      tags:
+      - Zip Code Zone (For Geographic Sales Region)
+  /rs/zoneZip/delete/{id}/{incId}/{exId}/{storeId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a ZoneZips from the store
+      parameters:
+      - description: zoneZip id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: included zip code zone id
+        in: path
+        name: incId
+        required: true
+        type: string
+      - description: excluded zip code zone id
+        in: path
+        name: exId
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Delete a ZoneZips
+      tags:
+      - Zip Code Zone (For Geographic Sales Region)
+  /rs/zoneZip/exc/get/list/{exId}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of excluded zip code zones in a sub region for a store
+      parameters:
+      - description: excluded zip code zone id
+        in: path
+        name: exId
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/six910-database-interface.ZoneZip'
+            type: array
+      summary: Get list of Excluded ZoneZips
+      tags:
+      - Zip Code Zone (For Geographic Sales Region)
+  /rs/zoneZip/inc/get/list/{incId}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of included zip code zones in a sub region for a store
+      parameters:
+      - description: included zip code zone id
+        in: path
+        name: incId
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/six910-database-interface.ZoneZip'
+            type: array
+      summary: Get list of Included ZoneZips
+      tags:
+      - Zip Code Zone (For Geographic Sales Region)
 swagger: "2.0"

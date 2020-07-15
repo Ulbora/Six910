@@ -39,7 +39,21 @@ type OrderTransactionReq struct {
 	OrderTransaction sdbi.OrderTransaction `json:"orderTransaction"`
 }
 
-//AddOrderTransaction AddOrderTransaction
+// AddOrderTransaction godoc
+// @Summary Add a new orderTransaction
+// @Description Adds a new orderTransaction to a store
+// @Tags OrderTransaction
+// @Accept  json
+// @Produce  json
+// @Param orderTransaction body OrderTransactionReq true "orderTransaction"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.ResponseID
+// @Router /rs/orderTransaction/add [post]
 func (h *Six910Handler) AddOrderTransaction(w http.ResponseWriter, r *http.Request) {
 	var addortURL = "/six910/rs/orderTransaction/add"
 	var aortc jv.Claim
@@ -83,7 +97,22 @@ func (h *Six910Handler) AddOrderTransaction(w http.ResponseWriter, r *http.Reque
 	}
 }
 
-//GetOrderTransactionList GetOrderTransactionList
+// GetOrderTransactionList godoc
+// @Summary Get list of orderTransaction
+// @Description Get list of orderTransaction for a store
+// @Tags OrderTransaction
+// @Accept  json
+// @Produce  json
+// @Param orderId path string true "order Id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {array} six910-database-interface.OrderTransaction
+// @Router /rs/orderTransaction/get/list/{orderId}/{storeId} [get]
 func (h *Six910Handler) GetOrderTransactionList(w http.ResponseWriter, r *http.Request) {
 	var gortlURL = "/six910/rs/orderTransaction/list"
 	var gortcl jv.Claim

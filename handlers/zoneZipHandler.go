@@ -39,7 +39,21 @@ type ZoneZipReq struct {
 	ZoneZip sdbi.ZoneZip `json:"zoneZip"`
 }
 
-//AddZoneZip AddZoneZip
+// AddZoneZip godoc
+// @Summary Add a new ZoneZip
+// @Description Adds a new zip code zone to a store
+// @Tags Zip Code Zone (For Geographic Sales Region)
+// @Accept  json
+// @Produce  json
+// @Param zoneZip body ZoneZipReq true "zoneZip"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.ResponseID
+// @Router /rs/zoneZip/add [post]
 func (h *Six910Handler) AddZoneZip(w http.ResponseWriter, r *http.Request) {
 	var addzzURL = "/six910/rs/zoneZip/add"
 	var azzc jv.Claim
@@ -83,7 +97,22 @@ func (h *Six910Handler) AddZoneZip(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//GetZoneZipListByExclusion GetZoneZipListByExclusion
+// GetZoneZipListByExclusion godoc
+// @Summary Get list of Excluded ZoneZips
+// @Description Get list of excluded zip code zones in a sub region for a store
+// @Tags Zip Code Zone (For Geographic Sales Region)
+// @Accept  json
+// @Produce  json
+// @Param exId path string true "excluded zip code zone id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {array} six910-database-interface.ZoneZip
+// @Router /rs/zoneZip/exc/get/list/{exId}/{storeId} [get]
 func (h *Six910Handler) GetZoneZipListByExclusion(w http.ResponseWriter, r *http.Request) {
 	var gzzURL = "/six910/rs/exZoneZip/list"
 	var gzzc jv.Claim
@@ -123,7 +152,22 @@ func (h *Six910Handler) GetZoneZipListByExclusion(w http.ResponseWriter, r *http
 	}
 }
 
-//GetZoneZipListByInclusion GetZoneZipListByInclusion
+// GetZoneZipListByInclusion godoc
+// @Summary Get list of Included ZoneZips
+// @Description Get list of included zip code zones in a sub region for a store
+// @Tags Zip Code Zone (For Geographic Sales Region)
+// @Accept  json
+// @Produce  json
+// @Param incId path string true "included zip code zone id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {array} six910-database-interface.ZoneZip
+// @Router /rs/zoneZip/inc/get/list/{incId}/{storeId} [get]
 func (h *Six910Handler) GetZoneZipListByInclusion(w http.ResponseWriter, r *http.Request) {
 	var gizzURL = "/six910/rs/incZoneZip/list"
 	var gizzc jv.Claim
@@ -163,7 +207,24 @@ func (h *Six910Handler) GetZoneZipListByInclusion(w http.ResponseWriter, r *http
 	}
 }
 
-//DeleteZoneZip DeleteZoneZip
+// DeleteZoneZip godoc
+// @Summary Delete a ZoneZips
+// @Description Delete a ZoneZips from the store
+// @Tags Zip Code Zone (For Geographic Sales Region)
+// @Accept  json
+// @Produce  json
+// @Param id path string true "zoneZip id"
+// @Param incId path string true "included zip code zone id"
+// @Param exId path string true "excluded zip code zone id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/zoneZip/delete/{id}/{incId}/{exId}/{storeId} [delete]
 func (h *Six910Handler) DeleteZoneZip(w http.ResponseWriter, r *http.Request) {
 	var dzzURL = "/six910/rs/zoneZip/delete"
 	var dzzc jv.Claim

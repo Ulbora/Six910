@@ -254,24 +254,45 @@ func main() {
 
 	//excluded Geographic Sub Regions
 	router.HandleFunc("/rs/excludedSubRegion/add", h.AddExcludedSubRegion).Methods("POST")
-	//router.HandleFunc("/rs/excludedSubRegion/update", h.UpdateExcludedSubRegion).Methods("PUT")
-	//router.HandleFunc("/rs/excludedSubRegion/get/id/{id}/{storeId}", h.GetExcludedSubRegion).Methods("GET")
 	router.HandleFunc("/rs/excludedSubRegion/get/list/{regionId}/{storeId}", h.GetExcludedSubRegionList).Methods("GET")
 	router.HandleFunc("/rs/excludedSubRegion/delete/{id}/{regionId}/{storeId}", h.DeleteExcludedSubRegion).Methods("DELETE")
 
 	//included Geographic Sub Regions
 	router.HandleFunc("/rs/includedSubRegion/add", h.AddIncludedSubRegion).Methods("POST")
-	//router.HandleFunc("/rs/includedSubRegion/update", h.UpdateIncludedSubRegion).Methods("PUT")
-	//router.HandleFunc("/rs/includedSubRegion/get/id/{id}/{storeId}", h.GetIncludedSubRegion).Methods("GET")
 	router.HandleFunc("/rs/includedSubRegion/get/list/{regionId}/{storeId}", h.GetIncludedSubRegionList).Methods("GET")
 	router.HandleFunc("/rs/includedSubRegion/delete/{id}/{regionId}/{storeId}", h.DeleteIncludedSubRegion).Methods("DELETE")
 
-	//...
-	//...
+	//limit exclusions and inclusions to a zip code
+	router.HandleFunc("/rs/zoneZip/add", h.AddZoneZip).Methods("POST")
+	router.HandleFunc("/rs/zoneZip/exc/get/list/{exId}/{storeId}", h.GetZoneZipListByExclusion).Methods("GET")
+	router.HandleFunc("/rs/zoneZip/inc/get/list/{incId}/{storeId}", h.GetZoneZipListByInclusion).Methods("GET")
+	router.HandleFunc("/rs/zoneZip/delete/{id}/{incId}/{exId}/{storeId}", h.DeleteZoneZip).Methods("DELETE")
 
 	//productCategory
 	router.HandleFunc("/rs/productCategory/add", h.AddProductCategory).Methods("POST")
 	router.HandleFunc("/rs/productCategory/delete/{categoryId}/{productId}/{storeId}", h.DeleteProductCategory).Methods("DELETE")
+
+	//Orders
+	router.HandleFunc("/rs/order/add", h.AddOrder).Methods("POST")
+	router.HandleFunc("/rs/order/update", h.UpdateOrder).Methods("PUT")
+	router.HandleFunc("/rs/order/get/id/{id}/{storeId}", h.GetOrder).Methods("GET")
+	router.HandleFunc("/rs/order/get/list/{cid}/{storeId}", h.GetOrderList).Methods("GET")
+	router.HandleFunc("/rs/order/delete/{id}/{storeId}", h.DeleteOrder).Methods("DELETE")
+
+	//Order Items
+	router.HandleFunc("/rs/orderItem/add", h.AddOrderItem).Methods("POST")
+	router.HandleFunc("/rs/orderItem/update", h.UpdateOrderItem).Methods("PUT")
+	router.HandleFunc("/rs/orderItem/get/id/{id}/{storeId}", h.GetOrderItem).Methods("GET")
+	router.HandleFunc("/rs/orderItem/get/list/{orderId}/{storeId}", h.GetOrderItemList).Methods("GET")
+	router.HandleFunc("/rs/orderItem/delete/{id}/{storeId}", h.DeleteOrderItem).Methods("DELETE")
+
+	//Order Comments
+	router.HandleFunc("/rs/orderComment/add", h.AddOrderComments).Methods("POST")
+	router.HandleFunc("/rs/orderComment/get/list/{orderId}/{storeId}", h.GetOrderCommentList).Methods("GET")
+
+	//Order Payment Transactions
+	router.HandleFunc("/rs/orderTransaction/add", h.AddOrderTransaction).Methods("POST")
+	router.HandleFunc("/rs/orderTransaction/get/list/{orderId}/{storeId}", h.GetOrderTransactionList).Methods("GET")
 
 	//....
 	//....

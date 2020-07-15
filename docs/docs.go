@@ -3255,6 +3255,1080 @@ var doc = `{
                 }
             }
         },
+        "/rs/order/add": {
+            "post": {
+                "description": "Adds a new order to a store",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Add a new order",
+                "parameters": [
+                    {
+                        "description": "order",
+                        "name": "order",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/six910-database-interface.Order"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.ResponseID"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/order/delete/{id}/{storeId}": {
+            "delete": {
+                "description": "Delete a order from the store",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Delete a order",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "order id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store storeId",
+                        "name": "storeId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/order/get/id/{id}/{storeId}": {
+            "get": {
+                "description": "Get details of a order",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Get details of a order by id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "order id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store storeId",
+                        "name": "storeId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/six910-database-interface.Order"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/order/get/list/{cid}/{storeId}": {
+            "get": {
+                "description": "Get list of order for a store",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Get list of order",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "customer Id",
+                        "name": "cid",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store storeId",
+                        "name": "storeId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/six910-database-interface.Order"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/order/update": {
+            "put": {
+                "description": "Update order data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Update a order",
+                "parameters": [
+                    {
+                        "description": "order",
+                        "name": "order",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/six910-database-interface.Order"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/orderComment/add": {
+            "post": {
+                "description": "Adds a new orderComment to a store",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "OrderComment"
+                ],
+                "summary": "Add a new orderComment",
+                "parameters": [
+                    {
+                        "description": "orderComment",
+                        "name": "orderComment",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.OrderCommentReq"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.ResponseID"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/orderComment/get/list/{orderId}/{storeId}": {
+            "get": {
+                "description": "Get list of orderComment for a store",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "OrderComment"
+                ],
+                "summary": "Get list of orderComment",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "order Id",
+                        "name": "orderId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store storeId",
+                        "name": "storeId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/six910-database-interface.OrderComment"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/orderItem/add": {
+            "post": {
+                "description": "Adds a new orderItem to a store",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "OrderItem"
+                ],
+                "summary": "Add a new orderItem",
+                "parameters": [
+                    {
+                        "description": "orderItem",
+                        "name": "orderItem",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.OrderItemReq"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.ResponseID"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/orderItem/delete/{id}/{storeId}": {
+            "delete": {
+                "description": "Delete a orderItem from the store",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "OrderItem"
+                ],
+                "summary": "Delete a orderItem",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "orderItem id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store storeId",
+                        "name": "storeId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/orderItem/get/id/{id}/{storeId}": {
+            "get": {
+                "description": "Get details of a orderItem",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "OrderItem"
+                ],
+                "summary": "Get details of a orderItem by id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "orderItem id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store storeId",
+                        "name": "storeId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/six910-database-interface.OrderItem"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/orderItem/get/list/{orderId}/{storeId}": {
+            "get": {
+                "description": "Get list of orderItem for a store",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "OrderItem"
+                ],
+                "summary": "Get list of orderItem",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "order Id",
+                        "name": "orderId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store storeId",
+                        "name": "storeId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/six910-database-interface.OrderItem"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/orderItem/update": {
+            "put": {
+                "description": "Update orderItem data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "OrderItem"
+                ],
+                "summary": "Update a orderItem",
+                "parameters": [
+                    {
+                        "description": "orderItem",
+                        "name": "orderItem",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.OrderItemReq"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/orderTransaction/add": {
+            "post": {
+                "description": "Adds a new orderTransaction to a store",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "OrderTransaction"
+                ],
+                "summary": "Add a new orderTransaction",
+                "parameters": [
+                    {
+                        "description": "orderTransaction",
+                        "name": "orderTransaction",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.OrderTransactionReq"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.ResponseID"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/orderTransaction/get/list/{orderId}/{storeId}": {
+            "get": {
+                "description": "Get list of orderTransaction for a store",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "OrderTransaction"
+                ],
+                "summary": "Get list of orderTransaction",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "order Id",
+                        "name": "orderId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store storeId",
+                        "name": "storeId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/six910-database-interface.OrderTransaction"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/rs/product/add": {
             "post": {
                 "description": "Adds a new product to a store",
@@ -6157,6 +7231,333 @@ var doc = `{
                     }
                 }
             }
+        },
+        "/rs/zoneZip/add": {
+            "post": {
+                "description": "Adds a new zip code zone to a store",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Zip Code Zone (For Geographic Sales Region)"
+                ],
+                "summary": "Add a new ZoneZip",
+                "parameters": [
+                    {
+                        "description": "zoneZip",
+                        "name": "zoneZip",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ZoneZipReq"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.ResponseID"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/zoneZip/delete/{id}/{incId}/{exId}/{storeId}": {
+            "delete": {
+                "description": "Delete a ZoneZips from the store",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Zip Code Zone (For Geographic Sales Region)"
+                ],
+                "summary": "Delete a ZoneZips",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "zoneZip id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "included zip code zone id",
+                        "name": "incId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "excluded zip code zone id",
+                        "name": "exId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store storeId",
+                        "name": "storeId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/zoneZip/exc/get/list/{exId}/{storeId}": {
+            "get": {
+                "description": "Get list of excluded zip code zones in a sub region for a store",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Zip Code Zone (For Geographic Sales Region)"
+                ],
+                "summary": "Get list of Excluded ZoneZips",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "excluded zip code zone id",
+                        "name": "exId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store storeId",
+                        "name": "storeId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/six910-database-interface.ZoneZip"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/zoneZip/inc/get/list/{incId}/{storeId}": {
+            "get": {
+                "description": "Get list of included zip code zones in a sub region for a store",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Zip Code Zone (For Geographic Sales Region)"
+                ],
+                "summary": "Get list of Included ZoneZips",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "included zip code zone id",
+                        "name": "incId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store storeId",
+                        "name": "storeId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/six910-database-interface.ZoneZip"
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -6211,6 +7612,42 @@ var doc = `{
                 }
             }
         },
+        "handlers.OrderCommentReq": {
+            "type": "object",
+            "properties": {
+                "orderComment": {
+                    "type": "object",
+                    "$ref": "#/definitions/six910-database-interface.OrderComment"
+                },
+                "storeId": {
+                    "type": "integer"
+                }
+            }
+        },
+        "handlers.OrderItemReq": {
+            "type": "object",
+            "properties": {
+                "orderItem": {
+                    "type": "object",
+                    "$ref": "#/definitions/six910-database-interface.OrderItem"
+                },
+                "storeId": {
+                    "type": "integer"
+                }
+            }
+        },
+        "handlers.OrderTransactionReq": {
+            "type": "object",
+            "properties": {
+                "orderTransaction": {
+                    "type": "object",
+                    "$ref": "#/definitions/six910-database-interface.OrderTransaction"
+                },
+                "storeId": {
+                    "type": "integer"
+                }
+            }
+        },
         "handlers.ProductCategory": {
             "type": "object",
             "properties": {
@@ -6243,6 +7680,18 @@ var doc = `{
                 "subRegion": {
                     "type": "object",
                     "$ref": "#/definitions/six910-database-interface.SubRegion"
+                }
+            }
+        },
+        "handlers.ZoneZipReq": {
+            "type": "object",
+            "properties": {
+                "storeId": {
+                    "type": "integer"
+                },
+                "zoneZip": {
+                    "type": "object",
+                    "$ref": "#/definitions/six910-database-interface.ZoneZip"
                 }
             }
         },
@@ -6542,6 +7991,164 @@ var doc = `{
                 }
             }
         },
+        "six910-database-interface.Order": {
+            "type": "object",
+            "properties": {
+                "billingAddress": {
+                    "type": "string"
+                },
+                "billingAddressId": {
+                    "type": "integer"
+                },
+                "customerId": {
+                    "type": "integer"
+                },
+                "customerName": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "insurance": {
+                    "type": "number"
+                },
+                "orderDate": {
+                    "type": "string"
+                },
+                "orderNumber": {
+                    "type": "string"
+                },
+                "orderType": {
+                    "type": "string"
+                },
+                "pickup": {
+                    "type": "boolean"
+                },
+                "shippingAddress": {
+                    "type": "string"
+                },
+                "shippingAddressId": {
+                    "type": "integer"
+                },
+                "shippingHandling": {
+                    "type": "number"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "storeId": {
+                    "type": "integer"
+                },
+                "subTotal": {
+                    "type": "number"
+                },
+                "taxes": {
+                    "type": "number"
+                },
+                "total": {
+                    "type": "number"
+                },
+                "updated": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "six910-database-interface.OrderComment": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "orderId": {
+                    "type": "integer"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "six910-database-interface.OrderItem": {
+            "type": "object",
+            "properties": {
+                "backOrdered": {
+                    "type": "boolean"
+                },
+                "dropship": {
+                    "type": "boolean"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "orderId": {
+                    "type": "integer"
+                },
+                "productId": {
+                    "type": "integer"
+                },
+                "productName": {
+                    "type": "string"
+                },
+                "productShortDesc": {
+                    "type": "string"
+                },
+                "quantity": {
+                    "type": "integer"
+                }
+            }
+        },
+        "six910-database-interface.OrderTransaction": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "number"
+                },
+                "approval": {
+                    "type": "string"
+                },
+                "avs": {
+                    "type": "string"
+                },
+                "entered": {
+                    "type": "string"
+                },
+                "gwid": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "method": {
+                    "type": "string"
+                },
+                "orderId": {
+                    "type": "integer"
+                },
+                "referenceNumber": {
+                    "type": "string"
+                },
+                "responseCode": {
+                    "type": "string"
+                },
+                "responseMessage": {
+                    "type": "string"
+                },
+                "success": {
+                    "type": "boolean"
+                },
+                "transactionId": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
         "six910-database-interface.Product": {
             "type": "object",
             "properties": {
@@ -6817,6 +8424,23 @@ var doc = `{
                     "type": "integer"
                 },
                 "subRegionCode": {
+                    "type": "string"
+                }
+            }
+        },
+        "six910-database-interface.ZoneZip": {
+            "type": "object",
+            "properties": {
+                "excludedSubRegionId": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "includedSubRegionId": {
+                    "type": "integer"
+                },
+                "zipCode": {
                     "type": "string"
                 }
             }

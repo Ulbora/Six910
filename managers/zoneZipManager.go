@@ -33,6 +33,7 @@ func (m *Six910Manager) AddZoneZip(z *sdbi.ZoneZip, sid int64) *ResponseID {
 	var r *sdbi.Region
 	if z.IncludedSubRegionID != 0 {
 		isr := m.Db.GetIncludedSubRegion(z.IncludedSubRegionID)
+		m.Log.Debug("isr :", isr)
 		r = m.Db.GetRegion(isr.RegionID)
 	} else if z.ExcludedSubRegionID != 0 {
 		esr := m.Db.GetExcludedSubRegion(z.ExcludedSubRegionID)

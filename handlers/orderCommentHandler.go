@@ -39,7 +39,21 @@ type OrderCommentReq struct {
 	OrderComment sdbi.OrderComment `json:"orderComment"`
 }
 
-//AddOrderComments AddOrderComments
+// AddOrderComments godoc
+// @Summary Add a new orderComment
+// @Description Adds a new orderComment to a store
+// @Tags OrderComment
+// @Accept  json
+// @Produce  json
+// @Param orderComment body OrderCommentReq true "orderComment"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.ResponseID
+// @Router /rs/orderComment/add [post]
 func (h *Six910Handler) AddOrderComments(w http.ResponseWriter, r *http.Request) {
 	var addorcURL = "/six910/rs/orderComment/add"
 	var aorcc jv.Claim
@@ -83,7 +97,22 @@ func (h *Six910Handler) AddOrderComments(w http.ResponseWriter, r *http.Request)
 	}
 }
 
-//GetOrderCommentList GetOrderCommentList
+// GetOrderCommentList godoc
+// @Summary Get list of orderComment
+// @Description Get list of orderComment for a store
+// @Tags OrderComment
+// @Accept  json
+// @Produce  json
+// @Param orderId path string true "order Id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {array} six910-database-interface.OrderComment
+// @Router /rs/orderComment/get/list/{orderId}/{storeId} [get]
 func (h *Six910Handler) GetOrderCommentList(w http.ResponseWriter, r *http.Request) {
 	var gorclURL = "/six910/rs/orderComment/list"
 	var gorccl jv.Claim

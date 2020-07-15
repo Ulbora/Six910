@@ -139,19 +139,23 @@ type Handler interface {
 
 	//excluded sub regions
 	AddExcludedSubRegion(w http.ResponseWriter, r *http.Request)
-	//currently not used
+
+	//-----currently not used
 	UpdateExcludedSubRegion(w http.ResponseWriter, r *http.Request)
-	//currently not used
+	//-----currently not used
 	GetExcludedSubRegion(w http.ResponseWriter, r *http.Request)
+
 	GetExcludedSubRegionList(w http.ResponseWriter, r *http.Request)
 	DeleteExcludedSubRegion(w http.ResponseWriter, r *http.Request)
 
 	//included sub regions
 	AddIncludedSubRegion(w http.ResponseWriter, r *http.Request)
-	//currently not used
+
+	//-----currently not used
 	UpdateIncludedSubRegion(w http.ResponseWriter, r *http.Request)
-	//currently not used
+	//-----currently not used
 	GetIncludedSubRegion(w http.ResponseWriter, r *http.Request)
+
 	GetIncludedSubRegionList(w http.ResponseWriter, r *http.Request)
 	DeleteIncludedSubRegion(w http.ResponseWriter, r *http.Request)
 
