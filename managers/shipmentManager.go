@@ -31,6 +31,8 @@ import (
 func (m *Six910Manager) AddShipment(s *sdbi.Shipment, sid int64) *ResponseID {
 	var rtn ResponseID
 	fo := m.Db.GetOrder(s.OrderID)
+	m.Log.Debug("Order in add shipment: ", *fo)
+	m.Log.Debug("OrderId in add shipment: ", s.OrderID)
 	if fo.StoreID == sid {
 		suc, id := m.Db.AddShipment(s)
 		if suc && id != 0 {

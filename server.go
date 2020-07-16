@@ -294,8 +294,48 @@ func main() {
 	router.HandleFunc("/rs/orderTransaction/add", h.AddOrderTransaction).Methods("POST")
 	router.HandleFunc("/rs/orderTransaction/get/list/{orderId}/{storeId}", h.GetOrderTransactionList).Methods("GET")
 
-	//....
-	//....
+	//shipment
+	router.HandleFunc("/rs/shipment/add", h.AddShipment).Methods("POST")
+	router.HandleFunc("/rs/shipment/update", h.UpdateShipment).Methods("PUT")
+	router.HandleFunc("/rs/shipment/get/id/{id}/{storeId}", h.GetShipment).Methods("GET")
+	router.HandleFunc("/rs/shipment/get/list/{orderId}/{storeId}", h.GetShipmentList).Methods("GET")
+	router.HandleFunc("/rs/shipment/delete/{id}/{storeId}", h.DeleteShipment).Methods("DELETE")
+
+	//shipment boxes
+	router.HandleFunc("/rs/shipmentBox/add", h.AddShipmentBox).Methods("POST")
+	router.HandleFunc("/rs/shipmentBox/update", h.UpdateShipmentBox).Methods("PUT")
+	router.HandleFunc("/rs/shipmentBox/get/id/{id}/{storeId}", h.GetShipmentBox).Methods("GET")
+	router.HandleFunc("/rs/shipmentBox/get/list/{shipmentId}/{storeId}", h.GetShipmentBoxList).Methods("GET")
+	router.HandleFunc("/rs/shipmentBox/delete/{id}/{storeId}", h.DeleteShipmentBox).Methods("DELETE")
+
+	//Shipment Items in box
+	router.HandleFunc("/rs/shipmentItem/add", h.AddShipmentItem).Methods("POST")
+	router.HandleFunc("/rs/shipmentItem/update", h.UpdateShipmentItem).Methods("PUT")
+	router.HandleFunc("/rs/shipmentItem/get/id/{id}/{storeId}", h.GetShipmentItem).Methods("GET")
+	router.HandleFunc("/rs/shipmentItem/get/list/{shipmentId}/{storeId}", h.GetShipmentItemList).Methods("GET")
+	router.HandleFunc("/rs/shipmentItem/get/list/box/{boxNumber}/{shipmentId}/{storeId}", h.GetShipmentItemListByBox).Methods("GET")
+	router.HandleFunc("/rs/shipmentItem/delete/{id}/{storeId}", h.DeleteShipmentItem).Methods("DELETE")
+
+	//Global Plugins
+	router.HandleFunc("/rs/plugin/add", h.AddPlugin).Methods("POST")
+	router.HandleFunc("/rs/plugin/update", h.UpdatePlugin).Methods("PUT")
+	router.HandleFunc("/rs/plugin/get/id/{id}", h.GetPlugin).Methods("GET")
+	router.HandleFunc("/rs/plugin/get/list/{start}/{end}", h.GetPluginList).Methods("GET")
+	router.HandleFunc("/rs/plugin/delete/{id}", h.DeletePlugin).Methods("DELETE")
+
+	//store plugins installed
+	router.HandleFunc("/rs/storePlugin/add", h.AddStorePlugin).Methods("POST")
+	router.HandleFunc("/rs/storePlugin/update", h.UpdateStorePlugin).Methods("PUT")
+	router.HandleFunc("/rs/storePlugin/get/id/{id}/{storeId}", h.GetStorePlugin).Methods("GET")
+	router.HandleFunc("/rs/storePlugin/get/list/{storeId}", h.GetStorePluginList).Methods("GET")
+	router.HandleFunc("/rs/storePlugin/delete/{id}/{storeId}", h.DeleteStorePlugin).Methods("DELETE")
+
+	//Plugins that are payment gateways
+	router.HandleFunc("/rs/paymentGateway/add", h.AddPaymentGateway).Methods("POST")
+	router.HandleFunc("/rs/paymentGateway/update", h.UpdatePaymentGateway).Methods("PUT")
+	router.HandleFunc("/rs/paymentGateway/get/id/{id}/{storeId}", h.GetPaymentGateway).Methods("GET")
+	router.HandleFunc("/rs/paymentGateway/get/list/{storeId}", h.GetPaymentGateways).Methods("GET")
+	router.HandleFunc("/rs/paymentGateway/delete/{id}/{storeId}", h.DeletePaymentGateway).Methods("DELETE")
 
 	//store shipment carrier like UPS and FEDex
 	router.HandleFunc("/rs/shippingCarrier/add", h.AddShippingCarrier).Methods("POST")

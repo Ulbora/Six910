@@ -33,7 +33,21 @@ import (
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//AddStorePlugin AddStorePlugin
+// AddStorePlugin godoc
+// @Summary Add a new StorePlugin
+// @Description Adds a new StorePlugin to a store
+// @Tags StorePlugin
+// @Accept  json
+// @Produce  json
+// @Param storePlugin body six910-database-interface.StorePlugins true "storePlugin"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.ResponseID
+// @Router /rs/storePlugin/add [post]
 func (h *Six910Handler) AddStorePlugin(w http.ResponseWriter, r *http.Request) {
 	var addspiURL = "/six910/rs/storePlugin/add"
 	var aspic jv.Claim
@@ -77,7 +91,21 @@ func (h *Six910Handler) AddStorePlugin(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//UpdateStorePlugin UpdateStorePlugin
+// UpdateStorePlugin godoc
+// @Summary Update a StorePlugin
+// @Description Update StorePlugin data
+// @Tags StorePlugin
+// @Accept  json
+// @Produce  json
+// @Param storePlugin body six910-database-interface.StorePlugins true "storePlugin"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/storePlugin/update [put]
 func (h *Six910Handler) UpdateStorePlugin(w http.ResponseWriter, r *http.Request) {
 	var upspiURL = "/six910/rs/storePlugin/update"
 	var uspic jv.Claim
@@ -121,7 +149,22 @@ func (h *Six910Handler) UpdateStorePlugin(w http.ResponseWriter, r *http.Request
 	}
 }
 
-//GetStorePlugin GetStorePlugin
+// GetStorePlugin godoc
+// @Summary Get details of a StorePlugin by id
+// @Description Get details of a StorePlugin
+// @Tags StorePlugin
+// @Accept  json
+// @Produce  json
+// @Param id path string true "storePlugin id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} six910-database-interface.StorePlugins
+// @Router /rs/storePlugin/get/id/{id}/{storeId} [get]
 func (h *Six910Handler) GetStorePlugin(w http.ResponseWriter, r *http.Request) {
 	var gspiURL = "/six910/rs/storePlugin/get"
 	var gspic jv.Claim
@@ -161,7 +204,21 @@ func (h *Six910Handler) GetStorePlugin(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//GetStorePluginList GetStorePluginList
+// GetStorePluginList godoc
+// @Summary Get list of StorePlugin
+// @Description Get list of StorePlugin for a store
+// @Tags StorePlugin
+// @Accept  json
+// @Produce  json
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {array} six910-database-interface.StorePlugins
+// @Router /rs/storePlugin/get/list/{storeId} [get]
 func (h *Six910Handler) GetStorePluginList(w http.ResponseWriter, r *http.Request) {
 	var gspilURL = "/six910/rs/storePlugin/list"
 	var gspicl jv.Claim
@@ -199,7 +256,22 @@ func (h *Six910Handler) GetStorePluginList(w http.ResponseWriter, r *http.Reques
 	}
 }
 
-//DeleteStorePlugin DeleteStorePlugin
+// DeleteStorePlugin godoc
+// @Summary Delete a StorePlugin
+// @Description Delete a StorePlugin from the store
+// @Tags StorePlugin
+// @Accept  json
+// @Produce  json
+// @Param id path string true "storePlugin id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/storePlugin/delete/{id}/{storeId} [delete]
 func (h *Six910Handler) DeleteStorePlugin(w http.ResponseWriter, r *http.Request) {
 	var dspiURL = "/six910/rs/storePlugin/delete"
 	var dspis jv.Claim

@@ -39,7 +39,21 @@ type PaymentGatewayReq struct {
 	PaymentGateway sdbi.PaymentGateway `json:"paymentGateway"`
 }
 
-//AddPaymentGateway AddPaymentGateway
+// AddPaymentGateway godoc
+// @Summary Add a new PaymentGateway
+// @Description Adds a new PaymentGateway to a store
+// @Tags PaymentGateway
+// @Accept  json
+// @Produce  json
+// @Param paymentGateway body PaymentGatewayReq true "paymentGateway"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.ResponseID
+// @Router /rs/paymentGateway/add [post]
 func (h *Six910Handler) AddPaymentGateway(w http.ResponseWriter, r *http.Request) {
 	var addpgwURL = "/six910/rs/paymentGateway/add"
 	var apgwc jv.Claim
@@ -83,7 +97,21 @@ func (h *Six910Handler) AddPaymentGateway(w http.ResponseWriter, r *http.Request
 	}
 }
 
-//UpdatePaymentGateway UpdatePaymentGateway
+// UpdatePaymentGateway godoc
+// @Summary Update a PaymentGateway
+// @Description Update PaymentGateway data
+// @Tags PaymentGateway
+// @Accept  json
+// @Produce  json
+// @Param paymentGateway body PaymentGatewayReq true "paymentGateway"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/paymentGateway/update [put]
 func (h *Six910Handler) UpdatePaymentGateway(w http.ResponseWriter, r *http.Request) {
 	var uppgwURL = "/six910/rs/paymentGateway/update"
 	var upgwc jv.Claim
@@ -127,7 +155,22 @@ func (h *Six910Handler) UpdatePaymentGateway(w http.ResponseWriter, r *http.Requ
 	}
 }
 
-//GetPaymentGateway GetPaymentGateway
+// GetPaymentGateway godoc
+// @Summary Get details of a PaymentGateway by id
+// @Description Get details of a PaymentGateway
+// @Tags PaymentGateway
+// @Accept  json
+// @Produce  json
+// @Param id path string true "paymentGateway id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} six910-database-interface.PaymentGateway
+// @Router /rs/paymentGateway/get/id/{id}/{storeId} [get]
 func (h *Six910Handler) GetPaymentGateway(w http.ResponseWriter, r *http.Request) {
 	var gpgwURL = "/six910/rs/paymentGateway/get"
 	var gpgwc jv.Claim
@@ -167,7 +210,21 @@ func (h *Six910Handler) GetPaymentGateway(w http.ResponseWriter, r *http.Request
 	}
 }
 
-//GetPaymentGateways GetPaymentGateways
+// GetPaymentGateways godoc
+// @Summary Get list of PaymentGateway
+// @Description Get list of PaymentGateway for a store
+// @Tags PaymentGateway
+// @Accept  json
+// @Produce  json
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {array} six910-database-interface.PaymentGateway
+// @Router /rs/paymentGateway/get/list/{storeId} [get]
 func (h *Six910Handler) GetPaymentGateways(w http.ResponseWriter, r *http.Request) {
 	var gpgwlURL = "/six910/rs/paymentGateway/list"
 	var gpgwcl jv.Claim
@@ -205,7 +262,22 @@ func (h *Six910Handler) GetPaymentGateways(w http.ResponseWriter, r *http.Reques
 	}
 }
 
-//DeletePaymentGateway DeletePaymentGateway
+// DeletePaymentGateway godoc
+// @Summary Delete a PaymentGateway
+// @Description Delete a PaymentGateway from the store
+// @Tags PaymentGateway
+// @Accept  json
+// @Produce  json
+// @Param id path string true "paymentGateway id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/paymentGateway/delete/{id}/{storeId} [delete]
 func (h *Six910Handler) DeletePaymentGateway(w http.ResponseWriter, r *http.Request) {
 	var dpgwURL = "/six910/rs/paymentGateway/delete"
 	var dpgws jv.Claim

@@ -4314,6 +4314,751 @@
                 }
             }
         },
+        "/rs/paymentGateway/add": {
+            "post": {
+                "description": "Adds a new PaymentGateway to a store",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "PaymentGateway"
+                ],
+                "summary": "Add a new PaymentGateway",
+                "parameters": [
+                    {
+                        "description": "paymentGateway",
+                        "name": "paymentGateway",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.PaymentGatewayReq"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.ResponseID"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/paymentGateway/delete/{id}/{storeId}": {
+            "delete": {
+                "description": "Delete a PaymentGateway from the store",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "PaymentGateway"
+                ],
+                "summary": "Delete a PaymentGateway",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "paymentGateway id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store storeId",
+                        "name": "storeId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/paymentGateway/get/id/{id}/{storeId}": {
+            "get": {
+                "description": "Get details of a PaymentGateway",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "PaymentGateway"
+                ],
+                "summary": "Get details of a PaymentGateway by id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "paymentGateway id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store storeId",
+                        "name": "storeId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/six910-database-interface.PaymentGateway"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/paymentGateway/get/list/{storeId}": {
+            "get": {
+                "description": "Get list of PaymentGateway for a store",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "PaymentGateway"
+                ],
+                "summary": "Get list of PaymentGateway",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "store storeId",
+                        "name": "storeId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/six910-database-interface.PaymentGateway"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/paymentGateway/update": {
+            "put": {
+                "description": "Update PaymentGateway data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "PaymentGateway"
+                ],
+                "summary": "Update a PaymentGateway",
+                "parameters": [
+                    {
+                        "description": "paymentGateway",
+                        "name": "paymentGateway",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.PaymentGatewayReq"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/plugin/add": {
+            "post": {
+                "description": "Adds a new plugin to a store",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Plugins (Global all stores)"
+                ],
+                "summary": "Add a new plugin",
+                "parameters": [
+                    {
+                        "description": "plugin",
+                        "name": "plugin",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/six910-database-interface.Plugins"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.ResponseID"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/plugin/delete/{id}": {
+            "delete": {
+                "description": "Delete a plugin from the store",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Plugins (Global all stores)"
+                ],
+                "summary": "Delete a plugin",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "plugin id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/plugin/get/id/{id}": {
+            "get": {
+                "description": "Get details of a plugin",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Plugins (Global all stores)"
+                ],
+                "summary": "Get details of a plugin by id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "plugin id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/six910-database-interface.Plugins"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/plugin/get/list/{start}/{end}": {
+            "get": {
+                "description": "Get list of plugin for a store",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Plugins (Global all stores)"
+                ],
+                "summary": "Get list of plugin",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "start index zero based",
+                        "name": "start",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "end index zero based",
+                        "name": "end",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/six910-database-interface.Plugins"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/plugin/update": {
+            "put": {
+                "description": "Update plugin data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Plugins (Global all stores)"
+                ],
+                "summary": "Update a plugin",
+                "parameters": [
+                    {
+                        "description": "plugin",
+                        "name": "plugin",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/six910-database-interface.Plugins"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/rs/product/add": {
             "post": {
                 "description": "Adds a new product to a store",
@@ -5428,6 +6173,1243 @@
                 }
             }
         },
+        "/rs/shipment/add": {
+            "post": {
+                "description": "Adds a new shipment to a store",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Shipment"
+                ],
+                "summary": "Add a new shipment",
+                "parameters": [
+                    {
+                        "description": "shipment",
+                        "name": "shipment",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ShipmentReq"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.ResponseID"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/shipment/delete/{id}/{storeId}": {
+            "delete": {
+                "description": "Delete a shipment from the store",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Shipment"
+                ],
+                "summary": "Delete a shipment",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "shipment id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store storeId",
+                        "name": "storeId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/shipment/get/id/{id}/{storeId}": {
+            "get": {
+                "description": "Get details of a shipment",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Shipment"
+                ],
+                "summary": "Get details of a shipment by id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "shipment id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store storeId",
+                        "name": "storeId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/six910-database-interface.Shipment"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/shipment/get/list/{orderId}/{storeId}": {
+            "get": {
+                "description": "Get list of shipment for a store",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Shipment"
+                ],
+                "summary": "Get list of shipment",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "order Id",
+                        "name": "orderId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store storeId",
+                        "name": "storeId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/six910-database-interface.Shipment"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/shipment/update": {
+            "put": {
+                "description": "Update shipment data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Shipment"
+                ],
+                "summary": "Update a shipment",
+                "parameters": [
+                    {
+                        "description": "shipment",
+                        "name": "shipment",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ShipmentReq"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/shipmentBox/add": {
+            "post": {
+                "description": "Adds a new shipmentBox to a store",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ShipmentBox"
+                ],
+                "summary": "Add a new shipmentBox",
+                "parameters": [
+                    {
+                        "description": "shipmentBox",
+                        "name": "shipmentBox",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ShipmentBoxReq"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.ResponseID"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/shipmentBox/delete/{id}/{storeId}": {
+            "delete": {
+                "description": "Delete a shipmentBox from the store",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ShipmentBox"
+                ],
+                "summary": "Delete a shipmentBox",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "shipment id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store storeId",
+                        "name": "storeId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/shipmentBox/get/id/{id}/{storeId}": {
+            "get": {
+                "description": "Get details of a shipmentBox",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ShipmentBox"
+                ],
+                "summary": "Get details of a shipmentBox by id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "shipmentBox id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store storeId",
+                        "name": "storeId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/six910-database-interface.ShipmentBox"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/shipmentBox/get/list/{shipmentId}/{storeId}": {
+            "get": {
+                "description": "Get list of shipmentBox for a store",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ShipmentBox"
+                ],
+                "summary": "Get list of shipmentBox",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "shipment Id",
+                        "name": "shipmentId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store storeId",
+                        "name": "storeId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/six910-database-interface.ShipmentBox"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/shipmentBox/update": {
+            "put": {
+                "description": "Update shipmentBox data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ShipmentBox"
+                ],
+                "summary": "Update a shipmentBox",
+                "parameters": [
+                    {
+                        "description": "shipmentBox",
+                        "name": "shipmentBox",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ShipmentBoxReq"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/shipmentItem/add": {
+            "post": {
+                "description": "Adds a new shipmentItem to a store",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ShipmentItem"
+                ],
+                "summary": "Add a new shipmentItem",
+                "parameters": [
+                    {
+                        "description": "shipmentItem",
+                        "name": "shipmentItem",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ShipmentItemReq"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.ResponseID"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/shipmentItem/delete/{id}/{storeId}": {
+            "delete": {
+                "description": "Delete a shipmentItem from the store",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ShipmentItem"
+                ],
+                "summary": "Delete a shipmentItem",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "shipmentItem id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store storeId",
+                        "name": "storeId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/shipmentItem/get/id/{id}/{storeId}": {
+            "get": {
+                "description": "Get details of a shipmentItem",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ShipmentItem"
+                ],
+                "summary": "Get details of a shipmentItem by id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "shipmentItem id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store storeId",
+                        "name": "storeId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/six910-database-interface.ShipmentItem"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/shipmentItem/get/list/box/{boxNumber}/{shipmentId}/{storeId}": {
+            "get": {
+                "description": "Get list of shipmentItem for a store",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ShipmentItem"
+                ],
+                "summary": "Get list of shipmentItem",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "boxNumber",
+                        "name": "boxNumber",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "shipment Id",
+                        "name": "shipmentId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store storeId",
+                        "name": "storeId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/six910-database-interface.ShipmentItem"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/shipmentItem/get/list/{shipmentId}/{storeId}": {
+            "get": {
+                "description": "Get list of shipmentItem for a store",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ShipmentItem"
+                ],
+                "summary": "Get list of shipmentItem",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "shipment Id",
+                        "name": "shipmentId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store storeId",
+                        "name": "storeId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/six910-database-interface.ShipmentItem"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/shipmentItem/update": {
+            "put": {
+                "description": "Update shipmentItem data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ShipmentItem"
+                ],
+                "summary": "Update a shipmentItem",
+                "parameters": [
+                    {
+                        "description": "shipmentItem",
+                        "name": "shipmentItem",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ShipmentItemReq"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/rs/shippingCarrier/add": {
             "post": {
                 "description": "Adds a new Shipping Carrier to a store",
@@ -6410,6 +8392,382 @@
                         "required": true,
                         "schema": {
                             "$ref": "#/definitions/six910-database-interface.Store"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/storePlugin/add": {
+            "post": {
+                "description": "Adds a new StorePlugin to a store",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "StorePlugin"
+                ],
+                "summary": "Add a new StorePlugin",
+                "parameters": [
+                    {
+                        "description": "storePlugin",
+                        "name": "storePlugin",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/six910-database-interface.StorePlugins"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.ResponseID"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/storePlugin/delete/{id}/{storeId}": {
+            "delete": {
+                "description": "Delete a StorePlugin from the store",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "StorePlugin"
+                ],
+                "summary": "Delete a StorePlugin",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "storePlugin id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store storeId",
+                        "name": "storeId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/storePlugin/get/id/{id}/{storeId}": {
+            "get": {
+                "description": "Get details of a StorePlugin",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "StorePlugin"
+                ],
+                "summary": "Get details of a StorePlugin by id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "storePlugin id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store storeId",
+                        "name": "storeId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/six910-database-interface.StorePlugins"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/storePlugin/get/list/{storeId}": {
+            "get": {
+                "description": "Get list of StorePlugin for a store",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "StorePlugin"
+                ],
+                "summary": "Get list of StorePlugin",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "store storeId",
+                        "name": "storeId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/six910-database-interface.StorePlugins"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/storePlugin/update": {
+            "put": {
+                "description": "Update StorePlugin data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "StorePlugin"
+                ],
+                "summary": "Update a StorePlugin",
+                "parameters": [
+                    {
+                        "description": "storePlugin",
+                        "name": "storePlugin",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/six910-database-interface.StorePlugins"
                         }
                     },
                     {
@@ -7633,6 +9991,18 @@
                 }
             }
         },
+        "handlers.PaymentGatewayReq": {
+            "type": "object",
+            "properties": {
+                "paymentGateway": {
+                    "type": "object",
+                    "$ref": "#/definitions/six910-database-interface.PaymentGateway"
+                },
+                "storeId": {
+                    "type": "integer"
+                }
+            }
+        },
         "handlers.ProductCategory": {
             "type": "object",
             "properties": {
@@ -7650,6 +10020,42 @@
                 "productCategory": {
                     "type": "object",
                     "$ref": "#/definitions/handlers.ProductCategory"
+                },
+                "storeId": {
+                    "type": "integer"
+                }
+            }
+        },
+        "handlers.ShipmentBoxReq": {
+            "type": "object",
+            "properties": {
+                "shipmentBox": {
+                    "type": "object",
+                    "$ref": "#/definitions/six910-database-interface.ShipmentBox"
+                },
+                "storeId": {
+                    "type": "integer"
+                }
+            }
+        },
+        "handlers.ShipmentItemReq": {
+            "type": "object",
+            "properties": {
+                "shipmentItem": {
+                    "type": "object",
+                    "$ref": "#/definitions/six910-database-interface.ShipmentItem"
+                },
+                "storeId": {
+                    "type": "integer"
+                }
+            }
+        },
+        "handlers.ShipmentReq": {
+            "type": "object",
+            "properties": {
+                "shipment": {
+                    "type": "object",
+                    "$ref": "#/definitions/six910-database-interface.Shipment"
                 },
                 "storeId": {
                     "type": "integer"
@@ -8134,6 +10540,70 @@
                 }
             }
         },
+        "six910-database-interface.PaymentGateway": {
+            "type": "object",
+            "properties": {
+                "checkoutUrl": {
+                    "type": "string"
+                },
+                "clientId": {
+                    "type": "string"
+                },
+                "clientKey": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "logoUrl": {
+                    "type": "string"
+                },
+                "postOrderUrl": {
+                    "type": "string"
+                },
+                "storePluginsId": {
+                    "type": "integer"
+                }
+            }
+        },
+        "six910-database-interface.Plugins": {
+            "type": "object",
+            "properties": {
+                "activateUrl": {
+                    "type": "string"
+                },
+                "category": {
+                    "type": "string"
+                },
+                "contactPhone": {
+                    "type": "string"
+                },
+                "developer": {
+                    "type": "string"
+                },
+                "developerAddress": {
+                    "type": "string"
+                },
+                "enabled": {
+                    "type": "boolean"
+                },
+                "fee": {
+                    "type": "number"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "isPgw": {
+                    "type": "boolean"
+                },
+                "oauthRedirectUrl": {
+                    "type": "string"
+                },
+                "pluginName": {
+                    "type": "string"
+                }
+            }
+        },
         "six910-database-interface.Product": {
             "type": "object",
             "properties": {
@@ -8279,6 +10749,111 @@
                 }
             }
         },
+        "six910-database-interface.Shipment": {
+            "type": "object",
+            "properties": {
+                "boxes": {
+                    "type": "integer"
+                },
+                "createDate": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "insurance": {
+                    "type": "number"
+                },
+                "orderId": {
+                    "type": "integer"
+                },
+                "shippingHandling": {
+                    "type": "number"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "updated": {
+                    "type": "string"
+                }
+            }
+        },
+        "six910-database-interface.ShipmentBox": {
+            "type": "object",
+            "properties": {
+                "boxNumber": {
+                    "type": "integer"
+                },
+                "cost": {
+                    "type": "number"
+                },
+                "depth": {
+                    "type": "number"
+                },
+                "dropship": {
+                    "type": "boolean"
+                },
+                "height": {
+                    "type": "number"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "insurance": {
+                    "type": "number"
+                },
+                "shipDate": {
+                    "type": "string"
+                },
+                "shipmentId": {
+                    "type": "integer"
+                },
+                "shippingAddress": {
+                    "type": "string"
+                },
+                "shippingAddressId": {
+                    "type": "integer"
+                },
+                "shippingMethodId": {
+                    "type": "integer"
+                },
+                "trackingNumber": {
+                    "type": "string"
+                },
+                "updated": {
+                    "type": "string"
+                },
+                "weight": {
+                    "type": "number"
+                },
+                "width": {
+                    "type": "number"
+                }
+            }
+        },
+        "six910-database-interface.ShipmentItem": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "orderItemId": {
+                    "type": "integer"
+                },
+                "quantity": {
+                    "type": "integer"
+                },
+                "shipmentBoxId": {
+                    "type": "integer"
+                },
+                "shipmentId": {
+                    "type": "integer"
+                },
+                "updated": {
+                    "type": "string"
+                }
+            }
+        },
         "six910-database-interface.ShippingCarrier": {
             "type": "object",
             "properties": {
@@ -8393,6 +10968,62 @@
                 },
                 "zip": {
                     "type": "string"
+                }
+            }
+        },
+        "six910-database-interface.StorePlugins": {
+            "type": "object",
+            "properties": {
+                "activateUrl": {
+                    "type": "string"
+                },
+                "active": {
+                    "type": "boolean"
+                },
+                "apiKey": {
+                    "type": "string"
+                },
+                "category": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "iframeUrl": {
+                    "type": "string"
+                },
+                "isPgw": {
+                    "type": "boolean"
+                },
+                "menuIconUrl": {
+                    "type": "string"
+                },
+                "menuTitle": {
+                    "type": "string"
+                },
+                "oauthClientId": {
+                    "type": "integer"
+                },
+                "oauthRedirectUrl": {
+                    "type": "string"
+                },
+                "oauthSecret": {
+                    "type": "string"
+                },
+                "pluginId": {
+                    "type": "integer"
+                },
+                "pluginName": {
+                    "type": "string"
+                },
+                "rekeyDate": {
+                    "type": "string"
+                },
+                "rekeyTryCount": {
+                    "type": "integer"
+                },
+                "storeId": {
+                    "type": "integer"
                 }
             }
         },

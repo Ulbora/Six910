@@ -302,7 +302,7 @@ type Manager interface {
 	UpdateShipmentItem(si *sdbi.ShipmentItem, sid int64) *Response
 	GetShipmentItem(id int64, sid int64) *sdbi.ShipmentItem
 	GetShipmentItemList(shipmentID int64, sid int64) *[]sdbi.ShipmentItem
-	GetShipmentItemListByBox(boxNumber int64, sid int64) *[]sdbi.ShipmentItem
+	GetShipmentItemListByBox(boxNumber int64, shipmentID int64, sid int64) *[]sdbi.ShipmentItem
 	DeleteShipmentItem(id int64, sid int64) *Response
 
 	// //Global Plugins

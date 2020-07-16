@@ -39,7 +39,21 @@ type ShipmentItemReq struct {
 	ShipmentItem sdbi.ShipmentItem `json:"shipmentItem"`
 }
 
-//AddShipmentItem AddShipmentItem
+// AddShipmentItem godoc
+// @Summary Add a new shipmentItem
+// @Description Adds a new shipmentItem to a store
+// @Tags ShipmentItem
+// @Accept  json
+// @Produce  json
+// @Param shipmentItem body ShipmentItemReq true "shipmentItem"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.ResponseID
+// @Router /rs/shipmentItem/add [post]
 func (h *Six910Handler) AddShipmentItem(w http.ResponseWriter, r *http.Request) {
 	var addshiURL = "/six910/rs/shipmentItem/add"
 	var ashic jv.Claim
@@ -83,7 +97,21 @@ func (h *Six910Handler) AddShipmentItem(w http.ResponseWriter, r *http.Request) 
 	}
 }
 
-//UpdateShipmentItem UpdateShipmentItem
+// UpdateShipmentItem godoc
+// @Summary Update a shipmentItem
+// @Description Update shipmentItem data
+// @Tags ShipmentItem
+// @Accept  json
+// @Produce  json
+// @Param shipmentItem body ShipmentItemReq true "shipmentItem"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/shipmentItem/update [put]
 func (h *Six910Handler) UpdateShipmentItem(w http.ResponseWriter, r *http.Request) {
 	var ushiURL = "/six910/rs/shipmentItem/update"
 	var ushic jv.Claim
@@ -127,7 +155,22 @@ func (h *Six910Handler) UpdateShipmentItem(w http.ResponseWriter, r *http.Reques
 	}
 }
 
-//GetShipmentItem GetShipmentItem
+// GetShipmentItem godoc
+// @Summary Get details of a shipmentItem by id
+// @Description Get details of a shipmentItem
+// @Tags ShipmentItem
+// @Accept  json
+// @Produce  json
+// @Param id path string true "shipmentItem id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} six910-database-interface.ShipmentItem
+// @Router /rs/shipmentItem/get/id/{id}/{storeId} [get]
 func (h *Six910Handler) GetShipmentItem(w http.ResponseWriter, r *http.Request) {
 	var gshiURL = "/six910/rs/shipmentItem/get"
 	var gshic jv.Claim
@@ -167,7 +210,22 @@ func (h *Six910Handler) GetShipmentItem(w http.ResponseWriter, r *http.Request) 
 	}
 }
 
-//GetShipmentItemList GetShipmentItemList
+// GetShipmentItemList godoc
+// @Summary Get list of shipmentItem
+// @Description Get list of shipmentItem for a store
+// @Tags ShipmentItem
+// @Accept  json
+// @Produce  json
+// @Param shipmentId path string true "shipment Id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {array} six910-database-interface.ShipmentItem
+// @Router /rs/shipmentItem/get/list/{shipmentId}/{storeId} [get]
 func (h *Six910Handler) GetShipmentItemList(w http.ResponseWriter, r *http.Request) {
 	var gshilURL = "/six910/rs/shipmentItem/list"
 	var gshicl jv.Claim
@@ -207,7 +265,23 @@ func (h *Six910Handler) GetShipmentItemList(w http.ResponseWriter, r *http.Reque
 	}
 }
 
-//GetShipmentItemListByBox GetShipmentItemListByBox
+// GetShipmentItemListByBox godoc
+// @Summary Get list of shipmentItem
+// @Description Get list of shipmentItem for a store
+// @Tags ShipmentItem
+// @Accept  json
+// @Produce  json
+// @Param boxNumber path string true "boxNumber"
+// @Param shipmentId path string true "shipment Id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {array} six910-database-interface.ShipmentItem
+// @Router /rs/shipmentItem/get/list/box/{boxNumber}/{shipmentId}/{storeId} [get]
 func (h *Six910Handler) GetShipmentItemListByBox(w http.ResponseWriter, r *http.Request) {
 	var gshilbURL = "/six910/rs/shipmentItem/list/box"
 	var gshibcl jv.Claim
@@ -221,15 +295,17 @@ func (h *Six910Handler) GetShipmentItemListByBox(w http.ResponseWriter, r *http.
 		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
-		if vars != nil && len(vars) == 2 {
+		if vars != nil && len(vars) == 3 {
 			h.Log.Debug("vars: ", vars)
 			var boxNumberStr = vars["boxNumber"]
+			var shiloidStr2 = vars["shipmentId"]
 			var shilbstoreIDStr = vars["storeId"]
 			boxNumber, boxNumbererr := strconv.ParseInt(boxNumberStr, 10, 64)
+			shipmentID, sshiloiderr2 := strconv.ParseInt(shiloidStr2, 10, 64)
 			storeID, sshilbserr := strconv.ParseInt(shilbstoreIDStr, 10, 64)
 			var gshilbres *[]sdbi.ShipmentItem
-			if boxNumbererr == nil && sshilbserr == nil {
-				gshilbres = h.Manager.GetShipmentItemListByBox(boxNumber, storeID)
+			if boxNumbererr == nil && sshiloiderr2 == nil && sshilbserr == nil {
+				gshilbres = h.Manager.GetShipmentItemListByBox(boxNumber, shipmentID, storeID)
 				h.Log.Debug("get shipment item list by box: ", gshilbres)
 				w.WriteHeader(http.StatusOK)
 			} else {
@@ -247,7 +323,22 @@ func (h *Six910Handler) GetShipmentItemListByBox(w http.ResponseWriter, r *http.
 	}
 }
 
-//DeleteShipmentItem DeleteShipmentItem
+// DeleteShipmentItem godoc
+// @Summary Delete a shipmentItem
+// @Description Delete a shipmentItem from the store
+// @Tags ShipmentItem
+// @Accept  json
+// @Produce  json
+// @Param id path string true "shipmentItem id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/shipmentItem/delete/{id}/{storeId} [delete]
 func (h *Six910Handler) DeleteShipmentItem(w http.ResponseWriter, r *http.Request) {
 	var dshiURL = "/six910/rs/shipmentItem/delete"
 	var dshic jv.Claim

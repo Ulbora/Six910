@@ -1475,8 +1475,9 @@ func TestSix910Handler_GetShipmentItemListByBox(t *testing.T) {
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("GET", "/ffllist", nil)
 	vars := map[string]string{
-		"boxNumber": "3",
-		"storeId":   "5",
+		"boxNumber":  "3",
+		"shipmentId": "3",
+		"storeId":    "5",
 	}
 	r = mux.SetURLVars(r, vars)
 
@@ -1565,8 +1566,9 @@ func TestSix910Handler_GetShipmentItemListByBoxReq(t *testing.T) {
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("GET", "/ffllist", nil)
 	vars := map[string]string{
-		"boxNumber": "3j",
-		"storeId":   "5",
+		"boxNumber":  "3j",
+		"shipmentId": "3",
+		"storeId":    "5",
 	}
 	r = mux.SetURLVars(r, vars)
 
@@ -1655,7 +1657,8 @@ func TestSix910Handler_GetShipmentItemListByBoxReq2(t *testing.T) {
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("GET", "/ffllist", nil)
 	vars := map[string]string{
-		"boxNumber": "3",
+		"boxNumber":  "3",
+		"shipmentId": "3",
 		//"storeId":   "5",
 	}
 	r = mux.SetURLVars(r, vars)
@@ -1745,8 +1748,9 @@ func TestSix910Handler_GetShipmentItemListByBoxAuth(t *testing.T) {
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("GET", "/ffllist", nil)
 	vars := map[string]string{
-		"boxNumber": "3",
-		"storeId":   "5",
+		"boxNumber":  "3",
+		"shipmentId": "3",
+		"storeId":    "5",
 	}
 	r = mux.SetURLVars(r, vars)
 

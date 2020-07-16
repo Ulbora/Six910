@@ -58,6 +58,14 @@ definitions:
       storeId:
         type: integer
     type: object
+  handlers.PaymentGatewayReq:
+    properties:
+      paymentGateway:
+        $ref: '#/definitions/six910-database-interface.PaymentGateway'
+        type: object
+      storeId:
+        type: integer
+    type: object
   handlers.ProductCategory:
     properties:
       categoryId:
@@ -69,6 +77,30 @@ definitions:
     properties:
       productCategory:
         $ref: '#/definitions/handlers.ProductCategory'
+        type: object
+      storeId:
+        type: integer
+    type: object
+  handlers.ShipmentBoxReq:
+    properties:
+      shipmentBox:
+        $ref: '#/definitions/six910-database-interface.ShipmentBox'
+        type: object
+      storeId:
+        type: integer
+    type: object
+  handlers.ShipmentItemReq:
+    properties:
+      shipmentItem:
+        $ref: '#/definitions/six910-database-interface.ShipmentItem'
+        type: object
+      storeId:
+        type: integer
+    type: object
+  handlers.ShipmentReq:
+    properties:
+      shipment:
+        $ref: '#/definitions/six910-database-interface.Shipment'
         type: object
       storeId:
         type: integer
@@ -386,6 +418,48 @@ definitions:
       type:
         type: string
     type: object
+  six910-database-interface.PaymentGateway:
+    properties:
+      checkoutUrl:
+        type: string
+      clientId:
+        type: string
+      clientKey:
+        type: string
+      id:
+        type: integer
+      logoUrl:
+        type: string
+      postOrderUrl:
+        type: string
+      storePluginsId:
+        type: integer
+    type: object
+  six910-database-interface.Plugins:
+    properties:
+      activateUrl:
+        type: string
+      category:
+        type: string
+      contactPhone:
+        type: string
+      developer:
+        type: string
+      developerAddress:
+        type: string
+      enabled:
+        type: boolean
+      fee:
+        type: number
+      id:
+        type: integer
+      isPgw:
+        type: boolean
+      oauthRedirectUrl:
+        type: string
+      pluginName:
+        type: string
+    type: object
   six910-database-interface.Product:
     properties:
       color:
@@ -482,6 +556,75 @@ definitions:
       storeId:
         type: integer
     type: object
+  six910-database-interface.Shipment:
+    properties:
+      boxes:
+        type: integer
+      createDate:
+        type: string
+      id:
+        type: integer
+      insurance:
+        type: number
+      orderId:
+        type: integer
+      shippingHandling:
+        type: number
+      status:
+        type: string
+      updated:
+        type: string
+    type: object
+  six910-database-interface.ShipmentBox:
+    properties:
+      boxNumber:
+        type: integer
+      cost:
+        type: number
+      depth:
+        type: number
+      dropship:
+        type: boolean
+      height:
+        type: number
+      id:
+        type: integer
+      insurance:
+        type: number
+      shipDate:
+        type: string
+      shipmentId:
+        type: integer
+      shippingAddress:
+        type: string
+      shippingAddressId:
+        type: integer
+      shippingMethodId:
+        type: integer
+      trackingNumber:
+        type: string
+      updated:
+        type: string
+      weight:
+        type: number
+      width:
+        type: number
+    type: object
+  six910-database-interface.ShipmentItem:
+    properties:
+      id:
+        type: integer
+      orderItemId:
+        type: integer
+      quantity:
+        type: integer
+      shipmentBoxId:
+        type: integer
+      shipmentId:
+        type: integer
+      updated:
+        type: string
+    type: object
   six910-database-interface.ShippingCarrier:
     properties:
       carrier:
@@ -558,6 +701,43 @@ definitions:
         type: string
       zip:
         type: string
+    type: object
+  six910-database-interface.StorePlugins:
+    properties:
+      activateUrl:
+        type: string
+      active:
+        type: boolean
+      apiKey:
+        type: string
+      category:
+        type: string
+      id:
+        type: integer
+      iframeUrl:
+        type: string
+      isPgw:
+        type: boolean
+      menuIconUrl:
+        type: string
+      menuTitle:
+        type: string
+      oauthClientId:
+        type: integer
+      oauthRedirectUrl:
+        type: string
+      oauthSecret:
+        type: string
+      pluginId:
+        type: integer
+      pluginName:
+        type: string
+      rekeyDate:
+        type: string
+      rekeyTryCount:
+        type: integer
+      storeId:
+        type: integer
     type: object
   six910-database-interface.SubRegion:
     properties:
@@ -3500,6 +3680,509 @@ paths:
       summary: Get list of orderTransaction
       tags:
       - OrderTransaction
+  /rs/paymentGateway/add:
+    post:
+      consumes:
+      - application/json
+      description: Adds a new PaymentGateway to a store
+      parameters:
+      - description: paymentGateway
+        in: body
+        name: paymentGateway
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.PaymentGatewayReq'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.ResponseID'
+      summary: Add a new PaymentGateway
+      tags:
+      - PaymentGateway
+  /rs/paymentGateway/delete/{id}/{storeId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a PaymentGateway from the store
+      parameters:
+      - description: paymentGateway id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Delete a PaymentGateway
+      tags:
+      - PaymentGateway
+  /rs/paymentGateway/get/id/{id}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get details of a PaymentGateway
+      parameters:
+      - description: paymentGateway id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/six910-database-interface.PaymentGateway'
+      summary: Get details of a PaymentGateway by id
+      tags:
+      - PaymentGateway
+  /rs/paymentGateway/get/list/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of PaymentGateway for a store
+      parameters:
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/six910-database-interface.PaymentGateway'
+            type: array
+      summary: Get list of PaymentGateway
+      tags:
+      - PaymentGateway
+  /rs/paymentGateway/update:
+    put:
+      consumes:
+      - application/json
+      description: Update PaymentGateway data
+      parameters:
+      - description: paymentGateway
+        in: body
+        name: paymentGateway
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.PaymentGatewayReq'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Update a PaymentGateway
+      tags:
+      - PaymentGateway
+  /rs/plugin/add:
+    post:
+      consumes:
+      - application/json
+      description: Adds a new plugin to a store
+      parameters:
+      - description: plugin
+        in: body
+        name: plugin
+        required: true
+        schema:
+          $ref: '#/definitions/six910-database-interface.Plugins'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.ResponseID'
+      summary: Add a new plugin
+      tags:
+      - Plugins (Global all stores)
+  /rs/plugin/delete/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a plugin from the store
+      parameters:
+      - description: plugin id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Delete a plugin
+      tags:
+      - Plugins (Global all stores)
+  /rs/plugin/get/id/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get details of a plugin
+      parameters:
+      - description: plugin id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/six910-database-interface.Plugins'
+      summary: Get details of a plugin by id
+      tags:
+      - Plugins (Global all stores)
+  /rs/plugin/get/list/{start}/{end}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of plugin for a store
+      parameters:
+      - description: start index zero based
+        in: path
+        name: start
+        required: true
+        type: string
+      - description: end index zero based
+        in: path
+        name: end
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/six910-database-interface.Plugins'
+            type: array
+      summary: Get list of plugin
+      tags:
+      - Plugins (Global all stores)
+  /rs/plugin/update:
+    put:
+      consumes:
+      - application/json
+      description: Update plugin data
+      parameters:
+      - description: plugin
+        in: body
+        name: plugin
+        required: true
+        schema:
+          $ref: '#/definitions/six910-database-interface.Plugins'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Update a plugin
+      tags:
+      - Plugins (Global all stores)
   /rs/product/add:
     post:
       consumes:
@@ -4255,6 +4938,843 @@ paths:
       summary: Update a region
       tags:
       - Region (Geographic Sales Region)
+  /rs/shipment/add:
+    post:
+      consumes:
+      - application/json
+      description: Adds a new shipment to a store
+      parameters:
+      - description: shipment
+        in: body
+        name: shipment
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.ShipmentReq'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.ResponseID'
+      summary: Add a new shipment
+      tags:
+      - Shipment
+  /rs/shipment/delete/{id}/{storeId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a shipment from the store
+      parameters:
+      - description: shipment id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Delete a shipment
+      tags:
+      - Shipment
+  /rs/shipment/get/id/{id}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get details of a shipment
+      parameters:
+      - description: shipment id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/six910-database-interface.Shipment'
+      summary: Get details of a shipment by id
+      tags:
+      - Shipment
+  /rs/shipment/get/list/{orderId}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of shipment for a store
+      parameters:
+      - description: order Id
+        in: path
+        name: orderId
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/six910-database-interface.Shipment'
+            type: array
+      summary: Get list of shipment
+      tags:
+      - Shipment
+  /rs/shipment/update:
+    put:
+      consumes:
+      - application/json
+      description: Update shipment data
+      parameters:
+      - description: shipment
+        in: body
+        name: shipment
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.ShipmentReq'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Update a shipment
+      tags:
+      - Shipment
+  /rs/shipmentBox/add:
+    post:
+      consumes:
+      - application/json
+      description: Adds a new shipmentBox to a store
+      parameters:
+      - description: shipmentBox
+        in: body
+        name: shipmentBox
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.ShipmentBoxReq'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.ResponseID'
+      summary: Add a new shipmentBox
+      tags:
+      - ShipmentBox
+  /rs/shipmentBox/delete/{id}/{storeId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a shipmentBox from the store
+      parameters:
+      - description: shipment id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Delete a shipmentBox
+      tags:
+      - ShipmentBox
+  /rs/shipmentBox/get/id/{id}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get details of a shipmentBox
+      parameters:
+      - description: shipmentBox id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/six910-database-interface.ShipmentBox'
+      summary: Get details of a shipmentBox by id
+      tags:
+      - ShipmentBox
+  /rs/shipmentBox/get/list/{shipmentId}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of shipmentBox for a store
+      parameters:
+      - description: shipment Id
+        in: path
+        name: shipmentId
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/six910-database-interface.ShipmentBox'
+            type: array
+      summary: Get list of shipmentBox
+      tags:
+      - ShipmentBox
+  /rs/shipmentBox/update:
+    put:
+      consumes:
+      - application/json
+      description: Update shipmentBox data
+      parameters:
+      - description: shipmentBox
+        in: body
+        name: shipmentBox
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.ShipmentBoxReq'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Update a shipmentBox
+      tags:
+      - ShipmentBox
+  /rs/shipmentItem/add:
+    post:
+      consumes:
+      - application/json
+      description: Adds a new shipmentItem to a store
+      parameters:
+      - description: shipmentItem
+        in: body
+        name: shipmentItem
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.ShipmentItemReq'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.ResponseID'
+      summary: Add a new shipmentItem
+      tags:
+      - ShipmentItem
+  /rs/shipmentItem/delete/{id}/{storeId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a shipmentItem from the store
+      parameters:
+      - description: shipmentItem id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Delete a shipmentItem
+      tags:
+      - ShipmentItem
+  /rs/shipmentItem/get/id/{id}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get details of a shipmentItem
+      parameters:
+      - description: shipmentItem id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/six910-database-interface.ShipmentItem'
+      summary: Get details of a shipmentItem by id
+      tags:
+      - ShipmentItem
+  /rs/shipmentItem/get/list/{shipmentId}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of shipmentItem for a store
+      parameters:
+      - description: shipment Id
+        in: path
+        name: shipmentId
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/six910-database-interface.ShipmentItem'
+            type: array
+      summary: Get list of shipmentItem
+      tags:
+      - ShipmentItem
+  /rs/shipmentItem/get/list/box/{boxNumber}/{shipmentId}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of shipmentItem for a store
+      parameters:
+      - description: boxNumber
+        in: path
+        name: boxNumber
+        required: true
+        type: string
+      - description: shipment Id
+        in: path
+        name: shipmentId
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/six910-database-interface.ShipmentItem'
+            type: array
+      summary: Get list of shipmentItem
+      tags:
+      - ShipmentItem
+  /rs/shipmentItem/update:
+    put:
+      consumes:
+      - application/json
+      description: Update shipmentItem data
+      parameters:
+      - description: shipmentItem
+        in: body
+        name: shipmentItem
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.ShipmentItemReq'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Update a shipmentItem
+      tags:
+      - ShipmentItem
   /rs/shippingCarrier/add:
     post:
       consumes:
@@ -4953,6 +6473,260 @@ paths:
       summary: Update a store
       tags:
       - Store
+  /rs/storePlugin/add:
+    post:
+      consumes:
+      - application/json
+      description: Adds a new StorePlugin to a store
+      parameters:
+      - description: storePlugin
+        in: body
+        name: storePlugin
+        required: true
+        schema:
+          $ref: '#/definitions/six910-database-interface.StorePlugins'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.ResponseID'
+      summary: Add a new StorePlugin
+      tags:
+      - StorePlugin
+  /rs/storePlugin/delete/{id}/{storeId}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a StorePlugin from the store
+      parameters:
+      - description: storePlugin id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Delete a StorePlugin
+      tags:
+      - StorePlugin
+  /rs/storePlugin/get/id/{id}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get details of a StorePlugin
+      parameters:
+      - description: storePlugin id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/six910-database-interface.StorePlugins'
+      summary: Get details of a StorePlugin by id
+      tags:
+      - StorePlugin
+  /rs/storePlugin/get/list/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of StorePlugin for a store
+      parameters:
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/six910-database-interface.StorePlugins'
+            type: array
+      summary: Get list of StorePlugin
+      tags:
+      - StorePlugin
+  /rs/storePlugin/update:
+    put:
+      consumes:
+      - application/json
+      description: Update StorePlugin data
+      parameters:
+      - description: storePlugin
+        in: body
+        name: storePlugin
+        required: true
+        schema:
+          $ref: '#/definitions/six910-database-interface.StorePlugins'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Update a StorePlugin
+      tags:
+      - StorePlugin
   /rs/subRegion/add:
     post:
       consumes:

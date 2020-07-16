@@ -413,7 +413,7 @@ func TestSix910Manager_GetShipmentItemListByBox(t *testing.T) {
 
 	sdb.MockShipmentItemList = &sblst
 
-	flst := m.GetShipmentItemListByBox(4, 5)
+	flst := m.GetShipmentItemListByBox(4, 3, 5)
 	if len(*flst) != 2 {
 		t.Fail()
 	}
@@ -455,7 +455,7 @@ func TestSix910Manager_GetShipmentItemListByBoxFail(t *testing.T) {
 
 	sdb.MockShipmentItemList = &sblst
 
-	flst := m.GetShipmentItemListByBox(4, 5)
+	flst := m.GetShipmentItemListByBox(4, 3, 5)
 	if len(*flst) != 0 {
 		t.Fail()
 	}

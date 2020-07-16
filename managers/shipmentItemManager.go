@@ -96,9 +96,9 @@ func (m *Six910Manager) GetShipmentItemList(shipmentID int64, sid int64) *[]sdbi
 }
 
 //GetShipmentItemListByBox GetShipmentItemListByBox
-func (m *Six910Manager) GetShipmentItemListByBox(boxNumber int64, sid int64) *[]sdbi.ShipmentItem {
+func (m *Six910Manager) GetShipmentItemListByBox(boxNumber int64, shipmentID int64, sid int64) *[]sdbi.ShipmentItem {
 	var rtn *[]sdbi.ShipmentItem
-	si := m.Db.GetShipmentItemListByBox(boxNumber)
+	si := m.Db.GetShipmentItemListByBox(boxNumber, shipmentID)
 	var ok bool
 	for _, i := range *si {
 		sh := m.Db.GetShipment(i.ShipmentID)
