@@ -359,10 +359,15 @@ type Manager interface {
 	// //Gets called before updating an instance
 	GetInstance(name string, dataStoreName string, storeID int64) *sdbi.Instances
 
+	// //Gets called before or after updating an instance and allows a single instance
+	// to clear the datastore reload flag if all instances have reloaded
+	// this give any single instance visibility into other instances
+	GetInstanceList(dataStoreName string, storeID int64) *[]sdbi.Instances
+
 	// //-------------------start write lock-------------
 	// //gets called after UI makes changes to one of the datastores
 	// //If the datastore already exists, the Update method is called from within add
-	AddDataStoreWriteLock(w *sdbi.DataStoreWriteLock) *ResponseID
+	AddDataStoreWriteLock(w *sdbi.DataStoreWriteLock) *Response
 	UpdateDataStoreWriteLock(w *sdbi.DataStoreWriteLock) *Response
 
 	// //gets called from within the add method and by any node trying to update a datastore

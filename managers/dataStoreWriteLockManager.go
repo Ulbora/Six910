@@ -28,12 +28,11 @@ import (
 */
 
 //AddDataStoreWriteLock AddDataStoreWriteLock
-func (m *Six910Manager) AddDataStoreWriteLock(w *sdbi.DataStoreWriteLock) *ResponseID {
-	var rtn ResponseID
-	suc, id := m.Db.AddDataStoreWriteLock(w)
-	if suc && id != 0 {
+func (m *Six910Manager) AddDataStoreWriteLock(w *sdbi.DataStoreWriteLock) *Response {
+	var rtn Response
+	suc := m.Db.AddDataStoreWriteLock(w)
+	if suc {
 		rtn.Success = suc
-		rtn.ID = id
 		rtn.Code = http.StatusOK
 	} else {
 		rtn.Code = http.StatusBadRequest

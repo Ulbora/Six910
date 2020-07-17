@@ -264,8 +264,11 @@ type Handler interface {
 	//This gets called after instance gets reloaded
 	UpdateInstance(w http.ResponseWriter, r *http.Request)
 
-	//Gets called before updating an instance
+	//Gets called before updating an instance reloaded
 	GetInstance(w http.ResponseWriter, r *http.Request)
+
+	//Gets called before updating or after an instance is reloaded
+	GetInstanceList(w http.ResponseWriter, r *http.Request)
 
 	//-------------------start write lock-------------
 	//gets called after UI makes changes to one of the datastores

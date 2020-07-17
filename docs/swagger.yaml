@@ -266,6 +266,21 @@ definitions:
       zip:
         type: string
     type: object
+  six910-database-interface.DataStoreWriteLock:
+    properties:
+      dataStoreName:
+        type: string
+      locked:
+        type: boolean
+      lockedByUser:
+        type: string
+      lockedInstanceName:
+        type: string
+      lockedTime:
+        type: string
+      storeId:
+        type: integer
+    type: object
   six910-database-interface.Distributor:
     properties:
       company:
@@ -301,6 +316,17 @@ definitions:
       subRegionId:
         type: integer
     type: object
+  six910-database-interface.Instances:
+    properties:
+      dataStoreName:
+        type: string
+      instanceName:
+        type: string
+      reloadDate:
+        type: string
+      storeId:
+        type: integer
+    type: object
   six910-database-interface.Insurance:
     properties:
       cost:
@@ -311,6 +337,17 @@ definitions:
         type: number
       minOrderAmount:
         type: number
+      storeId:
+        type: integer
+    type: object
+  six910-database-interface.LocalDataStore:
+    properties:
+      dataStoreName:
+        type: string
+      reload:
+        type: boolean
+      reloadDate:
+        type: string
       storeId:
         type: integer
     type: object
@@ -2122,6 +2159,308 @@ paths:
       summary: Update a customer
       tags:
       - Customer
+  /rs/dataStoreWriteLock/add:
+    post:
+      consumes:
+      - application/json
+      description: Adds a new dataStoreWriteLock
+      parameters:
+      - description: dataStoreWriteLock
+        in: body
+        name: dataStoreWriteLock
+        required: true
+        schema:
+          $ref: '#/definitions/six910-database-interface.DataStoreWriteLock'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Add a new dataStoreWriteLock
+      tags:
+      - DataStoreWriteLock (indicates when a node in the cluster in editing a datastore)
+  /rs/dataStoreWriteLock/get/{dataStore}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get details of a dataStoreWriteLock
+      parameters:
+      - description: dataStore
+        in: path
+        name: dataStore
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/six910-database-interface.DataStoreWriteLock'
+      summary: Get details of a dataStoreWriteLock
+      tags:
+      - DataStoreWriteLock (indicates when a node in the cluster in editing a datastore)
+  /rs/dataStoreWriteLock/update:
+    put:
+      consumes:
+      - application/json
+      description: Update dataStoreWriteLock data
+      parameters:
+      - description: dataStoreWriteLock
+        in: body
+        name: dataStoreWriteLock
+        required: true
+        schema:
+          $ref: '#/definitions/six910-database-interface.DataStoreWriteLock'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Update a dataStoreWriteLock
+      tags:
+      - DataStoreWriteLock (indicates when a node in the cluster in editing a datastore)
+  /rs/datastore/add:
+    post:
+      consumes:
+      - application/json
+      description: Adds a new JSON datastore for store content, css and others used to sync UI
+      parameters:
+      - description: datastore
+        in: body
+        name: datastore
+        required: true
+        schema:
+          $ref: '#/definitions/six910-database-interface.LocalDataStore'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Add a new JSON datastore
+      tags:
+      - 'Datastore (JSON Datastore used to sync UI when clustered: content or css or others)'
+  /rs/datastore/get/{name}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get details of a JSON datastore for store content, css and others used to sync UI
+      parameters:
+      - description: name
+        in: path
+        name: name
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/six910-database-interface.LocalDataStore'
+      summary: Get details of a JSON datastore by name
+      tags:
+      - 'Datastore (JSON Datastore used to sync UI when clustered: content or css or others)'
+  /rs/datastore/update:
+    put:
+      consumes:
+      - application/json
+      description: Update a JSON datastore for store content, css and others used to sync UI
+      parameters:
+      - description: datastore
+        in: body
+        name: datastore
+        required: true
+        schema:
+          $ref: '#/definitions/six910-database-interface.LocalDataStore'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Update a JSON datastore
+      tags:
+      - 'Datastore (JSON Datastore used to sync UI when clustered: content or css or others)'
   /rs/distributor/add:
     post:
       consumes:
@@ -2700,6 +3039,217 @@ paths:
       summary: Get list of IncludedSubRegion
       tags:
       - Included Sub Regions (Included Geographic Sales Sub Regions)
+  /rs/instance/add:
+    post:
+      consumes:
+      - application/json
+      description: Adds a new datastore UI instance in a cluster
+      parameters:
+      - description: instance
+        in: body
+        name: instance
+        required: true
+        schema:
+          $ref: '#/definitions/six910-database-interface.Instances'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Add a new datastore UI instance in a cluster
+      tags:
+      - Instance (datastore UI instance in a cluster)
+  /rs/instance/get/list/{dataStoreName}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of datastore UI instance in a cluster
+      parameters:
+      - description: dataStoreName
+        in: path
+        name: dataStoreName
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/six910-database-interface.Instances'
+            type: array
+      summary: Get list of datastore UI instance in a cluster
+      tags:
+      - Instance (datastore UI instance in a cluster)
+  /rs/instance/get/name/{name}/{dataStoreName}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get details of a datastore UI instance in a cluster
+      parameters:
+      - description: name
+        in: path
+        name: name
+        required: true
+        type: string
+      - description: dataStoreName
+        in: path
+        name: dataStoreName
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/six910-database-interface.Instances'
+      summary: Get details of a datastore UI instance in a cluster
+      tags:
+      - Instance (datastore UI instance in a cluster)
+  /rs/instance/update:
+    put:
+      consumes:
+      - application/json
+      description: Update datastore UI instance in a cluster
+      parameters:
+      - description: instance
+        in: body
+        name: instance
+        required: true
+        schema:
+          $ref: '#/definitions/six910-database-interface.Instances'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Update a datastore UI instance in a cluster
+      tags:
+      - Instance (datastore UI instance in a cluster)
   /rs/insurance/add:
     post:
       consumes:

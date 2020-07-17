@@ -33,7 +33,21 @@ import (
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//AddLocalDatastore AddLocalDatastore
+// AddLocalDatastore godoc
+// @Summary Add a new JSON datastore
+// @Description Adds a new JSON datastore for store content, css and others used to sync UI
+// @Tags Datastore (JSON Datastore used to sync UI when clustered: content or css or others)
+// @Accept  json
+// @Produce  json
+// @Param datastore body six910-database-interface.LocalDataStore true "datastore"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/datastore/add [post]
 func (h *Six910Handler) AddLocalDatastore(w http.ResponseWriter, r *http.Request) {
 	var addldsURL = "/six910/rs/datastore/add"
 	var aldsc jv.Claim
@@ -43,8 +57,8 @@ func (h *Six910Handler) AddLocalDatastore(w http.ResponseWriter, r *http.Request
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &aldsc)
 	h.Log.Debug("local datastore add authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		acOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", acOk)
 		if !acOk {
@@ -70,14 +84,28 @@ func (h *Six910Handler) AddLocalDatastore(w http.ResponseWriter, r *http.Request
 			}
 		}
 	} else {
-		var aldsfl m.ResponseID
+		var aldsfl m.Response
 		w.WriteHeader(http.StatusUnauthorized)
 		resJSON, _ := json.Marshal(aldsfl)
 		fmt.Fprint(w, string(resJSON))
 	}
 }
 
-//UpdateLocalDatastore UpdateLocalDatastore
+// UpdateLocalDatastore godoc
+// @Summary Update a JSON datastore
+// @Description Update a JSON datastore for store content, css and others used to sync UI
+// @Tags Datastore (JSON Datastore used to sync UI when clustered: content or css or others)
+// @Accept  json
+// @Produce  json
+// @Param datastore body six910-database-interface.LocalDataStore true "datastore"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/datastore/update [put]
 func (h *Six910Handler) UpdateLocalDatastore(w http.ResponseWriter, r *http.Request) {
 	var upldsURL = "/six910/rs/datastore/update"
 	var uldsc jv.Claim
@@ -87,8 +115,8 @@ func (h *Six910Handler) UpdateLocalDatastore(w http.ResponseWriter, r *http.Requ
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &uldsc)
 	h.Log.Debug("local datastore update authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		ucOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", ucOk)
 		if !ucOk {
@@ -114,14 +142,29 @@ func (h *Six910Handler) UpdateLocalDatastore(w http.ResponseWriter, r *http.Requ
 			}
 		}
 	} else {
-		var uldsfl m.ResponseID
+		var uldsfl m.Response
 		w.WriteHeader(http.StatusUnauthorized)
 		resJSON, _ := json.Marshal(uldsfl)
 		fmt.Fprint(w, string(resJSON))
 	}
 }
 
-//GetLocalDatastore GetLocalDatastore
+// GetLocalDatastore godoc
+// @Summary Get details of a JSON datastore by name
+// @Description Get details of a JSON datastore for store content, css and others used to sync UI
+// @Tags Datastore (JSON Datastore used to sync UI when clustered: content or css or others)
+// @Accept  json
+// @Produce  json
+// @Param name path string true "name"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} six910-database-interface.LocalDataStore
+// @Router /rs/datastore/get/{name}/{storeId} [get]
 func (h *Six910Handler) GetLocalDatastore(w http.ResponseWriter, r *http.Request) {
 	var gldsURL = "/six910/rs/datastore/get"
 	var gldsc jv.Claim
@@ -131,8 +174,8 @@ func (h *Six910Handler) GetLocalDatastore(w http.ResponseWriter, r *http.Request
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gldsc)
 	h.Log.Debug("local datastore get id authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {

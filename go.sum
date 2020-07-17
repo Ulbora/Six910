@@ -26,6 +26,10 @@ github.com/Ulbora/six910-database-interface v1.0.11 h1:6AS+sIARgRp03G0esqBnVxKqp
 github.com/Ulbora/six910-database-interface v1.0.11/go.mod h1:OGqZQ5ETgqxsHB636qmivSR36NzQxhV4T+ATsIUJSLM=
 github.com/Ulbora/six910-database-interface v1.0.12 h1:CzMXQJT2rVgJj0+vi27iF2O+SzTkW9wle/ic6YODO0U=
 github.com/Ulbora/six910-database-interface v1.0.12/go.mod h1:OGqZQ5ETgqxsHB636qmivSR36NzQxhV4T+ATsIUJSLM=
+github.com/Ulbora/six910-database-interface v1.0.14 h1:d9r9g3lL2PHneYXVoLfPUF02570x0yTfbFDL82CmM+U=
+github.com/Ulbora/six910-database-interface v1.0.14/go.mod h1:OGqZQ5ETgqxsHB636qmivSR36NzQxhV4T+ATsIUJSLM=
+github.com/Ulbora/six910-database-interface v1.0.16 h1:ufq46Ws2CDKrhggSO+kBxjf+eSmw8qPBN5l895SsHxc=
+github.com/Ulbora/six910-database-interface v1.0.16/go.mod h1:OGqZQ5ETgqxsHB636qmivSR36NzQxhV4T+ATsIUJSLM=
 github.com/Ulbora/six910-mysql v1.0.6 h1:U77EgAU8vU0ySbXFRFw9acL6eUeOjrSlkdPmUJigAWc=
 github.com/Ulbora/six910-mysql v1.0.6/go.mod h1:l8Eh5VDQ8+1sTXqofX+kMKqlYqmbygGhPa4ePaTAMPw=
 github.com/Ulbora/six910-mysql v1.0.7 h1:afxL3PynjWFD7TM5nakaMKU1CGjqKG53sifucJkw4lA=
@@ -36,6 +40,10 @@ github.com/Ulbora/six910-mysql v1.0.9 h1:HhQy7x44cw+l2vEB3mAbfQzpkqTvF4uVb2i8LLr
 github.com/Ulbora/six910-mysql v1.0.9/go.mod h1:xf8a6QjQL+QcQADvcy67/dWP6MZbnsp1beMA1Ub1TGQ=
 github.com/Ulbora/six910-mysql v1.0.10 h1:HwBmmpEaiAIIFF49F7J0FOx5a2y4o86CoWfPOnOeo4M=
 github.com/Ulbora/six910-mysql v1.0.10/go.mod h1:zMb4JG96V+oRzIOraYOH1/0h3LDp/iCTC4Bpex+rahg=
+github.com/Ulbora/six910-mysql v1.0.11 h1:abIh7TZbquIG8h1RrL2azyDrz37gOZV8em7DmslWpps=
+github.com/Ulbora/six910-mysql v1.0.11/go.mod h1:QQ8Ga7flpP1ZCu9YLpYSaHvb47cwri/+1DLJKIMmj3o=
+github.com/Ulbora/six910-mysql v1.0.12 h1:Czc1Bfy/GG/oX5kBgrJIiy1qmjUGuFb0sNQO5I76B6Q=
+github.com/Ulbora/six910-mysql v1.0.12/go.mod h1:PuN7TBP4jFHfx1/HGa+xUljee+FEthTswBp1KM/l8BY=
 github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751 h1:JYp7IbQjafoB+tBA3gMyHYHrpOtNuDiK/uB5uXxq5wM=
 github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751/go.mod h1:LOuyumcjzFXgccqObfd/Ljyb9UuFJ6TxHnclSeseNhc=
 github.com/cpuguy83/go-md2man/v2 v2.0.0-20190314233015-f79a8a8ca69d h1:U+s90UTSYgptZMwQh2aRr3LuazLJIa+Pg3Kc1ylSYVY=
@@ -214,6 +222,12 @@ golang.org/x/tools v0.0.0-20200714190737-9048b464a08d h1:hYhnolbefSSt3WZp66sgmgn
 golang.org/x/tools v0.0.0-20200714190737-9048b464a08d/go.mod h1:njjCfa9FT2d7l9Bc6FUM5FLjQPp3cFF28FI3qnDFljA=
 golang.org/x/tools v0.0.0-20200715195738-4cea89713c0f h1:oyELQ5eOmSPMXjqu9r0tpf1tS689JZOfqhY7WGd+e8U=
 golang.org/x/tools v0.0.0-20200715195738-4cea89713c0f/go.mod h1:njjCfa9FT2d7l9Bc6FUM5FLjQPp3cFF28FI3qnDFljA=
+golang.org/x/tools v0.0.0-20200716182050-cf799caeade6 h1:UCBLPWXNSKNVpaE6s6tw4pVIJ91sDySB8+G+KV9o6Yw=
+golang.org/x/tools v0.0.0-20200716182050-cf799caeade6/go.mod h1:njjCfa9FT2d7l9Bc6FUM5FLjQPp3cFF28FI3qnDFljA=
+golang.org/x/tools v0.0.0-20200716193322-f2c07d7d8ec1 h1:+L0anz7VPZcdhiFmfOYsyvU4q2cvemMri/ayLxr/5JE=
+golang.org/x/tools v0.0.0-20200716193322-f2c07d7d8ec1/go.mod h1:njjCfa9FT2d7l9Bc6FUM5FLjQPp3cFF28FI3qnDFljA=
+golang.org/x/tools v0.0.0-20200716225003-58eba7e7502e h1:WaR4d3kbnTlsdn8Ms1b6r8HwNloW6f8WKxiDu+C5J48=
+golang.org/x/tools v0.0.0-20200716225003-58eba7e7502e/go.mod h1:njjCfa9FT2d7l9Bc6FUM5FLjQPp3cFF28FI3qnDFljA=
 golang.org/x/tools/gopls v0.1.7/go.mod h1:PE3vTwT0ejw3a2L2fFgSJkxlEbA8Slbk+Lsy9hTmbG8=
 golang.org/x/xerrors v0.0.0-20190717185122-a985d3407aa7/go.mod h1:I/5z698sn9Ka8TeJc9MKroUUfqBBauWjQqLJ2OPfmY0=
 golang.org/x/xerrors v0.0.0-20191011141410-1b5146add898/go.mod h1:I/5z698sn9Ka8TeJc9MKroUUfqBBauWjQqLJ2OPfmY0=

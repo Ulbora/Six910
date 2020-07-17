@@ -57,3 +57,8 @@ func (m *Six910Manager) UpdateInstance(i *sdbi.Instances) *Response {
 func (m *Six910Manager) GetInstance(name string, dataStoreName string, storeID int64) *sdbi.Instances {
 	return m.Db.GetInstance(name, dataStoreName, storeID)
 }
+
+//GetInstanceList GetInstanceList
+func (m *Six910Manager) GetInstanceList(dataStoreName string, storeID int64) *[]sdbi.Instances {
+	return m.Db.GetInstanceList(dataStoreName, storeID)
+}

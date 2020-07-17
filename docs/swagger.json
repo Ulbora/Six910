@@ -2010,6 +2010,454 @@
                 }
             }
         },
+        "/rs/dataStoreWriteLock/add": {
+            "post": {
+                "description": "Adds a new dataStoreWriteLock",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "DataStoreWriteLock (indicates when a node in the cluster in editing a datastore)"
+                ],
+                "summary": "Add a new dataStoreWriteLock",
+                "parameters": [
+                    {
+                        "description": "dataStoreWriteLock",
+                        "name": "dataStoreWriteLock",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/six910-database-interface.DataStoreWriteLock"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/dataStoreWriteLock/get/{dataStore}/{storeId}": {
+            "get": {
+                "description": "Get details of a dataStoreWriteLock",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "DataStoreWriteLock (indicates when a node in the cluster in editing a datastore)"
+                ],
+                "summary": "Get details of a dataStoreWriteLock",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "dataStore",
+                        "name": "dataStore",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store storeId",
+                        "name": "storeId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/six910-database-interface.DataStoreWriteLock"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/dataStoreWriteLock/update": {
+            "put": {
+                "description": "Update dataStoreWriteLock data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "DataStoreWriteLock (indicates when a node in the cluster in editing a datastore)"
+                ],
+                "summary": "Update a dataStoreWriteLock",
+                "parameters": [
+                    {
+                        "description": "dataStoreWriteLock",
+                        "name": "dataStoreWriteLock",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/six910-database-interface.DataStoreWriteLock"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/datastore/add": {
+            "post": {
+                "description": "Adds a new JSON datastore for store content, css and others used to sync UI",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Datastore (JSON Datastore used to sync UI when clustered: content or css or others)"
+                ],
+                "summary": "Add a new JSON datastore",
+                "parameters": [
+                    {
+                        "description": "datastore",
+                        "name": "datastore",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/six910-database-interface.LocalDataStore"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/datastore/get/{name}/{storeId}": {
+            "get": {
+                "description": "Get details of a JSON datastore for store content, css and others used to sync UI",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Datastore (JSON Datastore used to sync UI when clustered: content or css or others)"
+                ],
+                "summary": "Get details of a JSON datastore by name",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store storeId",
+                        "name": "storeId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/six910-database-interface.LocalDataStore"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/datastore/update": {
+            "put": {
+                "description": "Update a JSON datastore for store content, css and others used to sync UI",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Datastore (JSON Datastore used to sync UI when clustered: content or css or others)"
+                ],
+                "summary": "Update a JSON datastore",
+                "parameters": [
+                    {
+                        "description": "datastore",
+                        "name": "datastore",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/six910-database-interface.LocalDataStore"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/rs/distributor/add": {
             "post": {
                 "description": "Adds a new distributor to a store",
@@ -2859,6 +3307,318 @@
                             "items": {
                                 "$ref": "#/definitions/six910-database-interface.IncludedSubRegion"
                             }
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/instance/add": {
+            "post": {
+                "description": "Adds a new datastore UI instance in a cluster",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Instance (datastore UI instance in a cluster)"
+                ],
+                "summary": "Add a new datastore UI instance in a cluster",
+                "parameters": [
+                    {
+                        "description": "instance",
+                        "name": "instance",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/six910-database-interface.Instances"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/instance/get/list/{dataStoreName}/{storeId}": {
+            "get": {
+                "description": "Get list of datastore UI instance in a cluster",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Instance (datastore UI instance in a cluster)"
+                ],
+                "summary": "Get list of datastore UI instance in a cluster",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "dataStoreName",
+                        "name": "dataStoreName",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store storeId",
+                        "name": "storeId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/six910-database-interface.Instances"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/instance/get/name/{name}/{dataStoreName}/{storeId}": {
+            "get": {
+                "description": "Get details of a datastore UI instance in a cluster",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Instance (datastore UI instance in a cluster)"
+                ],
+                "summary": "Get details of a datastore UI instance in a cluster",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "dataStoreName",
+                        "name": "dataStoreName",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store storeId",
+                        "name": "storeId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/six910-database-interface.Instances"
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/instance/update": {
+            "put": {
+                "description": "Update datastore UI instance in a cluster",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Instance (datastore UI instance in a cluster)"
+                ],
+                "summary": "Update a datastore UI instance in a cluster",
+                "parameters": [
+                    {
+                        "description": "instance",
+                        "name": "instance",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/six910-database-interface.Instances"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.Response"
                         }
                     }
                 }
@@ -10308,6 +11068,29 @@
                 }
             }
         },
+        "six910-database-interface.DataStoreWriteLock": {
+            "type": "object",
+            "properties": {
+                "dataStoreName": {
+                    "type": "string"
+                },
+                "locked": {
+                    "type": "boolean"
+                },
+                "lockedByUser": {
+                    "type": "string"
+                },
+                "lockedInstanceName": {
+                    "type": "string"
+                },
+                "lockedTime": {
+                    "type": "string"
+                },
+                "storeId": {
+                    "type": "integer"
+                }
+            }
+        },
         "six910-database-interface.Distributor": {
             "type": "object",
             "properties": {
@@ -10362,6 +11145,23 @@
                 }
             }
         },
+        "six910-database-interface.Instances": {
+            "type": "object",
+            "properties": {
+                "dataStoreName": {
+                    "type": "string"
+                },
+                "instanceName": {
+                    "type": "string"
+                },
+                "reloadDate": {
+                    "type": "string"
+                },
+                "storeId": {
+                    "type": "integer"
+                }
+            }
+        },
         "six910-database-interface.Insurance": {
             "type": "object",
             "properties": {
@@ -10376,6 +11176,23 @@
                 },
                 "minOrderAmount": {
                     "type": "number"
+                },
+                "storeId": {
+                    "type": "integer"
+                }
+            }
+        },
+        "six910-database-interface.LocalDataStore": {
+            "type": "object",
+            "properties": {
+                "dataStoreName": {
+                    "type": "string"
+                },
+                "reload": {
+                    "type": "boolean"
+                },
+                "reloadDate": {
+                    "type": "string"
                 },
                 "storeId": {
                     "type": "integer"

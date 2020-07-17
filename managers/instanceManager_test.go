@@ -137,3 +137,32 @@ func TestSix910Manager_GetInstance(t *testing.T) {
 		t.Fail()
 	}
 }
+
+func TestSix910Manager_GetInstanceList(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	m := sm.GetNew()
+
+	var in sdbi.Instances
+	in.DataStoreName = "test"
+	in.StoreID = 5
+
+	var lst []sdbi.Instances
+	lst = append(lst, in)
+
+	sdb.MockInstancesList = &lst
+
+	fin := m.GetInstanceList("test", 5)
+	if (*fin)[0].DataStoreName != in.DataStoreName {
+		t.Fail()
+	}
+}

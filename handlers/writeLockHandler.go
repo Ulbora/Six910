@@ -33,7 +33,21 @@ import (
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//AddDataStoreWriteLock AddDataStoreWriteLock
+// AddDataStoreWriteLock godoc
+// @Summary Add a new dataStoreWriteLock
+// @Description Adds a new dataStoreWriteLock
+// @Tags DataStoreWriteLock (indicates when a node in the cluster in editing a datastore)
+// @Accept  json
+// @Produce  json
+// @Param dataStoreWriteLock body six910-database-interface.DataStoreWriteLock true "dataStoreWriteLock"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/dataStoreWriteLock/add [post]
 func (h *Six910Handler) AddDataStoreWriteLock(w http.ResponseWriter, r *http.Request) {
 	var addrlkURL = "/six910/rs/dataStoreWriteLock/add"
 	var arlkc jv.Claim
@@ -43,8 +57,8 @@ func (h *Six910Handler) AddDataStoreWriteLock(w http.ResponseWriter, r *http.Req
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &arlkc)
 	h.Log.Debug("write lock add authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		acOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", acOk)
 		if !acOk {
@@ -70,14 +84,28 @@ func (h *Six910Handler) AddDataStoreWriteLock(w http.ResponseWriter, r *http.Req
 			}
 		}
 	} else {
-		var arlkfl m.ResponseID
+		var arlkfl m.Response
 		w.WriteHeader(http.StatusUnauthorized)
 		resJSON, _ := json.Marshal(arlkfl)
 		fmt.Fprint(w, string(resJSON))
 	}
 }
 
-//UpdateDataStoreWriteLock UpdateDataStoreWriteLock
+// UpdateDataStoreWriteLock godoc
+// @Summary Update a dataStoreWriteLock
+// @Description Update dataStoreWriteLock data
+// @Tags DataStoreWriteLock (indicates when a node in the cluster in editing a datastore)
+// @Accept  json
+// @Produce  json
+// @Param dataStoreWriteLock body six910-database-interface.DataStoreWriteLock true "dataStoreWriteLock"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/dataStoreWriteLock/update [put]
 func (h *Six910Handler) UpdateDataStoreWriteLock(w http.ResponseWriter, r *http.Request) {
 	var uprlkURL = "/six910/rs/dataStoreWriteLock/update"
 	var urlkc jv.Claim
@@ -87,8 +115,8 @@ func (h *Six910Handler) UpdateDataStoreWriteLock(w http.ResponseWriter, r *http.
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &urlkc)
 	h.Log.Debug("write lock update authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		ucOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", ucOk)
 		if !ucOk {
@@ -121,7 +149,22 @@ func (h *Six910Handler) UpdateDataStoreWriteLock(w http.ResponseWriter, r *http.
 	}
 }
 
-//GetDataStoreWriteLock GetDataStoreWriteLock
+// GetDataStoreWriteLock godoc
+// @Summary Get details of a dataStoreWriteLock
+// @Description Get details of a dataStoreWriteLock
+// @Tags DataStoreWriteLock (indicates when a node in the cluster in editing a datastore)
+// @Accept  json
+// @Produce  json
+// @Param dataStore path string true "dataStore"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} six910-database-interface.DataStoreWriteLock
+// @Router /rs/dataStoreWriteLock/get/{dataStore}/{storeId} [get]
 func (h *Six910Handler) GetDataStoreWriteLock(w http.ResponseWriter, r *http.Request) {
 	var grlkURL = "/six910/rs/dataStoreWriteLock/get"
 	var grlkc jv.Claim
@@ -131,15 +174,14 @@ func (h *Six910Handler) GetDataStoreWriteLock(w http.ResponseWriter, r *http.Req
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &grlkc)
 	h.Log.Debug("write lock get id authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {
 			h.Log.Debug("vars: ", vars)
 			var datastore = vars["dataStore"]
 			var grlkstoreIDStr = vars["storeId"]
-			//id, gspiiderr := strconv.ParseInt(gspiidStr, 10, 64)
 			storeID, grlksiderr := strconv.ParseInt(grlkstoreIDStr, 10, 64)
 			var grlkres *sdbi.DataStoreWriteLock
 			if grlksiderr == nil {

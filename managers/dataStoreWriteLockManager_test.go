@@ -51,7 +51,7 @@ func TestSix910Manager_AddDataStoreWriteLockFail(t *testing.T) {
 	var dl sdbi.DataStoreWriteLock
 	dl.DataStoreName = "test"
 
-	sdb.MockAddDataStoreWriteLockSuccess = true
+	//sdb.MockAddDataStoreWriteLockSuccess = true
 	//sdb.MockDataStoreWriteLockID = 3
 
 	res := m.AddDataStoreWriteLock(&dl)

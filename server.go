@@ -344,7 +344,21 @@ func main() {
 	router.HandleFunc("/rs/shippingCarrier/get/list/{storeId}", h.GetShippingCarrierList).Methods("GET")
 	router.HandleFunc("/rs/shippingCarrier/delete/{id}/{storeId}", h.DeleteShippingCarrier).Methods("DELETE")
 
-	//....
+	//datastore------------------------------------
+	router.HandleFunc("/rs/datastore/add", h.AddLocalDatastore).Methods("POST")
+	router.HandleFunc("/rs/datastore/update", h.UpdateLocalDatastore).Methods("PUT")
+	router.HandleFunc("/rs/datastore/get/{name}/{storeId}", h.GetLocalDatastore).Methods("GET")
+
+	//instance--------------------
+	router.HandleFunc("/rs/instance/add", h.AddInstance).Methods("POST")
+	router.HandleFunc("/rs/instance/update", h.UpdateInstance).Methods("PUT")
+	router.HandleFunc("/rs/instance/get/name/{name}/{dataStoreName}/{storeId}", h.GetInstance).Methods("GET")
+	router.HandleFunc("/rs/instance/get/list/{dataStoreName}/{storeId}", h.GetInstanceList).Methods("GET")
+
+	//write lock-------------
+	router.HandleFunc("/rs/dataStoreWriteLock/add", h.AddDataStoreWriteLock).Methods("POST")
+	router.HandleFunc("/rs/dataStoreWriteLock/update", h.UpdateDataStoreWriteLock).Methods("PUT")
+	router.HandleFunc("/rs/dataStoreWriteLock/get/{dataStore}/{storeId}", h.GetDataStoreWriteLock).Methods("GET")
 
 	fmt.Println("Six910 (six nine ten) server is running on port " + port + "!")
 
