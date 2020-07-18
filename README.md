@@ -2,7 +2,7 @@
 
 # Six910 (pronounced six nine ten)
 
-[Swagger API Docs](http://api-swagger-docs.six910.com/swagger/index.html)
+## [Swagger API Docs](http://api-swagger-docs.six910.com/swagger/index.html)
 
 [![Build Status](https://travis-ci.org/Ulbora/Six910.svg?branch=master)](https://travis-ci.org/Ulbora/Six910)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Six910&metric=alert_status)](https://sonarcloud.io/dashboard?id=Six910)
