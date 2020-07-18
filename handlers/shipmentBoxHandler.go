@@ -148,7 +148,7 @@ func (h *Six910Handler) UpdateShipmentBox(w http.ResponseWriter, r *http.Request
 			}
 		}
 	} else {
-		var ushbf m.ResponseID
+		var ushbf m.Response
 		w.WriteHeader(http.StatusUnauthorized)
 		resJSON, _ := json.Marshal(ushbf)
 		fmt.Fprint(w, string(resJSON))

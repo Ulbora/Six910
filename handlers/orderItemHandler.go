@@ -148,7 +148,7 @@ func (h *Six910Handler) UpdateOrderItem(w http.ResponseWriter, r *http.Request) 
 			}
 		}
 	} else {
-		var uorif m.ResponseID
+		var uorif m.Response
 		w.WriteHeader(http.StatusUnauthorized)
 		resJSON, _ := json.Marshal(uorif)
 		fmt.Fprint(w, string(resJSON))

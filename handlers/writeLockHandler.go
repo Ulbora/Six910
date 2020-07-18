@@ -142,7 +142,7 @@ func (h *Six910Handler) UpdateDataStoreWriteLock(w http.ResponseWriter, r *http.
 			}
 		}
 	} else {
-		var urlkfl m.ResponseID
+		var urlkfl m.Response
 		w.WriteHeader(http.StatusUnauthorized)
 		resJSON, _ := json.Marshal(urlkfl)
 		fmt.Fprint(w, string(resJSON))

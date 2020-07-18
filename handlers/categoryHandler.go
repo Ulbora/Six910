@@ -142,7 +142,7 @@ func (h *Six910Handler) UpdateCategory(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	} else {
-		var ucatfl m.ResponseID
+		var ucatfl m.Response
 		w.WriteHeader(http.StatusUnauthorized)
 		resJSON, _ := json.Marshal(ucatfl)
 		fmt.Fprint(w, string(resJSON))

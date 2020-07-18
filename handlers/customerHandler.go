@@ -142,7 +142,7 @@ func (h *Six910Handler) UpdateCustomer(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	} else {
-		var ucfl m.ResponseID
+		var ucfl m.Response
 		w.WriteHeader(http.StatusUnauthorized)
 		resJSON, _ := json.Marshal(ucfl)
 		fmt.Fprint(w, string(resJSON))

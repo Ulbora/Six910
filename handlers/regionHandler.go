@@ -142,7 +142,7 @@ func (h *Six910Handler) UpdateRegion(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	} else {
-		var uregfl m.ResponseID
+		var uregfl m.Response
 		w.WriteHeader(http.StatusUnauthorized)
 		resJSON, _ := json.Marshal(uregfl)
 		fmt.Fprint(w, string(resJSON))

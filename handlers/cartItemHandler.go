@@ -149,7 +149,7 @@ func (h *Six910Handler) UpdateCartItem(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	} else {
-		var ucifl m.ResponseID
+		var ucifl m.Response
 		w.WriteHeader(http.StatusUnauthorized)
 		resJSON, _ := json.Marshal(ucifl)
 		fmt.Fprint(w, string(resJSON))

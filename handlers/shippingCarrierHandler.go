@@ -142,7 +142,7 @@ func (h *Six910Handler) UpdateShippingCarrier(w http.ResponseWriter, r *http.Req
 			}
 		}
 	} else {
-		var uscrfl m.ResponseID
+		var uscrfl m.Response
 		w.WriteHeader(http.StatusUnauthorized)
 		resJSON, _ := json.Marshal(uscrfl)
 		fmt.Fprint(w, string(resJSON))

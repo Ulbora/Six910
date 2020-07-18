@@ -148,7 +148,7 @@ func (h *Six910Handler) UpdatePaymentGateway(w http.ResponseWriter, r *http.Requ
 			}
 		}
 	} else {
-		var upgwfl m.ResponseID
+		var upgwfl m.Response
 		w.WriteHeader(http.StatusUnauthorized)
 		resJSON, _ := json.Marshal(upgwfl)
 		fmt.Fprint(w, string(resJSON))

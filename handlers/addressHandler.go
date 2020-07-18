@@ -148,7 +148,7 @@ func (h *Six910Handler) UpdateAddress(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	} else {
-		var uadfl m.ResponseID
+		var uadfl m.Response
 		w.WriteHeader(http.StatusUnauthorized)
 		resJSON, _ := json.Marshal(uadfl)
 		fmt.Fprint(w, string(resJSON))
