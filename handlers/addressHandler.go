@@ -162,6 +162,7 @@ func (h *Six910Handler) UpdateAddress(w http.ResponseWriter, r *http.Request) {
 // @Accept  json
 // @Produce  json
 // @Param id path string true "address id"
+// @Param cid path string true "customer id"
 // @Param storeId path string true "store storeId"
 // @Param apiKey header string false "apiKey required for non OAuth2 stores only"
 // @Param storeName header string true "store name"
@@ -218,6 +219,7 @@ func (h *Six910Handler) GetAddress(w http.ResponseWriter, r *http.Request) {
 // @Tags Address
 // @Accept  json
 // @Produce  json
+// @Param cid path string true "customer id"
 // @Param storeId path string true "store storeId"
 // @Param apiKey header string false "apiKey required for non OAuth2 stores only"
 // @Param storeName header string true "store name"
@@ -273,6 +275,7 @@ func (h *Six910Handler) GetAddressList(w http.ResponseWriter, r *http.Request) {
 // @Accept  json
 // @Produce  json
 // @Param id path string true "address id"
+// @Param cid path string true "customer id"
 // @Param storeId path string true "store storeId"
 // @Param apiKey header string false "apiKey required for non OAuth2 stores only"
 // @Param storeName header string true "store name"

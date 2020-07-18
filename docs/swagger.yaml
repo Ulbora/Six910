@@ -871,6 +871,11 @@ paths:
         name: id
         required: true
         type: string
+      - description: customer id
+        in: path
+        name: cid
+        required: true
+        type: string
       - description: store storeId
         in: path
         name: storeId
@@ -924,6 +929,11 @@ paths:
         name: id
         required: true
         type: string
+      - description: customer id
+        in: path
+        name: cid
+        required: true
+        type: string
       - description: store storeId
         in: path
         name: storeId
@@ -972,6 +982,11 @@ paths:
       - application/json
       description: Get list of customer addresses for a store
       parameters:
+      - description: customer id
+        in: path
+        name: cid
+        required: true
+        type: string
       - description: store storeId
         in: path
         name: storeId

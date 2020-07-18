@@ -128,6 +128,13 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "customer id",
+                        "name": "cid",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
                         "description": "store storeId",
                         "name": "storeId",
                         "in": "path",
@@ -206,6 +213,13 @@ var doc = `{
                     },
                     {
                         "type": "string",
+                        "description": "customer id",
+                        "name": "cid",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
                         "description": "store storeId",
                         "name": "storeId",
                         "in": "path",
@@ -275,6 +289,13 @@ var doc = `{
                 ],
                 "summary": "Get list of address",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "customer id",
+                        "name": "cid",
+                        "in": "path",
+                        "required": true
+                    },
                     {
                         "type": "string",
                         "description": "store storeId",
