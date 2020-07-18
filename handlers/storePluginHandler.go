@@ -57,8 +57,8 @@ func (h *Six910Handler) AddStorePlugin(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &aspic)
 	h.Log.Debug("store plugin add authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		acOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", acOk)
 		if !acOk {
@@ -115,8 +115,8 @@ func (h *Six910Handler) UpdateStorePlugin(w http.ResponseWriter, r *http.Request
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &uspic)
 	h.Log.Debug("store plugin update authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		ucOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", ucOk)
 		if !ucOk {
@@ -174,8 +174,8 @@ func (h *Six910Handler) GetStorePlugin(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gspic)
 	h.Log.Debug("store plugin get id authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {
@@ -228,8 +228,8 @@ func (h *Six910Handler) GetStorePluginList(w http.ResponseWriter, r *http.Reques
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gspicl)
 	h.Log.Debug("store plugin get list authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 1 {
@@ -281,8 +281,8 @@ func (h *Six910Handler) DeleteStorePlugin(w http.ResponseWriter, r *http.Request
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &dspis)
 	h.Log.Debug("store plugin delete authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {

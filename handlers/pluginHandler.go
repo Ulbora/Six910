@@ -57,8 +57,8 @@ func (h *Six910Handler) AddPlugin(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &apic)
 	h.Log.Debug("plugin add authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		acOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", acOk)
 		if !acOk {
@@ -115,8 +115,8 @@ func (h *Six910Handler) UpdatePlugin(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &upic)
 	h.Log.Debug("plugins update authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		ucOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", ucOk)
 		if !ucOk {
@@ -173,8 +173,8 @@ func (h *Six910Handler) GetPlugin(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gpic)
 	h.Log.Debug("plugin get id authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 1 {
@@ -226,8 +226,8 @@ func (h *Six910Handler) GetPluginList(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gpicl)
 	h.Log.Debug("plugin get list authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {
@@ -280,8 +280,8 @@ func (h *Six910Handler) DeletePlugin(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &dpls)
 	h.Log.Debug("plugin delete authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 1 {

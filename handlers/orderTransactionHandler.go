@@ -63,8 +63,8 @@ func (h *Six910Handler) AddOrderTransaction(w http.ResponseWriter, r *http.Reque
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &aortc)
 	h.Log.Debug("order transaction add authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		acOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", acOk)
 		if !acOk {
@@ -122,8 +122,8 @@ func (h *Six910Handler) GetOrderTransactionList(w http.ResponseWriter, r *http.R
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gortcl)
 	h.Log.Debug("order transaction get list authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {

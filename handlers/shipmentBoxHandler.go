@@ -63,8 +63,8 @@ func (h *Six910Handler) AddShipmentBox(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &ashbc)
 	h.Log.Debug("shipment box add authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		acOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", acOk)
 		if !acOk {
@@ -121,8 +121,8 @@ func (h *Six910Handler) UpdateShipmentBox(w http.ResponseWriter, r *http.Request
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &ushbc)
 	h.Log.Debug("shipment box update authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		ucOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", ucOk)
 		if !ucOk {
@@ -180,8 +180,8 @@ func (h *Six910Handler) GetShipmentBox(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gshbc)
 	h.Log.Debug("shipment box get id authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {
@@ -235,8 +235,8 @@ func (h *Six910Handler) GetShipmentBoxList(w http.ResponseWriter, r *http.Reques
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gshbcl)
 	h.Log.Debug("shipment box get list authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {
@@ -290,8 +290,8 @@ func (h *Six910Handler) DeleteShipmentBox(w http.ResponseWriter, r *http.Request
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &dshbc)
 	h.Log.Debug("shipment box delete authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {

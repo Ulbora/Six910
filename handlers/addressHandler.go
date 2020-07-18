@@ -63,8 +63,8 @@ func (h *Six910Handler) AddAddress(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &aadc)
 	h.Log.Debug("address add authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		acOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", acOk)
 		if !acOk {
@@ -121,8 +121,8 @@ func (h *Six910Handler) UpdateAddress(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &uadc)
 	h.Log.Debug("address update authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		ucOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", ucOk)
 		if !ucOk {
@@ -180,8 +180,8 @@ func (h *Six910Handler) GetAddress(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gadc)
 	h.Log.Debug("address get id authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 3 {
@@ -236,8 +236,8 @@ func (h *Six910Handler) GetAddressList(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gadcl)
 	h.Log.Debug("address get list authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {
@@ -291,8 +291,8 @@ func (h *Six910Handler) DeleteAddress(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &dads)
 	h.Log.Debug("address delete authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 3 {

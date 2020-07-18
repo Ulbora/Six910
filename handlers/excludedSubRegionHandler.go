@@ -63,8 +63,8 @@ func (h *Six910Handler) AddExcludedSubRegion(w http.ResponseWriter, r *http.Requ
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &aesregc)
 	h.Log.Debug("excluded sub region add authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		acOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", acOk)
 		if !acOk {
@@ -107,8 +107,8 @@ func (h *Six910Handler) UpdateExcludedSubRegion(w http.ResponseWriter, r *http.R
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &uesregc)
 	h.Log.Debug("excluded sub region update authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		ucOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", ucOk)
 		if !ucOk {
@@ -151,8 +151,8 @@ func (h *Six910Handler) GetExcludedSubRegion(w http.ResponseWriter, r *http.Requ
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gesregc)
 	h.Log.Debug("excluded sub region get id authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {
@@ -206,8 +206,8 @@ func (h *Six910Handler) GetExcludedSubRegionList(w http.ResponseWriter, r *http.
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gesregcl)
 	h.Log.Debug("excluded sub region get list authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {
@@ -262,8 +262,8 @@ func (h *Six910Handler) DeleteExcludedSubRegion(w http.ResponseWriter, r *http.R
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &desregs)
 	h.Log.Debug("excluded sub region delete authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 3 {

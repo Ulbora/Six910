@@ -174,8 +174,8 @@ func (h *Six910Handler) GetCategory(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gcatc)
 	h.Log.Debug("cat get id authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {
@@ -228,8 +228,8 @@ func (h *Six910Handler) GetCategoryList(w http.ResponseWriter, r *http.Request) 
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gcatcl)
 	h.Log.Debug("cat get list authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 1 {
@@ -280,8 +280,8 @@ func (h *Six910Handler) GetSubCategoryList(w http.ResponseWriter, r *http.Reques
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gscatcl)
 	h.Log.Debug("sub cat get list authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 1 {
@@ -333,8 +333,8 @@ func (h *Six910Handler) DeleteCategory(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &dcts)
 	h.Log.Debug("cat delete authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {

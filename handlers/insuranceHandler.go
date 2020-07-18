@@ -57,8 +57,8 @@ func (h *Six910Handler) AddInsurance(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &ainsc)
 	h.Log.Debug("insurance add authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		acOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", acOk)
 		if !acOk {
@@ -115,8 +115,8 @@ func (h *Six910Handler) UpdateInsurance(w http.ResponseWriter, r *http.Request) 
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &uinsc)
 	h.Log.Debug("insurance update authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		ucOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", ucOk)
 		if !ucOk {
@@ -174,8 +174,8 @@ func (h *Six910Handler) GetInsurance(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &ginsc)
 	h.Log.Debug("insurance get id authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {
@@ -228,8 +228,8 @@ func (h *Six910Handler) GetInsuranceList(w http.ResponseWriter, r *http.Request)
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &ginscl)
 	h.Log.Debug("insurance get list authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 1 {
@@ -281,8 +281,8 @@ func (h *Six910Handler) DeleteInsurance(w http.ResponseWriter, r *http.Request) 
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &dinss)
 	h.Log.Debug("insurance delete authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {

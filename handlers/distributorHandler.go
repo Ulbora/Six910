@@ -57,8 +57,8 @@ func (h *Six910Handler) AddDistributor(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &adc)
 	h.Log.Debug("dist add authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		acOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", acOk)
 		if !acOk {
@@ -115,8 +115,8 @@ func (h *Six910Handler) UpdateDistributor(w http.ResponseWriter, r *http.Request
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &udc)
 	h.Log.Debug("dist update authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		ucOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", ucOk)
 		if !ucOk {
@@ -174,8 +174,8 @@ func (h *Six910Handler) GetDistributor(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gdc2)
 	h.Log.Debug("dist get id authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {
@@ -228,8 +228,8 @@ func (h *Six910Handler) GetDistributorList(w http.ResponseWriter, r *http.Reques
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gdcl)
 	h.Log.Debug("dist get list authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 1 {
@@ -281,8 +281,8 @@ func (h *Six910Handler) DeleteDistributor(w http.ResponseWriter, r *http.Request
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &dds)
 	h.Log.Debug("dist delete authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {

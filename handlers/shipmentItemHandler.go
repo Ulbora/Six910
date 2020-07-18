@@ -63,8 +63,8 @@ func (h *Six910Handler) AddShipmentItem(w http.ResponseWriter, r *http.Request) 
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &ashic)
 	h.Log.Debug("shipment item add authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		acOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", acOk)
 		if !acOk {
@@ -121,8 +121,8 @@ func (h *Six910Handler) UpdateShipmentItem(w http.ResponseWriter, r *http.Reques
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &ushic)
 	h.Log.Debug("shipment item update authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		ucOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", ucOk)
 		if !ucOk {
@@ -180,8 +180,8 @@ func (h *Six910Handler) GetShipmentItem(w http.ResponseWriter, r *http.Request) 
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gshic)
 	h.Log.Debug("shipment item get id authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {
@@ -235,8 +235,8 @@ func (h *Six910Handler) GetShipmentItemList(w http.ResponseWriter, r *http.Reque
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gshicl)
 	h.Log.Debug("shipment item get list authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {
@@ -291,8 +291,8 @@ func (h *Six910Handler) GetShipmentItemListByBox(w http.ResponseWriter, r *http.
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gshibcl)
 	h.Log.Debug("shipment item get list by box authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 3 {
@@ -348,8 +348,8 @@ func (h *Six910Handler) DeleteShipmentItem(w http.ResponseWriter, r *http.Reques
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &dshic)
 	h.Log.Debug("shipment item delete authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {

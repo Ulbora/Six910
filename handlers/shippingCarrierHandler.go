@@ -57,8 +57,8 @@ func (h *Six910Handler) AddShippingCarrier(w http.ResponseWriter, r *http.Reques
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &ascrc)
 	h.Log.Debug("shipping carrier add authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		acOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", acOk)
 		if !acOk {
@@ -115,8 +115,8 @@ func (h *Six910Handler) UpdateShippingCarrier(w http.ResponseWriter, r *http.Req
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &uscrc)
 	h.Log.Debug("shipping carrier update authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		ucOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", ucOk)
 		if !ucOk {
@@ -174,8 +174,8 @@ func (h *Six910Handler) GetShippingCarrier(w http.ResponseWriter, r *http.Reques
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gscrc)
 	h.Log.Debug("shipping carrier get id authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {
@@ -228,8 +228,8 @@ func (h *Six910Handler) GetShippingCarrierList(w http.ResponseWriter, r *http.Re
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gscrcl)
 	h.Log.Debug("shipping carrier get list authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 1 {
@@ -281,8 +281,8 @@ func (h *Six910Handler) DeleteShippingCarrier(w http.ResponseWriter, r *http.Req
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &dscrs)
 	h.Log.Debug("shipping carrier delete authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {

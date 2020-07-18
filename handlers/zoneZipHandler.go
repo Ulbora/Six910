@@ -63,8 +63,8 @@ func (h *Six910Handler) AddZoneZip(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &azzc)
 	h.Log.Debug("zone zip add authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		acOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", acOk)
 		if !acOk {
@@ -122,8 +122,8 @@ func (h *Six910Handler) GetZoneZipListByExclusion(w http.ResponseWriter, r *http
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gzzc)
 	h.Log.Debug("excluded zip zone get id authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {
@@ -177,8 +177,8 @@ func (h *Six910Handler) GetZoneZipListByInclusion(w http.ResponseWriter, r *http
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gizzc)
 	h.Log.Debug("included zip zone get id authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {
@@ -234,8 +234,8 @@ func (h *Six910Handler) DeleteZoneZip(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &dzzc)
 	h.Log.Debug("zonezip delete authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 4 {

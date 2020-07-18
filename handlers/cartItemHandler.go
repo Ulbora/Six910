@@ -64,8 +64,8 @@ func (h *Six910Handler) AddCartItem(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &acic)
 	h.Log.Debug("cart item add authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		acOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", acOk)
 		if !acOk {
@@ -122,8 +122,8 @@ func (h *Six910Handler) UpdateCartItem(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &ucic)
 	h.Log.Debug("cart item update authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		ucOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", ucOk)
 		if !ucOk {
@@ -182,8 +182,8 @@ func (h *Six910Handler) GetCartItem(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gci2)
 	h.Log.Debug("dist get id authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 3 {
@@ -240,8 +240,8 @@ func (h *Six910Handler) GetCartItemList(w http.ResponseWriter, r *http.Request) 
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gcil2)
 	h.Log.Debug("dist get list authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 3 {
@@ -298,8 +298,8 @@ func (h *Six910Handler) DeleteCartItem(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gci2d)
 	h.Log.Debug("cartItem delete id authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 3 {

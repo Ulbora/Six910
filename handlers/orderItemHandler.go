@@ -63,8 +63,8 @@ func (h *Six910Handler) AddOrderItem(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &aoric)
 	h.Log.Debug("order item add authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		acOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", acOk)
 		if !acOk {
@@ -121,8 +121,8 @@ func (h *Six910Handler) UpdateOrderItem(w http.ResponseWriter, r *http.Request) 
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &uoric)
 	h.Log.Debug("order item update authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		ucOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", ucOk)
 		if !ucOk {
@@ -180,8 +180,8 @@ func (h *Six910Handler) GetOrderItem(w http.ResponseWriter, r *http.Request) {
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &goric)
 	h.Log.Debug("order item get id authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {
@@ -235,8 +235,8 @@ func (h *Six910Handler) GetOrderItemList(w http.ResponseWriter, r *http.Request)
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &goricl)
 	h.Log.Debug("order item get list authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {
@@ -290,8 +290,8 @@ func (h *Six910Handler) DeleteOrderItem(w http.ResponseWriter, r *http.Request) 
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &doric)
 	h.Log.Debug("order item delete authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {

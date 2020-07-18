@@ -57,8 +57,8 @@ func (h *Six910Handler) AddShippingMethod(w http.ResponseWriter, r *http.Request
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &asmc)
 	h.Log.Debug("shipping method add authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		acOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", acOk)
 		if !acOk {
@@ -115,8 +115,8 @@ func (h *Six910Handler) UpdateShippingMethod(w http.ResponseWriter, r *http.Requ
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &usmc)
 	h.Log.Debug("shipping method update authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		ucOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", ucOk)
 		if !ucOk {
@@ -174,8 +174,8 @@ func (h *Six910Handler) GetShippingMethod(w http.ResponseWriter, r *http.Request
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gsmc)
 	h.Log.Debug("shipping method get id authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {
@@ -228,8 +228,8 @@ func (h *Six910Handler) GetShippingMethodList(w http.ResponseWriter, r *http.Req
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gsmcl)
 	h.Log.Debug("shipping method get list authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 1 {
@@ -281,8 +281,8 @@ func (h *Six910Handler) DeleteShippingMethod(w http.ResponseWriter, r *http.Requ
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &dsms)
 	h.Log.Debug("shipping method delete authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {

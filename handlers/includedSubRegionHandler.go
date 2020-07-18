@@ -63,8 +63,8 @@ func (h *Six910Handler) AddIncludedSubRegion(w http.ResponseWriter, r *http.Requ
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &aisregc)
 	h.Log.Debug("included sub region add authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		acOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", acOk)
 		if !acOk {
@@ -107,8 +107,8 @@ func (h *Six910Handler) UpdateIncludedSubRegion(w http.ResponseWriter, r *http.R
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &uisregc)
 	h.Log.Debug("included sub region update authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		ucOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", ucOk)
 		if !ucOk {
@@ -151,8 +151,8 @@ func (h *Six910Handler) GetIncludedSubRegion(w http.ResponseWriter, r *http.Requ
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gisregc)
 	h.Log.Debug("included sub region get id authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {
@@ -206,8 +206,8 @@ func (h *Six910Handler) GetIncludedSubRegionList(w http.ResponseWriter, r *http.
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gisregcl)
 	h.Log.Debug("included sub region get list authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {
@@ -262,8 +262,8 @@ func (h *Six910Handler) DeleteIncludedSubRegion(w http.ResponseWriter, r *http.R
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &disregs)
 	h.Log.Debug("included sub region delete authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 3 {

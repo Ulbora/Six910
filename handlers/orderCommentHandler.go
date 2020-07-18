@@ -63,8 +63,8 @@ func (h *Six910Handler) AddOrderComments(w http.ResponseWriter, r *http.Request)
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &aorcc)
 	h.Log.Debug("order comment add authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		acOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", acOk)
 		if !acOk {
@@ -122,8 +122,8 @@ func (h *Six910Handler) GetOrderCommentList(w http.ResponseWriter, r *http.Reque
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gorccl)
 	h.Log.Debug("order comment get list authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {

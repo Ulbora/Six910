@@ -63,8 +63,8 @@ func (h *Six910Handler) AddPaymentGateway(w http.ResponseWriter, r *http.Request
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &apgwc)
 	h.Log.Debug("payment gateway add authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		acOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", acOk)
 		if !acOk {
@@ -121,8 +121,8 @@ func (h *Six910Handler) UpdatePaymentGateway(w http.ResponseWriter, r *http.Requ
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &upgwc)
 	h.Log.Debug("payment gateway update authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		ucOk := h.CheckContent(r)
 		h.Log.Debug("conOk: ", ucOk)
 		if !ucOk {
@@ -180,8 +180,8 @@ func (h *Six910Handler) GetPaymentGateway(w http.ResponseWriter, r *http.Request
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gpgwc)
 	h.Log.Debug("payment gateway get id authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {
@@ -234,8 +234,8 @@ func (h *Six910Handler) GetPaymentGateways(w http.ResponseWriter, r *http.Reques
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &gpgwcl)
 	h.Log.Debug("payment gateway get list authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 1 {
@@ -287,8 +287,8 @@ func (h *Six910Handler) DeletePaymentGateway(w http.ResponseWriter, r *http.Requ
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processSecurity(r, &dpgws)
 	h.Log.Debug("payment gateway delete authorized: ", auth)
+	h.SetContentType(w)
 	if auth {
-		h.SetContentType(w)
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 2 {
