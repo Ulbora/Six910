@@ -31,26 +31,28 @@ import (
 func (m *Six910Manager) AddCart(c *sdbi.Cart) *ResponseID {
 	var rtn ResponseID
 	m.Log.Debug("adding cart :", *c)
-	cus := m.Db.GetCustomerID(c.CustomerID)
-	if cus.StoreID == c.StoreID {
-		crt := m.Db.GetCart(cus.ID)
-		m.Log.Debug("existing cart :", crt)
-		if crt != nil && crt.ID != 0 {
-			rtn.ID = crt.ID
-			rtn.Success = true
+	var cus *sdbi.Customer
+	var crt *sdbi.Cart
+	if c.CustomerID != 0 {
+		cus = m.Db.GetCustomerID(c.CustomerID)
+		if cus.StoreID == c.StoreID {
+			crt = m.Db.GetCart(cus.ID)
+		}
+	}
+	m.Log.Debug("existing cart :", crt)
+	if crt != nil && crt.ID != 0 {
+		rtn.ID = crt.ID
+		rtn.Success = true
+		rtn.Code = http.StatusOK
+	} else {
+		suc, id := m.Db.AddCart(c)
+		if suc && id != 0 {
+			rtn.ID = id
+			rtn.Success = suc
 			rtn.Code = http.StatusOK
 		} else {
-			suc, id := m.Db.AddCart(c)
-			if suc && id != 0 {
-				rtn.ID = id
-				rtn.Success = suc
-				rtn.Code = http.StatusOK
-			} else {
-				rtn.Code = http.StatusBadRequest
-			}
+			rtn.Code = http.StatusBadRequest
 		}
-	} else {
-		rtn.Code = http.StatusBadRequest
 	}
 	return &rtn
 }
@@ -58,10 +60,17 @@ func (m *Six910Manager) AddCart(c *sdbi.Cart) *ResponseID {
 //UpdateCart UpdateCart
 func (m *Six910Manager) UpdateCart(c *sdbi.Cart) *Response {
 	var rtn Response
+	var ok bool
 	cart := m.Db.GetCart(c.CustomerID)
 	m.Log.Debug("existing cart :", cart)
 	if cart != nil && cart.StoreID == c.StoreID {
+		ok = true
 		m.Log.Debug("updating cart :", *cart)
+	} else if cart == nil && c.ID != 0 {
+		ok = true
+	}
+	if ok {
+		m.Log.Debug("updating new customer cart cart :", *c)
 		suc := m.Db.UpdateCart(c)
 		if suc {
 			rtn.Success = suc

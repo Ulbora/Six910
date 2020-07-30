@@ -30,10 +30,21 @@ import (
 //AddCartItem AddCartItem
 func (m *Six910Manager) AddCartItem(ci *sdbi.CartItem, cid int64, sid int64) *ResponseID {
 	var rtn ResponseID
-	crt := m.Db.GetCart(cid)
-	m.Log.Debug("cart in add: ", crt)
-	if crt != nil && crt.StoreID == sid && crt.CustomerID == cid {
-		crtLst := m.Db.GetCartItemList(crt.ID)
+	var ok bool
+	var ctid int64
+	if cid != 0 {
+		crt := m.Db.GetCart(cid)
+		m.Log.Debug("found cart in add: ", crt)
+		if crt != nil && crt.StoreID == sid && crt.ID == ci.CartID {
+			ctid = crt.ID
+			ok = true
+		}
+	} else {
+		ctid = ci.CartID
+		ok = true
+	}
+	if ok {
+		crtLst := m.Db.GetCartItemList(ctid)
 		var foundItem bool
 		for _, fc := range *crtLst {
 			if fc.ProductID == ci.ProductID {
@@ -55,10 +66,9 @@ func (m *Six910Manager) AddCartItem(ci *sdbi.CartItem, cid int64, sid int64) *Re
 				rtn.Code = http.StatusOK
 			}
 		}
-		if !rtn.Success {
-			rtn.Code = http.StatusBadRequest
-		}
-	} else {
+	}
+
+	if !rtn.Success {
 		rtn.Code = http.StatusBadRequest
 	}
 	return &rtn
@@ -67,8 +77,16 @@ func (m *Six910Manager) AddCartItem(ci *sdbi.CartItem, cid int64, sid int64) *Re
 //UpdateCartItem UpdateCartItem
 func (m *Six910Manager) UpdateCartItem(ci *sdbi.CartItem, cid int64, sid int64) *Response {
 	var rtn Response
-	crt := m.Db.GetCart(cid)
-	if crt != nil && crt.StoreID == sid && crt.CustomerID == cid {
+	var ok bool
+	if cid != 0 {
+		crt := m.Db.GetCart(cid)
+		if crt != nil && crt.StoreID == sid && crt.CustomerID == cid {
+			ok = true
+		}
+	} else {
+		ok = true
+	}
+	if ok {
 		suc := m.Db.UpdateCartItem(ci)
 		if suc {
 			rtn.Success = suc
@@ -76,8 +94,6 @@ func (m *Six910Manager) UpdateCartItem(ci *sdbi.CartItem, cid int64, sid int64) 
 		} else {
 			rtn.Code = http.StatusBadRequest
 		}
-	} else {
-		rtn.Code = http.StatusBadRequest
 	}
 	return &rtn
 }
@@ -98,13 +114,17 @@ func (m *Six910Manager) GetCarItem(cid int64, prodID int64, sid int64) *sdbi.Car
 //GetCartItemList GetCartItemList
 func (m *Six910Manager) GetCartItemList(cartID int64, cid int64, sid int64) *[]sdbi.CartItem {
 	var rtn *[]sdbi.CartItem
-	crt := m.Db.GetCart(cid)
-	m.Log.Debug("cart in get list: ", crt)
-	if crt != nil && crt.CustomerID == cid && crt.StoreID == sid && cartID == crt.ID {
-		rtn = m.Db.GetCartItemList(cartID)
+	if cid != 0 {
+		crt := m.Db.GetCart(cid)
+		m.Log.Debug("cart in get list: ", crt)
+		if crt != nil && crt.CustomerID == cid && crt.StoreID == sid && cartID == crt.ID {
+			rtn = m.Db.GetCartItemList(cartID)
+		} else {
+			var nc = []sdbi.CartItem{}
+			rtn = &nc
+		}
 	} else {
-		var nc = []sdbi.CartItem{}
-		rtn = &nc
+		rtn = m.Db.GetCartItemList(cartID)
 	}
 	return rtn
 }
