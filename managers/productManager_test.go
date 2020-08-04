@@ -384,3 +384,55 @@ func TestSix910Manager_DeleteProductFail(t *testing.T) {
 		t.Fail()
 	}
 }
+
+func TestSix910Manager_GetProductByBySku(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	m := sm.GetNew()
+
+	var p sdbi.Product
+	p.Color = "blue"
+	p.StoreID = 4
+
+	sdb.MockProduct = &p
+
+	fp := m.GetProductByBySku("345", 4, 4)
+	if fp.Color != p.Color {
+		t.Fail()
+	}
+}
+
+func TestSix910Manager_GetProductByBySkuFail(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	m := sm.GetNew()
+
+	var p sdbi.Product
+	p.Color = "blue"
+	p.StoreID = 44
+
+	sdb.MockProduct = &p
+
+	fp := m.GetProductByBySku("345", 4, 4)
+	if fp.Color == p.Color {
+		t.Fail()
+	}
+}

@@ -72,6 +72,19 @@ func (m *Six910Manager) GetProductByID(id int64, sid int64) *sdbi.Product {
 	return rtn
 }
 
+//GetProductByBySku GetProductByBySku
+func (m *Six910Manager) GetProductByBySku(sku string, distributorID int64, sid int64) *sdbi.Product {
+	var rtn *sdbi.Product
+	p := m.Db.GetProductBySku(sku, distributorID, sid)
+	if p.StoreID == sid {
+		rtn = p
+	} else {
+		var np sdbi.Product
+		rtn = &np
+	}
+	return rtn
+}
+
 //GetProductsByName GetProductsByName
 func (m *Six910Manager) GetProductsByName(name string, sid int64, start int64,
 	end int64) *[]sdbi.Product {

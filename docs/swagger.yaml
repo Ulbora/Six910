@@ -533,6 +533,8 @@ definitions:
         type: string
       manufacturer:
         type: string
+      manufacturerId:
+        type: string
       map:
         type: number
       msrp:
@@ -5091,6 +5093,64 @@ paths:
               $ref: '#/definitions/six910-database-interface.Product'
             type: array
       summary: Get list of products by product name
+      tags:
+      - Product
+  /rs/product/get/sku/{sku}/{did}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get details of a product
+      parameters:
+      - description: product sku
+        in: path
+        name: sku
+        required: true
+        type: string
+      - description: product distributor id
+        in: path
+        name: did
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/six910-database-interface.Product'
+      summary: Get details of a product by sku
       tags:
       - Product
   /rs/product/update:

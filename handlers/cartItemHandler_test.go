@@ -69,7 +69,7 @@ func TestSix910Handler_AddCartItem(t *testing.T) {
 	sdb.MockCartItemID = 5
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"cartItem": {"cartId": 4}, "customerId":3, "storeId": 5}`))
+	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"cartItem": {"cartId": 9}, "customerId":3, "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
