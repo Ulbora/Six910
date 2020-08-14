@@ -276,12 +276,12 @@ func (h *Six910Handler) GetOrderList(w http.ResponseWriter, r *http.Request) {
 // @Router /rs/order/get/store/list/{storeId} [get]
 func (h *Six910Handler) GetStoreOrderList(w http.ResponseWriter, r *http.Request) {
 	var gorlURL = "/six910/rs/store/order/list"
-	var gorcl jv.Claim
-	gorcl.Role = customerRole
-	gorcl.URL = gorlURL
-	gorcl.Scope = "read"
+	var gsorcl jv.Claim
+	gsorcl.Role = customerRole
+	gsorcl.URL = gorlURL
+	gsorcl.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &gorcl)
+	auth := h.processSecurity(r, &gsorcl)
 	h.Log.Debug("order get list authorized: ", auth)
 	h.SetContentType(w)
 	if auth {
@@ -289,19 +289,19 @@ func (h *Six910Handler) GetStoreOrderList(w http.ResponseWriter, r *http.Request
 		h.Log.Debug("vars: ", len(vars))
 		if vars != nil && len(vars) == 1 {
 			h.Log.Debug("vars: ", vars)
-			var orlstoreIDStr = vars["storeId"]
-			storeID, sorlserr := strconv.ParseInt(orlstoreIDStr, 10, 64)
-			var gorlres *[]sdbi.Order
+			var sorlstoreIDStr = vars["storeId"]
+			storeID, sorlserr := strconv.ParseInt(sorlstoreIDStr, 10, 64)
+			var sgorlres *[]sdbi.Order
 			if sorlserr == nil {
-				gorlres = h.Manager.GetStoreOrderList(storeID)
-				h.Log.Debug("get store order list: ", gorlres)
+				sgorlres = h.Manager.GetStoreOrderList(storeID)
+				h.Log.Debug("get store order list: ", sgorlres)
 				w.WriteHeader(http.StatusOK)
 			} else {
 				w.WriteHeader(http.StatusBadRequest)
 				var nc = []sdbi.Order{}
-				gorlres = &nc
+				sgorlres = &nc
 			}
-			resJSON, _ := json.Marshal(gorlres)
+			resJSON, _ := json.Marshal(sgorlres)
 			fmt.Fprint(w, string(resJSON))
 		} else {
 			w.WriteHeader(http.StatusBadRequest)
@@ -329,12 +329,12 @@ func (h *Six910Handler) GetStoreOrderList(w http.ResponseWriter, r *http.Request
 // @Router /rs/order/get/store/list/status/{status}/{storeId} [get]
 func (h *Six910Handler) GetStoreOrderListByStatus(w http.ResponseWriter, r *http.Request) {
 	var gorlURL = "/six910/rs/store/order/list/status"
-	var gorcl jv.Claim
-	gorcl.Role = customerRole
-	gorcl.URL = gorlURL
-	gorcl.Scope = "read"
+	var gsosrcl jv.Claim
+	gsosrcl.Role = customerRole
+	gsosrcl.URL = gorlURL
+	gsosrcl.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &gorcl)
+	auth := h.processSecurity(r, &gsosrcl)
 	h.Log.Debug("order get list authorized: ", auth)
 	h.SetContentType(w)
 	if auth {
@@ -343,20 +343,20 @@ func (h *Six910Handler) GetStoreOrderListByStatus(w http.ResponseWriter, r *http
 		if vars != nil && len(vars) == 2 {
 			h.Log.Debug("vars: ", vars)
 			var statusStr = vars["status"]
-			var orlstoreIDStr = vars["storeId"]
+			var sosrlstoreIDStr = vars["storeId"]
 			//cID, sorlciderr := strconv.ParseInt(orlcidStr, 10, 64)
-			storeID, sorlserr := strconv.ParseInt(orlstoreIDStr, 10, 64)
-			var gorlres *[]sdbi.Order
+			storeID, sorlserr := strconv.ParseInt(sosrlstoreIDStr, 10, 64)
+			var sgsorlres *[]sdbi.Order
 			if sorlserr == nil {
-				gorlres = h.Manager.GetStoreOrderListByStatus(statusStr, storeID)
-				h.Log.Debug("get store order list by status: ", gorlres)
+				sgsorlres = h.Manager.GetStoreOrderListByStatus(statusStr, storeID)
+				h.Log.Debug("get store order list by status: ", sgsorlres)
 				w.WriteHeader(http.StatusOK)
 			} else {
 				w.WriteHeader(http.StatusBadRequest)
 				var nc = []sdbi.Order{}
-				gorlres = &nc
+				sgsorlres = &nc
 			}
-			resJSON, _ := json.Marshal(gorlres)
+			resJSON, _ := json.Marshal(sgsorlres)
 			fmt.Fprint(w, string(resJSON))
 		} else {
 			w.WriteHeader(http.StatusBadRequest)
