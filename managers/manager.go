@@ -267,6 +267,8 @@ type Manager interface {
 	UpdateOrder(o *sdbi.Order) *Response
 	GetOrder(id int64, sid int64) *sdbi.Order
 	GetOrderList(cid int64, sid int64) *[]sdbi.Order
+	GetStoreOrderList(sid int64) *[]sdbi.Order
+	GetStoreOrderListByStatus(status string, sid int64) *[]sdbi.Order
 	DeleteOrder(id int64, sid int64) *Response
 
 	// //Order Items

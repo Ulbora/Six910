@@ -278,6 +278,8 @@ func main() {
 	router.HandleFunc("/rs/order/update", h.UpdateOrder).Methods("PUT")
 	router.HandleFunc("/rs/order/get/id/{id}/{storeId}", h.GetOrder).Methods("GET")
 	router.HandleFunc("/rs/order/get/list/{cid}/{storeId}", h.GetOrderList).Methods("GET")
+	router.HandleFunc("/rs/order/get/store/list/{storeId}", h.GetStoreOrderList).Methods("GET")
+	router.HandleFunc("/rs/order/get/store/list/status/{status}/{storeId}", h.GetStoreOrderListByStatus).Methods("GET")
 	router.HandleFunc("/rs/order/delete/{id}/{storeId}", h.DeleteOrder).Methods("DELETE")
 
 	//Order Items

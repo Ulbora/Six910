@@ -175,6 +175,8 @@ type Handler interface {
 	UpdateOrder(w http.ResponseWriter, r *http.Request)
 	GetOrder(w http.ResponseWriter, r *http.Request)
 	GetOrderList(w http.ResponseWriter, r *http.Request)
+	GetStoreOrderList(w http.ResponseWriter, r *http.Request)
+	GetStoreOrderListByStatus(w http.ResponseWriter, r *http.Request)
 	DeleteOrder(w http.ResponseWriter, r *http.Request)
 
 	//Order Items

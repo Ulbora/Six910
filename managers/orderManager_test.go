@@ -229,6 +229,64 @@ func TestSix910Manager_GetOrderList(t *testing.T) {
 	}
 }
 
+func TestSix910Manager_GetStoreOrderList(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	m := sm.GetNew()
+
+	var o sdbi.Order
+	o.BillingAddress = "123"
+	o.StoreID = 5
+
+	var ol []sdbi.Order
+	ol = append(ol, o)
+
+	sdb.MockOrderList = &ol
+
+	fol := m.GetStoreOrderList(5)
+	if len(*fol) != 1 {
+		t.Fail()
+	}
+}
+
+func TestSix910Manager_GetStoreOrderListByStatus(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	m := sm.GetNew()
+
+	var o sdbi.Order
+	o.BillingAddress = "123"
+	o.StoreID = 5
+
+	var ol []sdbi.Order
+	ol = append(ol, o)
+
+	sdb.MockOrderList = &ol
+
+	fol := m.GetStoreOrderListByStatus("test", 5)
+	if len(*fol) != 1 {
+		t.Fail()
+	}
+}
+
 func TestSix910Manager_DeleteOrder(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger

@@ -259,6 +259,113 @@ func (h *Six910Handler) GetOrderList(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// GetStoreOrderList godoc
+// @Summary Get list of store orders
+// @Description Get list of order for a store
+// @Tags Order
+// @Accept  json
+// @Produce  json
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {array} six910-database-interface.Order
+// @Router /rs/order/get/store/list/{storeId} [get]
+func (h *Six910Handler) GetStoreOrderList(w http.ResponseWriter, r *http.Request) {
+	var gorlURL = "/six910/rs/store/order/list"
+	var gorcl jv.Claim
+	gorcl.Role = customerRole
+	gorcl.URL = gorlURL
+	gorcl.Scope = "read"
+	h.Log.Debug("client: ", h.ValidatorClient)
+	auth := h.processSecurity(r, &gorcl)
+	h.Log.Debug("order get list authorized: ", auth)
+	h.SetContentType(w)
+	if auth {
+		vars := mux.Vars(r)
+		h.Log.Debug("vars: ", len(vars))
+		if vars != nil && len(vars) == 1 {
+			h.Log.Debug("vars: ", vars)
+			var orlstoreIDStr = vars["storeId"]
+			storeID, sorlserr := strconv.ParseInt(orlstoreIDStr, 10, 64)
+			var gorlres *[]sdbi.Order
+			if sorlserr == nil {
+				gorlres = h.Manager.GetStoreOrderList(storeID)
+				h.Log.Debug("get store order list: ", gorlres)
+				w.WriteHeader(http.StatusOK)
+			} else {
+				w.WriteHeader(http.StatusBadRequest)
+				var nc = []sdbi.Order{}
+				gorlres = &nc
+			}
+			resJSON, _ := json.Marshal(gorlres)
+			fmt.Fprint(w, string(resJSON))
+		} else {
+			w.WriteHeader(http.StatusBadRequest)
+		}
+	} else {
+		w.WriteHeader(http.StatusUnauthorized)
+	}
+}
+
+// GetStoreOrderListByStatus godoc
+// @Summary Get list of store orders by status
+// @Description Get list of order for a store
+// @Tags Order
+// @Accept  json
+// @Produce  json
+// @Param status path string true "order status"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {array} six910-database-interface.Order
+// @Router /rs/order/get/store/list/status/{status}/{storeId} [get]
+func (h *Six910Handler) GetStoreOrderListByStatus(w http.ResponseWriter, r *http.Request) {
+	var gorlURL = "/six910/rs/store/order/list/status"
+	var gorcl jv.Claim
+	gorcl.Role = customerRole
+	gorcl.URL = gorlURL
+	gorcl.Scope = "read"
+	h.Log.Debug("client: ", h.ValidatorClient)
+	auth := h.processSecurity(r, &gorcl)
+	h.Log.Debug("order get list authorized: ", auth)
+	h.SetContentType(w)
+	if auth {
+		vars := mux.Vars(r)
+		h.Log.Debug("vars: ", len(vars))
+		if vars != nil && len(vars) == 2 {
+			h.Log.Debug("vars: ", vars)
+			var statusStr = vars["status"]
+			var orlstoreIDStr = vars["storeId"]
+			//cID, sorlciderr := strconv.ParseInt(orlcidStr, 10, 64)
+			storeID, sorlserr := strconv.ParseInt(orlstoreIDStr, 10, 64)
+			var gorlres *[]sdbi.Order
+			if sorlserr == nil {
+				gorlres = h.Manager.GetStoreOrderListByStatus(statusStr, storeID)
+				h.Log.Debug("get store order list by status: ", gorlres)
+				w.WriteHeader(http.StatusOK)
+			} else {
+				w.WriteHeader(http.StatusBadRequest)
+				var nc = []sdbi.Order{}
+				gorlres = &nc
+			}
+			resJSON, _ := json.Marshal(gorlres)
+			fmt.Fprint(w, string(resJSON))
+		} else {
+			w.WriteHeader(http.StatusBadRequest)
+		}
+	} else {
+		w.WriteHeader(http.StatusUnauthorized)
+	}
+}
+
 // DeleteOrder godoc
 // @Summary Delete a order
 // @Description Delete a order from the store

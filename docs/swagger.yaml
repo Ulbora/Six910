@@ -553,7 +553,7 @@ definitions:
         type: number
       searchable:
         type: boolean
-      shipSeperately:
+      shipSeparately:
         type: boolean
       shippingMarkup:
         type: number
@@ -3729,6 +3729,111 @@ paths:
               $ref: '#/definitions/six910-database-interface.Order'
             type: array
       summary: Get list of order
+      tags:
+      - Order
+  /rs/order/get/store/list/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of order for a store
+      parameters:
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/six910-database-interface.Order'
+            type: array
+      summary: Get list of store orders
+      tags:
+      - Order
+  /rs/order/get/store/list/status/{status}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of order for a store
+      parameters:
+      - description: order status
+        in: path
+        name: status
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/six910-database-interface.Order'
+            type: array
+      summary: Get list of store orders by status
       tags:
       - Order
   /rs/order/update:
