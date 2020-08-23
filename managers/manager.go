@@ -219,6 +219,7 @@ type Manager interface {
 	UpdateProduct(p *sdbi.Product) *Response
 	GetProductByID(id int64, sid int64) *sdbi.Product
 	GetProductByBySku(sku string, distributorID int64, sid int64) *sdbi.Product
+	GetProductsByPromoted(sid int64, start int64, end int64) *[]sdbi.Product
 	GetProductsByName(name string, sid int64, start int64, end int64) *[]sdbi.Product
 	GetProductsByCaterory(catID int64, sid int64, start int64, end int64) *[]sdbi.Product
 	GetProductList(storeID int64, start int64, end int64) *[]sdbi.Product

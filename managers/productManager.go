@@ -85,6 +85,12 @@ func (m *Six910Manager) GetProductByBySku(sku string, distributorID int64, sid i
 	return rtn
 }
 
+//GetProductsByPromoted GetProductsByPromoted
+func (m *Six910Manager) GetProductsByPromoted(sid int64, start int64,
+	end int64) *[]sdbi.Product {
+	return m.Db.GetProductsByPromoted(sid, start, end)
+}
+
 //GetProductsByName GetProductsByName
 func (m *Six910Manager) GetProductsByName(name string, sid int64, start int64,
 	end int64) *[]sdbi.Product {

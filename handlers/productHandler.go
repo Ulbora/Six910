@@ -157,7 +157,7 @@ func (h *Six910Handler) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 // @Produce  json
 // @Param id path string true "product id"
 // @Param storeId path string true "store storeId"
-// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param apiKey header string true "apiKey required"
 // @Param storeName header string true "store name"
 // @Param localDomain header string true "store localDomain"
 // @Param Authorization header string true "token"
@@ -172,7 +172,7 @@ func (h *Six910Handler) GetProductByID(w http.ResponseWriter, r *http.Request) {
 	gprodc.URL = gprodURL
 	gprodc.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &gprodc)
+	auth := h.processAPIKeySecurity(r)
 	h.Log.Debug("product get id authorized: ", auth)
 	h.SetContentType(w)
 	if auth {
@@ -213,7 +213,7 @@ func (h *Six910Handler) GetProductByID(w http.ResponseWriter, r *http.Request) {
 // @Param sku path string true "product sku"
 // @Param did path string true "product distributor id"
 // @Param storeId path string true "store storeId"
-// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param apiKey header string true "apiKey required"
 // @Param storeName header string true "store name"
 // @Param localDomain header string true "store localDomain"
 // @Param Authorization header string true "token"
@@ -228,7 +228,7 @@ func (h *Six910Handler) GetProductBySku(w http.ResponseWriter, r *http.Request) 
 	gprodc.URL = gprodURL
 	gprodc.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &gprodc)
+	auth := h.processAPIKeySecurity(r)
 	h.Log.Debug("product get sku authorized: ", auth)
 	h.SetContentType(w)
 	if auth {
@@ -261,6 +261,64 @@ func (h *Six910Handler) GetProductBySku(w http.ResponseWriter, r *http.Request) 
 	}
 }
 
+// GetProductsByPromoted godoc
+// @Summary Get list of products by product name
+// @Description Get list of products for a store
+// @Tags Product
+// @Accept  json
+// @Produce  json
+// @Param storeId path string true "store storeId"
+// @Param start path string true "start index 0 based"
+// @Param end path string true "end index"
+// @Param apiKey header string true "apiKey required"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {array} six910-database-interface.Product
+// @Router /rs/product/get/promoted/{storeId}/{start}/{end} [get]
+func (h *Six910Handler) GetProductsByPromoted(w http.ResponseWriter, r *http.Request) {
+	var gpprodnlURL = "/six910/rs/product/name/list/promoted"
+	var gpprodncl jv.Claim
+	gpprodncl.Role = customerRole
+	gpprodncl.URL = gpprodnlURL
+	gpprodncl.Scope = "read"
+	h.Log.Debug("client: ", h.ValidatorClient)
+	auth := h.processAPIKeySecurity(r)
+	h.Log.Debug("producr promoted get list authorized: ", auth)
+	h.SetContentType(w)
+	if auth {
+		vars := mux.Vars(r)
+		h.Log.Debug("vars: ", len(vars))
+		if vars != nil && len(vars) == 3 {
+			h.Log.Debug("vars: ", vars)
+			var pprodnlstoreIDStr = vars["storeId"]
+			var pprodnstartStr = vars["start"]
+			var pprodnendStr = vars["end"]
+			storeID, spprodnlerr := strconv.ParseInt(pprodnlstoreIDStr, 10, 64)
+			prodnStart, pprodnstarterr := strconv.ParseInt(pprodnstartStr, 10, 64)
+			prodnEnd, pprodnenderr := strconv.ParseInt(pprodnendStr, 10, 64)
+			var gpprodnlres *[]sdbi.Product
+			if spprodnlerr == nil && pprodnstarterr == nil && pprodnenderr == nil {
+				gpprodnlres = h.Manager.GetProductsByPromoted(storeID, prodnStart, prodnEnd)
+				h.Log.Debug("get product prpomoted list: ", gpprodnlres)
+				w.WriteHeader(http.StatusOK)
+			} else {
+				w.WriteHeader(http.StatusBadRequest)
+				var nc = []sdbi.Product{}
+				gpprodnlres = &nc
+			}
+			resJSON, _ := json.Marshal(gpprodnlres)
+			fmt.Fprint(w, string(resJSON))
+		} else {
+			w.WriteHeader(http.StatusBadRequest)
+		}
+	} else {
+		w.WriteHeader(http.StatusUnauthorized)
+	}
+}
+
 // GetProductsByName godoc
 // @Summary Get list of products by product name
 // @Description Get list of products for a store
@@ -271,7 +329,7 @@ func (h *Six910Handler) GetProductBySku(w http.ResponseWriter, r *http.Request) 
 // @Param storeId path string true "store storeId"
 // @Param start path string true "start index 0 based"
 // @Param end path string true "end index"
-// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param apiKey header string true "apiKey required"
 // @Param storeName header string true "store name"
 // @Param localDomain header string true "store localDomain"
 // @Param Authorization header string true "token"
@@ -286,7 +344,7 @@ func (h *Six910Handler) GetProductsByName(w http.ResponseWriter, r *http.Request
 	gprodncl.URL = gprodnlURL
 	gprodncl.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &gprodncl)
+	auth := h.processAPIKeySecurity(r)
 	h.Log.Debug("producr name get list authorized: ", auth)
 	h.SetContentType(w)
 	if auth {
@@ -331,7 +389,7 @@ func (h *Six910Handler) GetProductsByName(w http.ResponseWriter, r *http.Request
 // @Param storeId path string true "store storeId"
 // @Param start path string true "start index 0 based"
 // @Param end path string true "end index"
-// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param apiKey header string true "apiKey required"
 // @Param storeName header string true "store name"
 // @Param localDomain header string true "store localDomain"
 // @Param Authorization header string true "token"
@@ -346,7 +404,7 @@ func (h *Six910Handler) GetProductsByCaterory(w http.ResponseWriter, r *http.Req
 	gprodccl.URL = gprodclURL
 	gprodccl.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &gprodccl)
+	auth := h.processAPIKeySecurity(r)
 	h.Log.Debug("producr cat get list authorized: ", auth)
 	h.SetContentType(w)
 	if auth {
@@ -391,7 +449,7 @@ func (h *Six910Handler) GetProductsByCaterory(w http.ResponseWriter, r *http.Req
 // @Param storeId path string true "store storeId"
 // @Param start path string true "start index 0 based"
 // @Param end path string true "end index"
-// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param apiKey header string true "apiKey required"
 // @Param storeName header string true "store name"
 // @Param localDomain header string true "store localDomain"
 // @Param Authorization header string true "token"
@@ -406,7 +464,7 @@ func (h *Six910Handler) GetProductList(w http.ResponseWriter, r *http.Request) {
 	gprodcl.URL = gprodlURL
 	gprodcl.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &gprodcl)
+	auth := h.processAPIKeySecurity(r)
 	h.Log.Debug("producr get list authorized: ", auth)
 	h.SetContentType(w)
 	if auth {

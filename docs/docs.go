@@ -6205,9 +6205,10 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "apiKey required for non OAuth2 stores only",
+                        "description": "apiKey required",
                         "name": "apiKey",
-                        "in": "header"
+                        "in": "header",
+                        "required": true
                     },
                     {
                         "type": "string",
@@ -6286,9 +6287,10 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "apiKey required for non OAuth2 stores only",
+                        "description": "apiKey required",
                         "name": "apiKey",
-                        "in": "header"
+                        "in": "header",
+                        "required": true
                     },
                     {
                         "type": "string",
@@ -6371,9 +6373,10 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "apiKey required for non OAuth2 stores only",
+                        "description": "apiKey required",
                         "name": "apiKey",
-                        "in": "header"
+                        "in": "header",
+                        "required": true
                     },
                     {
                         "type": "string",
@@ -6466,9 +6469,99 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "apiKey required for non OAuth2 stores only",
+                        "description": "apiKey required",
                         "name": "apiKey",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
                         "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/six910-database-interface.Product"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/rs/product/get/promoted/{storeId}/{start}/{end}": {
+            "get": {
+                "description": "Get list of products for a store",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Get list of products by product name",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "store storeId",
+                        "name": "storeId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "start index 0 based",
+                        "name": "start",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "end index",
+                        "name": "end",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required",
+                        "name": "apiKey",
+                        "in": "header",
+                        "required": true
                     },
                     {
                         "type": "string",
@@ -6554,9 +6647,10 @@ var doc = `{
                     },
                     {
                         "type": "string",
-                        "description": "apiKey required for non OAuth2 stores only",
+                        "description": "apiKey required",
                         "name": "apiKey",
-                        "in": "header"
+                        "in": "header",
+                        "required": true
                     },
                     {
                         "type": "string",
@@ -11516,6 +11610,12 @@ var doc = `{
                 },
                 "shippingHandling": {
                     "type": "number"
+                },
+                "shippingMethodId": {
+                    "type": "integer"
+                },
+                "shippingMethodName": {
+                    "type": "string"
                 },
                 "status": {
                     "type": "string"

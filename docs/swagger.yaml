@@ -379,6 +379,10 @@ definitions:
         type: integer
       shippingHandling:
         type: number
+      shippingMethodId:
+        type: integer
+      shippingMethodName:
+        type: string
       status:
         type: string
       storeId:
@@ -4983,9 +4987,10 @@ paths:
         name: end
         required: true
         type: string
-      - description: apiKey required for non OAuth2 stores only
+      - description: apiKey required
         in: header
         name: apiKey
+        required: true
         type: string
       - description: store name
         in: header
@@ -5038,9 +5043,10 @@ paths:
         name: storeId
         required: true
         type: string
-      - description: apiKey required for non OAuth2 stores only
+      - description: apiKey required
         in: header
         name: apiKey
+        required: true
         type: string
       - description: store name
         in: header
@@ -5096,9 +5102,10 @@ paths:
         name: end
         required: true
         type: string
-      - description: apiKey required for non OAuth2 stores only
+      - description: apiKey required
         in: header
         name: apiKey
+        required: true
         type: string
       - description: store name
         in: header
@@ -5161,9 +5168,71 @@ paths:
         name: end
         required: true
         type: string
-      - description: apiKey required for non OAuth2 stores only
+      - description: apiKey required
         in: header
         name: apiKey
+        required: true
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/six910-database-interface.Product'
+            type: array
+      summary: Get list of products by product name
+      tags:
+      - Product
+  /rs/product/get/promoted/{storeId}/{start}/{end}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of products for a store
+      parameters:
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: start index 0 based
+        in: path
+        name: start
+        required: true
+        type: string
+      - description: end index
+        in: path
+        name: end
+        required: true
+        type: string
+      - description: apiKey required
+        in: header
+        name: apiKey
+        required: true
         type: string
       - description: store name
         in: header
@@ -5221,9 +5290,10 @@ paths:
         name: storeId
         required: true
         type: string
-      - description: apiKey required for non OAuth2 stores only
+      - description: apiKey required
         in: header
         name: apiKey
+        required: true
         type: string
       - description: store name
         in: header

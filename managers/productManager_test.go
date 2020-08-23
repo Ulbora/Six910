@@ -202,6 +202,36 @@ func TestSix910Manager_GetProductByIDFail(t *testing.T) {
 	}
 }
 
+func TestSix910Manager_GetProductsByPromoted(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	m := sm.GetNew()
+
+	var p sdbi.Product
+	p.Color = "blue"
+	p.StoreID = 4
+
+	var plst []sdbi.Product
+	plst = append(plst, p)
+
+	sdb.MockProductList = &plst
+
+	flst := m.GetProductsByPromoted(4, 0, 10)
+	if len(*flst) != 1 {
+		t.Fail()
+	}
+
+}
+
 func TestSix910Manager_GetProductsByName(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger

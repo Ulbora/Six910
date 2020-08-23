@@ -82,3 +82,14 @@ func (h *Six910Handler) processSecurity(r *http.Request, c *jv.Claim) bool {
 	}
 	return rtn
 }
+
+func (h *Six910Handler) processAPIKeySecurity(r *http.Request) bool {
+	var rtn bool
+	apiKey := r.Header.Get("apiKey")
+	h.Log.Debug("apiKey: ", apiKey)
+	h.Log.Debug("h.APIKey: ", h.APIKey)
+	if apiKey == h.APIKey {
+		rtn = true
+	}
+	return rtn
+}
