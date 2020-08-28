@@ -214,6 +214,13 @@ type Manager interface {
 	GetInsuranceList(storeID int64) *[]sdbi.Insurance
 	DeleteInsurance(id int64, sid int64) *Response
 
+	//tax rate
+	AddTaxRate(t *sdbi.TaxRate) *ResponseID
+	UpdateTaxRate(t *sdbi.TaxRate) *Response
+	GetTaxRate(country string, state string, sid int64) *[]sdbi.TaxRate
+	GetTaxRateList(storeID int64) *[]sdbi.TaxRate
+	DeleteTaxRate(id int64, sid int64) *Response
+
 	// //product
 	AddProduct(p *sdbi.Product) *ResponseID
 	UpdateProduct(p *sdbi.Product) *Response

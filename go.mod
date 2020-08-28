@@ -8,8 +8,8 @@ require (
 	github.com/Ulbora/Level_Logger v1.0.2
 	github.com/Ulbora/dbinterface v1.0.5
 	github.com/Ulbora/dbinterface_mysql v1.0.7
-	github.com/Ulbora/six910-database-interface v1.0.24
-	github.com/Ulbora/six910-mysql v1.0.19
+	github.com/Ulbora/six910-database-interface v1.0.26
+	github.com/Ulbora/six910-mysql v1.0.20
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751
 	github.com/cpuguy83/go-md2man/v2 v2.0.0 // indirect
 	github.com/go-chi/chi v4.1.2+incompatible // indirect
@@ -27,7 +27,7 @@ require (
 	golang.org/x/crypto v0.0.0-20200820211705-5c72a883971a
 	golang.org/x/net v0.0.0-20200822124328-c89045814202 // indirect
 	golang.org/x/text v0.3.3 // indirect
-	golang.org/x/tools v0.0.0-20200822203824-307de81be3f4 // indirect
+	golang.org/x/tools v0.0.0-20200827191138-3c805d2368cd // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
 	gopkg.in/check.v1 v1.0.0-20200227125254-8fa46927fb4f // indirect
 	gopkg.in/yaml.v2 v2.3.0 // indirect
