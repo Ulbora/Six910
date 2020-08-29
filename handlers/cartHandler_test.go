@@ -67,6 +67,7 @@ func TestSix910Handler_AddCart(t *testing.T) {
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
 	w := httptest.NewRecorder()
 
 	h.AddCart(w, r)
@@ -185,6 +186,7 @@ func TestSix910Handler_AddCartFail(t *testing.T) {
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
 	w := httptest.NewRecorder()
 
 	h.AddCart(w, r)
@@ -244,6 +246,7 @@ func TestSix910Handler_AddCartReq(t *testing.T) {
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
 	w := httptest.NewRecorder()
 
 	h.AddCart(w, r)
@@ -302,6 +305,7 @@ func TestSix910Handler_AddCartMedia(t *testing.T) {
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
+	r.Header.Set("apiKey", "123456")
 	//r.Header.Set("Content-Type", "application/json")
 	w := httptest.NewRecorder()
 
@@ -369,6 +373,7 @@ func TestSix910Handler_UpdateCart(t *testing.T) {
 	r.Header.Set("storeName2", "TestStore2")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
 
 	r.Header.Set("superAdminRole", "superAdmin")
 
@@ -507,6 +512,7 @@ func TestSix910Handler_UpdateCartFail(t *testing.T) {
 	r.Header.Set("storeName2", "TestStore2")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
 
 	r.Header.Set("superAdminRole", "superAdmin")
 
@@ -576,6 +582,7 @@ func TestSix910Handler_UpdateCartReq(t *testing.T) {
 	r.Header.Set("storeName2", "TestStore2")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
 
 	r.Header.Set("superAdminRole", "superAdmin")
 
@@ -646,6 +653,7 @@ func TestSix910Handler_UpdateCartMedia(t *testing.T) {
 	//r.Header.Set("Content-Type", "application/json")
 
 	r.Header.Set("superAdminRole", "superAdmin")
+	r.Header.Set("apiKey", "123456")
 
 	w := httptest.NewRecorder()
 
@@ -711,6 +719,7 @@ func TestSix910Handler_GetCart(t *testing.T) {
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
 
 	r.Header.Set("superAdminRole", "superAdmin")
 
@@ -845,6 +854,7 @@ func TestSix910Handler_GetCartReq(t *testing.T) {
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
 
 	r.Header.Set("superAdminRole", "superAdmin")
 
@@ -912,6 +922,7 @@ func TestSix910Handler_GetCartReq2(t *testing.T) {
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
 
 	r.Header.Set("superAdminRole", "superAdmin")
 

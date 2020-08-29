@@ -69,6 +69,8 @@ func TestSix910Handler_AddCustomer(t *testing.T) {
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
+
 	w := httptest.NewRecorder()
 
 	h.AddCustomer(w, r)
@@ -192,6 +194,8 @@ func TestSix910Handler_AddCustomerReq(t *testing.T) {
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
+
 	w := httptest.NewRecorder()
 
 	h.AddCustomer(w, r)
@@ -252,6 +256,8 @@ func TestSix910Handler_AddCustomerFail(t *testing.T) {
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
+
 	w := httptest.NewRecorder()
 
 	h.AddCustomer(w, r)
@@ -312,6 +318,8 @@ func TestSix910Handler_AddCustomerMedia(t *testing.T) {
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
+	r.Header.Set("apiKey", "123456")
+
 	//r.Header.Set("Content-Type", "application/json")
 	w := httptest.NewRecorder()
 
@@ -374,6 +382,7 @@ func TestSix910Handler_UpdateCustomer(t *testing.T) {
 	r.Header.Set("storeName2", "TestStore2")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
 
 	r.Header.Set("superAdminRole", "superAdmin")
 
@@ -438,6 +447,7 @@ func TestSix910Handler_UpdateCustomerReq(t *testing.T) {
 	r.Header.Set("storeName2", "TestStore2")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
 
 	r.Header.Set("superAdminRole", "superAdmin")
 
@@ -566,6 +576,7 @@ func TestSix910Handler_UpdateCustomerFail(t *testing.T) {
 	r.Header.Set("storeName2", "TestStore2")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
 
 	r.Header.Set("superAdminRole", "superAdmin")
 
@@ -629,6 +640,8 @@ func TestSix910Handler_UpdateCustomerMedia(t *testing.T) {
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("storeName2", "TestStore2")
 	r.Header.Set("localDomain", "test.domain")
+	r.Header.Set("apiKey", "123456")
+
 	//r.Header.Set("Content-Type", "application/json")
 
 	r.Header.Set("superAdminRole", "superAdmin")
@@ -700,6 +713,7 @@ func TestSix910Handler_GetCustomer(t *testing.T) {
 	r.Header.Set("Content-Type", "application/json")
 
 	r.Header.Set("superAdminRole", "superAdmin")
+	r.Header.Set("apiKey", "123456")
 
 	w := httptest.NewRecorder()
 
@@ -836,6 +850,7 @@ func TestSix910Handler_GetCustomerReq1(t *testing.T) {
 	r.Header.Set("Content-Type", "application/json")
 
 	r.Header.Set("superAdminRole", "superAdmin")
+	r.Header.Set("apiKey", "123456")
 
 	w := httptest.NewRecorder()
 
@@ -904,6 +919,7 @@ func TestSix910Handler_GetCustomerReq(t *testing.T) {
 	r.Header.Set("Content-Type", "application/json")
 
 	r.Header.Set("superAdminRole", "superAdmin")
+	r.Header.Set("apiKey", "123456")
 
 	w := httptest.NewRecorder()
 
@@ -972,6 +988,7 @@ func TestSix910Handler_GetCustomerID(t *testing.T) {
 	r.Header.Set("Content-Type", "application/json")
 
 	r.Header.Set("superAdminRole", "superAdmin")
+	r.Header.Set("apiKey", "123456")
 
 	w := httptest.NewRecorder()
 
@@ -1108,6 +1125,7 @@ func TestSix910Handler_GetCustomerIDReq1(t *testing.T) {
 	r.Header.Set("Content-Type", "application/json")
 
 	r.Header.Set("superAdminRole", "superAdmin")
+	r.Header.Set("apiKey", "123456")
 
 	w := httptest.NewRecorder()
 
@@ -1176,6 +1194,7 @@ func TestSix910Handler_GetCustomerIDReq(t *testing.T) {
 	r.Header.Set("Content-Type", "application/json")
 
 	r.Header.Set("superAdminRole", "superAdmin")
+	r.Header.Set("apiKey", "123456")
 
 	w := httptest.NewRecorder()
 
@@ -1243,6 +1262,7 @@ func TestSix910Handler_GetCustomerList(t *testing.T) {
 	r.Header.Set("Content-Type", "application/json")
 
 	r.Header.Set("superAdminRole", "superAdmin")
+	r.Header.Set("apiKey", "123456")
 
 	w := httptest.NewRecorder()
 
@@ -1377,6 +1397,7 @@ func TestSix910Handler_GetCustomerListReq(t *testing.T) {
 	r.Header.Set("Content-Type", "application/json")
 
 	r.Header.Set("superAdminRole", "superAdmin")
+	r.Header.Set("apiKey", "123456")
 
 	w := httptest.NewRecorder()
 
@@ -1444,6 +1465,7 @@ func TestSix910Handler_GetCustomerListReq2(t *testing.T) {
 	r.Header.Set("Content-Type", "application/json")
 
 	r.Header.Set("superAdminRole", "superAdmin")
+	r.Header.Set("apiKey", "123456")
 
 	w := httptest.NewRecorder()
 

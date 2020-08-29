@@ -965,6 +965,7 @@ func TestSix910Handler_GetCategoryList(t *testing.T) {
 	r.Header.Set("Content-Type", "application/json")
 
 	r.Header.Set("superAdminRole", "superAdmin")
+	r.Header.Set("apiKey", "123456")
 
 	w := httptest.NewRecorder()
 
@@ -1103,6 +1104,7 @@ func TestSix910Handler_GetCategoryListReq(t *testing.T) {
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
 
 	r.Header.Set("superAdminRole", "superAdmin")
 
@@ -1173,6 +1175,7 @@ func TestSix910Handler_GetCategoryListReq2(t *testing.T) {
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
 
 	r.Header.Set("superAdminRole", "superAdmin")
 
@@ -1244,6 +1247,7 @@ func TestSix910Handler_GetSubCategoryList(t *testing.T) {
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
 
 	r.Header.Set("superAdminRole", "superAdmin")
 
@@ -1317,6 +1321,7 @@ func TestSix910Handler_GetSubCategoryListReq(t *testing.T) {
 	r.Header.Set("Content-Type", "application/json")
 
 	r.Header.Set("superAdminRole", "superAdmin")
+	r.Header.Set("apiKey", "123456")
 
 	w := httptest.NewRecorder()
 
@@ -1388,6 +1393,7 @@ func TestSix910Handler_GetSubCategoryListReq2(t *testing.T) {
 	r.Header.Set("Content-Type", "application/json")
 
 	r.Header.Set("superAdminRole", "superAdmin")
+	r.Header.Set("apiKey", "123456")
 
 	w := httptest.NewRecorder()
 

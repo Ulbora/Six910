@@ -61,7 +61,7 @@ func (h *Six910Handler) AddAddress(w http.ResponseWriter, r *http.Request) {
 	aadc.URL = addadURL
 	aadc.Scope = "write"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &aadc)
+	auth := h.processAPIKeySecurity(r)
 	h.Log.Debug("address add authorized: ", auth)
 	h.SetContentType(w)
 	if auth {
@@ -119,7 +119,7 @@ func (h *Six910Handler) UpdateAddress(w http.ResponseWriter, r *http.Request) {
 	uadc.URL = upadURL
 	uadc.Scope = "write"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &uadc)
+	auth := h.processAPIKeySecurity(r)
 	h.Log.Debug("address update authorized: ", auth)
 	h.SetContentType(w)
 	if auth {
@@ -179,7 +179,7 @@ func (h *Six910Handler) GetAddress(w http.ResponseWriter, r *http.Request) {
 	gadc.URL = gAdURL
 	gadc.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &gadc)
+	auth := h.processAPIKeySecurity(r)
 	h.Log.Debug("address get id authorized: ", auth)
 	h.SetContentType(w)
 	if auth {
@@ -236,7 +236,7 @@ func (h *Six910Handler) GetAddressList(w http.ResponseWriter, r *http.Request) {
 	gadcl.URL = gadlURL
 	gadcl.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &gadcl)
+	auth := h.processAPIKeySecurity(r)
 	h.Log.Debug("address get list authorized: ", auth)
 	h.SetContentType(w)
 	if auth {
@@ -292,7 +292,7 @@ func (h *Six910Handler) DeleteAddress(w http.ResponseWriter, r *http.Request) {
 	dads.URL = daddURL
 	dads.Scope = "write"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &dads)
+	auth := h.processAPIKeySecurity(r)
 	h.Log.Debug("address delete authorized: ", auth)
 	h.SetContentType(w)
 	if auth {

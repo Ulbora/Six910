@@ -62,6 +62,8 @@ func TestSix910Handler_AddUser(t *testing.T) {
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
+
 	w := httptest.NewRecorder()
 
 	h.AddUser(w, r)
@@ -117,6 +119,8 @@ func TestSix910Handler_AddUserRole(t *testing.T) {
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
+
 	w := httptest.NewRecorder()
 
 	h.AddUser(w, r)
@@ -172,6 +176,8 @@ func TestSix910Handler_AddCustomerUser(t *testing.T) {
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
+
 	w := httptest.NewRecorder()
 
 	h.AddUser(w, r)
@@ -227,6 +233,8 @@ func TestSix910Handler_AddCustomerUserReq(t *testing.T) {
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
+
 	w := httptest.NewRecorder()
 
 	h.AddUser(w, r)
@@ -281,6 +289,8 @@ func TestSix910Handler_AddCustomerUserMedia(t *testing.T) {
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
+	r.Header.Set("apiKey", "123456")
+
 	//r.Header.Set("Content-Type", "application/json")
 	w := httptest.NewRecorder()
 

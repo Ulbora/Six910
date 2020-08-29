@@ -170,7 +170,7 @@ func (h *Six910Handler) GetStore(w http.ResponseWriter, r *http.Request) {
 	gsc.URL = gStoreURL
 	gsc.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &gsc)
+	auth := h.processAPIKeySecurity(r)
 	//auth := h.ValidatorClient.Authorize(r, &c, h.ValidationURL)
 	h.Log.Debug("store get authorized: ", auth)
 	h.SetContentType(w)

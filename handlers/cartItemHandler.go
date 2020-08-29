@@ -62,7 +62,7 @@ func (h *Six910Handler) AddCartItem(w http.ResponseWriter, r *http.Request) {
 	acic.URL = addciURL
 	acic.Scope = "write"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &acic)
+	auth := h.processAPIKeySecurity(r)
 	h.Log.Debug("cart item add authorized: ", auth)
 	h.SetContentType(w)
 	if auth {
@@ -120,7 +120,7 @@ func (h *Six910Handler) UpdateCartItem(w http.ResponseWriter, r *http.Request) {
 	ucic.URL = upciURL
 	ucic.Scope = "write"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &ucic)
+	auth := h.processAPIKeySecurity(r)
 	h.Log.Debug("cart item update authorized: ", auth)
 	h.SetContentType(w)
 	if auth {
@@ -180,7 +180,7 @@ func (h *Six910Handler) GetCartItem(w http.ResponseWriter, r *http.Request) {
 	gci2.URL = gCiURL
 	gci2.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &gci2)
+	auth := h.processAPIKeySecurity(r)
 	h.Log.Debug("dist get id authorized: ", auth)
 	h.SetContentType(w)
 	if auth {
@@ -238,7 +238,7 @@ func (h *Six910Handler) GetCartItemList(w http.ResponseWriter, r *http.Request) 
 	gcil2.URL = gCilURL
 	gcil2.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &gcil2)
+	auth := h.processAPIKeySecurity(r)
 	h.Log.Debug("dist get list authorized: ", auth)
 	h.SetContentType(w)
 	if auth {
@@ -296,7 +296,7 @@ func (h *Six910Handler) DeleteCartItem(w http.ResponseWriter, r *http.Request) {
 	gci2d.URL = gCiddURL
 	gci2d.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &gci2d)
+	auth := h.processAPIKeySecurity(r)
 	h.Log.Debug("cartItem delete id authorized: ", auth)
 	h.SetContentType(w)
 	if auth {

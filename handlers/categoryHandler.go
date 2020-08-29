@@ -226,7 +226,7 @@ func (h *Six910Handler) GetCategoryList(w http.ResponseWriter, r *http.Request) 
 	gcatcl.URL = gcatlURL
 	gcatcl.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &gcatcl)
+	auth := h.processAPIKeySecurity(r)
 	h.Log.Debug("cat get list authorized: ", auth)
 	h.SetContentType(w)
 	if auth {
@@ -278,7 +278,7 @@ func (h *Six910Handler) GetSubCategoryList(w http.ResponseWriter, r *http.Reques
 	gscatcl.URL = gscatlURL
 	gscatcl.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &gscatcl)
+	auth := h.processAPIKeySecurity(r)
 	h.Log.Debug("sub cat get list authorized: ", auth)
 	h.SetContentType(w)
 	if auth {

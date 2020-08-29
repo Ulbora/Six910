@@ -55,7 +55,7 @@ func (h *Six910Handler) AddCustomer(w http.ResponseWriter, r *http.Request) {
 	acc.URL = addCusURL
 	acc.Scope = "write"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &acc)
+	auth := h.processAPIKeySecurity(r)
 	h.Log.Debug("cus add authorized: ", auth)
 	h.SetContentType(w)
 	if auth {
@@ -172,7 +172,7 @@ func (h *Six910Handler) GetCustomer(w http.ResponseWriter, r *http.Request) {
 	gcc.URL = gCusURL
 	gcc.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &gcc)
+	auth := h.processAPIKeySecurity(r)
 
 	h.Log.Debug("cus get authorized: ", auth)
 	h.SetContentType(w)
@@ -227,7 +227,7 @@ func (h *Six910Handler) GetCustomerID(w http.ResponseWriter, r *http.Request) {
 	gcc2.URL = gCus2URL
 	gcc2.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &gcc2)
+	auth := h.processAPIKeySecurity(r)
 	h.Log.Debug("cus get id authorized: ", auth)
 	h.SetContentType(w)
 	if auth {

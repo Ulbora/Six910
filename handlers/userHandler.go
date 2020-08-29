@@ -54,7 +54,7 @@ func (h *Six910Handler) AddUser(w http.ResponseWriter, r *http.Request) {
 	auc.URL = addUsURL
 	auc.Scope = "write"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &auc)
+	auth := h.processAPIKeySecurity(r)
 	h.Log.Debug("user add authorized: ", auth)
 	h.SetContentType(w)
 	if auth {

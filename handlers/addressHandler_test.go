@@ -66,6 +66,7 @@ func TestSix910Handler_AddAddress(t *testing.T) {
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
 	w := httptest.NewRecorder()
 
 	h.AddAddress(w, r)
@@ -182,6 +183,7 @@ func TestSix910Handler_AddAddressFail(t *testing.T) {
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
 	w := httptest.NewRecorder()
 
 	h.AddAddress(w, r)
@@ -239,6 +241,7 @@ func TestSix910Handler_AddAddressMedia(t *testing.T) {
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
+	r.Header.Set("apiKey", "123456")
 	//r.Header.Set("Content-Type", "application/json")
 	w := httptest.NewRecorder()
 
@@ -298,6 +301,7 @@ func TestSix910Handler_AddAddressReq(t *testing.T) {
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
 	w := httptest.NewRecorder()
 
 	h.AddAddress(w, r)
@@ -361,6 +365,7 @@ func TestSix910Handler_UpdateAddress(t *testing.T) {
 	r.Header.Set("Content-Type", "application/json")
 
 	r.Header.Set("superAdminRole", "superAdmin")
+	r.Header.Set("apiKey", "123456")
 
 	w := httptest.NewRecorder()
 
@@ -487,6 +492,7 @@ func TestSix910Handler_UpdateAddressFail(t *testing.T) {
 	r.Header.Set("storeName2", "TestStore2")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
 
 	r.Header.Set("superAdminRole", "superAdmin")
 
@@ -552,7 +558,8 @@ func TestSix910Handler_UpdateAddressMedia(t *testing.T) {
 	r.Header.Set("localDomain", "test.domain")
 	//r.Header.Set("Content-Type", "application/json")
 
-	r.Header.Set("superAdminRole", "superAdmin")
+	//r.Header.Set("superAdminRole", "superAdmin")
+	r.Header.Set("apiKey", "123456")
 
 	w := httptest.NewRecorder()
 
@@ -617,6 +624,7 @@ func TestSix910Handler_UpdateAddressReq(t *testing.T) {
 	r.Header.Set("Content-Type", "application/json")
 
 	r.Header.Set("superAdminRole", "superAdmin")
+	r.Header.Set("apiKey", "123456")
 
 	w := httptest.NewRecorder()
 
@@ -690,6 +698,7 @@ func TestSix910Handler_GetAddress(t *testing.T) {
 	r.Header.Set("Content-Type", "application/json")
 
 	r.Header.Set("superAdminRole", "superAdmin")
+	r.Header.Set("apiKey", "123456")
 
 	w := httptest.NewRecorder()
 
@@ -836,6 +845,7 @@ func TestSix910Handler_GetAddressReq2(t *testing.T) {
 	r.Header.Set("Content-Type", "application/json")
 
 	r.Header.Set("superAdminRole", "superAdmin")
+	r.Header.Set("apiKey", "123456")
 
 	w := httptest.NewRecorder()
 
@@ -909,6 +919,7 @@ func TestSix910Handler_GetAddressReq(t *testing.T) {
 	//r.Header.Set("Content-Type", "application/json")
 
 	r.Header.Set("superAdminRole", "superAdmin")
+	r.Header.Set("apiKey", "123456")
 
 	w := httptest.NewRecorder()
 
@@ -983,6 +994,7 @@ func TestSix910Handler_GetAddressList(t *testing.T) {
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
 
 	r.Header.Set("superAdminRole", "superAdmin")
 
@@ -1059,6 +1071,7 @@ func TestSix910Handler_GetAddressListAuth(t *testing.T) {
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	//r.Header.Set("apiKey", "123456")
 
 	r.Header.Set("superAdminRole", "superAdmin")
 
@@ -1134,6 +1147,7 @@ func TestSix910Handler_GetAddressListReq(t *testing.T) {
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
 
 	r.Header.Set("superAdminRole", "superAdmin")
 
@@ -1210,6 +1224,7 @@ func TestSix910Handler_GetAddressListReq2(t *testing.T) {
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
 
 	r.Header.Set("superAdminRole", "superAdmin")
 
@@ -1285,6 +1300,7 @@ func TestSix910Handler_DeleteAddress(t *testing.T) {
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
 
 	r.Header.Set("superAdminRole", "superAdmin")
 
@@ -1445,6 +1461,7 @@ func TestSix910Handler_DeleteAddressFail(t *testing.T) {
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
 
 	r.Header.Set("superAdminRole", "superAdmin")
 
@@ -1525,6 +1542,7 @@ func TestSix910Handler_DeleteAddressReq(t *testing.T) {
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
 
 	r.Header.Set("superAdminRole", "superAdmin")
 
@@ -1605,6 +1623,7 @@ func TestSix910Handler_DeleteAddressReq2(t *testing.T) {
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
 
 	r.Header.Set("superAdminRole", "superAdmin")
 

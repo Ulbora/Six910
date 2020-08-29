@@ -55,7 +55,7 @@ func (h *Six910Handler) AddCart(w http.ResponseWriter, r *http.Request) {
 	actc.URL = addCartURL
 	actc.Scope = "write"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &actc)
+	auth := h.processAPIKeySecurity(r)
 	h.Log.Debug("cart add authorized: ", auth)
 	h.SetContentType(w)
 	if auth {
@@ -113,7 +113,7 @@ func (h *Six910Handler) UpdateCart(w http.ResponseWriter, r *http.Request) {
 	uctc.URL = upCartURL
 	uctc.Scope = "write"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &uctc)
+	auth := h.processAPIKeySecurity(r)
 	h.Log.Debug("cart update authorized: ", auth)
 	h.SetContentType(w)
 	if auth {
@@ -172,7 +172,7 @@ func (h *Six910Handler) GetCart(w http.ResponseWriter, r *http.Request) {
 	gctc2.URL = gcartURL
 	gctc2.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &gctc2)
+	auth := h.processAPIKeySecurity(r)
 	h.Log.Debug("cart get id authorized: ", auth)
 	h.SetContentType(w)
 	if auth {
