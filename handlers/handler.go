@@ -114,6 +114,13 @@ type Handler interface {
 	GetInsuranceList(w http.ResponseWriter, r *http.Request)
 	DeleteInsurance(w http.ResponseWriter, r *http.Request)
 
+	//tax rate
+	AddTaxRate(w http.ResponseWriter, r *http.Request)
+	UpdateTaxRate(w http.ResponseWriter, r *http.Request)
+	GetTaxRate(w http.ResponseWriter, r *http.Request)
+	GetTaxRateList(w http.ResponseWriter, r *http.Request)
+	DeleteTaxRate(w http.ResponseWriter, r *http.Request)
+
 	//product
 	AddProduct(w http.ResponseWriter, r *http.Request)
 	UpdateProduct(w http.ResponseWriter, r *http.Request)

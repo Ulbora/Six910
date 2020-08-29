@@ -229,6 +229,13 @@ func main() {
 	router.HandleFunc("/rs/insurance/get/list/{storeId}", h.GetInsuranceList).Methods("GET")
 	router.HandleFunc("/rs/insurance/delete/{id}/{storeId}", h.DeleteInsurance).Methods("DELETE")
 
+	//tax rate
+	router.HandleFunc("/rs/taxRate/add", h.AddTaxRate).Methods("POST")
+	router.HandleFunc("/rs/taxRate/update", h.UpdateTaxRate).Methods("PUT")
+	router.HandleFunc("/rs/taxRate/get/country/{country}/{state}/{storeId}", h.GetTaxRate).Methods("GET")
+	router.HandleFunc("/rs/taxRate/get/list/{storeId}", h.GetTaxRateList).Methods("GET")
+	router.HandleFunc("/rs/taxRate/delete/{id}/{storeId}", h.DeleteTaxRate).Methods("DELETE")
+
 	//product
 	router.HandleFunc("/rs/product/add", h.AddProduct).Methods("POST")
 	router.HandleFunc("/rs/product/update", h.UpdateProduct).Methods("PUT")
