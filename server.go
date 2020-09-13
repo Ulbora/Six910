@@ -211,6 +211,7 @@ func main() {
 	router.HandleFunc("/rs/category/add", h.AddCategory).Methods("POST")
 	router.HandleFunc("/rs/category/update", h.UpdateCategory).Methods("PUT")
 	router.HandleFunc("/rs/category/get/id/{id}/{storeId}", h.GetCategory).Methods("GET")
+	router.HandleFunc("/rs/category/get/list/hierarchical/{storeId}", h.GetHierarchicalCategoryList).Methods("GET")
 	router.HandleFunc("/rs/category/get/list/{storeId}", h.GetCategoryList).Methods("GET")
 	router.HandleFunc("/rs/category/get/sub/list/{catId}", h.GetSubCategoryList).Methods("GET")
 	router.HandleFunc("/rs/category/delete/{id}/{storeId}", h.DeleteCategory).Methods("DELETE")

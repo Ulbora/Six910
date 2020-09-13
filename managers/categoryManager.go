@@ -72,6 +72,11 @@ func (m *Six910Manager) GetCategory(id int64, sid int64) *sdbi.Category {
 	return rtn
 }
 
+//GetHierarchicalCategoryList GetHierarchicalCategoryList
+func (m *Six910Manager) GetHierarchicalCategoryList(storeID int64) *[]sdbi.Category {
+	return m.Db.GetHierarchicalCategoryList(storeID)
+}
+
 //GetCategoryList GetCategoryList
 func (m *Six910Manager) GetCategoryList(storeID int64) *[]sdbi.Category {
 	return m.Db.GetCategoryList(storeID)

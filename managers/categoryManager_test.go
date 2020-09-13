@@ -197,6 +197,36 @@ func TestSix910Manager_GetCategoryFail(t *testing.T) {
 	}
 }
 
+func TestSix910Manager_GetHierarchicalCategoryList(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	m := sm.GetNew()
+
+	var cat sdbi.Category
+	cat.Description = "stuff"
+	cat.StoreID = 6
+
+	sdb.MockCategory = &cat
+	var catlst []sdbi.Category
+	catlst = append(catlst, cat)
+	sdb.MockCategoryList = &catlst
+	//sdb.MockUpdateCategorySuccess = true
+
+	flst := m.GetHierarchicalCategoryList(6)
+	if len(*flst) != 1 {
+		t.Fail()
+	}
+}
+
 func TestSix910Manager_GetCategoryList(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger

@@ -1799,6 +1799,56 @@ paths:
       summary: Get list of categories
       tags:
       - Category
+  /rs/category/get/list/hierarchical/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of categories for a store with Hierarchical category names
+      parameters:
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/six910-database-interface.Category'
+            type: array
+      summary: Get list of categories with Hierarchical category names
+      tags:
+      - Category
   /rs/category/get/sub/list/{catId}:
     get:
       consumes:

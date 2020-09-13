@@ -204,6 +204,58 @@ func (h *Six910Handler) GetCategory(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// GetHierarchicalCategoryList godoc
+// @Summary Get list of categories with Hierarchical category names
+// @Description Get list of categories for a store with Hierarchical category names
+// @Tags Category
+// @Accept  json
+// @Produce  json
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {array} six910-database-interface.Category
+// @Router /rs/category/get/list/hierarchical/{storeId} [get]
+func (h *Six910Handler) GetHierarchicalCategoryList(w http.ResponseWriter, r *http.Request) {
+	var ghcatlURL = "/six910/rs/category/list/hierarchical"
+	var ghcatcl jv.Claim
+	ghcatcl.Role = customerRole
+	ghcatcl.URL = ghcatlURL
+	ghcatcl.Scope = "read"
+	h.Log.Debug("client: ", h.ValidatorClient)
+	auth := h.processAPIKeySecurity(r)
+	h.Log.Debug("cat get h list authorized: ", auth)
+	h.SetContentType(w)
+	if auth {
+		vars := mux.Vars(r)
+		h.Log.Debug("vars: ", len(vars))
+		if vars != nil && len(vars) == 1 {
+			h.Log.Debug("h vars: ", vars)
+			var hctlstoreIDStr = vars["storeId"]
+			storeID, hscatlerr := strconv.ParseInt(hctlstoreIDStr, 10, 64)
+			var ghcatlres *[]sdbi.Category
+			if hscatlerr == nil {
+				ghcatlres = h.Manager.GetHierarchicalCategoryList(storeID)
+				h.Log.Debug("get h cat list: ", ghcatlres)
+				w.WriteHeader(http.StatusOK)
+			} else {
+				w.WriteHeader(http.StatusBadRequest)
+				var nc = []sdbi.Category{}
+				ghcatlres = &nc
+			}
+			resJSON, _ := json.Marshal(ghcatlres)
+			fmt.Fprint(w, string(resJSON))
+		} else {
+			w.WriteHeader(http.StatusBadRequest)
+		}
+	} else {
+		w.WriteHeader(http.StatusUnauthorized)
+	}
+}
+
 // GetCategoryList godoc
 // @Summary Get list of categories
 // @Description Get list of categories for a store

@@ -96,6 +96,7 @@ type Handler interface {
 	AddCategory(w http.ResponseWriter, r *http.Request)
 	UpdateCategory(w http.ResponseWriter, r *http.Request)
 	GetCategory(w http.ResponseWriter, r *http.Request)
+	GetHierarchicalCategoryList(w http.ResponseWriter, r *http.Request)
 	GetCategoryList(w http.ResponseWriter, r *http.Request)
 	GetSubCategoryList(w http.ResponseWriter, r *http.Request)
 	DeleteCategory(w http.ResponseWriter, r *http.Request)

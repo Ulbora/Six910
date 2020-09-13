@@ -196,6 +196,7 @@ type Manager interface {
 	AddCategory(c *sdbi.Category) *ResponseID
 	UpdateCategory(c *sdbi.Category) *Response
 	GetCategory(id int64, sid int64) *sdbi.Category
+	GetHierarchicalCategoryList(storeID int64) *[]sdbi.Category
 	GetCategoryList(storeID int64) *[]sdbi.Category
 	GetSubCategoryList(catID int64) *[]sdbi.Category
 	DeleteCategory(id int64, sid int64) *Response
