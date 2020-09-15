@@ -177,6 +177,7 @@ type Handler interface {
 
 	//product category
 	AddProductCategory(w http.ResponseWriter, r *http.Request)
+	GetProductCategoryList(w http.ResponseWriter, r *http.Request)
 	DeleteProductCategory(w http.ResponseWriter, r *http.Request)
 
 	//Orders

@@ -280,6 +280,7 @@ func main() {
 
 	//productCategory
 	router.HandleFunc("/rs/productCategory/add", h.AddProductCategory).Methods("POST")
+	router.HandleFunc("/rs/productCategory/list/{productId}", h.GetProductCategoryList).Methods("GET")
 	router.HandleFunc("/rs/productCategory/delete/{categoryId}/{productId}/{storeId}", h.DeleteProductCategory).Methods("DELETE")
 
 	//Orders

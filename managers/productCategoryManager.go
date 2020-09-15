@@ -50,6 +50,11 @@ func (m *Six910Manager) AddProductCategory(pc *sdbi.ProductCategory, sid int64) 
 	return &rtn
 }
 
+//GetProductCategoryList GetProductCategoryList
+func (m *Six910Manager) GetProductCategoryList(productID int64) *[]int64 {
+	return m.Db.GetProductCategoryList(productID)
+}
+
 //DeleteProductCategory DeleteProductCategory
 func (m *Six910Manager) DeleteProductCategory(pc *sdbi.ProductCategory, sid int64) *Response {
 	var rtn Response

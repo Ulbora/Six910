@@ -269,6 +269,7 @@ type Manager interface {
 
 	// //product category
 	AddProductCategory(pc *sdbi.ProductCategory, sid int64) *Response
+	GetProductCategoryList(productID int64) *[]int64
 	DeleteProductCategory(pc *sdbi.ProductCategory, sid int64) *Response
 
 	// //Orders

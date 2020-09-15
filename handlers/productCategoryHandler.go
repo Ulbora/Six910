@@ -106,6 +106,61 @@ func (h *Six910Handler) AddProductCategory(w http.ResponseWriter, r *http.Reques
 	}
 }
 
+// GetProductCategoryList godoc
+// @Summary Get list of category IDs for a product
+// @Description Get list of category IDs for a product
+// @Tags ProductCategory
+// @Accept  json
+// @Produce  json
+// @Param productId path string true "productId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {array} int64
+// @Router /rs/productCategory/list/{productId} [get]
+func (h *Six910Handler) GetProductCategoryList(w http.ResponseWriter, r *http.Request) {
+	var gcatlURL = "/six910/rs/productCategory/list"
+	var gcatcl jv.Claim
+	gcatcl.Role = customerRole
+	gcatcl.URL = gcatlURL
+	gcatcl.Scope = "read"
+	h.Log.Debug("client: ", h.ValidatorClient)
+	auth := h.processAPIKeySecurity(r)
+	h.Log.Debug("prod cat get list authorized: ", auth)
+	h.SetContentType(w)
+	if auth {
+		vars := mux.Vars(r)
+		h.Log.Debug("vars: ", len(vars))
+		if vars != nil && len(vars) == 1 {
+			h.Log.Debug("vars: ", vars)
+			var ctlprodIDStr = vars["productId"]
+			pID, splerr := strconv.ParseInt(ctlprodIDStr, 10, 64)
+			var gpcatlres = []int64{}
+			if splerr == nil {
+				pcids := h.Manager.GetProductCategoryList(pID)
+				if pcids != nil && len(*pcids) > 0 {
+					gpcatlres = *pcids
+				}
+				h.Log.Debug("get prod cat list: ", gpcatlres)
+				w.WriteHeader(http.StatusOK)
+			} else {
+				w.WriteHeader(http.StatusBadRequest)
+				var nc = []int64{}
+				gpcatlres = nc
+			}
+			resJSON, _ := json.Marshal(gpcatlres)
+			fmt.Fprint(w, string(resJSON))
+		} else {
+			w.WriteHeader(http.StatusBadRequest)
+		}
+	} else {
+		w.WriteHeader(http.StatusUnauthorized)
+	}
+}
+
 // DeleteProductCategory godoc
 // @Summary Delete a product from a category
 // @Description Delete a product from a category in a store

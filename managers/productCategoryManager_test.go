@@ -287,3 +287,25 @@ func TestSix910Manager_DeleteProductCategoryFail3(t *testing.T) {
 		t.Fail()
 	}
 }
+
+func TestSix910Manager_GetProductCategoryList(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	m := sm.GetNew()
+
+	sdb.MockCategoryIDList = &[]int64{3, 5}
+
+	res := m.GetProductCategoryList(5)
+	if len(*res) != 2 {
+		t.Fail()
+	}
+}
