@@ -123,10 +123,10 @@ func (h *Six910Handler) AddProductCategory(w http.ResponseWriter, r *http.Reques
 // @Router /rs/productCategory/list/{productId} [get]
 func (h *Six910Handler) GetProductCategoryList(w http.ResponseWriter, r *http.Request) {
 	var gcatlURL = "/six910/rs/productCategory/list"
-	var gcatcl jv.Claim
-	gcatcl.Role = customerRole
-	gcatcl.URL = gcatlURL
-	gcatcl.Scope = "read"
+	var gpcatcl jv.Claim
+	gpcatcl.Role = customerRole
+	gpcatcl.URL = gcatlURL
+	gpcatcl.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
 	auth := h.processAPIKeySecurity(r)
 	h.Log.Debug("prod cat get list authorized: ", auth)
