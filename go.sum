@@ -78,6 +78,8 @@ github.com/Ulbora/six910-mysql v1.0.21 h1:cZeYyGHS9lxL+vnYJQQy7TJs/zyHqcYu7YcNZo
 github.com/Ulbora/six910-mysql v1.0.21/go.mod h1:W6tEAkFUj+FpLCjyJpG+CLk3FF4bxYKFwp8MQzsOmIM=
 github.com/Ulbora/six910-mysql v1.0.22 h1:l9NNTp/offtkJxxY2JrgycU5r3h1zEdCOY9jZWBl3yA=
 github.com/Ulbora/six910-mysql v1.0.22/go.mod h1:AYCS22Peq8WTPUKunFU6rGcqZ0qdNN+gJgM9O12zLsw=
+github.com/Ulbora/six910-mysql v1.0.23 h1:l13Z3aO3yMVsvZvx0FZmdas1OJsPcFq79MR3p6I1Cu0=
+github.com/Ulbora/six910-mysql v1.0.23/go.mod h1:AYCS22Peq8WTPUKunFU6rGcqZ0qdNN+gJgM9O12zLsw=
 github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751 h1:JYp7IbQjafoB+tBA3gMyHYHrpOtNuDiK/uB5uXxq5wM=
 github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751/go.mod h1:LOuyumcjzFXgccqObfd/Ljyb9UuFJ6TxHnclSeseNhc=
 github.com/cpuguy83/go-md2man/v2 v2.0.0-20190314233015-f79a8a8ca69d h1:U+s90UTSYgptZMwQh2aRr3LuazLJIa+Pg3Kc1ylSYVY=
@@ -305,6 +307,8 @@ golang.org/x/tools v0.0.0-20200913032122-97363e29fc9b h1:3/5GThpuWHBq2GFcurHBWuW
 golang.org/x/tools v0.0.0-20200913032122-97363e29fc9b/go.mod h1:Cj7w3i3Rnn0Xh82ur9kSqwfTHTeVxaDqrfMjpcNT6bE=
 golang.org/x/tools v0.0.0-20200914190812-8f9ed77dd8e5 h1:0fRDy3QcHVldF7M1zhimPxxaIexpz0hjod21h92AT30=
 golang.org/x/tools v0.0.0-20200914190812-8f9ed77dd8e5/go.mod h1:Cj7w3i3Rnn0Xh82ur9kSqwfTHTeVxaDqrfMjpcNT6bE=
+golang.org/x/tools v0.0.0-20200915201639-f4cefd1cb5ba h1:DaGyOr2vPMXInkPU5mjrVUdgXONbA8LC1Uu6whn6nWE=
+golang.org/x/tools v0.0.0-20200915201639-f4cefd1cb5ba/go.mod h1:z6u4i615ZeAfBE4XtMziQW1fSVJXACjjbWkB/mvPzlU=
 golang.org/x/tools/gopls v0.1.7/go.mod h1:PE3vTwT0ejw3a2L2fFgSJkxlEbA8Slbk+Lsy9hTmbG8=
 golang.org/x/xerrors v0.0.0-20190717185122-a985d3407aa7/go.mod h1:I/5z698sn9Ka8TeJc9MKroUUfqBBauWjQqLJ2OPfmY0=
 golang.org/x/xerrors v0.0.0-20191011141410-1b5146add898/go.mod h1:I/5z698sn9Ka8TeJc9MKroUUfqBBauWjQqLJ2OPfmY0=
