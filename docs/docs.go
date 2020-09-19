@@ -12790,7 +12790,7 @@ var doc = `{
                     "type": "boolean"
                 },
                 "percentRate": {
-                    "type": "integer"
+                    "type": "number"
                 },
                 "productCategoryId": {
                     "type": "integer"
