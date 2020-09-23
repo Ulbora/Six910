@@ -12136,6 +12136,9 @@ var doc = `{
                 "pickup": {
                     "type": "boolean"
                 },
+                "refunded": {
+                    "type": "number"
+                },
                 "shippingAddress": {
                     "type": "string"
                 },

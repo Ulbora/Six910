@@ -373,6 +373,8 @@ definitions:
         type: string
       pickup:
         type: boolean
+      refunded:
+        type: number
       shippingAddress:
         type: string
       shippingAddressId:
