@@ -169,7 +169,7 @@ func main() {
 	router.HandleFunc("/rs/customer/update", h.UpdateCustomer).Methods("PUT")
 	router.HandleFunc("/rs/customer/get/email/{email}/{storeId}", h.GetCustomer).Methods("GET")
 	router.HandleFunc("/rs/customer/get/id/{id}/{storeId}", h.GetCustomerID).Methods("GET")
-	router.HandleFunc("/rs/customer/get/list/{storeId}", h.GetCustomerList).Methods("GET")
+	router.HandleFunc("/rs/customer/get/list/{storeId}/{start}/{end}", h.GetCustomerList).Methods("GET")
 	router.HandleFunc("/rs/customer/delete/{id}/{storeId}", h.DeleteCustomer).Methods("DELETE")
 
 	//users

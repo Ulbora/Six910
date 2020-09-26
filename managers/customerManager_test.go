@@ -283,7 +283,7 @@ func TestSix910Manager_GetCustomerList(t *testing.T) {
 	cuslst = append(cuslst, cus)
 
 	sdb.MockCustomerList = &cuslst
-	fcuslst := m.GetCustomerList(3)
+	fcuslst := m.GetCustomerList(3, 0, 10)
 	if (*fcuslst)[0].ID != cus.ID {
 		t.Fail()
 	}

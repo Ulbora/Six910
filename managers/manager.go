@@ -145,7 +145,7 @@ type Manager interface {
 	UpdateCustomer(c *sdbi.Customer) *Response
 	GetCustomer(email string, storeID int64) *sdbi.Customer
 	GetCustomerID(id int64, storeID int64) *sdbi.Customer
-	GetCustomerList(storeID int64) *[]sdbi.Customer
+	GetCustomerList(storeID int64, start int64, end int64) *[]sdbi.Customer
 	DeleteCustomer(id int64, storeID int64) *Response
 
 	// only for local single store installations

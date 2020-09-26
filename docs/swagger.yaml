@@ -2158,7 +2158,7 @@ paths:
       summary: Get details of a customer by id
       tags:
       - Customer
-  /rs/customer/get/list/{storeId}:
+  /rs/customer/get/list/{storeId}/{start}/{end}:
     get:
       consumes:
       - application/json
@@ -2167,6 +2167,16 @@ paths:
       - description: store storeId
         in: path
         name: storeId
+        required: true
+        type: string
+      - description: start index 0 based
+        in: path
+        name: start
+        required: true
+        type: string
+      - description: end index
+        in: path
+        name: end
         required: true
         type: string
       - description: apiKey required for non OAuth2 stores only

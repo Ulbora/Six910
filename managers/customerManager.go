@@ -84,8 +84,8 @@ func (m *Six910Manager) GetCustomerID(id int64, storeID int64) *sdbi.Customer {
 }
 
 //GetCustomerList GetCustomerList
-func (m *Six910Manager) GetCustomerList(storeID int64) *[]sdbi.Customer {
-	return m.Db.GetCustomerList(storeID)
+func (m *Six910Manager) GetCustomerList(storeID int64, start int64, end int64) *[]sdbi.Customer {
+	return m.Db.GetCustomerList(storeID, start, end)
 }
 
 //DeleteCustomer DeleteCustomer

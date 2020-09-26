@@ -1254,6 +1254,8 @@ func TestSix910Handler_GetCustomerList(t *testing.T) {
 	r, _ := http.NewRequest("GET", "/ffllist", nil)
 	vars := map[string]string{
 		"storeId": "5",
+		"start":   "0",
+		"end":     "100",
 	}
 	r = mux.SetURLVars(r, vars)
 
@@ -1322,6 +1324,8 @@ func TestSix910Handler_GetCustomerListAuth(t *testing.T) {
 	r, _ := http.NewRequest("GET", "/ffllist", nil)
 	vars := map[string]string{
 		"storeId": "5",
+		"start":   "0",
+		"end":     "100",
 	}
 	r = mux.SetURLVars(r, vars)
 
@@ -1389,6 +1393,8 @@ func TestSix910Handler_GetCustomerListReq(t *testing.T) {
 	r, _ := http.NewRequest("GET", "/ffllist", nil)
 	vars := map[string]string{
 		//"storeId": "5",
+		"start": "0",
+		"end":   "100",
 	}
 	r = mux.SetURLVars(r, vars)
 
@@ -1457,6 +1463,8 @@ func TestSix910Handler_GetCustomerListReq2(t *testing.T) {
 	r, _ := http.NewRequest("GET", "/ffllist", nil)
 	vars := map[string]string{
 		"storeId": "5j",
+		"start":   "0",
+		"end":     "100",
 	}
 	r = mux.SetURLVars(r, vars)
 

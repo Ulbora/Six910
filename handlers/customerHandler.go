@@ -266,6 +266,8 @@ func (h *Six910Handler) GetCustomerID(w http.ResponseWriter, r *http.Request) {
 // @Accept  json
 // @Produce  json
 // @Param storeId path string true "store storeId"
+// @Param start path string true "start index 0 based"
+// @Param end path string true "end index"
 // @Param apiKey header string false "apiKey required for non OAuth2 stores only"
 // @Param storeName header string true "store name"
 // @Param localDomain header string true "store localDomain"
@@ -273,7 +275,7 @@ func (h *Six910Handler) GetCustomerID(w http.ResponseWriter, r *http.Request) {
 // @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
 // @Param userId header string false "User ID only for OAuth2 stores"
 // @Success 200 {array} six910-database-interface.Customer
-// @Router /rs/customer/get/list/{storeId} [get]
+// @Router /rs/customer/get/list/{storeId}/{start}/{end} [get]
 func (h *Six910Handler) GetCustomerList(w http.ResponseWriter, r *http.Request) {
 	var gCuslURL = "/six910/rs/customer/list"
 	var gccl jv.Claim
@@ -287,13 +289,17 @@ func (h *Six910Handler) GetCustomerList(w http.ResponseWriter, r *http.Request) 
 	if auth {
 		vars := mux.Vars(r)
 		h.Log.Debug("vars: ", len(vars))
-		if vars != nil && len(vars) == 1 {
+		if vars != nil && len(vars) == 3 {
 			h.Log.Debug("vars: ", vars)
 			var storeIDStr = vars["storeId"]
+			var cusstartStr = vars["start"]
+			var cusendStr = vars["end"]
 			storeID, serr := strconv.ParseInt(storeIDStr, 10, 64)
+			cusStart, cusstarterr := strconv.ParseInt(cusstartStr, 10, 64)
+			cusEnd, cusenderr := strconv.ParseInt(cusendStr, 10, 64)
 			var gclres *[]sdbi.Customer
-			if serr == nil {
-				gclres = h.Manager.GetCustomerList(storeID)
+			if serr == nil && cusstarterr == nil && cusenderr == nil {
+				gclres = h.Manager.GetCustomerList(storeID, cusStart, cusEnd)
 				h.Log.Debug("getCust list: ", gclres)
 				w.WriteHeader(http.StatusOK)
 			} else {

@@ -1973,7 +1973,7 @@ var doc = `{
                 }
             }
         },
-        "/rs/customer/get/list/{storeId}": {
+        "/rs/customer/get/list/{storeId}/{start}/{end}": {
             "get": {
                 "description": "Get list of a customers for a store",
                 "consumes": [
@@ -1991,6 +1991,20 @@ var doc = `{
                         "type": "string",
                         "description": "store storeId",
                         "name": "storeId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "start index 0 based",
+                        "name": "start",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "end index",
+                        "name": "end",
                         "in": "path",
                         "required": true
                     },
