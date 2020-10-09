@@ -694,6 +694,7 @@ func TestSix910Handler_GetCategory(t *testing.T) {
 	r.Header.Set("Content-Type", "application/json")
 
 	r.Header.Set("superAdminRole", "superAdmin")
+	r.Header.Set("apiKey", "123456")
 
 	w := httptest.NewRecorder()
 
@@ -828,6 +829,7 @@ func TestSix910Handler_GetCategoryReq2(t *testing.T) {
 	r.Header.Set("Content-Type", "application/json")
 
 	r.Header.Set("superAdminRole", "superAdmin")
+	r.Header.Set("apiKey", "123456")
 
 	w := httptest.NewRecorder()
 
@@ -895,6 +897,7 @@ func TestSix910Handler_GetCategoryReq(t *testing.T) {
 	r.Header.Set("Content-Type", "application/json")
 
 	r.Header.Set("superAdminRole", "superAdmin")
+	r.Header.Set("apiKey", "123456")
 
 	w := httptest.NewRecorder()
 

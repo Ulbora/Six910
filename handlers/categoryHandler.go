@@ -172,7 +172,7 @@ func (h *Six910Handler) GetCategory(w http.ResponseWriter, r *http.Request) {
 	gcatc.URL = gcatURL
 	gcatc.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &gcatc)
+	auth := h.processAPIKeySecurity(r)
 	h.Log.Debug("cat get id authorized: ", auth)
 	h.SetContentType(w)
 	if auth {
