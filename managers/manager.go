@@ -233,6 +233,13 @@ type Manager interface {
 	GetProductList(storeID int64, start int64, end int64) *[]sdbi.Product
 	DeleteProduct(id int64, sid int64) *Response
 
+	GetProductManufacturerListByProductName(name string, storeID int64) *[]string
+	GetProductByNameAndManufacturerName(manf string, name string, storeID int64,
+		start int64, end int64) *[]sdbi.Product
+	GetProductManufacturerListByCatID(catID int64, storeID int64) *[]string
+	GetProductByCatAndManufacturer(catID int64, manf string, storeID int64,
+		start int64, end int64) *[]sdbi.Product
+
 	// //Geographic Regions
 	AddRegion(r *sdbi.Region) *ResponseID
 	UpdateRegion(r *sdbi.Region) *Response

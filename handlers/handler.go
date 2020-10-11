@@ -133,6 +133,12 @@ type Handler interface {
 	GetProductList(w http.ResponseWriter, r *http.Request)
 	DeleteProduct(w http.ResponseWriter, r *http.Request)
 
+	//product search
+	GetProductManufacturerListByProductName(w http.ResponseWriter, r *http.Request)
+	GetProductByNameAndManufacturerName(w http.ResponseWriter, r *http.Request)
+	GetProductManufacturerListByCatID(w http.ResponseWriter, r *http.Request)
+	GetProductByCatAndManufacturer(w http.ResponseWriter, r *http.Request)
+
 	//Geographic Regions
 	AddRegion(w http.ResponseWriter, r *http.Request)
 	UpdateRegion(w http.ResponseWriter, r *http.Request)

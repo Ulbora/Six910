@@ -3612,6 +3612,118 @@ paths:
       summary: Update shipping insurance provider
       tags:
       - Insurance (Shipping Insurance)
+  /rs/manufacturer/get/category/{catId}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of Manufacturers for for a category for a store
+      parameters:
+      - description: category ID
+        in: path
+        name: catId
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required
+        in: header
+        name: apiKey
+        required: true
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              type: string
+            type: array
+      summary: Get list of Manufacturers for a category
+      tags:
+      - Manufacturer
+  /rs/manufacturer/get/product/name/{name}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of Manufacturers for a product name for a store
+      parameters:
+      - description: product name
+        in: path
+        name: name
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required
+        in: header
+        name: apiKey
+        required: true
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              type: string
+            type: array
+      summary: Get list of Manufacturers for a product name
+      tags:
+      - Manufacturer
   /rs/order/add:
     post:
       consumes:
@@ -5114,6 +5226,77 @@ paths:
       summary: Get list of products by category
       tags:
       - Product
+  /rs/product/get/category/manufacturer/{catId}/{manufacturer}/{storeId}/{start}/{end}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of products by category and manufacturerfor a store
+      parameters:
+      - description: category ID
+        in: path
+        name: catId
+        required: true
+        type: string
+      - description: manufacturer name
+        in: path
+        name: manufacturer
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: start index 0 based
+        in: path
+        name: start
+        required: true
+        type: string
+      - description: end index
+        in: path
+        name: end
+        required: true
+        type: string
+      - description: apiKey required
+        in: header
+        name: apiKey
+        required: true
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/six910-database-interface.Product'
+            type: array
+      summary: Get list of products by category and manufacturer
+      tags:
+      - Product
   /rs/product/get/id/{id}/{storeId}:
     get:
       consumes:
@@ -5227,6 +5410,77 @@ paths:
               $ref: '#/definitions/six910-database-interface.Product'
             type: array
       summary: Get list of products
+      tags:
+      - Product
+  /rs/product/get/manufacturer/name/{manufacturer}/{name}/{storeId}/{start}/{end}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of products by name and manufacturerfor a store
+      parameters:
+      - description: manufacturer name
+        in: path
+        name: manufacturer
+        required: true
+        type: string
+      - description: product name
+        in: path
+        name: name
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: start index 0 based
+        in: path
+        name: start
+        required: true
+        type: string
+      - description: end index
+        in: path
+        name: end
+        required: true
+        type: string
+      - description: apiKey required
+        in: header
+        name: apiKey
+        required: true
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/six910-database-interface.Product'
+            type: array
+      summary: Get list of products by product name and manufacturer
       tags:
       - Product
   /rs/product/get/name/{name}/{storeId}/{start}/{end}:

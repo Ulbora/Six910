@@ -248,6 +248,12 @@ func main() {
 	router.HandleFunc("/rs/product/get/list/{storeId}/{start}/{end}", h.GetProductList).Methods("GET")
 	router.HandleFunc("/rs/product/delete/{id}/{storeId}", h.DeleteProduct).Methods("DELETE")
 
+	//search
+	router.HandleFunc("/rs/manufacturer/get/product/name/{name}/{storeId}", h.GetProductManufacturerListByProductName).Methods("GET")
+	router.HandleFunc("/rs/product/get/manufacturer/name/{manufacturer}/{name}/{storeId}/{start}/{end}", h.GetProductByNameAndManufacturerName).Methods("GET")
+	router.HandleFunc("/rs/manufacturer/get/category/{catId}/{storeId}", h.GetProductManufacturerListByCatID).Methods("GET")
+	router.HandleFunc("/rs/product/get/category/manufacturer/{catId}/{manufacturer}/{storeId}/{start}/{end}", h.GetProductByCatAndManufacturer).Methods("GET")
+
 	//Geographic Regions
 	router.HandleFunc("/rs/region/add", h.AddRegion).Methods("POST")
 	router.HandleFunc("/rs/region/update", h.UpdateRegion).Methods("PUT")
