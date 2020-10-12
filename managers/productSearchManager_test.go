@@ -1,6 +1,7 @@
 package managers
 
 import (
+	"fmt"
 	"testing"
 
 	lg "github.com/Ulbora/Level_Logger"
@@ -31,9 +32,10 @@ func TestSix910Manager_GetProductManufacturerListByProductName(t *testing.T) {
 
 	sdb.MockProductList = &plst
 
-	sdb.MockManufacturerList = &[]string{"test1", "test2"}
+	sdb.MockManufacturerList = &[]string{"test\\\\1\\", "test2"}
 
 	flst3 := m.GetProductManufacturerListByProductName("test", 4)
+	fmt.Println("flst3: ", flst3)
 	if len(*flst3) != 2 {
 		t.Fail()
 	}
@@ -93,9 +95,10 @@ func TestSix910Manager_GetProductManufacturerListByCatID(t *testing.T) {
 
 	sdb.MockProductList = &plst
 
-	sdb.MockManufacturerList = &[]string{"test1", "test2"}
+	sdb.MockManufacturerList = &[]string{"test\\\\1", "test2"}
 
 	flst3 := m.GetProductManufacturerListByCatID(5, 4)
+	fmt.Println("flst3: ", flst3)
 	if len(*flst3) != 2 {
 		t.Fail()
 	}

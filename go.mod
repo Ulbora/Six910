@@ -9,7 +9,7 @@ require (
 	github.com/Ulbora/dbinterface v1.0.5
 	github.com/Ulbora/dbinterface_mysql v1.0.7
 	github.com/Ulbora/six910-database-interface v1.0.32
-	github.com/Ulbora/six910-mysql v1.0.28
+	github.com/Ulbora/six910-mysql v1.0.29
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751
 	github.com/cpuguy83/go-md2man/v2 v2.0.0 // indirect
 	github.com/go-chi/chi v4.1.2+incompatible // indirect
@@ -24,10 +24,10 @@ require (
 	github.com/swaggo/http-swagger v0.0.0-20200308142732-58ac5e232fba
 	github.com/swaggo/swag v1.6.7
 	github.com/urfave/cli/v2 v2.2.0 // indirect
-	golang.org/x/crypto v0.0.0-20201002170205-7f63de1d35b0
+	golang.org/x/crypto v0.0.0-20201012173705-84dcc777aaee
 	golang.org/x/net v0.0.0-20201010224723-4f7140c49acb // indirect
 	golang.org/x/text v0.3.3 // indirect
-	golang.org/x/tools v0.0.0-20201011145850-ed2f50202694 // indirect
+	golang.org/x/tools v0.0.0-20201012192620-5bd05386311b // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
 	gopkg.in/check.v1 v1.0.0-20200902074654-038fdea0a05b // indirect
 	gopkg.in/yaml.v2 v2.3.0 // indirect

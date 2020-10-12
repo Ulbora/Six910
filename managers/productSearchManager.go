@@ -2,6 +2,7 @@ package managers
 
 import (
 	sdbi "github.com/Ulbora/six910-database-interface"
+	"strings"
 )
 
 /*
@@ -27,7 +28,13 @@ import (
 
 //GetProductManufacturerListByProductName GetProductManufacturerListByProductName
 func (m *Six910Manager) GetProductManufacturerListByProductName(name string, storeID int64) *[]string {
-	return m.Db.GetProductManufacturerListByProductName(name, storeID)
+	var rtn []string
+	manlst := m.Db.GetProductManufacturerListByProductName(name, storeID)
+	for _, man := range *manlst {
+		nman := strings.ReplaceAll(man, "\\", "")
+		rtn = append(rtn, nman)
+	}
+	return &rtn
 }
 
 //GetProductByNameAndManufacturerName GetProductByNameAndManufacturerName
@@ -38,7 +45,13 @@ func (m *Six910Manager) GetProductByNameAndManufacturerName(manf string, name st
 
 //GetProductManufacturerListByCatID GetProductManufacturerListByCatID
 func (m *Six910Manager) GetProductManufacturerListByCatID(catID int64, storeID int64) *[]string {
-	return m.Db.GetProductManufacturerListByCatID(catID, storeID)
+	var rtn []string
+	manlstt := m.Db.GetProductManufacturerListByCatID(catID, storeID)
+	for _, mann := range *manlstt {
+		nmann := strings.ReplaceAll(mann, "\\", "")
+		rtn = append(rtn, nmann)
+	}
+	return &rtn
 }
 
 //GetProductByCatAndManufacturer GetProductByCatAndManufacturer
