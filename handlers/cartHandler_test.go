@@ -997,6 +997,7 @@ func TestSix910Handler_DeleteCart(t *testing.T) {
 	r.Header.Set("Content-Type", "application/json")
 
 	r.Header.Set("superAdminRole", "superAdmin")
+	r.Header.Set("apiKey", "123456")
 
 	w := httptest.NewRecorder()
 
@@ -1151,6 +1152,7 @@ func TestSix910Handler_DeleteCartFail(t *testing.T) {
 	r.Header.Set("Content-Type", "application/json")
 
 	r.Header.Set("superAdminRole", "superAdmin")
+	r.Header.Set("apiKey", "123456")
 
 	w := httptest.NewRecorder()
 
@@ -1228,6 +1230,7 @@ func TestSix910Handler_DeleteCartReq(t *testing.T) {
 	r.Header.Set("Content-Type", "application/json")
 
 	r.Header.Set("superAdminRole", "superAdmin")
+	r.Header.Set("apiKey", "123456")
 
 	w := httptest.NewRecorder()
 
@@ -1305,6 +1308,7 @@ func TestSix910Handler_DeleteCartReq2(t *testing.T) {
 	r.Header.Set("Content-Type", "application/json")
 
 	r.Header.Set("superAdminRole", "superAdmin")
+	r.Header.Set("apiKey", "123456")
 
 	w := httptest.NewRecorder()
 

@@ -228,7 +228,7 @@ func (h *Six910Handler) DeleteCart(w http.ResponseWriter, r *http.Request) {
 	dcts.URL = dcartURL
 	dcts.Scope = "write"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &dcts)
+	auth := h.processAPIKeySecurity(r)
 	h.Log.Debug("cart delete authorized: ", auth)
 	h.SetContentType(w)
 	if auth {

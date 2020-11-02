@@ -101,17 +101,17 @@ func (m *Six910Manager) GetCart(cid int64, storeID int64) *sdbi.Cart {
 //DeleteCart DeleteCart
 func (m *Six910Manager) DeleteCart(id int64, cid int64, storeID int64) *Response {
 	var rtn Response
-	cart := m.Db.GetCart(cid)
-	if cart != nil && cart.ID == id && cart.CustomerID == cid && cart.StoreID == storeID {
-		suc := m.Db.DeleteCart(id)
-		if suc {
-			rtn.Success = suc
-			rtn.Code = http.StatusOK
-		} else {
-			rtn.Code = http.StatusBadRequest
-		}
+	//cart := m.Db.GetCart(cid)
+	//if cart != nil && cart.ID == id && cart.CustomerID == cid && cart.StoreID == storeID {
+	suc := m.Db.DeleteCart(id)
+	if suc {
+		rtn.Success = suc
+		rtn.Code = http.StatusOK
 	} else {
 		rtn.Code = http.StatusBadRequest
 	}
+	//} else {
+	//rtn.Code = http.StatusBadRequest
+	//}
 	return &rtn
 }

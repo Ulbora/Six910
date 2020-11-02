@@ -401,7 +401,7 @@ func TestSix910Manager_DeleteCartFail1(t *testing.T) {
 	cart.StoreID = 4
 	sdb.MockCart = &cart
 
-	sdb.MockDeleteCartSuccess = true
+	sdb.MockDeleteCartSuccess = false
 
 	res := m.DeleteCart(4, 5, 4)
 	if res.Success {
