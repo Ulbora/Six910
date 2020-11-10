@@ -240,6 +240,7 @@ func main() {
 	//product
 	router.HandleFunc("/rs/product/add", h.AddProduct).Methods("POST")
 	router.HandleFunc("/rs/product/update", h.UpdateProduct).Methods("PUT")
+	router.HandleFunc("/rs/product/update/quantity", h.UpdateProductQuantity).Methods("PUT")
 	router.HandleFunc("/rs/product/get/id/{id}/{storeId}", h.GetProductByID).Methods("GET")
 	router.HandleFunc("/rs/product/get/sku/{sku}/{did}/{storeId}", h.GetProductBySku).Methods("GET")
 	router.HandleFunc("/rs/product/get/promoted/{storeId}/{start}/{end}", h.GetProductsByPromoted).Methods("GET")

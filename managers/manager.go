@@ -225,6 +225,7 @@ type Manager interface {
 	// //product
 	AddProduct(p *sdbi.Product) *ResponseID
 	UpdateProduct(p *sdbi.Product) *Response
+	UpdateProductQuantity(p *sdbi.Product) *Response
 	GetProductByID(id int64, sid int64) *sdbi.Product
 	GetProductByBySku(sku string, distributorID int64, sid int64) *sdbi.Product
 	GetProductsByPromoted(sid int64, start int64, end int64) *[]sdbi.Product

@@ -7227,6 +7227,79 @@ var doc = `{
                 }
             }
         },
+        "/rs/product/update/quantity": {
+            "put": {
+                "description": "Update product data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Update a product Quantity",
+                "parameters": [
+                    {
+                        "description": "product",
+                        "name": "product",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/six910-database-interface.Product"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "apiKey required for non OAuth2 stores only",
+                        "name": "apiKey",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "store name",
+                        "name": "storeName",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "store localDomain",
+                        "name": "localDomain",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "OAuth2 client ID only for OAuth2 stores",
+                        "name": "clientId",
+                        "in": "header"
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID only for OAuth2 stores",
+                        "name": "userId",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/managers.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/rs/productCategory/add": {
             "post": {
                 "description": "Adds a product to a category in a store",
@@ -12590,8 +12663,14 @@ var doc = `{
                 "id": {
                     "type": "integer"
                 },
+                "image": {
+                    "type": "string"
+                },
                 "orderId": {
                     "type": "integer"
+                },
+                "price": {
+                    "type": "number"
                 },
                 "productId": {
                     "type": "integer"
@@ -12604,6 +12683,9 @@ var doc = `{
                 },
                 "quantity": {
                     "type": "integer"
+                },
+                "total": {
+                    "type": "number"
                 }
             }
         },

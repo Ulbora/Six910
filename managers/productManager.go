@@ -59,6 +59,24 @@ func (m *Six910Manager) UpdateProduct(p *sdbi.Product) *Response {
 	return &rtn
 }
 
+//UpdateProductQuantity UpdateProductQuantity
+func (m *Six910Manager) UpdateProductQuantity(p *sdbi.Product) *Response {
+	var rtn Response
+	pd := m.Db.GetProductByID(p.ID)
+	if pd.StoreID == p.StoreID {
+		suc := m.Db.UpdateProductQuantity(p)
+		if suc {
+			rtn.Success = suc
+			rtn.Code = http.StatusOK
+		} else {
+			rtn.Code = http.StatusBadRequest
+		}
+	} else {
+		rtn.Code = http.StatusBadRequest
+	}
+	return &rtn
+}
+
 //GetProductByID GetProductByID
 func (m *Six910Manager) GetProductByID(id int64, sid int64) *sdbi.Product {
 	var rtn *sdbi.Product

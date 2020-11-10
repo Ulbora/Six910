@@ -149,6 +149,64 @@ func (h *Six910Handler) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// UpdateProductQuantity godoc
+// @Summary Update a product Quantity
+// @Description Update product data
+// @Tags Product
+// @Accept  json
+// @Produce  json
+// @Param product body six910-database-interface.Product true "product"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.Response
+// @Router /rs/product/update/quantity [put]
+func (h *Six910Handler) UpdateProductQuantity(w http.ResponseWriter, r *http.Request) {
+	var upqprodURL = "/six910/rs/product/update/quantity"
+	var upqrodc jv.Claim
+	upqrodc.Role = storeAdmin
+	upqrodc.URL = upqprodURL
+	upqrodc.Scope = "write"
+	h.Log.Debug("client: ", h.ValidatorClient)
+	auth := h.processAPIKeySecurity(r)
+	h.Log.Debug("product update quantity authorized: ", auth)
+	h.SetContentType(w)
+	if auth {
+		ucOk := h.CheckContent(r)
+		h.Log.Debug("conOk: ", ucOk)
+		if !ucOk {
+			http.Error(w, "json required", http.StatusUnsupportedMediaType)
+		} else {
+			var uqprod sdbi.Product
+			uqprodsuc, uqproderr := h.ProcessBody(r, &uqprod)
+			h.Log.Debug("uqprodsuc: ", uqprodsuc)
+			h.Log.Debug("uqprod: ", uqprod)
+			h.Log.Debug("uqproderr: ", uqproderr)
+			if !uqprodsuc && uqproderr != nil {
+				http.Error(w, uqproderr.Error(), http.StatusBadRequest)
+			} else {
+				uqprodres := h.Manager.UpdateProductQuantity(&uqprod)
+				h.Log.Debug("uqprodres: ", *uqprodres)
+				if uqprodres.Success {
+					w.WriteHeader(http.StatusOK)
+				} else {
+					w.WriteHeader(http.StatusInternalServerError)
+				}
+				resJSON, _ := json.Marshal(uqprodres)
+				fmt.Fprint(w, string(resJSON))
+			}
+		}
+	} else {
+		var uqprodfl m.Response
+		w.WriteHeader(http.StatusUnauthorized)
+		resJSON, _ := json.Marshal(uqprodfl)
+		fmt.Fprint(w, string(resJSON))
+	}
+}
+
 // GetProductByID godoc
 // @Summary Get details of a product by id
 // @Description Get details of a product

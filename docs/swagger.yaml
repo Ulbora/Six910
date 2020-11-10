@@ -419,8 +419,12 @@ definitions:
         type: boolean
       id:
         type: integer
+      image:
+        type: string
       orderId:
         type: integer
+      price:
+        type: number
       productId:
         type: integer
       productName:
@@ -429,6 +433,8 @@ definitions:
         type: string
       quantity:
         type: integer
+      total:
+        type: number
     type: object
   six910-database-interface.OrderTransaction:
     properties:
@@ -5716,6 +5722,55 @@ paths:
           schema:
             $ref: '#/definitions/managers.Response'
       summary: Update a product
+      tags:
+      - Product
+  /rs/product/update/quantity:
+    put:
+      consumes:
+      - application/json
+      description: Update product data
+      parameters:
+      - description: product
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/six910-database-interface.Product'
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/managers.Response'
+      summary: Update a product Quantity
       tags:
       - Product
   /rs/productCategory/add:

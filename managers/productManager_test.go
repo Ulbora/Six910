@@ -150,6 +150,94 @@ func TestSix910Manager_UpdateProductFail2(t *testing.T) {
 	}
 }
 
+func TestSix910Manager_UpdateProductQuantity(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	m := sm.GetNew()
+
+	var p sdbi.Product
+	p.Color = "blue"
+	p.StoreID = 4
+
+	sdb.MockProduct = &p
+
+	sdb.MockUpdateProductQuantitySuccess = true
+
+	res := m.UpdateProductQuantity(&p)
+	if !res.Success {
+		t.Fail()
+	}
+}
+
+func TestSix910Manager_UpdateProductQuantityFail(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	m := sm.GetNew()
+
+	var p sdbi.Product
+	p.Color = "blue"
+	p.StoreID = 4
+
+	sdb.MockProduct = &p
+
+	var p2 sdbi.Product
+	p2.Color = "blue"
+	p2.StoreID = 42
+
+	sdb.MockUpdateProductQuantitySuccess = true
+
+	res := m.UpdateProductQuantity(&p2)
+	if res.Success {
+		t.Fail()
+	}
+}
+
+func TestSix910Manager_UpdateProductQuantityFail2(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	m := sm.GetNew()
+
+	var p sdbi.Product
+	p.Color = "blue"
+	p.StoreID = 4
+
+	sdb.MockProduct = &p
+
+	//sdb.MockUpdateProductQuantitySuccess = true
+
+	res := m.UpdateProductQuantity(&p)
+	if res.Success {
+		t.Fail()
+	}
+}
+
 func TestSix910Manager_GetProductByID(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger
