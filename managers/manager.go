@@ -232,6 +232,8 @@ type Manager interface {
 	GetProductsByName(name string, sid int64, start int64, end int64) *[]sdbi.Product
 	GetProductsByCaterory(catID int64, sid int64, start int64, end int64) *[]sdbi.Product
 	GetProductList(storeID int64, start int64, end int64) *[]sdbi.Product
+	GetProductIDList(sid int64) *[]int64
+	GetProductIDListByCategories(sid int64, catList *[]int64) *[]int64
 	DeleteProduct(id int64, sid int64) *Response
 
 	GetProductManufacturerListByProductName(name string, storeID int64) *[]string
@@ -287,6 +289,8 @@ type Manager interface {
 	GetOrderList(cid int64, sid int64) *[]sdbi.Order
 	GetStoreOrderList(sid int64) *[]sdbi.Order
 	GetStoreOrderListByStatus(status string, sid int64) *[]sdbi.Order
+	GetOrderCountData(sid int64) *[]sdbi.OrderCountData
+	GetOrderSalesData(sid int64) *[]sdbi.OrderSalesData
 	DeleteOrder(id int64, sid int64) *Response
 
 	// //Order Items
@@ -393,4 +397,7 @@ type Manager interface {
 
 	// //gets called from within the add method and by any node trying to update a datastore
 	GetDataStoreWriteLock(dataStore string, storeID int64) *sdbi.DataStoreWriteLock
+
+	AddVisit(v *sdbi.Visitor) bool
+	GetVisitorData(storeID int64) *[]sdbi.VisitorData
 }

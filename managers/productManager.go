@@ -134,6 +134,16 @@ func (m *Six910Manager) GetProductList(storeID int64, start int64, end int64) *[
 	return m.Db.GetProductList(storeID, start, end)
 }
 
+//GetProductIDList GetProductIDList
+func (m *Six910Manager) GetProductIDList(sid int64) *[]int64 {
+	return m.Db.GetProductIDList(sid)
+}
+
+//GetProductIDListByCategories GetProductIDListByCategories
+func (m *Six910Manager) GetProductIDListByCategories(sid int64, catList *[]int64) *[]int64 {
+	return m.Db.GetProductIDListByCategories(sid, catList)
+}
+
 //DeleteProduct DeleteProduct
 func (m *Six910Manager) DeleteProduct(id int64, sid int64) *Response {
 	var rtn Response

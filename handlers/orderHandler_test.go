@@ -11,6 +11,7 @@ import (
 
 	jv "github.com/Ulbora/GoAuth2JwtValidator"
 	lg "github.com/Ulbora/Level_Logger"
+
 	man "github.com/Ulbora/Six910/managers"
 	sdbi "github.com/Ulbora/six910-database-interface"
 	sixmdb "github.com/Ulbora/six910-mysql"
@@ -2193,6 +2194,654 @@ func TestSix910Handler_DeleteOrderAuth(t *testing.T) {
 	fmt.Println("body delete product in test: ", string(body))
 
 	if w.Code != 401 || bdy.Success {
+		t.Fail()
+	}
+}
+
+func TestSix910Handler_GetOrderCountData(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm man.Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	var sec sdbi.Security
+	sec.OauthOn = true
+	sdb.MockSecurity = &sec
+
+	m := sm.GetNew()
+
+	var str sdbi.Store
+	str.ID = 4
+	str.StoreName = "TestStore"
+	str.LocalDomain = "test.domain"
+	str.OauthClientID = 5
+	sdb.MockStore = &str
+
+	// var cat sdbi.Category
+	// cat.ID = 1
+	// cat.StoreID = 5
+	// sdb.MockCategory = &cat
+
+	// var ord sdbi.Order
+	// ord.ID = 3
+	// ord.StoreID = 5
+
+	// var lst []sdbi.Order
+	// lst = append(lst, ord)
+
+	// sdb.MockOrderList = &lst
+
+	var ocd sdbi.OrderCountData
+	var oclst []sdbi.OrderCountData
+	oclst = append(oclst, ocd)
+	sdb.MockOrderCountData = &oclst
+
+	var sh Six910Handler
+	sh.Manager = m
+	sh.APIKey = "123456"
+	sh.Log = &l
+
+	var mc jv.MockOauthClient
+	mc.MockValidate = true
+	sh.ValidatorClient = mc.GetNewClient()
+
+	//h := sh.GetNew()
+
+	h := sh.GetNew()
+	//aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 4, "storeName":"TestStore", "city":"atlanta", "OauthClientID": 2}`))
+	//aJSON, _ := json.Marshal(robj)
+	//fmt.Println("aJSON: ", aJSON)
+	r, _ := http.NewRequest("GET", "/ffllist", nil)
+	vars := map[string]string{
+		"storeId": "5",
+	}
+	r = mux.SetURLVars(r, vars)
+
+	r.Header.Set("storeName", "TestStore")
+	r.Header.Set("localDomain", "test.domain")
+	r.Header.Set("Content-Type", "application/json")
+
+	r.Header.Set("superAdminRole", "superAdmin")
+
+	w := httptest.NewRecorder()
+
+	h.GetOrderCountData(w, r)
+
+	fmt.Println("code: ", w.Code)
+	if w.Code != 200 {
+		t.Fail()
+	}
+}
+
+func TestSix910Handler_GetOrderCountDataReq(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm man.Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	var sec sdbi.Security
+	sec.OauthOn = true
+	sdb.MockSecurity = &sec
+
+	m := sm.GetNew()
+
+	var str sdbi.Store
+	str.ID = 4
+	str.StoreName = "TestStore"
+	str.LocalDomain = "test.domain"
+	str.OauthClientID = 5
+	sdb.MockStore = &str
+
+	// var cat sdbi.Category
+	// cat.ID = 1
+	// cat.StoreID = 5
+	// sdb.MockCategory = &cat
+
+	// var ord sdbi.Order
+	// ord.ID = 3
+	// ord.StoreID = 5
+
+	// var lst []sdbi.Order
+	// lst = append(lst, ord)
+
+	// sdb.MockOrderList = &lst
+
+	var ocd sdbi.OrderCountData
+	var oclst []sdbi.OrderCountData
+	oclst = append(oclst, ocd)
+	sdb.MockOrderCountData = &oclst
+
+	var sh Six910Handler
+	sh.Manager = m
+	sh.APIKey = "123456"
+	sh.Log = &l
+
+	var mc jv.MockOauthClient
+	mc.MockValidate = true
+	sh.ValidatorClient = mc.GetNewClient()
+
+	//h := sh.GetNew()
+
+	h := sh.GetNew()
+	//aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 4, "storeName":"TestStore", "city":"atlanta", "OauthClientID": 2}`))
+	//aJSON, _ := json.Marshal(robj)
+	//fmt.Println("aJSON: ", aJSON)
+	r, _ := http.NewRequest("GET", "/ffllist", nil)
+	vars := map[string]string{
+		"storeId": "5r",
+	}
+	r = mux.SetURLVars(r, vars)
+
+	r.Header.Set("storeName", "TestStore")
+	r.Header.Set("localDomain", "test.domain")
+	r.Header.Set("Content-Type", "application/json")
+
+	r.Header.Set("superAdminRole", "superAdmin")
+
+	w := httptest.NewRecorder()
+
+	h.GetOrderCountData(w, r)
+
+	fmt.Println("code: ", w.Code)
+	if w.Code != 400 {
+		t.Fail()
+	}
+}
+
+func TestSix910Handler_GetOrderCountDataReq2(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm man.Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	var sec sdbi.Security
+	sec.OauthOn = true
+	sdb.MockSecurity = &sec
+
+	m := sm.GetNew()
+
+	var str sdbi.Store
+	str.ID = 4
+	str.StoreName = "TestStore"
+	str.LocalDomain = "test.domain"
+	str.OauthClientID = 5
+	sdb.MockStore = &str
+
+	// var cat sdbi.Category
+	// cat.ID = 1
+	// cat.StoreID = 5
+	// sdb.MockCategory = &cat
+
+	// var ord sdbi.Order
+	// ord.ID = 3
+	// ord.StoreID = 5
+
+	// var lst []sdbi.Order
+	// lst = append(lst, ord)
+
+	// sdb.MockOrderList = &lst
+
+	var ocd sdbi.OrderCountData
+	var oclst []sdbi.OrderCountData
+	oclst = append(oclst, ocd)
+	sdb.MockOrderCountData = &oclst
+
+	var sh Six910Handler
+	sh.Manager = m
+	sh.APIKey = "123456"
+	sh.Log = &l
+
+	var mc jv.MockOauthClient
+	mc.MockValidate = true
+	sh.ValidatorClient = mc.GetNewClient()
+
+	//h := sh.GetNew()
+
+	h := sh.GetNew()
+	//aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 4, "storeName":"TestStore", "city":"atlanta", "OauthClientID": 2}`))
+	//aJSON, _ := json.Marshal(robj)
+	//fmt.Println("aJSON: ", aJSON)
+	r, _ := http.NewRequest("GET", "/ffllist", nil)
+	vars := map[string]string{
+		//"storeId": "5",
+	}
+	r = mux.SetURLVars(r, vars)
+
+	r.Header.Set("storeName", "TestStore")
+	r.Header.Set("localDomain", "test.domain")
+	r.Header.Set("Content-Type", "application/json")
+
+	r.Header.Set("superAdminRole", "superAdmin")
+
+	w := httptest.NewRecorder()
+
+	h.GetOrderCountData(w, r)
+
+	fmt.Println("code: ", w.Code)
+	if w.Code != 400 {
+		t.Fail()
+	}
+}
+
+func TestSix910Handler_GetOrderCountDataAuth(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm man.Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	var sec sdbi.Security
+	//sec.OauthOn = true
+	sdb.MockSecurity = &sec
+
+	m := sm.GetNew()
+
+	var str sdbi.Store
+	str.ID = 4
+	str.StoreName = "TestStore"
+	str.LocalDomain = "test.domain"
+	str.OauthClientID = 5
+	sdb.MockStore = &str
+
+	// var cat sdbi.Category
+	// cat.ID = 1
+	// cat.StoreID = 5
+	// sdb.MockCategory = &cat
+
+	// var ord sdbi.Order
+	// ord.ID = 3
+	// ord.StoreID = 5
+
+	// var lst []sdbi.Order
+	// lst = append(lst, ord)
+
+	// sdb.MockOrderList = &lst
+
+	var ocd sdbi.OrderCountData
+	var oclst []sdbi.OrderCountData
+	oclst = append(oclst, ocd)
+	sdb.MockOrderCountData = &oclst
+
+	var sh Six910Handler
+	sh.Manager = m
+	sh.APIKey = "123456"
+	sh.Log = &l
+
+	var mc jv.MockOauthClient
+	mc.MockValidate = true
+	sh.ValidatorClient = mc.GetNewClient()
+
+	//h := sh.GetNew()
+
+	h := sh.GetNew()
+	//aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 4, "storeName":"TestStore", "city":"atlanta", "OauthClientID": 2}`))
+	//aJSON, _ := json.Marshal(robj)
+	//fmt.Println("aJSON: ", aJSON)
+	r, _ := http.NewRequest("GET", "/ffllist", nil)
+	vars := map[string]string{
+		"storeId": "5",
+	}
+	r = mux.SetURLVars(r, vars)
+
+	r.Header.Set("storeName", "TestStore")
+	r.Header.Set("localDomain", "test.domain")
+	r.Header.Set("Content-Type", "application/json")
+
+	r.Header.Set("superAdminRole", "superAdmin")
+
+	w := httptest.NewRecorder()
+
+	h.GetOrderCountData(w, r)
+
+	fmt.Println("code: ", w.Code)
+	if w.Code != 401 {
+		t.Fail()
+	}
+}
+
+func TestSix910Handler_GetOrderSalesData(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm man.Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	var sec sdbi.Security
+	sec.OauthOn = true
+	sdb.MockSecurity = &sec
+
+	m := sm.GetNew()
+
+	var str sdbi.Store
+	str.ID = 4
+	str.StoreName = "TestStore"
+	str.LocalDomain = "test.domain"
+	str.OauthClientID = 5
+	sdb.MockStore = &str
+
+	// var cat sdbi.Category
+	// cat.ID = 1
+	// cat.StoreID = 5
+	// sdb.MockCategory = &cat
+
+	// var ord sdbi.Order
+	// ord.ID = 3
+	// ord.StoreID = 5
+
+	// var lst []sdbi.Order
+	// lst = append(lst, ord)
+
+	// sdb.MockOrderList = &lst
+
+	var ocd sdbi.OrderSalesData
+	var oclst []sdbi.OrderSalesData
+	oclst = append(oclst, ocd)
+	sdb.MockOrderSalesData = &oclst
+
+	var sh Six910Handler
+	sh.Manager = m
+	sh.APIKey = "123456"
+	sh.Log = &l
+
+	var mc jv.MockOauthClient
+	mc.MockValidate = true
+	sh.ValidatorClient = mc.GetNewClient()
+
+	//h := sh.GetNew()
+
+	h := sh.GetNew()
+	//aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 4, "storeName":"TestStore", "city":"atlanta", "OauthClientID": 2}`))
+	//aJSON, _ := json.Marshal(robj)
+	//fmt.Println("aJSON: ", aJSON)
+	r, _ := http.NewRequest("GET", "/ffllist", nil)
+	vars := map[string]string{
+		"storeId": "5",
+	}
+	r = mux.SetURLVars(r, vars)
+
+	r.Header.Set("storeName", "TestStore")
+	r.Header.Set("localDomain", "test.domain")
+	r.Header.Set("Content-Type", "application/json")
+
+	r.Header.Set("superAdminRole", "superAdmin")
+
+	w := httptest.NewRecorder()
+
+	h.GetOrderSalesData(w, r)
+
+	fmt.Println("code: ", w.Code)
+	if w.Code != 200 {
+		t.Fail()
+	}
+}
+
+func TestSix910Handler_GetOrderSalesDataReq(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm man.Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	var sec sdbi.Security
+	sec.OauthOn = true
+	sdb.MockSecurity = &sec
+
+	m := sm.GetNew()
+
+	var str sdbi.Store
+	str.ID = 4
+	str.StoreName = "TestStore"
+	str.LocalDomain = "test.domain"
+	str.OauthClientID = 5
+	sdb.MockStore = &str
+
+	// var cat sdbi.Category
+	// cat.ID = 1
+	// cat.StoreID = 5
+	// sdb.MockCategory = &cat
+
+	// var ord sdbi.Order
+	// ord.ID = 3
+	// ord.StoreID = 5
+
+	// var lst []sdbi.Order
+	// lst = append(lst, ord)
+
+	// sdb.MockOrderList = &lst
+
+	var ocd sdbi.OrderSalesData
+	var oclst []sdbi.OrderSalesData
+	oclst = append(oclst, ocd)
+	sdb.MockOrderSalesData = &oclst
+
+	var sh Six910Handler
+	sh.Manager = m
+	sh.APIKey = "123456"
+	sh.Log = &l
+
+	var mc jv.MockOauthClient
+	mc.MockValidate = true
+	sh.ValidatorClient = mc.GetNewClient()
+
+	//h := sh.GetNew()
+
+	h := sh.GetNew()
+	//aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 4, "storeName":"TestStore", "city":"atlanta", "OauthClientID": 2}`))
+	//aJSON, _ := json.Marshal(robj)
+	//fmt.Println("aJSON: ", aJSON)
+	r, _ := http.NewRequest("GET", "/ffllist", nil)
+	vars := map[string]string{
+		"storeId": "5d",
+	}
+	r = mux.SetURLVars(r, vars)
+
+	r.Header.Set("storeName", "TestStore")
+	r.Header.Set("localDomain", "test.domain")
+	r.Header.Set("Content-Type", "application/json")
+
+	r.Header.Set("superAdminRole", "superAdmin")
+
+	w := httptest.NewRecorder()
+
+	h.GetOrderSalesData(w, r)
+
+	fmt.Println("code: ", w.Code)
+	if w.Code != 400 {
+		t.Fail()
+	}
+}
+
+func TestSix910Handler_GetOrderSalesDataReq2(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm man.Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	var sec sdbi.Security
+	sec.OauthOn = true
+	sdb.MockSecurity = &sec
+
+	m := sm.GetNew()
+
+	var str sdbi.Store
+	str.ID = 4
+	str.StoreName = "TestStore"
+	str.LocalDomain = "test.domain"
+	str.OauthClientID = 5
+	sdb.MockStore = &str
+
+	// var cat sdbi.Category
+	// cat.ID = 1
+	// cat.StoreID = 5
+	// sdb.MockCategory = &cat
+
+	// var ord sdbi.Order
+	// ord.ID = 3
+	// ord.StoreID = 5
+
+	// var lst []sdbi.Order
+	// lst = append(lst, ord)
+
+	// sdb.MockOrderList = &lst
+
+	var ocd sdbi.OrderSalesData
+	var oclst []sdbi.OrderSalesData
+	oclst = append(oclst, ocd)
+	sdb.MockOrderSalesData = &oclst
+
+	var sh Six910Handler
+	sh.Manager = m
+	sh.APIKey = "123456"
+	sh.Log = &l
+
+	var mc jv.MockOauthClient
+	mc.MockValidate = true
+	sh.ValidatorClient = mc.GetNewClient()
+
+	//h := sh.GetNew()
+
+	h := sh.GetNew()
+	//aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 4, "storeName":"TestStore", "city":"atlanta", "OauthClientID": 2}`))
+	//aJSON, _ := json.Marshal(robj)
+	//fmt.Println("aJSON: ", aJSON)
+	r, _ := http.NewRequest("GET", "/ffllist", nil)
+	vars := map[string]string{
+		//"storeId": "5",
+	}
+	r = mux.SetURLVars(r, vars)
+
+	r.Header.Set("storeName", "TestStore")
+	r.Header.Set("localDomain", "test.domain")
+	r.Header.Set("Content-Type", "application/json")
+
+	r.Header.Set("superAdminRole", "superAdmin")
+
+	w := httptest.NewRecorder()
+
+	h.GetOrderSalesData(w, r)
+
+	fmt.Println("code: ", w.Code)
+	if w.Code != 400 {
+		t.Fail()
+	}
+}
+
+func TestSix910Handler_GetOrderSalesDataAuth(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm man.Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	var sec sdbi.Security
+	//sec.OauthOn = true
+	sdb.MockSecurity = &sec
+
+	m := sm.GetNew()
+
+	var str sdbi.Store
+	str.ID = 4
+	str.StoreName = "TestStore"
+	str.LocalDomain = "test.domain"
+	str.OauthClientID = 5
+	sdb.MockStore = &str
+
+	// var cat sdbi.Category
+	// cat.ID = 1
+	// cat.StoreID = 5
+	// sdb.MockCategory = &cat
+
+	// var ord sdbi.Order
+	// ord.ID = 3
+	// ord.StoreID = 5
+
+	// var lst []sdbi.Order
+	// lst = append(lst, ord)
+
+	// sdb.MockOrderList = &lst
+
+	var ocd sdbi.OrderSalesData
+	var oclst []sdbi.OrderSalesData
+	oclst = append(oclst, ocd)
+	sdb.MockOrderSalesData = &oclst
+
+	var sh Six910Handler
+	sh.Manager = m
+	sh.APIKey = "123456"
+	sh.Log = &l
+
+	var mc jv.MockOauthClient
+	mc.MockValidate = true
+	sh.ValidatorClient = mc.GetNewClient()
+
+	//h := sh.GetNew()
+
+	h := sh.GetNew()
+	//aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 4, "storeName":"TestStore", "city":"atlanta", "OauthClientID": 2}`))
+	//aJSON, _ := json.Marshal(robj)
+	//fmt.Println("aJSON: ", aJSON)
+	r, _ := http.NewRequest("GET", "/ffllist", nil)
+	vars := map[string]string{
+		"storeId": "5",
+	}
+	r = mux.SetURLVars(r, vars)
+
+	r.Header.Set("storeName", "TestStore")
+	r.Header.Set("localDomain", "test.domain")
+	r.Header.Set("Content-Type", "application/json")
+
+	r.Header.Set("superAdminRole", "superAdmin")
+
+	w := httptest.NewRecorder()
+
+	h.GetOrderSalesData(w, r)
+
+	fmt.Println("code: ", w.Code)
+	if w.Code != 401 {
 		t.Fail()
 	}
 }

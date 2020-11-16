@@ -366,6 +366,84 @@ func (h *Six910Handler) GetStoreOrderListByStatus(w http.ResponseWriter, r *http
 	}
 }
 
+//GetOrderCountData GetOrderCountData
+func (h *Six910Handler) GetOrderCountData(w http.ResponseWriter, r *http.Request) {
+	var gorcdURL = "/six910/rs/store/order/count/data"
+	var goccl jv.Claim
+	goccl.Role = customerRole
+	goccl.URL = gorcdURL
+	goccl.Scope = "read"
+	h.Log.Debug("client: ", h.ValidatorClient)
+	auth := h.processSecurity(r, &goccl)
+	h.Log.Debug("order get count data authorized: ", auth)
+	h.SetContentType(w)
+	if auth {
+		vars := mux.Vars(r)
+		h.Log.Debug("vars: ", len(vars))
+		if vars != nil && len(vars) == 1 {
+			h.Log.Debug("vars: ", vars)
+			var oscdstoreIDStr = vars["storeId"]
+			//cID, sorlciderr := strconv.ParseInt(orlcidStr, 10, 64)
+			storeID, orcdserr := strconv.ParseInt(oscdstoreIDStr, 10, 64)
+			var gorcdres *[]sdbi.OrderCountData
+			if orcdserr == nil {
+				gorcdres = h.Manager.GetOrderCountData(storeID)
+				h.Log.Debug("get order count data list: ", gorcdres)
+				w.WriteHeader(http.StatusOK)
+			} else {
+				w.WriteHeader(http.StatusBadRequest)
+				var nc = []sdbi.OrderCountData{}
+				gorcdres = &nc
+			}
+			resJSON, _ := json.Marshal(gorcdres)
+			fmt.Fprint(w, string(resJSON))
+		} else {
+			w.WriteHeader(http.StatusBadRequest)
+		}
+	} else {
+		w.WriteHeader(http.StatusUnauthorized)
+	}
+}
+
+//GetOrderSalesData GetOrderSalesData
+func (h *Six910Handler) GetOrderSalesData(w http.ResponseWriter, r *http.Request) {
+	var gorsdURL = "/six910/rs/store/order/sales/data"
+	var goscl jv.Claim
+	goscl.Role = customerRole
+	goscl.URL = gorsdURL
+	goscl.Scope = "read"
+	h.Log.Debug("client: ", h.ValidatorClient)
+	auth := h.processSecurity(r, &goscl)
+	h.Log.Debug("order get sales data authorized: ", auth)
+	h.SetContentType(w)
+	if auth {
+		vars := mux.Vars(r)
+		h.Log.Debug("vars: ", len(vars))
+		if vars != nil && len(vars) == 1 {
+			h.Log.Debug("vars: ", vars)
+			var ossdstoreIDStr = vars["storeId"]
+			//cID, sorlciderr := strconv.ParseInt(orlcidStr, 10, 64)
+			storeID, orsdserr := strconv.ParseInt(ossdstoreIDStr, 10, 64)
+			var gorsdres *[]sdbi.OrderSalesData
+			if orsdserr == nil {
+				gorsdres = h.Manager.GetOrderSalesData(storeID)
+				h.Log.Debug("get order sales data list: ", gorsdres)
+				w.WriteHeader(http.StatusOK)
+			} else {
+				w.WriteHeader(http.StatusBadRequest)
+				var nc = []sdbi.OrderSalesData{}
+				gorsdres = &nc
+			}
+			resJSON, _ := json.Marshal(gorsdres)
+			fmt.Fprint(w, string(resJSON))
+		} else {
+			w.WriteHeader(http.StatusBadRequest)
+		}
+	} else {
+		w.WriteHeader(http.StatusUnauthorized)
+	}
+}
+
 // DeleteOrder godoc
 // @Summary Delete a order
 // @Description Delete a order from the store

@@ -367,3 +367,54 @@ func TestSix910Manager_DeleteOrderFail2(t *testing.T) {
 		t.Fail()
 	}
 }
+
+func TestSix910Manager_GetOrderCountData(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	m := sm.GetNew()
+	var oc sdbi.OrderCountData
+	oc.OrderCount = 5
+	var oclst []sdbi.OrderCountData
+	oclst = append(oclst, oc)
+	sdb.MockOrderCountData = &oclst
+
+	ocdlst := m.GetOrderCountData(5)
+	if len(*ocdlst) == 0 {
+		t.Fail()
+	}
+}
+
+func TestSix910Manager_GetOrderSalesData(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	m := sm.GetNew()
+	var oc sdbi.OrderSalesData
+	oc.OrderTotal = 5.2
+	var oclst []sdbi.OrderSalesData
+	oclst = append(oclst, oc)
+	sdb.MockOrderSalesData = &oclst
+
+	oslst := m.GetOrderSalesData(5)
+	if len(*oslst) == 0 {
+		t.Fail()
+	}
+
+}

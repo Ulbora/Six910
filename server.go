@@ -247,6 +247,8 @@ func main() {
 	router.HandleFunc("/rs/product/get/name/{name}/{storeId}/{start}/{end}", h.GetProductsByName).Methods("GET")
 	router.HandleFunc("/rs/product/get/category/{catId}/{storeId}/{start}/{end}", h.GetProductsByCaterory).Methods("GET")
 	router.HandleFunc("/rs/product/get/list/{storeId}/{start}/{end}", h.GetProductList).Methods("GET")
+	router.HandleFunc("/rs/product/get/ids/{storeId}", h.GetProductIDList).Methods("GET")
+	router.HandleFunc("/rs/product/get/ids/cat", h.GetProductIDListByCategories).Methods("POST")
 	router.HandleFunc("/rs/product/delete/{id}/{storeId}", h.DeleteProduct).Methods("DELETE")
 
 	//search
@@ -297,6 +299,8 @@ func main() {
 	router.HandleFunc("/rs/order/get/list/{cid}/{storeId}", h.GetOrderList).Methods("GET")
 	router.HandleFunc("/rs/order/get/store/list/{storeId}", h.GetStoreOrderList).Methods("GET")
 	router.HandleFunc("/rs/order/get/store/list/status/{status}/{storeId}", h.GetStoreOrderListByStatus).Methods("GET")
+	router.HandleFunc("/rs/order/get/count/data/{storeId}", h.GetOrderCountData).Methods("GET")
+	router.HandleFunc("/rs/order/get/sales/data/{storeId}", h.GetOrderSalesData).Methods("GET")
 	router.HandleFunc("/rs/order/delete/{id}/{storeId}", h.DeleteOrder).Methods("DELETE")
 
 	//Order Items
@@ -379,6 +383,10 @@ func main() {
 	router.HandleFunc("/rs/dataStoreWriteLock/add", h.AddDataStoreWriteLock).Methods("POST")
 	router.HandleFunc("/rs/dataStoreWriteLock/update", h.UpdateDataStoreWriteLock).Methods("PUT")
 	router.HandleFunc("/rs/dataStoreWriteLock/get/{dataStore}/{storeId}", h.GetDataStoreWriteLock).Methods("GET")
+
+	//visitor
+	router.HandleFunc("/rs/visit/add", h.AddVisit).Methods("POST")
+	router.HandleFunc("/rs/visitor/data/list/{storeId}", h.GetVisitorData).Methods("GET")
 
 	fmt.Println("Six910 (six nine ten) server is running on port " + port + "!")
 

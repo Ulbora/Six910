@@ -554,3 +554,53 @@ func TestSix910Manager_GetProductByBySkuFail(t *testing.T) {
 		t.Fail()
 	}
 }
+
+func TestSix910Manager_GetProductIDList(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	m := sm.GetNew()
+
+	var idlst []int64
+	idlst = append(idlst, 4)
+	sdb.MockProductIDList = &idlst
+	fidlst := m.GetProductIDList(4)
+	if len(*fidlst) == 0 {
+		t.Fail()
+	}
+}
+
+func TestSix910Manager_GetProductIDListByCategories(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	m := sm.GetNew()
+
+	var idlst []int64
+	idlst = append(idlst, 4)
+	sdb.MockProductIDList = &idlst
+
+	var catlst []int64
+	catlst = append(catlst, 5)
+
+	fidlst := m.GetProductIDListByCategories(2, &catlst)
+	if len(*fidlst) == 0 {
+		t.Fail()
+	}
+}

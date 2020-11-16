@@ -33,6 +33,12 @@ import (
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+//ProdIDReq ProdIDReq
+type ProdIDReq struct {
+	StoreID      int64    `json:"storeId"`
+	CategoryList *[]int64 `json:"categoryList"`
+}
+
 // AddProduct godoc
 // @Summary Add a new product
 // @Description Adds a new product to a store
@@ -550,6 +556,81 @@ func (h *Six910Handler) GetProductList(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprint(w, string(resJSON))
 		} else {
 			w.WriteHeader(http.StatusBadRequest)
+		}
+	} else {
+		w.WriteHeader(http.StatusUnauthorized)
+	}
+}
+
+//GetProductIDList GetProductIDList
+func (h *Six910Handler) GetProductIDList(w http.ResponseWriter, r *http.Request) {
+	var gprodilURL = "/six910/rs/product/id/list"
+	var gprodicl jv.Claim
+	gprodicl.Role = customerRole
+	gprodicl.URL = gprodilURL
+	gprodicl.Scope = "read"
+	h.Log.Debug("client: ", h.ValidatorClient)
+	auth := h.processAPIKeySecurity(r)
+	h.Log.Debug("produce get id list authorized: ", auth)
+	h.SetContentType(w)
+	if auth {
+		vars := mux.Vars(r)
+		h.Log.Debug("vars: ", len(vars))
+		if vars != nil && len(vars) == 1 {
+			h.Log.Debug("vars: ", vars)
+			var prodilstoreIDStr = vars["storeId"]
+			storeID, sprodilerr := strconv.ParseInt(prodilstoreIDStr, 10, 64)
+			var pidList *[]int64
+			if sprodilerr == nil {
+				pidList = h.Manager.GetProductIDList(storeID)
+				h.Log.Debug("get product id list: ", pidList)
+				w.WriteHeader(http.StatusOK)
+			} else {
+				w.WriteHeader(http.StatusBadRequest)
+				var nc = []int64{}
+				pidList = &nc
+			}
+			resJSON, _ := json.Marshal(pidList)
+			fmt.Fprint(w, string(resJSON))
+		} else {
+			w.WriteHeader(http.StatusBadRequest)
+		}
+	} else {
+		w.WriteHeader(http.StatusUnauthorized)
+	}
+}
+
+//GetProductIDListByCategories GetProductIDListByCategories
+func (h *Six910Handler) GetProductIDListByCategories(w http.ResponseWriter, r *http.Request) {
+	var gprodiclURL = "/six910/rs/product/id/list/cat"
+	var gprodiccl jv.Claim
+	gprodiccl.Role = customerRole
+	gprodiccl.URL = gprodiclURL
+	gprodiccl.Scope = "read"
+	h.Log.Debug("client: ", h.ValidatorClient)
+	auth := h.processAPIKeySecurity(r)
+	h.Log.Debug("produce get id list by cat authorized: ", auth)
+	h.SetContentType(w)
+	if auth {
+		acOk := h.CheckContent(r)
+		h.Log.Debug("conOk: ", acOk)
+		if !acOk {
+			http.Error(w, "json required", http.StatusUnsupportedMediaType)
+		} else {
+			var prodic ProdIDReq
+			prodicsuc, prodicerr := h.ProcessBody(r, &prodic)
+			h.Log.Debug("prodicsuc: ", prodicsuc)
+			h.Log.Debug("prodic: ", prodic)
+			h.Log.Debug("prodicerr: ", prodicerr)
+			if !prodicsuc && prodicerr != nil {
+				http.Error(w, prodicerr.Error(), http.StatusBadRequest)
+			} else {
+				prodicres := h.Manager.GetProductIDListByCategories(prodic.StoreID, prodic.CategoryList)
+				h.Log.Debug("prodicres: ", *prodicres)
+				w.WriteHeader(http.StatusOK)
+				resJSON, _ := json.Marshal(prodicres)
+				fmt.Fprint(w, string(resJSON))
+			}
 		}
 	} else {
 		w.WriteHeader(http.StatusUnauthorized)

@@ -132,6 +132,8 @@ type Handler interface {
 	GetProductsByPromoted(w http.ResponseWriter, r *http.Request)
 	GetProductsByCaterory(w http.ResponseWriter, r *http.Request)
 	GetProductList(w http.ResponseWriter, r *http.Request)
+	GetProductIDList(w http.ResponseWriter, r *http.Request)
+	GetProductIDListByCategories(w http.ResponseWriter, r *http.Request)
 	DeleteProduct(w http.ResponseWriter, r *http.Request)
 
 	//product search
@@ -194,6 +196,8 @@ type Handler interface {
 	GetOrderList(w http.ResponseWriter, r *http.Request)
 	GetStoreOrderList(w http.ResponseWriter, r *http.Request)
 	GetStoreOrderListByStatus(w http.ResponseWriter, r *http.Request)
+	GetOrderCountData(w http.ResponseWriter, r *http.Request)
+	GetOrderSalesData(w http.ResponseWriter, r *http.Request)
 	DeleteOrder(w http.ResponseWriter, r *http.Request)
 
 	//Order Items
@@ -298,4 +302,7 @@ type Handler interface {
 
 	//gets called from within the add method and by any node trying to update a datastore
 	GetDataStoreWriteLock(w http.ResponseWriter, r *http.Request)
+
+	AddVisit(w http.ResponseWriter, r *http.Request)
+	GetVisitorData(w http.ResponseWriter, r *http.Request)
 }

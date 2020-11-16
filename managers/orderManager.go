@@ -87,6 +87,16 @@ func (m *Six910Manager) GetStoreOrderListByStatus(status string, sid int64) *[]s
 	return m.Db.GetStoreOrderListByStatus(status, sid)
 }
 
+//GetOrderCountData GetOrderCountData
+func (m *Six910Manager) GetOrderCountData(sid int64) *[]sdbi.OrderCountData {
+	return m.Db.GetOrderCountData(sid)
+}
+
+//GetOrderSalesData GetOrderSalesData
+func (m *Six910Manager) GetOrderSalesData(sid int64) *[]sdbi.OrderSalesData {
+	return m.Db.GetOrderSalesData(sid)
+}
+
 //DeleteOrder DeleteOrder
 func (m *Six910Manager) DeleteOrder(id int64, sid int64) *Response {
 	var rtn Response
