@@ -153,6 +153,7 @@ type Manager interface {
 
 	AddCustomerUser(u *User) *Response
 	UpdateUser(u *User) *Response
+	AdminUpdateUser(u *User) *Response
 	GetUser(u *User) *UserResponse
 	GetAdminUsers(storeID int64) *[]UserResponse
 	GetCustomerUsers(storeID int64) *[]UserResponse

@@ -175,6 +175,7 @@ func main() {
 	//users
 	router.HandleFunc("/rs/user/add", h.AddUser).Methods("POST")
 	router.HandleFunc("/rs/user/update", h.UpdateUser).Methods("PUT")
+	router.HandleFunc("/rs/user/admin/update", h.AdminUpdateUser).Methods("PUT")
 	router.HandleFunc("/rs/user/{username}/{storeId}", h.GetUser).Methods("GET")
 
 	router.HandleFunc("/rs/user/get/admin/list/{storeId}", h.GetAdminUserList).Methods("GET")

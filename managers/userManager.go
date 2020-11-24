@@ -113,6 +113,31 @@ func (m *Six910Manager) UpdateUser(u *User) *Response {
 	return &rtn
 }
 
+//AdminUpdateUser AdminUpdateUser
+func (m *Six910Manager) AdminUpdateUser(u *User) *Response {
+	var rtn Response
+	alu := m.Db.GetLocalAccount(u.Username, u.StoreID)
+	if alu.CustomerID == u.CustomerID && alu.StoreID == u.StoreID {
+		alu.Enabled = u.Enabled
+		if u.Password != "" {
+			hpwsuc, hpw := m.hashPassword(u.Password)
+			if hpwsuc {
+				m.Log.Debug("update password with new Hash password for " + u.Password)
+				alu.Password = hpw
+			}
+		}
+		suc := m.Db.UpdateLocalAccount(alu)
+		m.Log.Debug("admin updated success ", suc)
+		if suc {
+			rtn.Success = suc
+			rtn.Code = http.StatusOK
+		} else {
+			rtn.Code = http.StatusInternalServerError
+		}
+	}
+	return &rtn
+}
+
 //GetUser GetUser
 func (m *Six910Manager) GetUser(u *User) *UserResponse {
 	var rtn UserResponse

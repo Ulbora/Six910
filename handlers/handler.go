@@ -58,6 +58,7 @@ type Handler interface {
 	//users
 	AddUser(w http.ResponseWriter, r *http.Request)
 	UpdateUser(w http.ResponseWriter, r *http.Request)
+	AdminUpdateUser(w http.ResponseWriter, r *http.Request)
 	GetUser(w http.ResponseWriter, r *http.Request)
 
 	//only for non oauth stores

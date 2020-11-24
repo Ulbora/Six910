@@ -214,6 +214,85 @@ func TestSix910Manager_UpdateUserFail(t *testing.T) {
 	}
 }
 
+func TestSix910Manager_AdminUpdateUser(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	m := sm.GetNew()
+
+	//var sec sdbi.Security
+	//sdb.MockSecurity = &sec
+	sdb.MockUpdateLocalAccountSuccess = true
+	var lc sdbi.LocalAccount
+	lc.CustomerID = 2
+	lc.StoreID = 1
+	//_, hpw := sm.hashPassword("tester")
+	//lc.Password = hpw
+	lc.Password = "$2a$10$jQeE.2i3EuggHY0ckMT7OuRW5zZeo.M2OTpNEU92skDVKoEmugBqe"
+	sdb.MockLocalAccount = &lc
+
+	var u User
+	u.Enabled = true
+	u.StoreID = 1
+	u.Username = "tester"
+	u.OldPassword = "tester"
+	u.Password = "tester2"
+	u.Role = "admin"
+	u.CustomerID = 2
+
+	res := m.AdminUpdateUser(&u)
+	if !res.Success {
+		t.Fail()
+	}
+}
+
+func TestSix910Manager_AdminUpdateUserFail(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	m := sm.GetNew()
+
+	//var sec sdbi.Security
+	//sdb.MockSecurity = &sec
+	//sdb.MockUpdateLocalAccountSuccess = true
+	var lc sdbi.LocalAccount
+	lc.CustomerID = 2
+	lc.StoreID = 1
+	//_, hpw := sm.hashPassword("tester")
+	//lc.Password = hpw
+	lc.Password = "$2a$10$jQeE.2i3EuggHY0ckMT7OuRW5zZeo.M2OTpNEU92skDVKoEmugBqe"
+	sdb.MockLocalAccount = &lc
+
+	var u User
+	u.Enabled = true
+	u.StoreID = 1
+	u.Username = "tester"
+	u.OldPassword = "tester"
+	u.Password = "tester2"
+	u.Role = "admin"
+	u.CustomerID = 2
+
+	res := m.AdminUpdateUser(&u)
+	if res.Success {
+		t.Fail()
+	}
+}
 func TestSix910Manager_GetUser(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger

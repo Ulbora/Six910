@@ -158,6 +158,50 @@ func (h *Six910Handler) UpdateUser(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+//AdminUpdateUser AdminUpdateUser
+func (h *Six910Handler) AdminUpdateUser(w http.ResponseWriter, r *http.Request) {
+	var aupUsURL = "/six910/rs/user/admin/update"
+	var auuc jv.Claim
+	auuc.Role = storeAdmin
+	auuc.URL = aupUsURL
+	auuc.Scope = "write"
+	h.Log.Debug("client: ", h.ValidatorClient)
+	auth := h.processSecurity(r, &auuc)
+	h.Log.Debug("admin user update authorized: ", auth)
+	h.SetContentType(w)
+	if auth {
+		ucOk := h.CheckContent(r)
+		h.Log.Debug("conOk: ", ucOk)
+		if !ucOk {
+			http.Error(w, "json required", http.StatusUnsupportedMediaType)
+		} else {
+			var auus m.User
+			aussuc, auserr := h.ProcessBody(r, &auus)
+			h.Log.Debug("ussuc: ", aussuc)
+			h.Log.Debug("uus: ", auus)
+			h.Log.Debug("userr: ", auserr)
+			if !aussuc && auserr != nil {
+				http.Error(w, auserr.Error(), http.StatusBadRequest)
+			} else {
+				auures := h.Manager.AdminUpdateUser(&auus)
+				h.Log.Debug("auures: ", *auures)
+				if auures.Success {
+					w.WriteHeader(http.StatusOK)
+				} else {
+					w.WriteHeader(http.StatusInternalServerError)
+				}
+				resJSON, _ := json.Marshal(auures)
+				fmt.Fprint(w, string(resJSON))
+			}
+		}
+	} else {
+		var auufl m.Response
+		w.WriteHeader(http.StatusUnauthorized)
+		resJSON, _ := json.Marshal(auufl)
+		fmt.Fprint(w, string(resJSON))
+	}
+}
+
 // GetUser godoc
 // @Summary Get details of a user
 // @Description Get details of a user
