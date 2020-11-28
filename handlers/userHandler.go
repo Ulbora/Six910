@@ -363,3 +363,58 @@ func (h *Six910Handler) GetCustomerUserList(w http.ResponseWriter, r *http.Reque
 		w.WriteHeader(http.StatusUnauthorized)
 	}
 }
+
+// GetUsersByCustomer godoc
+// @Summary Get list of a customer users
+// @Description Get list of customer users for by customer
+// @Tags User
+// @Accept  json
+// @Produce  json
+// @Param cid path string true "customer id"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {array} managers.UserResponse
+// @Router /rs/get/customer/users/{cid}/{storeId} [get]
+func (h *Six910Handler) GetUsersByCustomer(w http.ResponseWriter, r *http.Request) {
+	var gbcUslURL = "/six910/rs/get/customer/users"
+	var gbcucl jv.Claim
+	gbcucl.Role = storeAdmin
+	gbcucl.URL = gbcUslURL
+	gbcucl.Scope = "read"
+	h.Log.Debug("client: ", h.ValidatorClient)
+	auth := h.processSecurity(r, &gbcucl)
+	h.Log.Debug("user get by customer list authorized: ", auth)
+	h.SetContentType(w)
+	if auth {
+		vars := mux.Vars(r)
+		h.Log.Debug("vars: ", len(vars))
+		if vars != nil && len(vars) == 2 {
+			h.Log.Debug("vars: ", vars)
+			var cIDStr = vars["cid"]
+			cid, cierr := strconv.ParseInt(cIDStr, 10, 64)
+			var storeIDStr = vars["storeId"]
+			storeID, serr := strconv.ParseInt(storeIDStr, 10, 64)
+			var gbculres *[]m.UserResponse
+			if serr == nil && cierr == nil {
+				gbculres = h.Manager.GetUsersByCustomer(cid, storeID)
+				h.Log.Debug("gbculres list: ", gbculres)
+				w.WriteHeader(http.StatusOK)
+			} else {
+				w.WriteHeader(http.StatusBadRequest)
+				var ncc = []m.UserResponse{}
+				gbculres = &ncc
+			}
+			resJSON, _ := json.Marshal(gbculres)
+			fmt.Fprint(w, string(resJSON))
+		} else {
+			w.WriteHeader(http.StatusBadRequest)
+		}
+	} else {
+		w.WriteHeader(http.StatusUnauthorized)
+	}
+}

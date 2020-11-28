@@ -64,6 +64,7 @@ type Handler interface {
 	//only for non oauth stores
 	GetAdminUserList(w http.ResponseWriter, r *http.Request)
 	GetCustomerUserList(w http.ResponseWriter, r *http.Request)
+	GetUsersByCustomer(w http.ResponseWriter, r *http.Request)
 	// DeleteUser(w http.ResponseWriter, r *http.Request)
 
 	//distributors

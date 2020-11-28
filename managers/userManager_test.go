@@ -429,6 +429,53 @@ func TestSix910Manager_GetCustomerUsers(t *testing.T) {
 	}
 }
 
+func TestSix910Manager_GetUsersByCustomer(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	m := sm.GetNew()
+
+	//var sec sdbi.Security
+	//sdb.MockSecurity = &sec
+	//sdb.MockUpdateLocalAccountSuccess = true
+	var lclist []sdbi.LocalAccount
+	var lc sdbi.LocalAccount
+	lc.CustomerID = 2
+	_, hpw := sm.hashPassword("tester")
+	lc.Password = hpw
+	lc.UserName = "tester"
+	lc.Role = customerRole
+	lc.Enabled = true
+	lc.StoreID = 5
+	lclist = append(lclist, lc)
+
+	var lc2 sdbi.LocalAccount
+	//lc2.CustomerID = 0
+	_, hpw2 := sm.hashPassword("tester2")
+	lc2.Password = hpw2
+	lc2.UserName = "tester2"
+	lc2.Role = storeAdmin
+	lc2.Enabled = true
+	lc2.StoreID = 5
+	lclist = append(lclist, lc2)
+
+	sdb.MockLocalAccountList = &lclist
+
+	fu := m.GetUsersByCustomer(2, 5)
+	fmt.Println("found users by customer: ", fu)
+	if len(*fu) != 1 {
+		t.Fail()
+	}
+}
+
 func TestSix910Manager_ValidateUser(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger

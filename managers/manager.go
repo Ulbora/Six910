@@ -157,6 +157,7 @@ type Manager interface {
 	GetUser(u *User) *UserResponse
 	GetAdminUsers(storeID int64) *[]UserResponse
 	GetCustomerUsers(storeID int64) *[]UserResponse
+	GetUsersByCustomer(cid int64, storeID int64) *[]UserResponse
 	ValidateUser(u *User) *Response
 
 	//oauth users

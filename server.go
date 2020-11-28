@@ -180,6 +180,7 @@ func main() {
 
 	router.HandleFunc("/rs/user/get/admin/list/{storeId}", h.GetAdminUserList).Methods("GET")
 	router.HandleFunc("/rs/user/get/customer/list/{storeId}", h.GetCustomerUserList).Methods("GET")
+	router.HandleFunc("/rs/get/customer/users/{cid}/{storeId}", h.GetUsersByCustomer).Methods("GET")
 
 	//distributors
 	router.HandleFunc("/rs/distributor/add", h.AddDistributor).Methods("POST")

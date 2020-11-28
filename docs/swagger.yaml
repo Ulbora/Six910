@@ -2991,6 +2991,61 @@ paths:
       summary: Get list of ExcludedSubRegion
       tags:
       - Excluded Sub Regions (Excluded Geographic Sales Sub Regions)
+  /rs/get/customer/users/{cid}/{storeId}:
+    get:
+      consumes:
+      - application/json
+      description: Get list of customer users for by customer
+      parameters:
+      - description: customer id
+        in: path
+        name: cid
+        required: true
+        type: string
+      - description: store storeId
+        in: path
+        name: storeId
+        required: true
+        type: string
+      - description: apiKey required for non OAuth2 stores only
+        in: header
+        name: apiKey
+        type: string
+      - description: store name
+        in: header
+        name: storeName
+        required: true
+        type: string
+      - description: store localDomain
+        in: header
+        name: localDomain
+        required: true
+        type: string
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: OAuth2 client ID only for OAuth2 stores
+        in: header
+        name: clientId
+        type: string
+      - description: User ID only for OAuth2 stores
+        in: header
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/managers.UserResponse'
+            type: array
+      summary: Get list of a customer users
+      tags:
+      - User
   /rs/includedSubRegion/add:
     post:
       consumes:

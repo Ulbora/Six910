@@ -190,6 +190,24 @@ func (m *Six910Manager) GetCustomerUsers(storeID int64) *[]UserResponse {
 	return &rtn
 }
 
+//GetUsersByCustomer GetUsersByCustomer
+func (m *Six910Manager) GetUsersByCustomer(cid int64, storeID int64) *[]UserResponse {
+	var rtn []UserResponse
+	clulist := m.Db.GetCustomerUsers(cid, storeID)
+	for _, l := range *clulist {
+		if l.CustomerID == cid {
+			var u UserResponse
+			u.CustomerID = l.CustomerID
+			u.Role = l.Role
+			u.StoreID = l.StoreID
+			u.Username = l.UserName
+			u.Enabled = l.Enabled
+			rtn = append(rtn, u)
+		}
+	}
+	return &rtn
+}
+
 //ValidateUser ValidateUser
 func (m *Six910Manager) ValidateUser(u *User) *Response {
 	var rtn Response
