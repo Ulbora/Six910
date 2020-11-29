@@ -60,6 +60,7 @@ type Handler interface {
 	UpdateUser(w http.ResponseWriter, r *http.Request)
 	AdminUpdateUser(w http.ResponseWriter, r *http.Request)
 	GetUser(w http.ResponseWriter, r *http.Request)
+	ResetCustomerUserPassword(w http.ResponseWriter, r *http.Request)
 
 	//only for non oauth stores
 	GetAdminUserList(w http.ResponseWriter, r *http.Request)

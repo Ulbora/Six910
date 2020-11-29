@@ -124,6 +124,13 @@ type SecurityProfile struct {
 	Store     *sdbi.Store
 }
 
+//CustomerPasswordResponse CustomerPasswordResponse
+type CustomerPasswordResponse struct {
+	Success  bool   `json:"success"`
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+
 //Manager Manager
 type Manager interface {
 	GetSecurityProfile(storeName string, localDomain string) *SecurityProfile
@@ -159,6 +166,7 @@ type Manager interface {
 	GetCustomerUsers(storeID int64) *[]UserResponse
 	GetUsersByCustomer(cid int64, storeID int64) *[]UserResponse
 	ValidateUser(u *User) *Response
+	ResetCustomerPassword(u *User) *CustomerPasswordResponse
 
 	//oauth users
 	AddOAuthUser(user *OAuthUser, auth *Auth) *Response

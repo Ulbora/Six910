@@ -418,3 +418,47 @@ func (h *Six910Handler) GetUsersByCustomer(w http.ResponseWriter, r *http.Reques
 		w.WriteHeader(http.StatusUnauthorized)
 	}
 }
+
+//ResetCustomerUserPassword ResetCustomerUserPassword
+func (h *Six910Handler) ResetCustomerUserPassword(w http.ResponseWriter, r *http.Request) {
+	var rpwUsURL = "/six910/rs/customer/user/reset/pw"
+	var rauc jv.Claim
+	rauc.Role = storeAdmin
+	rauc.URL = rpwUsURL
+	rauc.Scope = "write"
+	h.Log.Debug("client: ", h.ValidatorClient)
+	auth := h.processAPIKeySecurity(r)
+	h.Log.Debug("user reset pw authorized: ", auth)
+	h.SetContentType(w)
+	if auth {
+		auOk := h.CheckContent(r)
+		h.Log.Debug("conOk: ", auOk)
+		if !auOk {
+			http.Error(w, "json required", http.StatusUnsupportedMediaType)
+		} else {
+			var user m.User
+			rpwusuc, rpwuerr := h.ProcessBody(r, &user)
+			h.Log.Debug("ausuc: ", rpwusuc)
+			h.Log.Debug("user: ", user)
+			h.Log.Debug("auerr: ", rpwuerr)
+			if !rpwusuc && rpwuerr != nil {
+				http.Error(w, rpwuerr.Error(), http.StatusBadRequest)
+			} else {
+				pwrres := h.Manager.ResetCustomerPassword(&user)
+				h.Log.Debug("pwrres: ", *pwrres)
+				if pwrres.Success {
+					w.WriteHeader(http.StatusOK)
+				} else {
+					w.WriteHeader(http.StatusInternalServerError)
+				}
+				resJSON, _ := json.Marshal(pwrres)
+				fmt.Fprint(w, string(resJSON))
+			}
+		}
+	} else {
+		var cpwcfl m.CustomerPasswordResponse
+		w.WriteHeader(http.StatusUnauthorized)
+		resJSON, _ := json.Marshal(cpwcfl)
+		fmt.Fprint(w, string(resJSON))
+	}
+}

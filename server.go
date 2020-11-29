@@ -182,6 +182,8 @@ func main() {
 	router.HandleFunc("/rs/user/get/customer/list/{storeId}", h.GetCustomerUserList).Methods("GET")
 	router.HandleFunc("/rs/get/customer/users/{cid}/{storeId}", h.GetUsersByCustomer).Methods("GET")
 
+	router.HandleFunc("/rs/customer/user/reset/pw", h.ResetCustomerUserPassword).Methods("PUT")
+
 	//distributors
 	router.HandleFunc("/rs/distributor/add", h.AddDistributor).Methods("POST")
 	router.HandleFunc("/rs/distributor/update", h.UpdateDistributor).Methods("PUT")

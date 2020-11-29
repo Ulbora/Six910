@@ -1,7 +1,11 @@
 package managers
 
 import (
+	"math/rand"
+	"strings"
+
 	"net/http"
+	"time"
 
 	sdbi "github.com/Ulbora/six910-database-interface"
 )
@@ -234,4 +238,39 @@ func (m *Six910Manager) ValidateUser(u *User) *Response {
 		rtn.Code = http.StatusUnauthorized
 	}
 	return &rtn
+}
+
+//ResetCustomerPassword ResetCustomerPassword
+func (m *Six910Manager) ResetCustomerPassword(u *User) *CustomerPasswordResponse {
+	var rtn CustomerPasswordResponse
+	lu := m.Db.GetLocalAccount(u.Username, u.StoreID)
+	if lu.UserName == u.Username && lu.Enabled {
+		npw := m.generateNewPassword()
+		rhpwsuc, hpw := m.hashPassword(npw)
+		if rhpwsuc {
+			lu.Password = hpw
+			suc := m.Db.UpdateLocalAccount(lu)
+			m.Log.Debug("generateing now pw and updated success ", suc)
+			if suc {
+				rtn.Password = npw
+				rtn.Success = suc
+				rtn.Username = lu.UserName
+			}
+		}
+	}
+	return &rtn
+}
+
+func (m *Six910Manager) generateNewPassword() string {
+	rand.Seed(time.Now().UnixNano())
+	chars := []rune("ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+		"abcdefghijklmnopqrstuvwxyz" +
+		"0123456789")
+	length := 15
+	var b strings.Builder
+	for i := 0; i < length; i++ {
+		b.WriteRune(chars[rand.Intn(len(chars))])
+	}
+	str := b.String()
+	return str
 }
