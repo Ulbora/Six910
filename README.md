@@ -8,6 +8,8 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Six910&metric=alert_status)](https://sonarcloud.io/dashboard?id=Six910)
 [![Go Report Card](https://goreportcard.com/badge/github.com/Ulbora/Six910)](https://goreportcard.com/report/github.com/Ulbora/Six910)
 
+### Project Status
+Six910 is currently a Release Candidate (RC) and currently running on multiple sites.
 
 ### The Speeding Fast Shopping Cart ECommerce System with Dependency Injection
 An open source Ecommerce platform server for building online shopping cart systems and will have a cryptocurrency payment module among others; it is written in golang. This project is the REST service backend. The UI project will including an admin panel and switchable templates.
@@ -20,12 +22,12 @@ This project is the REST implementation of the Six910 Ecommerce solution.
 
 1. Users of the Six910, together with Six910 UI will be able to customize templates just like other hosted solutions.
 2. Templates can either be written in Golang templating or use a JavaScript framework like Angular or React.
-3. REST services will be used to expose all cart functionality.
+3. REST services expose all cart functionality.
 
 ## Template Designer
 There will also be a template designer to make desiging templates much easier than it currently is with most hosted shopping cart solutions.
 
-1. Users will be able to download there current template
+1. Users can download there current template
 2. Modify the template using the user's store URL
 3. Upload the template back to the hosted site
 
@@ -34,13 +36,7 @@ There will also be a template designer to make desiging templates much easier th
 The default database for Six910 will be MySQL. The database module can be found [here](https://github.com/Ulbora/six910-mysql). The database interface, however is modular and can easily be switched out for any other database.
 
 ## Addon Applications
-Six910 will allow third party developers to build addon applications that integrate into templates.
+Six910 allows third party developers to build addon applications that integrate into templates.
 
-**We need Golang developers to work on this project.** If you are interested in contributing, send a **pull request** with your name added to the developer section of the readme.
-
-## Developers and Contributors:
-
-1. Ken Williamson
-2. Your Name Here
 
 
