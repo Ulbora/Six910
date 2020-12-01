@@ -392,10 +392,15 @@ func main() {
 	router.HandleFunc("/rs/visit/add", h.AddVisit).Methods("POST")
 	router.HandleFunc("/rs/visitor/data/list/{storeId}", h.GetVisitorData).Methods("GET")
 
+	//logger
+	router.HandleFunc("/rs/loglevel", h.SetLogLevel).Methods("POST")
+
 	fmt.Println("Six910 (six nine ten) server is running on port " + port + "!")
 
 	// Swagger
 	router.PathPrefix("/swagger").Handler(httpSwagger.WrapHandler)
+
+	l.LogLevel = lg.OffLevel
 
 	http.ListenAndServe(":"+port, router)
 }

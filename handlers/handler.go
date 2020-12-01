@@ -308,4 +308,6 @@ type Handler interface {
 
 	AddVisit(w http.ResponseWriter, r *http.Request)
 	GetVisitorData(w http.ResponseWriter, r *http.Request)
+
+	SetLogLevel(w http.ResponseWriter, r *http.Request)
 }
