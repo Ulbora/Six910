@@ -67,6 +67,8 @@ func main() {
 
 	var userHost string
 
+	var validationURL string
+
 	var l lg.Logger
 	l.LogLevel = lg.AllLevel
 
@@ -100,6 +102,12 @@ func main() {
 		userHost = "http://localhost:3001"
 	}
 
+	if os.Getenv("SIX910_OAUTH2_VALIDATION_URL") != "" {
+		validationURL = os.Getenv("SIX910_OAUTH2_VALIDATION_URL")
+	} else {
+		validationURL = "http://localhost:3000/rs/token/validate"
+	}
+
 	if os.Getenv("SIX910_API_KEY") != "" {
 		apiKey = os.Getenv("SIX910_API_KEY")
 	} else {
@@ -130,9 +138,10 @@ func main() {
 	sh.APIKey = apiKey
 	sh.Log = &l
 
-	var mc jv.MockOauthClient
+	var mc jv.OauthClient
 	//mc.MockValidate = true
 	sh.ValidatorClient = mc.GetNewClient()
+	sh.ValidationURL = validationURL
 
 	router := mux.NewRouter()
 	port := "3002"
