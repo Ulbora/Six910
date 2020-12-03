@@ -113,7 +113,13 @@ func (h *Six910Handler) UpdateCustomer(w http.ResponseWriter, r *http.Request) {
 	ucc.URL = upCusURL
 	ucc.Scope = "write"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &ucc)
+	clientID := r.Header.Get("clientId")
+	var auth bool
+	if clientID != "" {
+		auth = h.processSecurity(r, &ucc)
+	} else {
+		auth = h.processBasicSecurity(r, &ucc)
+	}
 	h.Log.Debug("customer update authorized: ", auth)
 	h.SetContentType(w)
 	if auth {

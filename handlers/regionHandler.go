@@ -172,7 +172,7 @@ func (h *Six910Handler) GetRegion(w http.ResponseWriter, r *http.Request) {
 	gregc.URL = gregURL
 	gregc.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &gregc)
+	auth := h.processAPIKeySecurity(r)
 	h.Log.Debug("region get id authorized: ", auth)
 	h.SetContentType(w)
 	if auth {

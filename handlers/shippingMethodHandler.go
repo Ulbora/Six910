@@ -172,7 +172,7 @@ func (h *Six910Handler) GetShippingMethod(w http.ResponseWriter, r *http.Request
 	gsmc.URL = gsmURL
 	gsmc.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &gsmc)
+	auth := h.processAPIKeySecurity(r)
 	h.Log.Debug("shipping method get id authorized: ", auth)
 	h.SetContentType(w)
 	if auth {
@@ -226,7 +226,7 @@ func (h *Six910Handler) GetShippingMethodList(w http.ResponseWriter, r *http.Req
 	gsmcl.URL = gsmlURL
 	gsmcl.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &gsmcl)
+	auth := h.processAPIKeySecurity(r)
 	h.Log.Debug("shipping method get list authorized: ", auth)
 	h.SetContentType(w)
 	if auth {

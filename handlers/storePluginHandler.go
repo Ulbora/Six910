@@ -172,7 +172,7 @@ func (h *Six910Handler) GetStorePlugin(w http.ResponseWriter, r *http.Request) {
 	gspic.URL = gspiURL
 	gspic.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &gspic)
+	auth := h.processAPIKeySecurity(r)
 	h.Log.Debug("store plugin get id authorized: ", auth)
 	h.SetContentType(w)
 	if auth {

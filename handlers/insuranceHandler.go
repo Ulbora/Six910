@@ -172,7 +172,7 @@ func (h *Six910Handler) GetInsurance(w http.ResponseWriter, r *http.Request) {
 	ginsc.URL = ginsURL
 	ginsc.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &ginsc)
+	auth := h.processAPIKeySecurity(r)
 	h.Log.Debug("insurance get id authorized: ", auth)
 	h.SetContentType(w)
 	if auth {
@@ -226,7 +226,7 @@ func (h *Six910Handler) GetInsuranceList(w http.ResponseWriter, r *http.Request)
 	ginscl.URL = ginslURL
 	ginscl.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &ginscl)
+	auth := h.processAPIKeySecurity(r)
 	h.Log.Debug("insurance get list authorized: ", auth)
 	h.SetContentType(w)
 	if auth {

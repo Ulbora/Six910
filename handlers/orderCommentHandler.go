@@ -61,7 +61,13 @@ func (h *Six910Handler) AddOrderComments(w http.ResponseWriter, r *http.Request)
 	aorcc.URL = addorcURL
 	aorcc.Scope = "write"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &aorcc)
+	clientID := r.Header.Get("clientId")
+	var auth bool
+	if clientID != "" {
+		auth = h.processSecurity(r, &aorcc)
+	} else {
+		auth = h.processBasicSecurity(r, &aorcc)
+	}
 	h.Log.Debug("order comment add authorized: ", auth)
 	h.SetContentType(w)
 	if auth {
@@ -120,7 +126,13 @@ func (h *Six910Handler) GetOrderCommentList(w http.ResponseWriter, r *http.Reque
 	gorccl.URL = gorclURL
 	gorccl.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &gorccl)
+	clientID := r.Header.Get("clientId")
+	var auth bool
+	if clientID != "" {
+		auth = h.processSecurity(r, &gorccl)
+	} else {
+		auth = h.processBasicSecurity(r, &gorccl)
+	}
 	h.Log.Debug("order comment get list authorized: ", auth)
 	h.SetContentType(w)
 	if auth {

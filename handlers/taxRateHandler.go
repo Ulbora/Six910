@@ -167,13 +167,13 @@ func (h *Six910Handler) UpdateTaxRate(w http.ResponseWriter, r *http.Request) {
 // @Success 200 {array} six910-database-interface.TaxRate
 // @Router /rs/taxRate/get/country/{country}/{state}/{storeId} [get]
 func (h *Six910Handler) GetTaxRate(w http.ResponseWriter, r *http.Request) {
-	var gtrURL = "/six910/rs/taxRate"
+	var gtrURL = "/six910/rs/taxRate/get"
 	var gtrc jv.Claim
 	gtrc.Role = customerRole
 	gtrc.URL = gtrURL
 	gtrc.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &gtrc)
+	auth := h.processAPIKeySecurity(r)
 	h.Log.Debug("tax rate get authorized: ", auth)
 	h.SetContentType(w)
 	if auth {

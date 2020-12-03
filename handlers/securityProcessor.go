@@ -83,6 +83,40 @@ func (h *Six910Handler) processSecurity(r *http.Request, c *jv.Claim) bool {
 	return rtn
 }
 
+//used only for method call by customer only
+func (h *Six910Handler) processBasicSecurity(r *http.Request, c *jv.Claim) bool {
+	var rtn bool
+	storeName := r.Header.Get("storeName")
+	localDomain := r.Header.Get("localDomain")
+	sp := h.Manager.GetSecurityProfile(storeName, localDomain)
+	h.Log.Debug("security profile in basic ", *sp)
+	if sp.Store != nil {
+		username, pw, ok := r.BasicAuth()
+		h.Log.Debug("basic auth ok ", ok)
+		if ok {
+			//////tokenHeader := r.Header.Get("Authorization")
+			var user m.User
+			user.Username = username
+			user.Password = pw
+			user.StoreID = sp.Store.ID
+			u := h.Manager.GetUser(&user)
+			user.CustomerID = u.CustomerID
+			user.Enabled = u.Enabled
+			h.Log.Debug("user to validate", user)
+			res := h.Manager.ValidateUser(&user)
+			h.Log.Debug("user validated: ", *res)
+			apiKey := r.Header.Get("apiKey")
+			h.Log.Debug("apiKey: ", apiKey)
+			h.Log.Debug("h.APIKey: ", h.APIKey)
+			h.Log.Debug("u.Role: ", u.Role)
+			if res.Success && apiKey == h.APIKey && u.Role == customerRole {
+				rtn = true
+			}
+		}
+	}
+	return rtn
+}
+
 func (h *Six910Handler) processAPIKeySecurity(r *http.Request) bool {
 	var rtn bool
 	apiKey := r.Header.Get("apiKey")

@@ -692,6 +692,7 @@ func TestSix910Handler_GetShippingMethod(t *testing.T) {
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
 
 	r.Header.Set("superAdminRole", "superAdmin")
 
@@ -826,6 +827,7 @@ func TestSix910Handler_GetShippingMethodReq(t *testing.T) {
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
 
 	r.Header.Set("superAdminRole", "superAdmin")
 
@@ -893,6 +895,7 @@ func TestSix910Handler_GetShippingMethodReq2(t *testing.T) {
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
 
 	r.Header.Set("superAdminRole", "superAdmin")
 
@@ -963,6 +966,7 @@ func TestSix910Handler_GetShippingMethodList(t *testing.T) {
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
 
 	r.Header.Set("superAdminRole", "superAdmin")
 
@@ -1033,6 +1037,7 @@ func TestSix910Handler_GetShippingMethodListReq2(t *testing.T) {
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
 
 	r.Header.Set("superAdminRole", "superAdmin")
 
@@ -1173,6 +1178,7 @@ func TestSix910Handler_GetShippingMethodListReq(t *testing.T) {
 	r.Header.Set("storeName", "TestStore")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
 
 	r.Header.Set("superAdminRole", "superAdmin")
 

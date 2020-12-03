@@ -178,7 +178,7 @@ func (h *Six910Handler) GetPaymentGateway(w http.ResponseWriter, r *http.Request
 	gpgwc.URL = gpgwURL
 	gpgwc.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &gpgwc)
+	auth := h.processAPIKeySecurity(r)
 	h.Log.Debug("payment gateway get id authorized: ", auth)
 	h.SetContentType(w)
 	if auth {
@@ -232,7 +232,7 @@ func (h *Six910Handler) GetPaymentGateways(w http.ResponseWriter, r *http.Reques
 	gpgwcl.URL = gpgwlURL
 	gpgwcl.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &gpgwcl)
+	auth := h.processAPIKeySecurity(r)
 	h.Log.Debug("payment gateway get list authorized: ", auth)
 	h.SetContentType(w)
 	if auth {

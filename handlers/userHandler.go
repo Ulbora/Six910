@@ -122,7 +122,13 @@ func (h *Six910Handler) UpdateUser(w http.ResponseWriter, r *http.Request) {
 	uuc.URL = upUsURL
 	uuc.Scope = "write"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &uuc)
+	clientID := r.Header.Get("clientId")
+	var auth bool
+	if clientID != "" {
+		auth = h.processSecurity(r, &uuc)
+	} else {
+		auth = h.processBasicSecurity(r, &uuc)
+	}
 	h.Log.Debug("user update authorized: ", auth)
 	h.SetContentType(w)
 	if auth {
@@ -225,7 +231,13 @@ func (h *Six910Handler) GetUser(w http.ResponseWriter, r *http.Request) {
 	guc.URL = gUsURL
 	guc.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &guc)
+	clientID := r.Header.Get("clientId")
+	var auth bool
+	if clientID != "" {
+		auth = h.processSecurity(r, &guc)
+	} else {
+		auth = h.processBasicSecurity(r, &guc)
+	}
 
 	h.Log.Debug("user get authorized: ", auth)
 	h.SetContentType(w)

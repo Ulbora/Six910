@@ -61,7 +61,13 @@ func (h *Six910Handler) AddOrderTransaction(w http.ResponseWriter, r *http.Reque
 	aortc.URL = addortURL
 	aortc.Scope = "write"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &aortc)
+	clientID := r.Header.Get("clientId")
+	var auth bool
+	if clientID != "" {
+		auth = h.processSecurity(r, &aortc)
+	} else {
+		auth = h.processBasicSecurity(r, &aortc)
+	}
 	h.Log.Debug("order transaction add authorized: ", auth)
 	h.SetContentType(w)
 	if auth {
@@ -120,7 +126,13 @@ func (h *Six910Handler) GetOrderTransactionList(w http.ResponseWriter, r *http.R
 	gortcl.URL = gortlURL
 	gortcl.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &gortcl)
+	clientID := r.Header.Get("clientId")
+	var auth bool
+	if clientID != "" {
+		auth = h.processSecurity(r, &gortcl)
+	} else {
+		auth = h.processBasicSecurity(r, &gortcl)
+	}
 	h.Log.Debug("order transaction get list authorized: ", auth)
 	h.SetContentType(w)
 	if auth {

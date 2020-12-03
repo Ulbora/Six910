@@ -61,7 +61,13 @@ func (h *Six910Handler) AddOrderItem(w http.ResponseWriter, r *http.Request) {
 	aoric.URL = addoriURL
 	aoric.Scope = "write"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &aoric)
+	clientID := r.Header.Get("clientId")
+	var auth bool
+	if clientID != "" {
+		auth = h.processSecurity(r, &aoric)
+	} else {
+		auth = h.processBasicSecurity(r, &aoric)
+	}
 	h.Log.Debug("order item add authorized: ", auth)
 	h.SetContentType(w)
 	if auth {
@@ -233,7 +239,13 @@ func (h *Six910Handler) GetOrderItemList(w http.ResponseWriter, r *http.Request)
 	goricl.URL = gorilURL
 	goricl.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processSecurity(r, &goricl)
+	clientID := r.Header.Get("clientId")
+	var auth bool
+	if clientID != "" {
+		auth = h.processSecurity(r, &goricl)
+	} else {
+		auth = h.processBasicSecurity(r, &goricl)
+	}
 	h.Log.Debug("order item get list authorized: ", auth)
 	h.SetContentType(w)
 	if auth {

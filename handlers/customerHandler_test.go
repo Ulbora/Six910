@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"golang.org/x/crypto/bcrypt"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
@@ -372,6 +373,22 @@ func TestSix910Handler_UpdateCustomer(t *testing.T) {
 	cus.StoreID = 4
 	sdb.MockCustomer = &cus
 
+	var lu sdbi.LocalAccount
+	lu.CustomerID = 2
+	lu.Role = "customer"
+	lu.StoreID = 4
+	lu.UserName = "tester"
+	hashedPw, err := bcrypt.GenerateFromPassword([]byte("tester1"), bcrypt.DefaultCost)
+	if err == nil {
+		lu.Password = string(hashedPw)
+		fmt.Println("hpw: ", lu.Password)
+	}
+	//hpw := sm
+	//lu.Password = "tester1"
+	lu.Enabled = true
+
+	sdb.MockLocalAccount = &lu
+
 	h := sh.GetNew()
 	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 4, "firstName":"TestStore", "city":"atlanta", "storeId": 4}`))
 	//aJSON, _ := json.Marshal(robj)
@@ -383,6 +400,90 @@ func TestSix910Handler_UpdateCustomer(t *testing.T) {
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
 	r.Header.Set("apiKey", "123456")
+	r.SetBasicAuth("tester", "tester1")
+
+	r.Header.Set("superAdminRole", "superAdmin")
+
+	w := httptest.NewRecorder()
+
+	h.UpdateCustomer(w, r)
+
+	if w.Code != 200 {
+		t.Fail()
+	}
+}
+
+func TestSix910Handler_UpdateCustomer2(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm man.Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	var sec sdbi.Security
+	sec.OauthOn = true
+	sdb.MockSecurity = &sec
+
+	m := sm.GetNew()
+
+	var str sdbi.Store
+	str.ID = 4
+	str.StoreName = "TestStore"
+	str.LocalDomain = "test.domain"
+	str.OauthClientID = 5
+	sdb.MockStore = &str
+
+	var sh Six910Handler
+	sh.Manager = m
+	sh.APIKey = "123456"
+	sh.Log = &l
+
+	var mc jv.MockOauthClient
+	mc.MockValidate = true
+	sh.ValidatorClient = mc.GetNewClient()
+
+	//h := sh.GetNew()
+
+	sdb.MockUpdateCustomerSuccess = true
+
+	var cus sdbi.Customer
+	cus.StoreID = 4
+	sdb.MockCustomer = &cus
+
+	var lu sdbi.LocalAccount
+	lu.CustomerID = 2
+	lu.Role = "customer"
+	lu.StoreID = 4
+	lu.UserName = "tester"
+	hashedPw, err := bcrypt.GenerateFromPassword([]byte("tester1"), bcrypt.DefaultCost)
+	if err == nil {
+		lu.Password = string(hashedPw)
+		fmt.Println("hpw: ", lu.Password)
+	}
+	//hpw := sm
+	//lu.Password = "tester1"
+	lu.Enabled = true
+
+	sdb.MockLocalAccount = &lu
+
+	h := sh.GetNew()
+	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 4, "firstName":"TestStore", "city":"atlanta", "storeId": 4}`))
+	//aJSON, _ := json.Marshal(robj)
+	//fmt.Println("aJSON: ", aJSON)
+	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
+
+	r.Header.Set("storeName", "TestStore")
+	r.Header.Set("storeName2", "TestStore2")
+	r.Header.Set("localDomain", "test.domain")
+	r.Header.Set("Content-Type", "application/json")
+	r.Header.Set("apiKey", "123456")
+	r.Header.Set("clientId", "123456")
+	r.SetBasicAuth("tester", "tester1")
 
 	r.Header.Set("superAdminRole", "superAdmin")
 
@@ -437,6 +538,22 @@ func TestSix910Handler_UpdateCustomerReq(t *testing.T) {
 	cus.StoreID = 4
 	sdb.MockCustomer = &cus
 
+	var lu sdbi.LocalAccount
+	lu.CustomerID = 2
+	lu.Role = "customer"
+	lu.StoreID = 4
+	lu.UserName = "tester"
+	hashedPw, err := bcrypt.GenerateFromPassword([]byte("tester1"), bcrypt.DefaultCost)
+	if err == nil {
+		lu.Password = string(hashedPw)
+		fmt.Println("hpw: ", lu.Password)
+	}
+	//hpw := sm
+	//lu.Password = "tester1"
+	lu.Enabled = true
+
+	sdb.MockLocalAccount = &lu
+
 	h := sh.GetNew()
 	//aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 4, "firstName":"TestStore", "city":"atlanta", "storeId": 4}`))
 	//aJSON, _ := json.Marshal(robj)
@@ -448,6 +565,7 @@ func TestSix910Handler_UpdateCustomerReq(t *testing.T) {
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
 	r.Header.Set("apiKey", "123456")
+	r.SetBasicAuth("tester", "tester1")
 
 	r.Header.Set("superAdminRole", "superAdmin")
 
@@ -566,6 +684,22 @@ func TestSix910Handler_UpdateCustomerFail(t *testing.T) {
 	cus.StoreID = 4
 	sdb.MockCustomer = &cus
 
+	var lu sdbi.LocalAccount
+	lu.CustomerID = 2
+	lu.Role = "customer"
+	lu.StoreID = 4
+	lu.UserName = "tester"
+	hashedPw, err := bcrypt.GenerateFromPassword([]byte("tester1"), bcrypt.DefaultCost)
+	if err == nil {
+		lu.Password = string(hashedPw)
+		fmt.Println("hpw: ", lu.Password)
+	}
+	//hpw := sm
+	//lu.Password = "tester1"
+	lu.Enabled = true
+
+	sdb.MockLocalAccount = &lu
+
 	h := sh.GetNew()
 	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 4, "firstName":"TestStore", "city":"atlanta", "storeId": 4}`))
 	//aJSON, _ := json.Marshal(robj)
@@ -577,6 +711,7 @@ func TestSix910Handler_UpdateCustomerFail(t *testing.T) {
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("Content-Type", "application/json")
 	r.Header.Set("apiKey", "123456")
+	r.SetBasicAuth("tester", "tester1")
 
 	r.Header.Set("superAdminRole", "superAdmin")
 
@@ -631,6 +766,22 @@ func TestSix910Handler_UpdateCustomerMedia(t *testing.T) {
 	cus.StoreID = 4
 	sdb.MockCustomer = &cus
 
+	var lu sdbi.LocalAccount
+	lu.CustomerID = 2
+	lu.Role = "customer"
+	lu.StoreID = 4
+	lu.UserName = "tester"
+	hashedPw, err := bcrypt.GenerateFromPassword([]byte("tester1"), bcrypt.DefaultCost)
+	if err == nil {
+		lu.Password = string(hashedPw)
+		fmt.Println("hpw: ", lu.Password)
+	}
+	//hpw := sm
+	//lu.Password = "tester1"
+	lu.Enabled = true
+
+	sdb.MockLocalAccount = &lu
+
 	h := sh.GetNew()
 	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 4, "firstName":"TestStore", "city":"atlanta", "storeId": 4}`))
 	//aJSON, _ := json.Marshal(robj)
@@ -641,6 +792,7 @@ func TestSix910Handler_UpdateCustomerMedia(t *testing.T) {
 	r.Header.Set("storeName2", "TestStore2")
 	r.Header.Set("localDomain", "test.domain")
 	r.Header.Set("apiKey", "123456")
+	r.SetBasicAuth("tester", "tester1")
 
 	//r.Header.Set("Content-Type", "application/json")
 
