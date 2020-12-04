@@ -95,19 +95,19 @@ func (h *Six910Handler) processBasicSecurity(r *http.Request, c *jv.Claim) bool 
 		h.Log.Debug("basic auth ok ", ok)
 		if ok {
 			//////tokenHeader := r.Header.Get("Authorization")
-			var user m.User
-			user.Username = username
-			user.Password = pw
-			user.StoreID = sp.Store.ID
-			u := h.Manager.GetUser(&user)
-			user.CustomerID = u.CustomerID
-			user.Enabled = u.Enabled
-			h.Log.Debug("user to validate", user)
-			res := h.Manager.ValidateUser(&user)
+			var buser m.User
+			buser.Username = username
+			buser.Password = pw
+			buser.StoreID = sp.Store.ID
+			u := h.Manager.GetUser(&buser)
+			buser.CustomerID = u.CustomerID
+			buser.Enabled = u.Enabled
+			h.Log.Debug("user to validate", buser)
+			res := h.Manager.ValidateUser(&buser)
 			h.Log.Debug("user validated: ", *res)
 			apiKey := r.Header.Get("apiKey")
 			h.Log.Debug("apiKey: ", apiKey)
-			h.Log.Debug("h.APIKey: ", h.APIKey)
+			h.Log.Debug("bh.APIKey: ", h.APIKey)
 			h.Log.Debug("u.Role: ", u.Role)
 			if res.Success && apiKey == h.APIKey && u.Role == customerRole {
 				rtn = true
