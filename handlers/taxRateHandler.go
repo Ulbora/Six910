@@ -274,7 +274,7 @@ func (h *Six910Handler) GetTaxRateList(w http.ResponseWriter, r *http.Request) {
 // @Success 200 {object} managers.Response
 // @Router /rs/taxRate/delete/{id}/{storeId} [delete]
 func (h *Six910Handler) DeleteTaxRate(w http.ResponseWriter, r *http.Request) {
-	var dtrURL = "/six910/rs/tarRate/delete"
+	var dtrURL = "/six910/rs/taxRate/delete"
 	var dtrs jv.Claim
 	dtrs.Role = storeAdmin
 	dtrs.URL = dtrURL
