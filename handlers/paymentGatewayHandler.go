@@ -228,17 +228,17 @@ func (h *Six910Handler) GetPaymentGateway(w http.ResponseWriter, r *http.Request
 // @Router /rs/paymentGateway/get/name/{name}/{storeId} [get]
 func (h *Six910Handler) GetPaymentGatewayByName(w http.ResponseWriter, r *http.Request) {
 	var gpgwURL = "/six910/rs/paymentGateway/get/name"
-	var gpgwc jv.Claim
-	gpgwc.Role = customerRole
-	gpgwc.URL = gpgwURL
-	gpgwc.Scope = "read"
+	var gpgwnc jv.Claim
+	gpgwnc.Role = customerRole
+	gpgwnc.URL = gpgwURL
+	gpgwnc.Scope = "read"
 	h.Log.Debug("client: ", h.ValidatorClient)
-	auth := h.processAPIKeySecurity(r)
-	h.Log.Debug("payment gateway get id authorized: ", auth)
+	authn := h.processAPIKeySecurity(r)
+	h.Log.Debug("payment gateway get id authorized: ", authn)
 	h.SetContentType(w)
-	if auth {
+	if authn {
 		vars := mux.Vars(r)
-		h.Log.Debug("vars: ", len(vars))
+		h.Log.Debug("varsn: ", len(vars))
 		if vars != nil && len(vars) == 2 {
 			h.Log.Debug("vars: ", vars)
 			var gpgwname = vars["name"]
