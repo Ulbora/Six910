@@ -8,14 +8,20 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Six910&metric=alert_status)](https://sonarcloud.io/dashboard?id=Six910)
 [![Go Report Card](https://goreportcard.com/badge/github.com/Ulbora/Six910)](https://goreportcard.com/report/github.com/Ulbora/Six910)
 
+
+## Bitcoin payments
+Six910 now has a bitcoin payment module built on open source BTCPay Server. BTCPay Server is a self-hosted, open-source cryptocurrency payment processor. It's secure, private, censorship-resistant and free.
+
+
 ## Docker
 https://hub.docker.com/r/ulboralabs/six910
 
 ### Project Status
 Six910 has released and currently running on multiple sites.
 
+
 ### The Speeding Fast Shopping Cart ECommerce System with Dependency Injection
-An open source Ecommerce platform server for building online shopping cart systems and will have a cryptocurrency payment module among others; it is written in golang. This project is the REST service backend. The UI project will including an admin panel and switchable templates.
+An open source Ecommerce platform server for building online shopping cart systems and now has a cryptocurrency payment module built on BTCPay Server among others; it is written in golang. This project is the REST service backend. The UI project will including an admin panel and switchable templates.
 
 All components of Six910 are developed as Go modules and injected using dependency injection.
 

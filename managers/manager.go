@@ -358,6 +358,7 @@ type Manager interface {
 	AddPaymentGateway(pgw *sdbi.PaymentGateway, sid int64) *ResponseID
 	UpdatePaymentGateway(pgw *sdbi.PaymentGateway, sid int64) *Response
 	GetPaymentGateway(id int64, sid int64) *sdbi.PaymentGateway
+	GetPaymentGatewayByName(name string, sid int64) *sdbi.PaymentGateway
 	GetPaymentGateways(storeID int64) *[]sdbi.PaymentGateway
 	DeletePaymentGateway(id int64, sid int64) *Response
 

@@ -78,6 +78,11 @@ func (m *Six910Manager) GetPaymentGateway(id int64, sid int64) *sdbi.PaymentGate
 	return rtn
 }
 
+//GetPaymentGatewayByName GetPaymentGatewayByName
+func (m *Six910Manager) GetPaymentGatewayByName(name string, sid int64) *sdbi.PaymentGateway {
+	return m.Db.GetPaymentGatewayByName(name, sid)
+}
+
 //GetPaymentGateways GetPaymentGateways
 func (m *Six910Manager) GetPaymentGateways(storeID int64) *[]sdbi.PaymentGateway {
 	return m.Db.GetPaymentGateways(storeID)

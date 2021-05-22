@@ -1,6 +1,7 @@
 package managers
 
 import (
+	"fmt"
 	"testing"
 
 	lg "github.com/Ulbora/Level_Logger"
@@ -265,6 +266,41 @@ func TestSix910Manager_GetPaymentGatewayFail(t *testing.T) {
 	if fg.CheckoutURL == gw.CheckoutURL {
 		t.Fail()
 	}
+}
+
+func TestSix910Manager_GetPaymentGatewayByName(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	m := sm.GetNew()
+
+	var sp sdbi.StorePlugins
+	sp.APIKey = "1234"
+	sp.StoreID = 5
+
+	sdb.MockStorePlugin = &sp
+
+	var gw sdbi.PaymentGateway
+	gw.CheckoutURL = "test"
+	gw.StorePluginsID = 3
+	gw.Name = "BTC"
+
+	sdb.MockPaymentGateway = &gw
+
+	fg := m.GetPaymentGatewayByName("BTC", 5)
+	fmt.Println("fg: ", *fg)
+	if fg.CheckoutURL != gw.CheckoutURL || fg.Name != "BTC" {
+		t.Fail()
+	}
+	// t.Fail()
 }
 
 func TestSix910Manager_GetPaymentGateways(t *testing.T) {

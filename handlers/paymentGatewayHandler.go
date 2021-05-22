@@ -210,6 +210,61 @@ func (h *Six910Handler) GetPaymentGateway(w http.ResponseWriter, r *http.Request
 	}
 }
 
+// GetPaymentGatewayByName godoc
+// @Summary Get details of a PaymentGateway by name
+// @Description Get details of a PaymentGateway
+// @Tags PaymentGateway
+// @Accept  json
+// @Produce  json
+// @Param id path string true "paymentGateway name"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} six910-database-interface.PaymentGateway
+// @Router /rs/paymentGateway/get/name/{name}/{storeId} [get]
+func (h *Six910Handler) GetPaymentGatewayByName(w http.ResponseWriter, r *http.Request) {
+	var gpgwURL = "/six910/rs/paymentGateway/get/name"
+	var gpgwc jv.Claim
+	gpgwc.Role = customerRole
+	gpgwc.URL = gpgwURL
+	gpgwc.Scope = "read"
+	h.Log.Debug("client: ", h.ValidatorClient)
+	auth := h.processAPIKeySecurity(r)
+	h.Log.Debug("payment gateway get id authorized: ", auth)
+	h.SetContentType(w)
+	if auth {
+		vars := mux.Vars(r)
+		h.Log.Debug("vars: ", len(vars))
+		if vars != nil && len(vars) == 2 {
+			h.Log.Debug("vars: ", vars)
+			var gpgwname = vars["name"]
+			var gpgwstoreIDStr = vars["storeId"]
+			//id, gpgwiderr := strconv.ParseInt(gpgwidStr, 10, 64)
+			storeID, gpgwsiderr := strconv.ParseInt(gpgwstoreIDStr, 10, 64)
+			var gpgwnres *sdbi.PaymentGateway
+			if gpgwsiderr == nil {
+				gpgwnres = h.Manager.GetPaymentGatewayByName(gpgwname, storeID)
+				h.Log.Debug("gpgwres: ", gpgwnres)
+				w.WriteHeader(http.StatusOK)
+			} else {
+				w.WriteHeader(http.StatusBadRequest)
+				var nc sdbi.PaymentGateway
+				gpgwnres = &nc
+			}
+			resJSON, _ := json.Marshal(gpgwnres)
+			fmt.Fprint(w, string(resJSON))
+		} else {
+			w.WriteHeader(http.StatusBadRequest)
+		}
+	} else {
+		w.WriteHeader(http.StatusUnauthorized)
+	}
+}
+
 // GetPaymentGateways godoc
 // @Summary Get list of PaymentGateway
 // @Description Get list of PaymentGateway for a store

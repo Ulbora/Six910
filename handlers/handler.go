@@ -258,6 +258,7 @@ type Handler interface {
 	AddPaymentGateway(w http.ResponseWriter, r *http.Request)
 	UpdatePaymentGateway(w http.ResponseWriter, r *http.Request)
 	GetPaymentGateway(w http.ResponseWriter, r *http.Request)
+	GetPaymentGatewayByName(w http.ResponseWriter, r *http.Request)
 	GetPaymentGateways(w http.ResponseWriter, r *http.Request)
 	DeletePaymentGateway(w http.ResponseWriter, r *http.Request)
 

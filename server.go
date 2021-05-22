@@ -371,6 +371,7 @@ func main() {
 	router.HandleFunc("/rs/paymentGateway/add", h.AddPaymentGateway).Methods("POST")
 	router.HandleFunc("/rs/paymentGateway/update", h.UpdatePaymentGateway).Methods("PUT")
 	router.HandleFunc("/rs/paymentGateway/get/id/{id}/{storeId}", h.GetPaymentGateway).Methods("GET")
+	router.HandleFunc("/rs/paymentGateway/get/name/{name}/{storeId}", h.GetPaymentGatewayByName).Methods("GET")
 	router.HandleFunc("/rs/paymentGateway/get/list/{storeId}", h.GetPaymentGateways).Methods("GET")
 	router.HandleFunc("/rs/paymentGateway/delete/{id}/{storeId}", h.DeletePaymentGateway).Methods("DELETE")
 
