@@ -1,6 +1,6 @@
-![](./six910.png)
+![](./Six910Cart-trans-blue.png)
 
-# Six-9-10
+# Pronounced: Six 9 10
 
 ## [Swagger API Docs](http://api-swagger-docs.six910.com/swagger/index.html)
 
