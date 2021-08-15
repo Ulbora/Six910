@@ -8,6 +8,15 @@ go:
 addons:
   sonarcloud:
     organization: "ulboralabs" # the key of the org you chose at step #3    
+
+
+services:
+  - docker
+
+before_install:  
+  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+  - docker build -t ulboralabs/six910 .
+
 script:
   # other script steps might be done before running the actual analysis
   - sonar-scanner
