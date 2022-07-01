@@ -5,8 +5,7 @@ FROM ubuntu
 # RUN apt-get install -y ca-certificates
 RUN apt-get update \
     && apt-get install -y \
-    ca-certificates \
-    unzip
+    ca-certificates 
 ADD server /server
 ADD entrypoint.sh /entrypoint.sh
 WORKDIR /
