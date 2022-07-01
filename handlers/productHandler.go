@@ -562,6 +562,61 @@ func (h *Six910Handler) GetProductList(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// GetProductSubSkuList godoc
+// @Summary Get list of products
+// @Description Get list of products for a store
+// @Tags Product
+// @Accept  json
+// @Produce  json
+// @Param storeId path string true "store storeId"
+// @Param parentProdID path string true "parent Product ID"
+// @Param apiKey header string true "apiKey required"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {array} six910-database-interface.Product
+// @Router /rs/product/get/list/{storeId}/{start}/{end} [get]
+func (h *Six910Handler) GetProductSubSkuList(w http.ResponseWriter, r *http.Request) {
+	var gprodlURL = "/six910/rs/product/subskus"
+	var gprodcl jv.Claim
+	gprodcl.Role = customerRole
+	gprodcl.URL = gprodlURL
+	gprodcl.Scope = "read"
+	h.Log.Debug("client: ", h.ValidatorClient)
+	auth := h.processAPIKeySecurity(r)
+	h.Log.Debug("produce get subsku list authorized: ", auth)
+	h.SetContentType(w)
+	if auth {
+		vars := mux.Vars(r)
+		h.Log.Debug("vars: ", len(vars))
+		if vars != nil && len(vars) == 2 {
+			h.Log.Debug("vars: ", vars)
+			var prodlstoreIDStr = vars["storeId"]
+			var parentProdIDStr = vars["parentProdID"]
+			storeID, sprodlerr := strconv.ParseInt(prodlstoreIDStr, 10, 64)
+			parentProdID, parentProdIDerr := strconv.ParseInt(parentProdIDStr, 10, 64)
+			var gprodsslres *[]sdbi.Product
+			if sprodlerr == nil && parentProdIDerr == nil {
+				gprodsslres = h.Manager.GetProductSubSkuList(storeID, parentProdID)
+				h.Log.Debug("get product subsku list: ", gprodsslres)
+				w.WriteHeader(http.StatusOK)
+			} else {
+				w.WriteHeader(http.StatusBadRequest)
+				var nc = []sdbi.Product{}
+				gprodsslres = &nc
+			}
+			resJSON, _ := json.Marshal(gprodsslres)
+			fmt.Fprint(w, string(resJSON))
+		} else {
+			w.WriteHeader(http.StatusBadRequest)
+		}
+	} else {
+		w.WriteHeader(http.StatusUnauthorized)
+	}
+}
+
 //GetProductIDList GetProductIDList
 func (h *Six910Handler) GetProductIDList(w http.ResponseWriter, r *http.Request) {
 	var gprodilURL = "/six910/rs/product/id/list"

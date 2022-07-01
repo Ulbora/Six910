@@ -135,6 +135,7 @@ type Handler interface {
 	GetProductsByPromoted(w http.ResponseWriter, r *http.Request)
 	GetProductsByCaterory(w http.ResponseWriter, r *http.Request)
 	GetProductList(w http.ResponseWriter, r *http.Request)
+	GetProductSubSkuList(w http.ResponseWriter, r *http.Request)
 	GetProductIDList(w http.ResponseWriter, r *http.Request)
 	GetProductIDListByCategories(w http.ResponseWriter, r *http.Request)
 	DeleteProduct(w http.ResponseWriter, r *http.Request)

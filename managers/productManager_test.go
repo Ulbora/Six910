@@ -1,6 +1,7 @@
 package managers
 
 import (
+	"fmt"
 	"testing"
 
 	lg "github.com/Ulbora/Level_Logger"
@@ -58,6 +59,64 @@ func TestSix910Manager_AddProductFail(t *testing.T) {
 
 	res := m.AddProduct(&p)
 	if res.Success {
+		t.Fail()
+	}
+}
+
+// func TestSix910Manager_AddProduct_fail_subsku(t *testing.T) {
+// 	var sdb sixmdb.MockSix910Mysql
+// 	var l lg.Logger
+// 	l.LogLevel = lg.AllLevel
+// 	sdb.Log = &l
+// 	//sdb.DB = dbi
+// 	//dbi.Connect()
+
+// 	var sm Six910Manager
+// 	sm.Db = sdb.GetNew()
+// 	sm.Log = &l
+
+// 	m := sm.GetNew()
+
+// 	var p sdbi.Product
+// 	p.Color = "blue"
+// 	p.StoreID = 4
+// 	//p.SubSku = true
+// 	//p.ParentProductID = 4
+
+// 	sdb.MockAddProductSuccess = true
+// 	sdb.MockProductID = 7
+
+// 	res := m.AddProduct(&p)
+// 	if res.Success {
+// 		t.Fail()
+// 	}
+// }
+
+func TestSix910Manager_AddProduct2(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	m := sm.GetNew()
+
+	var p sdbi.Product
+	p.Color = "blue"
+	p.StoreID = 4
+	//p.SubSku = true
+	p.ParentProductID = 5
+
+	sdb.MockAddProductSuccess = true
+	sdb.MockProductID = 7
+
+	res := m.AddProduct(&p)
+	if !res.Success {
 		t.Fail()
 	}
 }
@@ -149,6 +208,65 @@ func TestSix910Manager_UpdateProductFail2(t *testing.T) {
 		t.Fail()
 	}
 }
+
+func TestSix910Manager_UpdateProduct2(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	m := sm.GetNew()
+
+	var p sdbi.Product
+	p.Color = "blue"
+	p.StoreID = 4
+	//p.SubSku = true
+	p.ParentProductID = 5
+
+	sdb.MockProduct = &p
+
+	sdb.MockUpdateProductSuccess = true
+
+	res := m.UpdateProduct(&p)
+	if !res.Success {
+		t.Fail()
+	}
+}
+
+// func TestSix910Manager_UpdateProduct2_fail(t *testing.T) {
+// 	var sdb sixmdb.MockSix910Mysql
+// 	var l lg.Logger
+// 	l.LogLevel = lg.AllLevel
+// 	sdb.Log = &l
+// 	//sdb.DB = dbi
+// 	//dbi.Connect()
+
+// 	var sm Six910Manager
+// 	sm.Db = sdb.GetNew()
+// 	sm.Log = &l
+
+// 	m := sm.GetNew()
+
+// 	var p sdbi.Product
+// 	p.Color = "blue"
+// 	p.StoreID = 4
+// 	//p.SubSku = true
+
+// 	sdb.MockProduct = &p
+
+// 	sdb.MockUpdateProductSuccess = true
+
+// 	res := m.UpdateProduct(&p)
+// 	if res.Success {
+// 		t.Fail()
+// 	}
+// }
 
 func TestSix910Manager_UpdateProductQuantity(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
@@ -258,8 +376,50 @@ func TestSix910Manager_GetProductByID(t *testing.T) {
 
 	sdb.MockProduct = &p
 
+	var mpl []sdbi.Product
+	var sp sdbi.Product
+	sp.Cost = 1.10
+	mpl = append(mpl, sp)
+	fmt.Println("mpl: ", mpl)
+	sdb.MockProductSubSkuList = &mpl
+
 	fp := m.GetProductByID(4, 4)
-	if fp.Color != p.Color {
+	fmt.Println("product: ", fp)
+	if fp.Color != p.Color || (*fp.SubSkuList)[0].Cost != 1.10 {
+		t.Fail()
+	}
+}
+
+func TestSix910Manager_GetProductByIDNoSub(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	m := sm.GetNew()
+
+	var p sdbi.Product
+	p.Color = "blue"
+	p.StoreID = 4
+
+	sdb.MockProduct = &p
+
+	var mpl []sdbi.Product
+	// var sp sdbi.Product
+	// sp.Cost = 1.10
+	// mpl = append(mpl, sp)
+	fmt.Println("mpl: ", mpl)
+	sdb.MockProductSubSkuList = &mpl
+
+	fp := m.GetProductByID(4, 4)
+	fmt.Println("product: ", fp)
+	if fp.Color != p.Color || len(*fp.SubSkuList) != 0 {
 		t.Fail()
 	}
 }
@@ -283,6 +443,13 @@ func TestSix910Manager_GetProductByIDFail(t *testing.T) {
 	p.StoreID = 44
 
 	sdb.MockProduct = &p
+
+	var mpl []sdbi.Product
+	var sp sdbi.Product
+	sp.Cost = 1.10
+	mpl = append(mpl, sp)
+	fmt.Println("mpl: ", mpl)
+	sdb.MockProductSubSkuList = &mpl
 
 	fp := m.GetProductByID(4, 4)
 	if fp.Color == p.Color {
@@ -447,6 +614,35 @@ func TestSix910Manager_GetProductList(t *testing.T) {
 	}
 }
 
+func TestSix910Manager_GetProductSubSkuList(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	m := sm.GetNew()
+
+	var p sdbi.Product
+	p.Color = "blue"
+	p.StoreID = 4
+
+	var plst []sdbi.Product
+	plst = append(plst, p)
+
+	sdb.MockProductSubSkuList = &plst
+
+	flst3 := m.GetProductSubSkuList(2, 4)
+	if len(*flst3) != 1 {
+		t.Fail()
+	}
+}
+
 func TestSix910Manager_DeleteProduct(t *testing.T) {
 	var sdb sixmdb.MockSix910Mysql
 	var l lg.Logger
@@ -518,13 +714,54 @@ func TestSix910Manager_GetProductByBySku(t *testing.T) {
 	m := sm.GetNew()
 
 	var p sdbi.Product
+	p.ID = 1
 	p.Color = "blue"
 	p.StoreID = 4
 
 	sdb.MockProduct = &p
 
+	var mpl []sdbi.Product
+	var sp sdbi.Product
+	sp.Cost = 1.10
+	mpl = append(mpl, sp)
+	fmt.Println("mpl: ", mpl)
+	sdb.MockProductSubSkuList = &mpl
+
 	fp := m.GetProductByBySku("345", 4, 4)
-	if fp.Color != p.Color {
+	if fp.Color != p.Color || (*fp.SubSkuList)[0].Cost != 1.10 {
+		t.Fail()
+	}
+}
+
+func TestSix910Manager_GetProductByBySkuNoSub(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	m := sm.GetNew()
+
+	var p sdbi.Product
+	p.Color = "blue"
+	p.StoreID = 4
+
+	sdb.MockProduct = &p
+
+	var mpl []sdbi.Product
+	// var sp sdbi.Product
+	// sp.Cost = 1.10
+	// mpl = append(mpl, sp)
+	fmt.Println("mpl: ", mpl)
+	sdb.MockProductSubSkuList = &mpl
+
+	fp := m.GetProductByBySku("345", 4, 4)
+	if fp.Color != p.Color || len(*fp.SubSkuList) != 0 {
 		t.Fail()
 	}
 }
@@ -548,6 +785,13 @@ func TestSix910Manager_GetProductByBySkuFail(t *testing.T) {
 	p.StoreID = 44
 
 	sdb.MockProduct = &p
+
+	var mpl []sdbi.Product
+	// var sp sdbi.Product
+	// sp.Cost = 1.10
+	// mpl = append(mpl, sp)
+	fmt.Println("mpl: ", mpl)
+	sdb.MockProductSubSkuList = &mpl
 
 	fp := m.GetProductByBySku("345", 4, 4)
 	if fp.Color == p.Color {

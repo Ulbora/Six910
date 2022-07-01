@@ -260,6 +260,7 @@ func main() {
 	router.HandleFunc("/rs/product/get/name/{name}/{storeId}/{start}/{end}", h.GetProductsByName).Methods("GET")
 	router.HandleFunc("/rs/product/get/category/{catId}/{storeId}/{start}/{end}", h.GetProductsByCaterory).Methods("GET")
 	router.HandleFunc("/rs/product/get/list/{storeId}/{start}/{end}", h.GetProductList).Methods("GET")
+	router.HandleFunc("/rs/product/get/subskus/{storeId}/{parentProdID}", h.GetProductSubSkuList).Methods("GET")
 	router.HandleFunc("/rs/product/get/ids/{storeId}", h.GetProductIDList).Methods("GET")
 	router.HandleFunc("/rs/product/get/ids/cat", h.GetProductIDListByCategories).Methods("POST")
 	router.HandleFunc("/rs/product/delete/{id}/{storeId}", h.DeleteProduct).Methods("DELETE")

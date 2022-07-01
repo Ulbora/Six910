@@ -242,6 +242,7 @@ type Manager interface {
 	GetProductsByName(name string, sid int64, start int64, end int64) *[]sdbi.Product
 	GetProductsByCaterory(catID int64, sid int64, start int64, end int64) *[]sdbi.Product
 	GetProductList(storeID int64, start int64, end int64) *[]sdbi.Product
+	GetProductSubSkuList(storeID int64, parentProdID int64) *[]sdbi.Product
 	GetProductIDList(sid int64) *[]int64
 	GetProductIDListByCategories(sid int64, catList *[]int64) *[]int64
 	DeleteProduct(id int64, sid int64) *Response

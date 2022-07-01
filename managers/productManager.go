@@ -2,6 +2,7 @@ package managers
 
 import (
 	"net/http"
+	"sync"
 
 	sdbi "github.com/Ulbora/six910-database-interface"
 )
@@ -38,6 +39,7 @@ func (m *Six910Manager) AddProduct(p *sdbi.Product) *ResponseID {
 	} else {
 		rtn.Code = http.StatusBadRequest
 	}
+
 	return &rtn
 }
 
@@ -80,13 +82,37 @@ func (m *Six910Manager) UpdateProductQuantity(p *sdbi.Product) *Response {
 //GetProductByID GetProductByID
 func (m *Six910Manager) GetProductByID(id int64, sid int64) *sdbi.Product {
 	var rtn *sdbi.Product
-	p := m.Db.GetProductByID(id)
+	var p *sdbi.Product
+	var ss *[]sdbi.Product
+
+	var wg sync.WaitGroup
+	wg.Add(1)
+	go func(pid int64) {
+		defer wg.Done()
+		p = m.Db.GetProductByID(pid)
+	}(id)
+
+	wg.Add(1)
+	go func(ssid int64, pid int64) {
+		defer wg.Done()
+		ss = m.Db.GetProductSubSkuList(ssid, pid)
+	}(sid, id)
+
+	wg.Wait()
+
 	if p.StoreID == sid {
 		rtn = p
 	} else {
 		var np sdbi.Product
 		rtn = &np
 	}
+	if len(*ss) > 0 {
+		rtn.SubSkuList = ss
+	} else {
+		var ssls = []sdbi.Product{}
+		rtn.SubSkuList = &ssls
+	}
+
 	return rtn
 }
 
@@ -100,6 +126,17 @@ func (m *Six910Manager) GetProductByBySku(sku string, distributorID int64, sid i
 		var np sdbi.Product
 		rtn = &np
 	}
+	var ssls *[]sdbi.Product
+	if rtn.ID != 0 {
+		ssls = m.Db.GetProductSubSkuList(sid, rtn.ID)
+	}
+	if ssls != nil && len(*ssls) > 0 {
+		rtn.SubSkuList = ssls
+	} else {
+		ssls = &[]sdbi.Product{}
+		rtn.SubSkuList = ssls
+	}
+
 	return rtn
 }
 
@@ -132,6 +169,11 @@ func (m *Six910Manager) GetProductsByCaterory(catID int64, sid int64, start int6
 //GetProductList GetProductList
 func (m *Six910Manager) GetProductList(storeID int64, start int64, end int64) *[]sdbi.Product {
 	return m.Db.GetProductList(storeID, start, end)
+}
+
+//GetProductSubSkuList GetProductSubSkuList
+func (m *Six910Manager) GetProductSubSkuList(storeID int64, parentProdID int64) *[]sdbi.Product {
+	return m.Db.GetProductSubSkuList(storeID, parentProdID)
 }
 
 //GetProductIDList GetProductIDList
