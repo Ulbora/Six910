@@ -1,5 +1,6 @@
 language: go
-dist: xenial
+# dist: xenial
+dist: focal
 
 go:
 - 1.18.x
