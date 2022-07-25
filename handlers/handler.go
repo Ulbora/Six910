@@ -145,6 +145,7 @@ type Handler interface {
 	GetProductByNameAndManufacturerName(w http.ResponseWriter, r *http.Request)
 	GetProductManufacturerListByCatID(w http.ResponseWriter, r *http.Request)
 	GetProductByCatAndManufacturer(w http.ResponseWriter, r *http.Request)
+	ProductSearch(w http.ResponseWriter, r *http.Request)
 
 	//Geographic Regions
 	AddRegion(w http.ResponseWriter, r *http.Request)

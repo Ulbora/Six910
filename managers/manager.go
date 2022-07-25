@@ -254,6 +254,8 @@ type Manager interface {
 	GetProductByCatAndManufacturer(catID int64, manf string, storeID int64,
 		start int64, end int64) *[]sdbi.Product
 
+	ProductSearch(p *sdbi.ProductSearch) *[]sdbi.Product
+
 	// //Geographic Regions
 	AddRegion(r *sdbi.Region) *ResponseID
 	UpdateRegion(r *sdbi.Region) *Response

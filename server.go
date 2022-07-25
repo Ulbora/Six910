@@ -270,6 +270,7 @@ func main() {
 	router.HandleFunc("/rs/product/get/manufacturer/name/{manufacturer}/{name}/{storeId}/{start}/{end}", h.GetProductByNameAndManufacturerName).Methods("GET")
 	router.HandleFunc("/rs/manufacturer/get/category/{catId}/{storeId}", h.GetProductManufacturerListByCatID).Methods("GET")
 	router.HandleFunc("/rs/product/get/category/manufacturer/{catId}/{manufacturer}/{storeId}/{start}/{end}", h.GetProductByCatAndManufacturer).Methods("GET")
+	router.HandleFunc("/rs/product/search", h.ProductSearch).Methods("POST")
 
 	//Geographic Regions
 	router.HandleFunc("/rs/region/add", h.AddRegion).Methods("POST")

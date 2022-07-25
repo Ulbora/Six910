@@ -134,3 +134,71 @@ func TestSix910Manager_GetProductByCatAndManufacturer(t *testing.T) {
 		t.Fail()
 	}
 }
+
+func TestSix910Manager_ProductSearch(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	m := sm.GetNew()
+
+	var p sdbi.Product
+	p.Color = "blue"
+	p.StoreID = 4
+
+	var plst []sdbi.Product
+	plst = append(plst, p)
+
+	sdb.MockProductSearchList = &plst
+
+	var ps sdbi.ProductSearch
+	satb := []string{"test"}
+	ps.DescAttributes = &satb
+
+	flst3 := m.ProductSearch(&ps)
+	if len(*flst3) != 1 {
+		t.Fail()
+	}
+}
+
+
+func TestSix910Manager_ProductSearchNoImput(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	m := sm.GetNew()
+
+	var p sdbi.Product
+	p.Color = "blue"
+	p.StoreID = 4
+
+	var plst []sdbi.Product
+	plst = append(plst, p)
+
+	sdb.MockProductSearchList = &plst
+
+	var ps sdbi.ProductSearch
+	//satb := []string{"test"}
+	//ps.DescAttributes = &satb
+
+	flst3 := m.ProductSearch(&ps)
+	if len(*flst3) != 0 {
+		t.Fail()
+	}
+}
+

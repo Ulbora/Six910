@@ -7,6 +7,7 @@ import (
 	"strconv"
 
 	jv "github.com/Ulbora/GoAuth2JwtValidator"
+
 	//m "github.com/Ulbora/Six910/managers"
 	sdbi "github.com/Ulbora/six910-database-interface"
 	"github.com/gorilla/mux"
@@ -261,6 +262,62 @@ func (h *Six910Handler) GetProductByCatAndManufacturer(w http.ResponseWriter, r 
 			fmt.Fprint(w, string(resJSON))
 		} else {
 			w.WriteHeader(http.StatusBadRequest)
+		}
+	} else {
+		w.WriteHeader(http.StatusUnauthorized)
+	}
+}
+
+// ProductSearch godoc
+// @Summary Get Product List
+// @Description Get Product List for a store by attributes
+// @Tags Product
+// @Accept  json
+// @Produce  json
+// @Param product body six910-database-interface.Product true "ProductSearch"
+// @Param apiKey header string false "apiKey required for non OAuth2 stores only"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {object} managers.ResponseID
+// @Router /rs/product/search [post]
+func (h *Six910Handler) ProductSearch(w http.ResponseWriter, r *http.Request) {
+	var srprodURL = "/six910/rs/product/search"
+	var srprodc jv.Claim
+	srprodc.Role = customerRole
+	srprodc.URL = srprodURL
+	srprodc.Scope = "write"
+	h.Log.Debug("client: ", h.ValidatorClient)
+	//auth := h.processSecurity(r, &srprodc)
+	auth := h.processAPIKeySecurity(r)
+	h.Log.Debug("product search authorized: ", auth)
+	h.SetContentType(w)
+	if auth {
+		acOk := h.CheckContent(r)
+		h.Log.Debug("conOk: ", acOk)
+		if !acOk {
+			http.Error(w, "json required", http.StatusUnsupportedMediaType)
+		} else {
+			var srprod sdbi.ProductSearch
+			srprodsuc, srproderr := h.ProcessBody(r, &srprod)
+			h.Log.Debug("aprodsuc: ", srprodsuc)
+			h.Log.Debug("aprod: ", srprod)
+			h.Log.Debug("aproderr: ", srproderr)
+			if !srprodsuc && srproderr != nil {
+				http.Error(w, srproderr.Error(), http.StatusBadRequest)
+			} else {
+				srprodres := h.Manager.ProductSearch(&srprod)
+				h.Log.Debug("srprodres: ", *srprodres)
+				//if srprodres.Success && aprodres.ID != 0 {
+				w.WriteHeader(http.StatusOK)
+				//} else {
+				//w.WriteHeader(http.StatusInternalServerError)
+				//}
+				resJSON, _ := json.Marshal(srprodres)
+				fmt.Fprint(w, string(resJSON))
+			}
 		}
 	} else {
 		w.WriteHeader(http.StatusUnauthorized)

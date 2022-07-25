@@ -61,3 +61,15 @@ func (m *Six910Manager) GetProductByCatAndManufacturer(catID int64, manf string,
 	start int64, end int64) *[]sdbi.Product {
 	return m.Db.GetProductByCatAndManufacturer(catID, manf, storeID, start, end)
 }
+
+//ProductSearch ProductSearch
+func (m *Six910Manager) ProductSearch(p *sdbi.ProductSearch) *[]sdbi.Product {
+	var rtn *[]sdbi.Product
+	if p.DescAttributes != nil && (p.ProductID != 0 || len(*p.DescAttributes) != 0) {
+		rtn = m.Db.ProductSearch(p)
+	} else {
+		trtn := []sdbi.Product{}
+		rtn = &trtn
+	}
+	return rtn
+}
