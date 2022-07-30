@@ -88,6 +88,59 @@ func (h *Six910Handler) GetProductManufacturerListByProductName(w http.ResponseW
 	}
 }
 
+// GetProductManufacturerListByProductSearch product desc attrs
+// @Description Get list of Manufacturers for a product search attributes for a store
+// @Tags Manufacturer
+// @Accept  json
+// @Produce  json
+// @Param name path string true "product desc attrs"
+// @Param storeId path string true "store storeId"
+// @Param apiKey header string true "apiKey required"
+// @Param storeName header string true "store name"
+// @Param localDomain header string true "store localDomain"
+// @Param Authorization header string true "token"
+// @Param clientId header string false "OAuth2 client ID only for OAuth2 stores"
+// @Param userId header string false "User ID only for OAuth2 stores"
+// @Success 200 {array} string
+// @Router /rs/manufacturer/get/product/desc/{search}/{storeId} [get]
+func (h *Six910Handler) GetProductManufacturerListByProductSearch(w http.ResponseWriter, r *http.Request) {
+	var gprprodmnlURL = "/six910/rs/manufacturer/search/product/desc/list"
+	var gprprodmncl jv.Claim
+	gprprodmncl.Role = customerRole
+	gprprodmncl.URL = gprprodmnlURL
+	gprprodmncl.Scope = "read"
+	h.Log.Debug("client: ", h.ValidatorClient)
+	auth := h.processAPIKeySecurity(r)
+	h.Log.Debug("produce manf list prod desc attr get list authorized: ", auth)
+	h.SetContentType(w)
+	if auth {
+		vars := mux.Vars(r)
+		h.Log.Debug("vars: ", len(vars))
+		if vars != nil && len(vars) == 2 {
+			h.Log.Debug("vars: ", vars)
+			var prprodmattr = vars["search"]
+			var prprodmnlstoreIDStr = vars["storeId"]
+			storeID, sprodnlerr := strconv.ParseInt(prprodmnlstoreIDStr, 10, 64)
+			var gprprodmnlres *[]string
+			if sprodnlerr == nil {
+				gprprodmnlres = h.Manager.GetProductManufacturerListByProductSearch(prprodmattr, storeID)
+				h.Log.Debug("get product manf desc attrs list: ", gprprodmnlres)
+				w.WriteHeader(http.StatusOK)
+			} else {
+				w.WriteHeader(http.StatusBadRequest)
+				var nc = []string{}
+				gprprodmnlres = &nc
+			}
+			resJSON, _ := json.Marshal(gprprodmnlres)
+			fmt.Fprint(w, string(resJSON))
+		} else {
+			w.WriteHeader(http.StatusBadRequest)
+		}
+	} else {
+		w.WriteHeader(http.StatusUnauthorized)
+	}
+}
+
 // GetProductByNameAndManufacturerName godoc
 // @Summary Get list of products by product name and manufacturer
 // @Description Get list of products by name and manufacturerfor a store

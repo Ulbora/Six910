@@ -142,6 +142,7 @@ type Handler interface {
 
 	//product search
 	GetProductManufacturerListByProductName(w http.ResponseWriter, r *http.Request)
+	GetProductManufacturerListByProductSearch(w http.ResponseWriter, r *http.Request)
 	GetProductByNameAndManufacturerName(w http.ResponseWriter, r *http.Request)
 	GetProductManufacturerListByCatID(w http.ResponseWriter, r *http.Request)
 	GetProductByCatAndManufacturer(w http.ResponseWriter, r *http.Request)

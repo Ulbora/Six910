@@ -248,6 +248,7 @@ type Manager interface {
 	DeleteProduct(id int64, sid int64) *Response
 
 	GetProductManufacturerListByProductName(name string, storeID int64) *[]string
+	GetProductManufacturerListByProductSearch(attrs string, storeID int64) *[]string
 	GetProductByNameAndManufacturerName(manf string, name string, storeID int64,
 		start int64, end int64) *[]sdbi.Product
 	GetProductManufacturerListByCatID(catID int64, storeID int64) *[]string

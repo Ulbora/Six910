@@ -202,3 +202,35 @@ func TestSix910Manager_ProductSearchNoImput(t *testing.T) {
 	}
 }
 
+
+func TestSix910Manager_GetProductManufacturerListByProductSearch(t *testing.T) {
+	var sdb sixmdb.MockSix910Mysql
+	var l lg.Logger
+	l.LogLevel = lg.AllLevel
+	sdb.Log = &l
+	//sdb.DB = dbi
+	//dbi.Connect()
+
+	var sm Six910Manager
+	sm.Db = sdb.GetNew()
+	sm.Log = &l
+
+	m := sm.GetNew()
+
+	var p sdbi.Product
+	p.Color = "blue"
+	p.StoreID = 4
+
+	var plst []sdbi.Product
+	plst = append(plst, p)
+
+	sdb.MockProductList = &plst
+
+	sdb.MockManufacturerList = &[]string{"test\\\\1\\", "test2"}
+
+	flst3 := m.GetProductManufacturerListByProductSearch("test thing", 4)
+	fmt.Println("flst3: ", flst3)
+	if len(*flst3) != 2 {
+		t.Fail()
+	}
+}

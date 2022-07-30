@@ -38,6 +38,11 @@ func (m *Six910Manager) GetProductManufacturerListByProductName(name string, sto
 	return m.Db.GetProductManufacturerListByProductName(name, storeID)
 }
 
+//GetProductManufacturerListByProductSearch GetProductManufacturerListByProductSearch
+func (m *Six910Manager) GetProductManufacturerListByProductSearch(attrs string, storeID int64) *[]string {
+	return m.Db.GetProductManufacturerListByProductSearch(attrs, storeID)
+}
+
 //GetProductByNameAndManufacturerName GetProductByNameAndManufacturerName
 func (m *Six910Manager) GetProductByNameAndManufacturerName(manf string, name string, storeID int64,
 	start int64, end int64) *[]sdbi.Product {
