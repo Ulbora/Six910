@@ -4,6 +4,8 @@ import (
 	"net/http"
 	"sync"
 
+	psort "github.com/Ulbora/Six910/prodsort"
+
 	sdbi "github.com/Ulbora/six910-database-interface"
 )
 
@@ -96,6 +98,8 @@ func (m *Six910Manager) GetProductByID(id int64, sid int64) *sdbi.Product {
 	go func(ssid int64, pid int64) {
 		defer wg.Done()
 		ss = m.Db.GetProductSubSkuList(ssid, pid)
+		var ps psort.ProductSort
+		ss = ps.SortProds(*ss)
 	}(sid, id)
 
 	wg.Wait()
