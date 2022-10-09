@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:20.04
 
 #RUN sudo apt-get update
 RUN apt-get update  
