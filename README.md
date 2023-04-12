@@ -4,7 +4,7 @@
 
 ## [Swagger API Docs](http://api-swagger-docs.six910.com/swagger/index.html)
 
-[![Build Status](https://travis-ci.com/Ulbora/Six910.svg?branch=master)](https://travis-ci.com/Ulbora/Six910)
+[![GitHub Actions Build](https://github.com/Ulbora/Six910/actions/workflows/build.yml/badge.svg)](https://github.com/Ulbora/Six910/actions/workflows/build.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Six910&metric=alert_status)](https://sonarcloud.io/dashboard?id=Six910)
 [![Go Report Card](https://goreportcard.com/badge/github.com/Ulbora/Six910)](https://goreportcard.com/report/github.com/Ulbora/Six910)
 

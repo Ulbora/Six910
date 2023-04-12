@@ -1,8 +1,8 @@
 mode: set
 github.com/Ulbora/Six910/prodsort/alphaNumSort.go:9.36,12.2 2 1
 github.com/Ulbora/Six910/prodsort/alphaNumSort.go:15.45,20.13 4 1
-github.com/Ulbora/Six910/prodsort/alphaNumSort.go:23.2,23.12 1 1
 github.com/Ulbora/Six910/prodsort/alphaNumSort.go:20.13,22.3 1 1
+github.com/Ulbora/Six910/prodsort/alphaNumSort.go:23.2,23.12 1 1
 github.com/Ulbora/Six910/prodsort/alphaNumSort.go:26.27,180.2 123 1
 github.com/Ulbora/Six910/prodsort/prodSizeSort.go:13.36,15.2 1 1
 github.com/Ulbora/Six910/prodsort/prodSizeSort.go:18.41,20.2 1 1
