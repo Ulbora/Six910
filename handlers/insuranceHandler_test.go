@@ -4,7 +4,8 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
+
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -56,7 +57,7 @@ func TestSix910Handler_AddInsurance(t *testing.T) {
 	sdb.MockInsuranceID = 5
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"cost":4.95, "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"cost":4.95, "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -166,7 +167,7 @@ func TestSix910Handler_AddInsuranceFail(t *testing.T) {
 	sdb.MockInsuranceID = 5
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"cost":4.95, "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"cost":4.95, "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -221,7 +222,7 @@ func TestSix910Handler_AddInsuranceMedia(t *testing.T) {
 	sdb.MockInsuranceID = 5
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"cost":4.95, "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"cost":4.95, "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -276,7 +277,7 @@ func TestSix910Handler_AddInsuranceAuth(t *testing.T) {
 	sdb.MockInsuranceID = 5
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"cost":4.95, "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"cost":4.95, "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -335,7 +336,7 @@ func TestSix910Handler_UpdateInsurance(t *testing.T) {
 	sdb.MockUpdateInsuranceSuccess = true
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 1, "cost":4.95 , "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"id": 1, "cost":4.95 , "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
@@ -463,7 +464,7 @@ func TestSix910Handler_UpdateInsuranceFail(t *testing.T) {
 	//sdb.MockUpdateInsuranceSuccess = true
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 1, "cost":4.95 , "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"id": 1, "cost":4.95 , "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
@@ -527,7 +528,7 @@ func TestSix910Handler_UpdateInsuranceAuth(t *testing.T) {
 	sdb.MockUpdateInsuranceSuccess = true
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 1, "cost":4.95 , "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"id": 1, "cost":4.95 , "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
@@ -591,7 +592,7 @@ func TestSix910Handler_UpdateInsuranceMedia(t *testing.T) {
 	sdb.MockUpdateInsuranceSuccess = true
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 1, "cost":4.95 , "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"id": 1, "cost":4.95 , "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
@@ -1221,7 +1222,7 @@ func TestSix910Handler_DeleteInsurance(t *testing.T) {
 
 	h.DeleteInsurance(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var bdy man.Response
 	json.Unmarshal(body, &bdy)
 	fmt.Println("body delete insurance in test: ", string(body))
@@ -1294,7 +1295,7 @@ func TestSix910Handler_DeleteInsuranceReq(t *testing.T) {
 
 	h.DeleteInsurance(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var bdy man.Response
 	json.Unmarshal(body, &bdy)
 	fmt.Println("body delete insurance in test: ", string(body))
@@ -1367,7 +1368,7 @@ func TestSix910Handler_DeleteInsuranceReq2(t *testing.T) {
 
 	h.DeleteInsurance(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var bdy man.Response
 	json.Unmarshal(body, &bdy)
 	fmt.Println("body delete insurance in test: ", string(body))
@@ -1440,7 +1441,7 @@ func TestSix910Handler_DeleteInsuranceFail(t *testing.T) {
 
 	h.DeleteInsurance(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var bdy man.Response
 	json.Unmarshal(body, &bdy)
 	fmt.Println("body delete insurance in test: ", string(body))
@@ -1513,7 +1514,7 @@ func TestSix910Handler_DeleteInsuranceAuth(t *testing.T) {
 
 	h.DeleteInsurance(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var bdy man.Response
 	json.Unmarshal(body, &bdy)
 	fmt.Println("body delete insurance in test: ", string(body))

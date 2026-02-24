@@ -4,7 +4,8 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
+
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -56,7 +57,7 @@ func TestSix910Handler_AddCategory(t *testing.T) {
 	sdb.MockCategoryID = 5
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"name":"test", "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"name":"test", "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -111,7 +112,7 @@ func TestSix910Handler_AddCategoryAuth(t *testing.T) {
 	sdb.MockCategoryID = 5
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"name":"test", "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"name":"test", "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -166,7 +167,7 @@ func TestSix910Handler_AddCategoryFail(t *testing.T) {
 	sdb.MockCategoryID = 5
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"name":"test", "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"name":"test", "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -221,7 +222,7 @@ func TestSix910Handler_AddCategoryMedia(t *testing.T) {
 	sdb.MockCategoryID = 5
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"name":"test", "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"name":"test", "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -340,7 +341,7 @@ func TestSix910Handler_UpdateCategory(t *testing.T) {
 	sdb.MockUpdateCategorySuccess = true
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 1, "name":"test", "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"id": 1, "name":"test", "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
@@ -409,7 +410,7 @@ func TestSix910Handler_UpdateCategoryAuth(t *testing.T) {
 	sdb.MockUpdateCategorySuccess = true
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 1, "name":"test", "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"id": 1, "name":"test", "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
@@ -478,7 +479,7 @@ func TestSix910Handler_UpdateCategoryFail(t *testing.T) {
 	//sdb.MockUpdateCategorySuccess = true
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 1, "name":"test", "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"id": 1, "name":"test", "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
@@ -547,7 +548,7 @@ func TestSix910Handler_UpdateCategoryMedia(t *testing.T) {
 	sdb.MockUpdateCategorySuccess = true
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 1, "name":"test", "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"id": 1, "name":"test", "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
@@ -1542,7 +1543,7 @@ func TestSix910Handler_DeleteCategory(t *testing.T) {
 
 	h.DeleteCategory(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var bdy man.Response
 	json.Unmarshal(body, &bdy)
 	fmt.Println("body delete dist in test: ", string(body))
@@ -1616,7 +1617,7 @@ func TestSix910Handler_DeleteCategoryFail(t *testing.T) {
 
 	h.DeleteCategory(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var bdy man.Response
 	json.Unmarshal(body, &bdy)
 	fmt.Println("body delete dist in test: ", string(body))
@@ -1690,7 +1691,7 @@ func TestSix910Handler_DeleteCategoryReq(t *testing.T) {
 
 	h.DeleteCategory(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var bdy man.Response
 	json.Unmarshal(body, &bdy)
 	fmt.Println("body delete dist in test: ", string(body))
@@ -1764,7 +1765,7 @@ func TestSix910Handler_DeleteCategoryReq2(t *testing.T) {
 
 	h.DeleteCategory(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var bdy man.Response
 	json.Unmarshal(body, &bdy)
 	fmt.Println("body delete dist in test: ", string(body))
@@ -1838,7 +1839,7 @@ func TestSix910Handler_DeleteCategoryAuth(t *testing.T) {
 
 	h.DeleteCategory(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var bdy man.Response
 	json.Unmarshal(body, &bdy)
 	fmt.Println("body delete dist in test: ", string(body))

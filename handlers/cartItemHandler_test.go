@@ -2,7 +2,8 @@ package handlers
 
 import (
 	"bytes"
-	"io/ioutil"
+	"io"
+
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -69,7 +70,7 @@ func TestSix910Handler_AddCartItem(t *testing.T) {
 	sdb.MockCartItemID = 5
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"cartItem": {"cartId": 9}, "customerId":3, "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"cartItem": {"cartId": 9}, "customerId":3, "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -141,7 +142,7 @@ func TestSix910Handler_AddCartItemAuth(t *testing.T) {
 	sdb.MockCartItemID = 5
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"cartItem": {"cartId": 4}, "customerId":3, "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"cartItem": {"cartId": 4}, "customerId":3, "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -211,7 +212,7 @@ func TestSix910Handler_AddCartItemFail(t *testing.T) {
 	sdb.MockCartItemID = 5
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"cartItem": {"cartId": 4}, "customerId":3, "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"cartItem": {"cartId": 4}, "customerId":3, "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -283,7 +284,7 @@ func TestSix910Handler_AddCartItemMedia(t *testing.T) {
 	sdb.MockCartItemID = 5
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"cartItem": {"cartId": 4}, "customerId":3, "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"cartItem": {"cartId": 4}, "customerId":3, "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -423,7 +424,7 @@ func TestSix910Handler_UpdateCartItem(t *testing.T) {
 	sdb.MockCustomer = &cus
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"cartItem": {"id": 5, "cartId": 4}, "customerId":3, "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"cartItem": {"id": 5, "cartId": 4}, "customerId":3, "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
@@ -495,7 +496,7 @@ func TestSix910Handler_UpdateCartItemAuth(t *testing.T) {
 	sdb.MockCustomer = &cus
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"cartItem": {"cartId": 4}, "customerId":3, "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"cartItem": {"cartId": 4}, "customerId":3, "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
@@ -566,7 +567,7 @@ func TestSix910Handler_UpdateCartItemFail(t *testing.T) {
 	sdb.MockCustomer = &cus
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"cartItem": {"cartId": 4}, "customerId":3, "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"cartItem": {"cartId": 4}, "customerId":3, "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
@@ -638,7 +639,7 @@ func TestSix910Handler_UpdateCartItemMedia(t *testing.T) {
 	sdb.MockCustomer = &cus
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"cartItem": {"cartId": 4}, "customerId":3, "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"cartItem": {"cartId": 4}, "customerId":3, "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)

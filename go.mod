@@ -1,6 +1,6 @@
 module github.com/Ulbora/Six910
 
-go 1.20
+go 1.25
 
 require (
 	github.com/Ulbora/GoAuth2JwtValidator v1.0.2

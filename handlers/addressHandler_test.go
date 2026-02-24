@@ -4,7 +4,8 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
+
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -59,7 +60,7 @@ func TestSix910Handler_AddAddress(t *testing.T) {
 	sdb.MockAddressID = 5
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"address":{"customerId": 3, "address": "123 st"}, "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"address":{"customerId": 3, "address": "123 st"}, "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -118,7 +119,7 @@ func TestSix910Handler_AddAddressAuth(t *testing.T) {
 	sdb.MockAddressID = 5
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"address":{"customerId": 3, "address": "123 st"}, "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"address":{"customerId": 3, "address": "123 st"}, "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -176,7 +177,7 @@ func TestSix910Handler_AddAddressFail(t *testing.T) {
 	sdb.MockAddressID = 5
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"address":{"customerId": 3, "address": "123 st"}, "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"address":{"customerId": 3, "address": "123 st"}, "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -235,7 +236,7 @@ func TestSix910Handler_AddAddressMedia(t *testing.T) {
 	sdb.MockAddressID = 5
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"address":{"customerId": 3, "address": "123 st"}, "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"address":{"customerId": 3, "address": "123 st"}, "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -354,7 +355,7 @@ func TestSix910Handler_UpdateAddress(t *testing.T) {
 	sdb.MockUpdateAddressSuccess = true
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"address":{"customerId": 3, "address": "123 st"}, "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"address":{"customerId": 3, "address": "123 st"}, "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
@@ -419,7 +420,7 @@ func TestSix910Handler_UpdateAddressAuth(t *testing.T) {
 	sdb.MockUpdateAddressSuccess = true
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"address":{"customerId": 3, "address": "123 st"}, "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"address":{"customerId": 3, "address": "123 st"}, "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
@@ -483,7 +484,7 @@ func TestSix910Handler_UpdateAddressFail(t *testing.T) {
 	//sdb.MockUpdateAddressSuccess = true
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"address":{"customerId": 3, "address": "123 st"}, "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"address":{"customerId": 3, "address": "123 st"}, "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
@@ -548,7 +549,7 @@ func TestSix910Handler_UpdateAddressMedia(t *testing.T) {
 	sdb.MockUpdateAddressSuccess = true
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"address":{"customerId": 3, "address": "123 st"}, "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"address":{"customerId": 3, "address": "123 st"}, "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
@@ -1308,7 +1309,7 @@ func TestSix910Handler_DeleteAddress(t *testing.T) {
 
 	h.DeleteAddress(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var bdy man.Response
 	json.Unmarshal(body, &bdy)
 	fmt.Println("body delete add in test: ", string(body))
@@ -1388,7 +1389,7 @@ func TestSix910Handler_DeleteAddressAuth(t *testing.T) {
 
 	h.DeleteAddress(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var bdy man.Response
 	json.Unmarshal(body, &bdy)
 	fmt.Println("body delete add in test: ", string(body))
@@ -1469,7 +1470,7 @@ func TestSix910Handler_DeleteAddressFail(t *testing.T) {
 
 	h.DeleteAddress(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var bdy man.Response
 	json.Unmarshal(body, &bdy)
 	fmt.Println("body delete add in test: ", string(body))
@@ -1550,7 +1551,7 @@ func TestSix910Handler_DeleteAddressReq(t *testing.T) {
 
 	h.DeleteAddress(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var bdy man.Response
 	json.Unmarshal(body, &bdy)
 	fmt.Println("body delete add in test: ", string(body))
@@ -1631,7 +1632,7 @@ func TestSix910Handler_DeleteAddressReq2(t *testing.T) {
 
 	h.DeleteAddress(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var bdy man.Response
 	json.Unmarshal(body, &bdy)
 	fmt.Println("body delete add in test: ", string(body))

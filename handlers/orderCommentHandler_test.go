@@ -3,8 +3,10 @@ package handlers
 import (
 	"bytes"
 	"fmt"
+	"io"
+
 	"golang.org/x/crypto/bcrypt"
-	"io/ioutil"
+
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -78,7 +80,7 @@ func TestSix910Handler_AddOrderComments(t *testing.T) {
 	sdb.MockLocalAccount = &lu
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"orderComment": {"comment": "test", "orderId": 3 }, "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"orderComment": {"comment": "test", "orderId": 3 }, "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -157,7 +159,7 @@ func TestSix910Handler_AddOrderComments2(t *testing.T) {
 	sdb.MockLocalAccount = &lu
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"orderComment": {"comment": "test", "orderId": 3 }, "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"orderComment": {"comment": "test", "orderId": 3 }, "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -316,7 +318,7 @@ func TestSix910Handler_AddOrderCommentsMedia(t *testing.T) {
 	sdb.MockLocalAccount = &lu
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"orderComment": {"comment": "test", "orderId": 3 }, "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"orderComment": {"comment": "test", "orderId": 3 }, "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -395,7 +397,7 @@ func TestSix910Handler_AddOrderCommentsFail(t *testing.T) {
 	sdb.MockLocalAccount = &lu
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"orderComment": {"comment": "test", "orderId": 3 }, "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"orderComment": {"comment": "test", "orderId": 3 }, "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -468,7 +470,7 @@ func TestSix910Handler_AddOrderCommentsAuth(t *testing.T) {
 	sdb.MockOrderCommentID = 5
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"orderComment": {"comment": "test", "orderId": 3 }, "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"orderComment": {"comment": "test", "orderId": 3 }, "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)

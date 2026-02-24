@@ -1,11 +1,12 @@
-//Package handlers ...
+// Package handlers ...
 package handlers
 
 import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
+
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -20,7 +21,7 @@ func TestCmsHandler_SetLogLevel(t *testing.T) {
 	oh.Log = &logger
 
 	h := oh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"logLevel":"debug"}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"logLevel":"debug"}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -30,7 +31,7 @@ func TestCmsHandler_SetLogLevel(t *testing.T) {
 	w := httptest.NewRecorder()
 	h.SetLogLevel(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var lres LogResponse
 	json.Unmarshal(body, &lres)
 	fmt.Println("body: ", string(body))
@@ -56,7 +57,7 @@ func TestCmsHandler_SetLogLevelBadReq(t *testing.T) {
 	w := httptest.NewRecorder()
 	h.SetLogLevel(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var lres LogResponse
 	json.Unmarshal(body, &lres)
 	fmt.Println("body: ", string(body))
@@ -72,7 +73,7 @@ func TestCmsHandler_SetInfoLogLevel(t *testing.T) {
 	oh.Log = &logger
 
 	h := oh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"logLevel":"info"}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"logLevel":"info"}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -82,7 +83,7 @@ func TestCmsHandler_SetInfoLogLevel(t *testing.T) {
 	w := httptest.NewRecorder()
 	h.SetLogLevel(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var lres LogResponse
 	json.Unmarshal(body, &lres)
 	fmt.Println("body: ", string(body))
@@ -98,7 +99,7 @@ func TestCmsHandler_SetAllLogLevel(t *testing.T) {
 	oh.Log = &logger
 
 	h := oh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"logLevel":"all"}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"logLevel":"all"}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -108,7 +109,7 @@ func TestCmsHandler_SetAllLogLevel(t *testing.T) {
 	w := httptest.NewRecorder()
 	h.SetLogLevel(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var lres LogResponse
 	json.Unmarshal(body, &lres)
 	fmt.Println("body: ", string(body))
@@ -124,7 +125,7 @@ func TestCmsHandler_SetOffLogLevel(t *testing.T) {
 	oh.Log = &logger
 
 	h := oh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"logLevel":"off"}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"logLevel":"off"}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -134,7 +135,7 @@ func TestCmsHandler_SetOffLogLevel(t *testing.T) {
 	w := httptest.NewRecorder()
 	h.SetLogLevel(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var lres LogResponse
 	json.Unmarshal(body, &lres)
 	fmt.Println("body: ", string(body))
@@ -151,7 +152,7 @@ func TestCmsHandler_SetOffLogLevelLogKey(t *testing.T) {
 	oh.Log = &logger
 
 	h := oh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"logLevel":"off"}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"logLevel":"off"}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -161,7 +162,7 @@ func TestCmsHandler_SetOffLogLevelLogKey(t *testing.T) {
 	w := httptest.NewRecorder()
 	h.SetLogLevel(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var lres LogResponse
 	json.Unmarshal(body, &lres)
 	fmt.Println("body: ", string(body))
@@ -179,7 +180,7 @@ func TestCmsHandler_SetOffLogLevelLogWrongKey(t *testing.T) {
 	oh.Log = &logger
 
 	h := oh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"logLevel":"off"}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"logLevel":"off"}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -189,7 +190,7 @@ func TestCmsHandler_SetOffLogLevelLogWrongKey(t *testing.T) {
 	w := httptest.NewRecorder()
 	h.SetLogLevel(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var lres LogResponse
 	json.Unmarshal(body, &lres)
 	fmt.Println("body: ", string(body))
@@ -206,7 +207,7 @@ func TestCmsHandler_SetOffLogLevelBadMedia(t *testing.T) {
 	oh.Log = &logger
 
 	h := oh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"logLevel":"off"}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"logLevel":"off"}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -216,7 +217,7 @@ func TestCmsHandler_SetOffLogLevelBadMedia(t *testing.T) {
 	w := httptest.NewRecorder()
 	h.SetLogLevel(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var lres LogResponse
 	json.Unmarshal(body, &lres)
 	fmt.Println("body: ", string(body))

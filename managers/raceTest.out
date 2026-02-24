@@ -1,0 +1,168 @@
+2026/02/24 13:57:03 DEBUG:  [address:  {2  Atlanta      6    }]
+2026/02/24 13:57:03 DEBUG:  [customer:  {6  false        0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 5}]
+2026/02/24 13:57:03 DEBUG:  [address in if:  {2  Atlanta      6    }]
+2026/02/24 13:57:03 DEBUG:  [address:  {2  Atlanta      66    }]
+2026/02/24 13:57:03 DEBUG:  [customer:  {6  false        0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 5}]
+2026/02/24 13:57:03 DEBUG:  [address in fail if:  {0        0    }]
+add:  {2  Atlanta      66    }
+fadd:  &{0        0    }
+2026/02/24 13:57:03 DEBUG:  [found cart in add:  0xc00003c1c0]
+2026/02/24 13:57:03 DEBUG:  [found cart in add:  0xc00003c2a0]
+2026/02/24 13:57:03 DEBUG:  [found cart in add:  0xc00003c310]
+2026/02/24 13:57:03 DEBUG:  [found cart in add:  0xc00003c380]
+2026/02/24 13:57:03 DEBUG:  [cart in get list:  0xc00003c690]
+2026/02/24 13:57:03 DEBUG:  [cart in get list:  0xc00003c770]
+2026/02/24 13:57:03 DEBUG:  [cartItem in get delete:  {6 10 4 2}]
+2026/02/24 13:57:03 DEBUG:  [cartItem ID in get delete:  6]
+2026/02/24 13:57:03 DEBUG:  [cartItem in get delete:  {6 10 44 2}]
+2026/02/24 13:57:03 DEBUG:  [cartItem ID in get delete:  6]
+2026/02/24 13:57:03 DEBUG:  [cartItem in get delete:  {6 10 4 2}]
+2026/02/24 13:57:03 DEBUG:  [cartItem ID in get delete:  6]
+2026/02/24 13:57:03 DEBUG:  [adding cart : {0 3 2   0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC}]
+2026/02/24 13:57:03 DEBUG:  [existing cart : 0xc00003c930]
+2026/02/24 13:57:03 DEBUG:  [adding cart : {0 3 2   0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC}]
+2026/02/24 13:57:03 DEBUG:  [existing cart : 0xc00003ca80]
+2026/02/24 13:57:03 DEBUG:  [adding cart : {0 3 0   0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC}]
+2026/02/24 13:57:03 DEBUG:  [existing cart : <nil>]
+2026/02/24 13:57:03 DEBUG:  [adding cart : {0 3 2   0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC}]
+2026/02/24 13:57:03 DEBUG:  [existing cart : <nil>]
+added new cart:  {0 false 400 }
+2026/02/24 13:57:03 DEBUG:  [existing cart : 0xc00003ce00]
+2026/02/24 13:57:03 DEBUG:  [updating cart : {4 0 0   0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC}]
+2026/02/24 13:57:03 DEBUG:  [updating new customer cart cart : {4 0 0   0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC}]
+2026/02/24 13:57:03 DEBUG:  [existing cart : <nil>]
+2026/02/24 13:57:03 DEBUG:  [updating new customer cart cart : {4 0 0   0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC}]
+2026/02/24 13:57:03 DEBUG:  [existing cart : 0xc00003d030]
+2026/02/24 13:57:03 DEBUG:  [updating cart : {4 0 0   0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC}]
+2026/02/24 13:57:03 DEBUG:  [updating new customer cart cart : {4 0 0   0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC}]
+2026/02/24 13:57:03 DEBUG:  [existing cart : 0xc00003d1f0]
+2026/02/24 13:57:03 DEBUG:  [cart in get : 0xc00003d260]
+2026/02/24 13:57:03 DEBUG:  [cart in get : 0xc00003d2d0]
+2026/02/24 13:57:03 DEBUG:  [id 3]
+2026/02/24 13:57:03 DEBUG:  [GetExcludedSubRegionList [{3 2 0 2}]]
+2026/02/24 13:57:03 DEBUG:  [found: true]
+2026/02/24 13:57:03 DEBUG:  [id 3]
+2026/02/24 13:57:03 DEBUG:  [GetExcludedSubRegionList [{3 2 0 2}]]
+2026/02/24 13:57:03 DEBUG:  [found: true]
+2026/02/24 13:57:03 DEBUG:  [id 3]
+2026/02/24 13:57:03 DEBUG:  [GetExcludedSubRegionList [{3 2 0 2}]]
+2026/02/24 13:57:03 DEBUG:  [found: true]
+2026/02/24 13:57:03 Ping Error: Error 1045: Access denied for user 'admin'@'localhost' (using password: YES)
+2026/02/24 13:57:03 DEBUG:  [Creating local store]
+2026/02/24 13:57:03 DEBUG:  [Adding new security record for local store]
+resp:  &{true 5 200 }
+2026/02/24 13:57:04 Ping Error: Error 1045: Access denied for user 'admin'@'localhost' (using password: YES)
+resp:  &{false 0 200 Local store already exists. If you need a new store, remove the existing store and restart.}
+2026/02/24 13:57:04 Ping Error: Error 1045: Access denied for user 'admin'@'localhost' (using password: YES)
+2026/02/24 13:57:04 DEBUG:  [Creating local store]
+resp:  &{false 0 500 Failed to add default store}
+2026/02/24 13:57:04 Ping Error: Error 1045: Access denied for user 'admin'@'localhost' (using password: YES)
+2026/02/24 13:57:04 DEBUG:  [Creating local store]
+2026/02/24 13:57:04 DEBUG:  [Adding new security record for local store]
+resp:  &{false 0 500 Failed to add security record}
+2026/02/24 13:57:04 Ping Error: Error 1045: Access denied for user 'admin'@'localhost' (using password: YES)
+2026/02/24 13:57:04 DEBUG:  [Creating local store]
+resp:  &{false 0 500 Fail to add default user account}
+c.Proxy in test:  &{true 200 0xc0000f0120}
+2026/02/24 13:57:04 DEBUG:  [Add user:  <nil>]
+2026/02/24 13:57:04 DEBUG:  [Add user req:  <nil>]
+res in oauth add user:  &{true 200 }
+c.Proxy in test:  &{true 200 0xc0000f0240}
+2026/02/24 13:57:04 DEBUG:  [update user:  <nil>]
+2026/02/24 13:57:04 DEBUG:  [update user req:  <nil>]
+res in oauth update user:  &{true 200 }
+c.Proxy in test:  &{true 200 0xc0000f0360}
+2026/02/24 13:57:04 DEBUG:  [get user req:  <nil>]
+res in oauth get user:  &{tester true 0001-01-01 00:00:00 +0000 UTC    1 0}
+c.Proxy in test:  &{true 200 0xc0000f0480}
+2026/02/24 13:57:04 DEBUG:  [gURL:  http://localhost:3001/rs/user/search/3]
+2026/02/24 13:57:04 DEBUG:  [search user list rErr:  <nil>]
+2026/02/24 13:57:04 DEBUG:  [search user list code:  200]
+res in oauth get list user:  &[{tester  true    2 0}]
+c.Proxy in test:  &{true 200 0xc0000f05a0}
+2026/02/24 13:57:04 DEBUG:  [delete user list req:  <nil>]
+fg:  {0 BTC test     3 }
+mpl:  [{0      1.1 0 0 0 0    0 0 0 0 0 0 0 false false false false false false false false          0 0 0 0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC <nil>}]
+product:  &{0      0 0 0 0 0    0 0 0 0 0 0 0 false false false false false false false false   blue       0 4 0 0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0xc0001ddae8}
+mpl:  []
+product:  &{0      0 0 0 0 0    0 0 0 0 0 0 0 false false false false false false false false   blue       0 4 0 0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 0xc00022e108}
+mpl:  [{0      1.1 0 0 0 0    0 0 0 0 0 0 0 false false false false false false false false          0 0 0 0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC <nil>}]
+mpl:  [{0      1.1 0 0 0 0    0 0 0 0 0 0 0 false false false false false false false false          0 0 0 0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC <nil>}]
+mpl:  []
+mpl:  []
+flst3:  &[test\\1\ test2]
+flst3:  &[test\\1 test2]
+flst3:  &[test\\1\ test2]
+2026/02/24 13:57:04 DEBUG:  [local store:  {4    testdomain  0      0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC test    false}]
+2026/02/24 13:57:04 DEBUG:  [Order in add shipment:  {0 0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC  0 0 0 0 0 0   false   0 123 0  0  0     0  5}]
+2026/02/24 13:57:04 DEBUG:  [OrderId in add shipment:  7]
+2026/02/24 13:57:04 DEBUG:  [Order in add shipment:  {0 0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC  0 0 0 0 0 0   false   0 123 0  0  0     0  55}]
+2026/02/24 13:57:04 DEBUG:  [OrderId in add shipment:  7]
+2026/02/24 13:57:04 DEBUG:  [Order in add shipment:  {0 0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC  0 0 0 0 0 0   false   0 123 0  0  0     0  5}]
+2026/02/24 13:57:04 DEBUG:  [OrderId in add shipment:  7]
+s carrier res:  &{true 200 }
+s carrier res:  &{false 400 }
+s carrier res:  &{false 400 }
+hashed pw:  $2a$10$Fiz9oVBn67cvQg8z2ScCiePzCP2cVdHt7bz8Qp/dxakBGsXLkjKKe
+2026/02/24 13:57:06 DEBUG:  [Creating admin user with oauth : false]
+2026/02/24 13:57:06 DEBUG:  [Add Admin Hash password for tester : true]
+2026/02/24 13:57:06 DEBUG:  [Creating admin user with oauth : false]
+2026/02/24 13:57:07 DEBUG:  [Add Admin Hash password for tester : true]
+2026/02/24 13:57:07 DEBUG:  [Add Customer Hash password success for tester : true]
+2026/02/24 13:57:07 DEBUG:  [Add Customer Hashed password for tester : $2a$10$oLgy72Ds9EvsQD8y5Nnne.dGLblJZkzDgRWZZ6kOzx2Q6DGf7cIw6]
+2026/02/24 13:57:07 DEBUG:  [Add Customer user with customerId : 2]
+2026/02/24 13:57:08 DEBUG:  [Add Customer Hash password success for tester : true]
+2026/02/24 13:57:08 DEBUG:  [Add Customer Hashed password for tester : $2a$10$v.uWT1rlcNQ55c2pY5PO3ObS/TId.EDBu7PTYlKrT.kkKtZlFVhSC]
+2026/02/24 13:57:08 DEBUG:  [Add Customer user with customerId : 2]
+2026/02/24 13:57:08 DEBUG:  [update user Hash password for $2a$10$jQeE.2i3EuggHY0ckMT7OuRW5zZeo.M2OTpNEU92skDVKoEmugBqe]
+2026/02/24 13:57:08 DEBUG:  [password validate  true]
+2026/02/24 13:57:09 DEBUG:  [update password with new Hash password for tester2]
+2026/02/24 13:57:09 DEBUG:  [updated success  true]
+2026/02/24 13:57:10 DEBUG:  [update user Hash password for $2a$10$P6M7SqBQ3HmxSoEWjI.ct.nMoYIlnxvXWxyWNcrbxraaK1fweOlnK]
+2026/02/24 13:57:10 DEBUG:  [password validate  true]
+2026/02/24 13:57:11 DEBUG:  [update password with new Hash password for tester2]
+2026/02/24 13:57:11 DEBUG:  [updated success  false]
+2026/02/24 13:57:11 DEBUG:  [update password with new Hash password for tester2]
+2026/02/24 13:57:11 DEBUG:  [admin updated success  true]
+2026/02/24 13:57:12 DEBUG:  [update password with new Hash password for tester2]
+2026/02/24 13:57:12 DEBUG:  [admin updated success  false]
+2026/02/24 13:57:13 DEBUG:  [UserResponse in GetUser  {tester customer 2 5 true}]
+found admin users:  &[{tester2 StoreAdmin 0 5 true}]
+found customer users:  &[{tester customer 2 5 true}]
+found users by customer:  &[{tester customer 2 5 true}]
+2026/02/24 13:57:17 DEBUG:  [use in validate:  {tester tester  customer 2 1 true}]
+2026/02/24 13:57:17 DEBUG:  [local user account in validate:  {tester $2a$10$/9s.2x76yO4PA3Xyc8iBo.tzZwUNJhMTxn4HRa8U/rR6qgd9Aes86 true customer 0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 5 2}]
+2026/02/24 13:57:17 DEBUG:  [lu.CustomerID:  2]
+2026/02/24 13:57:17 DEBUG:  [u.CustomerID:  2]
+2026/02/24 13:57:17 DEBUG:  [lu.UserName:  tester]
+2026/02/24 13:57:17 DEBUG:  [u.Username:  tester]
+2026/02/24 13:57:17 DEBUG:  [u.Enabled:  true]
+2026/02/24 13:57:17 DEBUG:  [lu.Password:  $2a$10$/9s.2x76yO4PA3Xyc8iBo.tzZwUNJhMTxn4HRa8U/rR6qgd9Aes86]
+2026/02/24 13:57:17 DEBUG:  [u.Password:  tester]
+2026/02/24 13:57:17 DEBUG:  [password validate in ValidateUser  true]
+validate user:  &{true 200 }
+2026/02/24 13:57:18 DEBUG:  [use in validate:  {tester2 tester  customer 2 1 true}]
+2026/02/24 13:57:18 DEBUG:  [local user account in validate:  {tester $2a$10$cZmNDc6H6Kwnee6cbaQ4vOcahT686z58HbV5jBxAkvkJn7lxmvZ5G true customer 0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 5 2}]
+2026/02/24 13:57:18 DEBUG:  [lu.CustomerID:  2]
+2026/02/24 13:57:18 DEBUG:  [u.CustomerID:  2]
+2026/02/24 13:57:18 DEBUG:  [lu.UserName:  tester]
+2026/02/24 13:57:18 DEBUG:  [u.Username:  tester2]
+2026/02/24 13:57:18 DEBUG:  [u.Enabled:  true]
+validate user:  &{false 401 }
+2026/02/24 13:57:19 DEBUG:  [use in validate:  {tester tester2  customer 2 1 true}]
+2026/02/24 13:57:19 DEBUG:  [local user account in validate:  {tester $2a$10$kW3BfIVMvu7ZfIlhAeTCTe0F2jGuGvPTGDM9lmlGUmJQxp9RQFUGy true customer 0001-01-01 00:00:00 +0000 UTC 0001-01-01 00:00:00 +0000 UTC 5 2}]
+2026/02/24 13:57:19 DEBUG:  [lu.CustomerID:  2]
+2026/02/24 13:57:19 DEBUG:  [u.CustomerID:  2]
+2026/02/24 13:57:19 DEBUG:  [lu.UserName:  tester]
+2026/02/24 13:57:19 DEBUG:  [u.Username:  tester]
+2026/02/24 13:57:19 DEBUG:  [u.Enabled:  true]
+2026/02/24 13:57:19 DEBUG:  [lu.Password:  $2a$10$kW3BfIVMvu7ZfIlhAeTCTe0F2jGuGvPTGDM9lmlGUmJQxp9RQFUGy]
+2026/02/24 13:57:19 DEBUG:  [u.Password:  tester2]
+2026/02/24 13:57:19 DEBUG:  [password validate in ValidateUser  false]
+validate user:  &{false 401 }
+new pw:  mwphFRSzGtsF8es
+2026/02/24 13:57:20 DEBUG:  [generateing now pw and updated success  true]
+res:  {true tester 2CjKwr6dgFYkKsD}
+2026/02/24 13:57:20 DEBUG:  [isr : 0xc000118c80]
+PASS
+ok  	github.com/Ulbora/Six910/managers	17.712s

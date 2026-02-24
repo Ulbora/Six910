@@ -4,8 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
+
 	"golang.org/x/crypto/bcrypt"
-	"io/ioutil"
+
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -74,7 +76,7 @@ func TestSix910Handler_AddOrder(t *testing.T) {
 	sdb.MockLocalAccount = &lu
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"status":"test", "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"status":"test", "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -147,7 +149,7 @@ func TestSix910Handler_AddOrder2(t *testing.T) {
 	sdb.MockLocalAccount = &lu
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"status":"test", "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"status":"test", "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -294,7 +296,7 @@ func TestSix910Handler_AddOrderMedia(t *testing.T) {
 	sdb.MockLocalAccount = &lu
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"status":"test", "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"status":"test", "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -367,7 +369,7 @@ func TestSix910Handler_AddOrderFail(t *testing.T) {
 	sdb.MockLocalAccount = &lu
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"status":"test", "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"status":"test", "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -424,7 +426,7 @@ func TestSix910Handler_AddOrderAuth(t *testing.T) {
 	sdb.MockOrderID = 5
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"status":"test", "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"status":"test", "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -484,7 +486,7 @@ func TestSix910Handler_UpdateOrder(t *testing.T) {
 	sdb.MockUpdateOrderSuccess = true
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 1, "status":"test", "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"id": 1, "status":"test", "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
@@ -614,7 +616,7 @@ func TestSix910Handler_UpdateOrderMedia(t *testing.T) {
 	sdb.MockUpdateOrderSuccess = true
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 1, "status":"test", "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"id": 1, "status":"test", "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
@@ -679,7 +681,7 @@ func TestSix910Handler_UpdateOrderFail(t *testing.T) {
 	//sdb.MockUpdateOrderSuccess = true
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 1, "status":"test", "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"id": 1, "status":"test", "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
@@ -744,7 +746,7 @@ func TestSix910Handler_UpdateOrderAuth(t *testing.T) {
 	sdb.MockUpdateOrderSuccess = true
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 1, "status":"test", "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"id": 1, "status":"test", "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
@@ -2305,7 +2307,7 @@ func TestSix910Handler_DeleteOrder(t *testing.T) {
 
 	h.DeleteOrder(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var bdy man.Response
 	json.Unmarshal(body, &bdy)
 	fmt.Println("body delete product in test: ", string(body))
@@ -2385,7 +2387,7 @@ func TestSix910Handler_DeleteOrderReq(t *testing.T) {
 
 	h.DeleteOrder(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var bdy man.Response
 	json.Unmarshal(body, &bdy)
 	fmt.Println("body delete product in test: ", string(body))
@@ -2465,7 +2467,7 @@ func TestSix910Handler_DeleteOrderReq2(t *testing.T) {
 
 	h.DeleteOrder(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var bdy man.Response
 	json.Unmarshal(body, &bdy)
 	fmt.Println("body delete product in test: ", string(body))
@@ -2545,7 +2547,7 @@ func TestSix910Handler_DeleteOrderFail(t *testing.T) {
 
 	h.DeleteOrder(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var bdy man.Response
 	json.Unmarshal(body, &bdy)
 	fmt.Println("body delete product in test: ", string(body))
@@ -2625,7 +2627,7 @@ func TestSix910Handler_DeleteOrderAuth(t *testing.T) {
 
 	h.DeleteOrder(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var bdy man.Response
 	json.Unmarshal(body, &bdy)
 	fmt.Println("body delete product in test: ", string(body))

@@ -1,0 +1,10 @@
+comp: false
+comp: true
+ID: 5 size:  21
+ID: 6 size:  26
+ID: 3 size:  XL
+ID: 2 size:  3XL
+ID: 1 size:  5XL
+ID: 4 size:  7XL
+PASS
+ok  	github.com/Ulbora/Six910/prodsort	1.011s

@@ -4,7 +4,8 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
+
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -56,7 +57,7 @@ func TestSix910Handler_AddDistributor(t *testing.T) {
 	sdb.MockDistributorID = 5
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"company":"test", "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"company":"test", "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -111,7 +112,7 @@ func TestSix910Handler_AddDistributorAuth(t *testing.T) {
 	sdb.MockDistributorID = 5
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"company":"test", "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"company":"test", "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -221,7 +222,7 @@ func TestSix910Handler_AddDistributorMedia(t *testing.T) {
 	sdb.MockDistributorID = 5
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"company":"test", "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"company":"test", "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -276,7 +277,7 @@ func TestSix910Handler_AddDistributorFail(t *testing.T) {
 	sdb.MockDistributorID = 5
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"company":"test", "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"company":"test", "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -340,7 +341,7 @@ func TestSix910Handler_UpdateDistributor(t *testing.T) {
 	sdb.MockCustomer = &cus
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 4, "company":"test", "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"id": 4, "company":"test", "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
@@ -409,7 +410,7 @@ func TestSix910Handler_UpdateDistributorAuth(t *testing.T) {
 	sdb.MockCustomer = &cus
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 4, "company":"test", "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"id": 4, "company":"test", "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
@@ -547,7 +548,7 @@ func TestSix910Handler_UpdateDistributorMedia(t *testing.T) {
 	sdb.MockCustomer = &cus
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 4, "company":"test", "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"id": 4, "company":"test", "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
@@ -616,7 +617,7 @@ func TestSix910Handler_UpdateDistributorFail(t *testing.T) {
 	sdb.MockCustomer = &cus
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"id": 4, "company":"test", "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"id": 4, "company":"test", "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
@@ -1249,7 +1250,7 @@ func TestSix910Handler_DeleteDistributor(t *testing.T) {
 
 	h.DeleteDistributor(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var bdy man.Response
 	json.Unmarshal(body, &bdy)
 	fmt.Println("body delete dist in test: ", string(body))
@@ -1323,7 +1324,7 @@ func TestSix910Handler_DeleteDistributorAuth(t *testing.T) {
 
 	h.DeleteDistributor(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var bdy man.Response
 	json.Unmarshal(body, &bdy)
 	fmt.Println("body delete dist in test: ", string(body))
@@ -1397,7 +1398,7 @@ func TestSix910Handler_DeleteDistributorReq2(t *testing.T) {
 
 	h.DeleteDistributor(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var bdy man.Response
 	json.Unmarshal(body, &bdy)
 	fmt.Println("body delete dist in test: ", string(body))
@@ -1471,7 +1472,7 @@ func TestSix910Handler_DeleteDistributorReq(t *testing.T) {
 
 	h.DeleteDistributor(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var bdy man.Response
 	json.Unmarshal(body, &bdy)
 	fmt.Println("body delete dist in test: ", string(body))
@@ -1545,7 +1546,7 @@ func TestSix910Handler_DeleteDistributorFail(t *testing.T) {
 
 	h.DeleteDistributor(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var bdy man.Response
 	json.Unmarshal(body, &bdy)
 	fmt.Println("body delete dist in test: ", string(body))

@@ -4,7 +4,8 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
+
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -61,7 +62,7 @@ func TestSix910Handler_AddIncludedSubRegion(t *testing.T) {
 	sdb.MockIncludedSubRegionID = 5
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"storeId": 5, "includedSubRegion": { "regionId":6, "subRegionId": 7}}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"storeId": 5, "includedSubRegion": { "regionId":6, "subRegionId": 7}}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -181,7 +182,7 @@ func TestSix910Handler_AddIncludedSubRegionMedia(t *testing.T) {
 	sdb.MockIncludedSubRegionID = 5
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"storeId": 5, "includedSubRegion": { "regionId":6, "subRegionId": 7}}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"storeId": 5, "includedSubRegion": { "regionId":6, "subRegionId": 7}}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -241,7 +242,7 @@ func TestSix910Handler_AddIncludedSubRegionFail(t *testing.T) {
 	sdb.MockIncludedSubRegionID = 5
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"storeId": 5, "includedSubRegion": { "regionId":6, "subRegionId": 7}}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"storeId": 5, "includedSubRegion": { "regionId":6, "subRegionId": 7}}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -301,7 +302,7 @@ func TestSix910Handler_AddIncludedSubRegionAuth(t *testing.T) {
 	sdb.MockIncludedSubRegionID = 5
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"storeId": 5, "includedSubRegion": { "regionId":6, "subRegionId": 7}}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"storeId": 5, "includedSubRegion": { "regionId":6, "subRegionId": 7}}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -365,7 +366,7 @@ func TestSix910Handler_UpdateIncludedSubRegion(t *testing.T) {
 	sdb.MockUpdateIncludedSubRegionSuccess = true
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"storeId": 5, "includedSubRegion": { "id": 2, "regionId":6, "subRegionId": 7}}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"storeId": 5, "includedSubRegion": { "id": 2, "regionId":6, "subRegionId": 7}}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
@@ -503,7 +504,7 @@ func TestSix910Handler_UpdateIncludedSubRegionMedia(t *testing.T) {
 	sdb.MockUpdateIncludedSubRegionSuccess = true
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"storeId": 5, "includedSubRegion": { "id": 2, "regionId":6, "subRegionId": 7}}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"storeId": 5, "includedSubRegion": { "id": 2, "regionId":6, "subRegionId": 7}}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
@@ -572,7 +573,7 @@ func TestSix910Handler_UpdateIncludedSubRegionFail(t *testing.T) {
 	//sdb.MockUpdateIncludedSubRegionSuccess = true
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"storeId": 5, "includedSubRegion": { "id": 2, "regionId":6, "subRegionId": 7}}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"storeId": 5, "includedSubRegion": { "id": 2, "regionId":6, "subRegionId": 7}}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
@@ -641,7 +642,7 @@ func TestSix910Handler_UpdateIncludedSubRegionAuth(t *testing.T) {
 	sdb.MockUpdateIncludedSubRegionSuccess = true
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"storeId": 5, "includedSubRegion": { "id": 2, "regionId":6, "subRegionId": 7}}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"storeId": 5, "includedSubRegion": { "id": 2, "regionId":6, "subRegionId": 7}}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
@@ -1374,7 +1375,7 @@ func TestSix910Handler_DeleteIncludedSubRegion(t *testing.T) {
 
 	h.DeleteIncludedSubRegion(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var bdy man.Response
 	json.Unmarshal(body, &bdy)
 	fmt.Println("body delete included sub region in test: ", string(body))
@@ -1463,7 +1464,7 @@ func TestSix910Handler_DeleteIncludedSubRegionReq(t *testing.T) {
 
 	h.DeleteIncludedSubRegion(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var bdy man.Response
 	json.Unmarshal(body, &bdy)
 	fmt.Println("body delete included sub region in test: ", string(body))
@@ -1552,7 +1553,7 @@ func TestSix910Handler_DeleteIncludedSubRegionReq2(t *testing.T) {
 
 	h.DeleteIncludedSubRegion(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var bdy man.Response
 	json.Unmarshal(body, &bdy)
 	fmt.Println("body delete included sub region in test: ", string(body))
@@ -1641,7 +1642,7 @@ func TestSix910Handler_DeleteIncludedSubRegionFail(t *testing.T) {
 
 	h.DeleteIncludedSubRegion(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var bdy man.Response
 	json.Unmarshal(body, &bdy)
 	fmt.Println("body delete included sub region in test: ", string(body))
@@ -1730,7 +1731,7 @@ func TestSix910Handler_DeleteIncludedSubRegionAuth(t *testing.T) {
 
 	h.DeleteIncludedSubRegion(w, r)
 	resp := w.Result()
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
 	var bdy man.Response
 	json.Unmarshal(body, &bdy)
 	fmt.Println("body delete included sub region in test: ", string(body))

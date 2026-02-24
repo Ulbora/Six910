@@ -3,7 +3,8 @@ package managers
 import (
 	"bytes"
 	"fmt"
-	"io/ioutil"
+	"io"
+
 	"net/http"
 	"testing"
 
@@ -27,7 +28,7 @@ func TestSix910Manager_AddOAuthUser(t *testing.T) {
 	var p px.MockGoProxy
 	p.MockDoSuccess1 = true
 	var ress http.Response
-	ress.Body = ioutil.NopCloser(bytes.NewBufferString(`{"success":true, "code": 200}`))
+	ress.Body = io.NopCloser(bytes.NewBufferString(`{"success":true, "code": 200}`))
 	p.MockResp = &ress
 	p.MockRespCode = 200
 	sm.Proxy = p.GetNewProxy()
@@ -65,7 +66,7 @@ func TestSix910Manager_UpdateOAuthUser(t *testing.T) {
 	var p px.MockGoProxy
 	p.MockDoSuccess1 = true
 	var ress http.Response
-	ress.Body = ioutil.NopCloser(bytes.NewBufferString(`{"success":true, "code": 200}`))
+	ress.Body = io.NopCloser(bytes.NewBufferString(`{"success":true, "code": 200}`))
 	p.MockResp = &ress
 	p.MockRespCode = 200
 	sm.Proxy = p.GetNewProxy()
@@ -103,7 +104,7 @@ func TestSix910Manager_GetOAuthUser(t *testing.T) {
 	var p px.MockGoProxy
 	p.MockDoSuccess1 = true
 	var ress http.Response
-	ress.Body = ioutil.NopCloser(bytes.NewBufferString(`{"username":"tester", "roleId":1, "enabled": true}`))
+	ress.Body = io.NopCloser(bytes.NewBufferString(`{"username":"tester", "roleId":1, "enabled": true}`))
 	p.MockResp = &ress
 	p.MockRespCode = 200
 	sm.Proxy = p.GetNewProxy()
@@ -141,7 +142,7 @@ func TestSix910Manager_GetOAuthUserList(t *testing.T) {
 	var p px.MockGoProxy
 	p.MockDoSuccess1 = true
 	var ress http.Response
-	ress.Body = ioutil.NopCloser(bytes.NewBufferString(`[{"username":"tester", "roleId":2, "enabled": true}]`))
+	ress.Body = io.NopCloser(bytes.NewBufferString(`[{"username":"tester", "roleId":2, "enabled": true}]`))
 	p.MockResp = &ress
 	p.MockRespCode = 200
 	sm.Proxy = p.GetNewProxy()
@@ -179,7 +180,7 @@ func TestSix910Manager_DeleteOAuthUser(t *testing.T) {
 	var p px.MockGoProxy
 	p.MockDoSuccess1 = true
 	var ress http.Response
-	ress.Body = ioutil.NopCloser(bytes.NewBufferString(`{"success":true, "code": 200}`))
+	ress.Body = io.NopCloser(bytes.NewBufferString(`{"success":true, "code": 200}`))
 	p.MockResp = &ress
 	p.MockRespCode = 200
 	sm.Proxy = p.GetNewProxy()

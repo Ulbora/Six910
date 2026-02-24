@@ -3,8 +3,10 @@ package handlers
 import (
 	"bytes"
 	"fmt"
+	"io"
+
 	"golang.org/x/crypto/bcrypt"
-	"io/ioutil"
+
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -78,7 +80,7 @@ func TestSix910Handler_AddOrderTransaction(t *testing.T) {
 	sdb.MockLocalAccount = &lu
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"orderTransaction": {"gwid": 4, "orderId": 3 }, "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"orderTransaction": {"gwid": 4, "orderId": 3 }, "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -157,7 +159,7 @@ func TestSix910Handler_AddOrderTransaction2(t *testing.T) {
 	sdb.MockLocalAccount = &lu
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"orderTransaction": {"gwid": 4, "orderId": 3 }, "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"orderTransaction": {"gwid": 4, "orderId": 3 }, "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -316,7 +318,7 @@ func TestSix910Handler_AddOrderTransactionMedia(t *testing.T) {
 	sdb.MockLocalAccount = &lu
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"orderTransaction": {"gwid": 4, "orderId": 3 }, "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"orderTransaction": {"gwid": 4, "orderId": 3 }, "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -395,7 +397,7 @@ func TestSix910Handler_AddOrderTransactionFail(t *testing.T) {
 	sdb.MockLocalAccount = &lu
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"orderTransaction": {"gwid": 4, "orderId": 3 }, "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"orderTransaction": {"gwid": 4, "orderId": 3 }, "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -458,7 +460,7 @@ func TestSix910Handler_AddOrderTransactionAuth(t *testing.T) {
 	sdb.MockOrderTransactionID = 15
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{"orderTransaction": {"gwid": 4, "orderId": 3 }, "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{"orderTransaction": {"gwid": 4, "orderId": 3 }, "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)

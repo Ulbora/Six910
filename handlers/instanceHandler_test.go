@@ -2,7 +2,8 @@ package handlers
 
 import (
 	"bytes"
-	"io/ioutil"
+	"io"
+
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -54,7 +55,7 @@ func TestSix910Handler_AddInstance(t *testing.T) {
 	//sdb.MockStorePluginID = 5
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{ "instanceName":"test", "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{ "instanceName":"test", "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -164,7 +165,7 @@ func TestSix910Handler_AddInstanceMedia(t *testing.T) {
 	//sdb.MockStorePluginID = 5
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{ "instanceName":"test", "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{ "instanceName":"test", "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -219,7 +220,7 @@ func TestSix910Handler_AddInstanceFail(t *testing.T) {
 	//sdb.MockStorePluginID = 5
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{ "instanceName":"test", "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{ "instanceName":"test", "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -274,7 +275,7 @@ func TestSix910Handler_AddInstanceAuth(t *testing.T) {
 	//sdb.MockStorePluginID = 5
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{ "instanceName":"test", "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{ "instanceName":"test", "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("POST", "/ffllist", aJSON)
@@ -334,7 +335,7 @@ func TestSix910Handler_UpdateInstance(t *testing.T) {
 	sdb.MockUpdateInstancesSuccess = true
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{ "instanceName":"test", "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{ "instanceName":"test", "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
@@ -464,7 +465,7 @@ func TestSix910Handler_UpdateInstanceMedia(t *testing.T) {
 	sdb.MockUpdateInstancesSuccess = true
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{ "instanceName":"test", "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{ "instanceName":"test", "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
@@ -529,7 +530,7 @@ func TestSix910Handler_UpdateInstancefail(t *testing.T) {
 	//sdb.MockUpdateInstancesSuccess = true
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{ "instanceName":"test", "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{ "instanceName":"test", "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
@@ -594,7 +595,7 @@ func TestSix910Handler_UpdateInstanceAuth(t *testing.T) {
 	sdb.MockUpdateInstancesSuccess = true
 
 	h := sh.GetNew()
-	aJSON := ioutil.NopCloser(bytes.NewBufferString(`{ "instanceName":"test", "storeId": 5}`))
+	aJSON := io.NopCloser(bytes.NewBufferString(`{ "instanceName":"test", "storeId": 5}`))
 	//aJSON, _ := json.Marshal(robj)
 	//fmt.Println("aJSON: ", aJSON)
 	r, _ := http.NewRequest("PUT", "/ffllist", aJSON)
